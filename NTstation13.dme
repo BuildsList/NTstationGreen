@@ -215,6 +215,7 @@
 #include "code\defines\procs\AStar.dm"
 #include "code\defines\procs\dbcore.dm"
 #include "code\defines\procs\priority_announce.dm"
+#include "code\defines\procs\statistics.dm"
 #include "code\game\asteroid.dm"
 #include "code\game\atoms.dm"
 #include "code\game\atoms_movable.dm"

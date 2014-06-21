@@ -1,4 +1,4 @@
-proc/sql_poll_players()
+/* proc/sql_poll_players()
 	if(!config.sql_enabled)
 		return
 	var/playercount = 0
@@ -10,7 +10,7 @@ proc/sql_poll_players()
 		log_game("SQL ERROR during player polling. Failed to connect.")
 	else
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_legacy_population (playercount, time) VALUES ([playercount], '[sqltime]')")
+//		var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_legacy_population (playercount, time) VALUES ([playercount], '[sqltime]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during player polling. Error : \[[err]\]\n")
@@ -25,11 +25,11 @@ proc/sql_poll_admins()
 		log_game("SQL ERROR during admin polling. Failed to connect.")
 	else
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_legacy_population (admincount, time) VALUES ([admincount], '[sqltime]')")
+//		var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_legacy_population (admincount, time) VALUES ([admincount], '[sqltime]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during admin polling. Error : \[[err]\]\n")
-
+*/
 proc/sql_report_round_start()
 	// TODO
 	if(!config.sql_enabled)
@@ -68,12 +68,12 @@ proc/sql_report_death(var/mob/living/carbon/human/H)
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
-	else
+/*	else
 		var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord) VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[sqltime]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.brainloss], [H.getOxyLoss()], '[coord]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
-
+*/
 
 proc/sql_report_cyborg_death(var/mob/living/silicon/robot/H)
 	if(!config.sql_enabled)
@@ -103,22 +103,22 @@ proc/sql_report_cyborg_death(var/mob/living/silicon/robot/H)
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
-	else
+/*	else
 		var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord) VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[sqltime]', '[laname]', '[lakey]', '[H.gender]', [H.getBruteLoss()], [H.getFireLoss()], [H.brainloss], [H.getOxyLoss()], '[coord]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
-
+*/
 
 proc/statistic_cycle()
 	if(!config.sql_enabled)
 		return
-	while(1)
+/*	while(1)
 		sql_poll_players()
 		sleep(600)
 		sql_poll_admins()
 		sleep(6000) // Poll every ten minutes
-
+*/
 //This proc is used for feedback. It is executed at round end.
 proc/sql_commit_feedback()
 	if(!blackbox)
