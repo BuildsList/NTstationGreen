@@ -24,3 +24,4 @@ info.json
 /tools/Runtime Condenser/Output.txt
 /tools/Runtime Condenser/Input.txt
 /data/mode.txt
+*.int
