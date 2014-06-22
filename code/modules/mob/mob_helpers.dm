@@ -228,7 +228,7 @@ proc/isorgan(A)
 	message = replacetext(message, "carp", "crap")
 	message = replacetext(message, "reason", "raisin")
 	if(prob(50))
-		message = uppertext(message)
+		message = upperrustext(message)
 		message += "[stutter(pick("!", "!!", "!!!"))]"
 	if(!stuttering && prob(15))
 		message = stutter(message)

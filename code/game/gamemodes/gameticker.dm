@@ -138,8 +138,8 @@ var/round_start_time = 0
 			world << "<font color='blue'>and...</font>"
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
 
-	if(!admins.len)
-		send2irc("Server", "Round just started with no admins online!")
+//	if(!admins.len)
+//		send2irc("Server", "Round just started with no admins online!")
 	auto_toggle_ooc(0) // Turn it off
 
 	if(config.sql_enabled)

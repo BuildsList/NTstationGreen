@@ -1289,8 +1289,6 @@ var/list/WALLITEMS = list(
 					return 1
 	return 0
 
-/proc/format_text(text)
-	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
 /obj/proc/atmosanalyzer_scan(var/datum/gas_mixture/air_contents, mob/user, var/obj/target = src)
 	var/obj/icon = target

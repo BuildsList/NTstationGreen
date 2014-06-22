@@ -147,6 +147,20 @@
 		#undef S4
 		#undef S1
 
+//Attaches each element of a list to a single string seperated by 'seperator'.
+/proc/dd_list2text(var/list/the_list, separator)
+	var/total = the_list.len
+	if(!total)
+		return
+	var/count = 2
+	var/newText = "[the_list[1]]"
+	while(count <= total)
+		if(separator)
+			newText += separator
+		newText += "[the_list[count]]"
+		count++
+	return newText
+
 
 //slower then list2text, but correctly processes associative lists.
 proc/tg_list2text(list/list, glue=",")

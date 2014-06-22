@@ -13,6 +13,12 @@
  * SQL sanitization
  */
 
+var/list/hex_characters = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+
+var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
+	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
+	"table","td","th","tr")
+
 // Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
 /proc/sanitizeSQL(var/t as text)
 	var/sanitized_text = replacetext(t, "'", "\\'")
@@ -35,17 +41,45 @@
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ"))
+/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="____255_"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
 			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+1)
 			index = findtext(t, char)
+	t = html_encode(t)
+	var/index = findtext(t, "____255_")
+	while(index)
+		t = copytext(t, 1, index) + "&#255;" + copytext(t, index+8)
+		index = findtext(t, "____255_")
 	return t
+
+/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="____255_"))
+	for(var/char in repl_chars)
+		var/index = findtext(t, char)
+		while(index)
+			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+1)
+			index = findtext(t, char)
+	t = html_encode(t)
+	var/index = findtext(t, "____255_")
+	while(index)
+		t = copytext(t, 1, index) + "&#255;" + copytext(t, index+8)
+		index = findtext(t, "____255_")
+	return t
+
+proc/sanitize_russian(var/msg) //Специально для всего, где не нужно убирать переносы строк и прочее.
+	var/index = findtext(msg, "я")
+	while(index)
+		msg = copytext(msg, 1, index) + "&#255;" + copytext(msg, index + 1)
+		index = findtext(msg, "я")
+	return msg
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+	return sanitize_simple(t,repl_chars)
+
+/proc/sanitize_uni(var/t,var/list/repl_chars = null)
+	return sanitize_simple_uni(t,repl_chars)
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
@@ -55,7 +89,7 @@
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
-	return copytext((html_encode(strip_html_simple(t))),1,limit)
+	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
@@ -140,7 +174,24 @@
 
 	return t_out
 
-
+//checks text for html tags
+//if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
+//relpaces < with &lt;
+proc/checkhtml(var/t)
+	t = sanitize_simple(t, list("&#"="."))
+	var/p = findtext(t,"<",1)
+	while (p)	//going through all the tags
+		var/start = p++
+		var/tag = copytext(t,p, p+1)
+		if (tag != "/")
+			while (reject_bad_text(copytext(t, p, p+1), 1))
+				tag = copytext(t,start, p)
+				p++
+			tag = copytext(t,start+1, p)
+			if (!(tag in paper_tag_whitelist))	//if it's unkown tag, disarming it
+				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
+		p = findtext(t,"<",p)
+	return t
 /*
  * Text searches
  */
@@ -177,11 +228,34 @@
 /*
  * Text modification
  */
+
 /proc/replacetext(text, find, replacement)
-	return list2text(text2list(text, find), replacement)
+	var/find_len = length(find)
+	if(find_len < 1)	return text
+	. = ""
+	var/last_found = 1
+	while(1)
+		var/found = findtext(text, find, last_found, 0)
+		. += copytext(text, last_found, found)
+		if(found)
+			. += replacement
+			last_found = found + find_len
+			continue
+		return .
 
 /proc/replacetextEx(text, find, replacement)
-	return list2text(text2listEx(text, find), replacement)
+	var/find_len = length(find)
+	if(find_len < 1)	return text
+	. = ""
+	var/last_found = 1
+	while(1)
+		var/found = findtextEx(text, find, last_found, 0)
+		. += copytext(text, last_found, found)
+		if(found)
+			. += replacement
+			last_found = found + find_len
+			continue
+		return .
 
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
@@ -224,6 +298,58 @@
 /proc/capitalize(var/t as text)
 	return uppertext(copytext(t, 1, 2)) + copytext(t, 2)
 
+
+/proc/ruscapitalize(var/t as text)
+	var/s = 2
+	if (copytext(t,1,2) == ";")
+		s += 1
+	else if (copytext(t,1,2) == ":")
+		s += 2
+	return pointization(upperrustext(copytext(t, 1, s)) + copytext(t, s))
+
+/proc/pointization(text as text)
+	if (!text)
+		return
+	if (copytext(text,1,2) == "*") //Emotes allowed.
+		return text
+	if (copytext(text,-1) in list("!", "?", "."))
+		return text
+	text += "."
+	return text
+
+
+/proc/upperrustext(text as text)
+	var/t = ""
+	for(var/i = 1, i <= length(text), i++)
+		var/a = text2ascii(text, i)
+		if (a > 223)
+			t += ascii2text(a - 32)
+		else if (a == 184)
+			t += ascii2text(168)
+		else t += ascii2text(a)
+	t = replacetext(t,"&#255;","Я")
+	return t
+
+
+/proc/lowerrustext(text as text)
+	var/t = ""
+	for(var/i = 1, i <= length(text), i++)
+		var/a = text2ascii(text, i)
+		if (a > 191 && a < 224)
+			t += ascii2text(a + 32)
+		else if (a == 168)
+			t += ascii2text(184)
+		else t += ascii2text(a)
+	return t
+
+/proc/intonation(text)
+	if (copytext(text,-3) == "!!!")
+		text = upperrustext(text)
+	if (copytext(text,-1) == "!")
+		text = "<b>[text]</b>"
+	return text
+
+
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
 	var/new_message = message
@@ -248,6 +374,27 @@
 		return message
 	return copytext(message, 1, length + 1)
 
+/*
+ * Misc
+ */
+
+/proc/stringsplit(txt, character)
+	var/cur_text = txt
+	var/last_found = 1
+	var/found_char = findtext(cur_text,character)
+	var/list/list = list()
+	if(found_char)
+		var/fs = copytext(cur_text,last_found,found_char)
+		list += fs
+		last_found = found_char+length(character)
+		found_char = findtext(cur_text,character,last_found)
+	while(found_char)
+		var/found_string = copytext(cur_text,last_found,found_char)
+		last_found = found_char+length(character)
+		list += found_string
+		found_char = findtext(cur_text,character,last_found)
+	list += copytext(cur_text,last_found,length(cur_text)+1)
+	return list
 
 /proc/stringmerge(var/text,var/compare,replace = "*")
 //This proc fills in all spaces with the "replace" var (* by default) with whatever
@@ -288,34 +435,127 @@
 		new_text += copytext(text, i, i+1)
 	return new_text
 
-var/list/zero_character_only = list("0")
-var/list/hex_characters = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
-var/list/alphabet = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-var/list/binary = list("0","1")
-/proc/random_string(length, list/characters)
-	. = ""
-	for(var/i=1, i<=length, i++)
-		. += pick(characters)
+
+// For drunken speak, etc
+proc/slurring(phrase) // using cp1251!
+	phrase = html_decode(phrase)
+	var/index = findtext(phrase, "я")
+	while(index)
+		phrase = copytext(phrase, 1, index) + "Я" + copytext(phrase, index+1)
+		index = findtext(phrase, "я")
+	var
+		leng=lentext(phrase)
+		counter=lentext(phrase)
+		newphrase=""
+		newletter=""
+
+	while(counter>=1)
+		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(prob(33))
+			if(lowertext(newletter)=="е")	newletter="ё"
+			if(lowertext(newletter)=="и")	newletter="й"
+			if(lowertext(newletter)=="а")	newletter="ах"
+			if(lowertext(newletter)=="ы")	newletter="i"
+		switch(rand(1,15))
+			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
+			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
+			if(7)	newletter+="'"
+			if(9,10)	newletter="<b>[newletter]</b>"
+			if(11,12)	newletter="<big>[newletter]</big>"
+			if(13)	newletter="<small>[newletter]</small>"
+		newphrase+="[newletter]"
+		counter-=1
+	return newphrase
+
+proc/NewStutter(phrase,stunned)
+	phrase = html_decode(phrase)
+
+	var/list/split_phrase = dd_text2list(phrase," ") //Split it up into words.
+
+	var/list/unstuttered_words = split_phrase.Copy()
+	var/i = rand(1,3)
+	if(stunned) i = split_phrase.len
+	for(,i > 0,i--) //Pick a few words to stutter on.
+
+		if (!unstuttered_words.len)
+			break
+		var/word = pick(unstuttered_words)
+		unstuttered_words -= word //Remove from unstuttered words so we don't stutter it again.
+		var/index = split_phrase.Find(word) //Find the word in the split phrase so we can replace it.
+
+		//Search for dipthongs (two letters that make one sound.)
+		var/first_sound = copytext(word,1,2)
+		var/first_letter = copytext(word,1,2)
+		if(lowerrustext(first_sound) in list("ч","ш","щ","с"))
+			first_letter = first_sound
+
+		//Repeat the first letter to create a stutter.
+		var/rnum = rand(1,3)
+		switch(rnum)
+			if(1)
+				word = "[first_letter]-[word]"
+			if(2)
+				word = "[first_letter]-[first_letter]-[word]"
+			if(3)
+				word = "[first_letter]-[first_letter]-[first_letter]-[word]"
+
+		split_phrase[index] = word
+
+	return sanitize(dd_list2text(split_phrase," "))
+
+
+/proc/dd_text2list(text, separator, var/list/withinList)
+	var/textlength = length(text)
+	var/separatorlength = length(separator)
+	if(withinList && !withinList.len) withinList = null
+	var/list/textList = new()
+	var/searchPosition = 1
+	var/findPosition = 1
+	var/loops = 0
+	while(1)
+		if(loops >= 1000)
+			break
+		loops++
+
+		findPosition = findtext(text, separator, searchPosition, 0)
+		var/buggyText = copytext(text, searchPosition, findPosition)
+		if(!withinList || (buggyText in withinList)) textList += "[buggyText]"
+		if(!findPosition) return textList
+		searchPosition = findPosition + separatorlength
+		if(searchPosition > textlength)
+			textList += ""
+			return textList
+	return
+
+
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
 /proc/repeat_string(times, string="")
 	. = ""
 	for(var/i=1, i<=times, i++)
 		. += string
 
+/proc/random_string(length, list/characters)
+	. = ""
+	for(var/i=1, i<=length, i++)
+		. += pick(characters)
+
+
+
+//finds the first occurrence of one of the characters from needles argument inside haystack
+//it may appear this can be optimised, but it really can't. findtext() is so much faster than anything you can do in byondcode.
+//stupid byond :(
+/proc/findchar(haystack, needles, start=1, end=0)
+	var/temp
+	var/len = length(needles)
+	for(var/i=1, i<=len, i++)
+		temp = findtextEx(haystack, ascii2text(text2ascii(needles,i)), start, end)	//Note: ascii2text(text2ascii) is faster than copytext()
+		if(temp)	end = temp
+	return end
+
 /proc/random_short_color()
 	return random_string(3, hex_characters)
-
-/proc/random_color()
-	return random_string(6, hex_characters)
-
-/proc/add_zero2(t, u)
-	var/temp1
-	while (length(t) < u)
-		t = "0[t]"
-	temp1 = t
-	if (length(t) > u)
-		temp1 = copytext(t,2,u+1)
-	return temp1
 
 //merges non-null characters (3rd argument) from "from" into "into". Returns result
 //e.g. into = "Hello World"
@@ -351,13 +591,4 @@ var/list/binary = list("0","1")
 	else
 		. += copytext(into, start, end)
 
-//finds the first occurrence of one of the characters from needles argument inside haystack
-//it may appear this can be optimised, but it really can't. findtext() is so much faster than anything you can do in byondcode.
-//stupid byond :(
-/proc/findchar(haystack, needles, start=1, end=0)
-	var/temp
-	var/len = length(needles)
-	for(var/i=1, i<=len, i++)
-		temp = findtextEx(haystack, ascii2text(text2ascii(needles,i)), start, end)	//Note: ascii2text(text2ascii) is faster than copytext()
-		if(temp)	end = temp
-	return end
+

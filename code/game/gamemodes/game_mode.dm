@@ -161,7 +161,7 @@
 	if(escaped_on_pod_5 > 0)
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
 
-	send2irc("Server", "Round just ended.")
+	//send2irc("Server", "Round just ended.")
 
 	return 0
 

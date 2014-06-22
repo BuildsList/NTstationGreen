@@ -395,7 +395,7 @@ var/list/admin_verbs_hideable = list(
 		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
 	feedback_add_details("admin_verb","SM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-#define MAX_WARNS 3
+#define MAX_WARNS 2
 #define AUTOBANTIME 10
 
 /client/proc/warn(warned_ckey)
