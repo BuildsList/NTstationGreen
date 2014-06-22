@@ -1,11 +1,6 @@
 // BEGIN_INTERNALS
 /*
 MAP_ICON_TYPE: 0
-WINDOW: interface\skin.dmf
-LAST_COMPILE_VERSION: 506.1247
-DIR: _maps\map_files code\__HELPERS code\controllers code\game code\game\gamemodes code\modules code\modules\admin code\modules\admin\verbs code\modules\clothing\masks code\modules\mob code\modules\mob\living code\modules\mob\living\carbon interface 
-FILE: interface\skin.dmf
-LAST_COMPILE_TIME: 1403463660
 AUTO_FILE_DIR: OFF
 */
 // END_INTERNALS
