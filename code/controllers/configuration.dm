@@ -17,16 +17,16 @@
 	var/log_game = 1					// log game events
 	var/log_vote = 0					// log voting
 	var/log_whisper = 1					// log client whisper
-	var/log_prayer = 0					// log prayers
+	var/log_prayer = 1					// log prayers
 	var/log_law = 0						// log lawchanges
-	var/log_emote = 0					// log emotes
+	var/log_emote = 1					// log emotes
 	var/log_attack = 0					// log attack messages
 	var/log_adminchat = 1				// log admin chat messages
 	var/log_adminwarn = 1				// log warnings admins get about bomb construction and such
 	var/log_pda = 1						// log pda messages
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/sql_enabled = 1					// for sql switching
-	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
+	var/allow_admin_ooccolor = 1		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
@@ -48,13 +48,13 @@
 	var/load_jobs_from_txt = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
-	var/jobs_have_maint_access = 0 		//Who gets maint access?  See defines above
-	var/sec_start_brig = 0				//makes sec start in brig or dept sec posts
+	var/jobs_have_maint_access = 4 		//Who gets maint access?  See defines above
+	var/sec_start_brig = 1				//makes sec start in brig or dept sec posts
 
 	var/server
 	var/banappeals
-	var/wikiurl = "http://www.tgstation13.org/wiki" // Default wiki link.
-	var/forumurl
+	var/wikiurl = "http://wiki.animus13.ru" // Default wiki link.
+	var/forumurl = "http://forum.ss13.ru/index.php?act=idx"
 
 	var/forbid_singulo_possession = 0
 	var/useircbot = 0
@@ -70,15 +70,15 @@
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
 
-	var/humans_need_surnames = 0
-	var/allow_random_events = 0			// enables random events mid-round when set to 1
-	var/allow_ai = 0					// allow ai job
+	var/humans_need_surnames = 1
+	var/allow_random_events = 1			// enables random events mid-round when set to 1
+	var/allow_ai = 1					// allow ai job
 
 	var/traitor_scaling_coeff = 6		//how much does the amount of players get divided by to determine traitors
 	var/changeling_scaling_coeff = 7	//how much does the amount of players get divided by to determine changelings
 
 	var/protect_roles_from_antagonist = 0// If security and such can be traitor/cult/other
-	var/allow_latejoin_antagonists = 0 // If late-joining players can be traitor/changeling
+	var/allow_latejoin_antagonists = 1 // If late-joining players can be traitor/changeling
 	var/continuous_round_rev = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/continuous_round_wiz = 0
 	var/continuous_round_malf = 0
@@ -102,7 +102,7 @@
 
 	var/rename_cyborg = 0
 	var/borg_remembers = 0
-	var/ooc_during_round = 0
+	var/ooc_during_round = 1
 
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
@@ -120,7 +120,7 @@
 	var/use_recursive_explosions //Defines whether the server uses recursive or circular explosions.
 
 	var/gateway_delay = 18000 //How long the gateway takes before it activates. Default is half an hour.
-	var/ghost_interaction = 0
+	var/ghost_interaction = 1
 
 	var/silent_ai = 0
 	var/silent_borg = 0
