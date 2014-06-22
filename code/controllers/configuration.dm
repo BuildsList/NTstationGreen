@@ -10,22 +10,22 @@
 	var/server_suffix = 0				// generate numeric suffix based on server port
 	var/lobby_countdown = 180			// In between round countdown.
 
-	var/log_ooc = 0						// log OOC channel
-	var/log_access = 0					// log login/logout
-	var/log_say = 0						// log client say
-	var/log_admin = 0					// log admin actions
-	var/log_game = 0					// log game events
+	var/log_ooc = 1						// log OOC channel
+	var/log_access = 1					// log login/logout
+	var/log_say = 1						// log client say
+	var/log_admin = 1					// log admin actions
+	var/log_game = 1					// log game events
 	var/log_vote = 0					// log voting
-	var/log_whisper = 0					// log client whisper
+	var/log_whisper = 1					// log client whisper
 	var/log_prayer = 0					// log prayers
 	var/log_law = 0						// log lawchanges
 	var/log_emote = 0					// log emotes
 	var/log_attack = 0					// log attack messages
-	var/log_adminchat = 0				// log admin chat messages
-	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
-	var/log_pda = 0						// log pda messages
+	var/log_adminchat = 1				// log admin chat messages
+	var/log_adminwarn = 1				// log warnings admins get about bomb construction and such
+	var/log_pda = 1						// log pda messages
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/sql_enabled = 0					// for sql switching
+	var/sql_enabled = 1					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -36,9 +36,9 @@
 	var/del_new_on_log = 1				// del's new players if they log before they spawn in
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.9
-	var/Tickcomp = 0
-	var/allow_holidays = 0				//toggles whether holiday-specific content should be used
+	var/Ticklag = 0.6
+	var/Tickcomp = 1
+	var/allow_holidays = 1				//toggles whether holiday-specific content should be used
 
 	var/hostedby = null
 	var/respawn = 1
