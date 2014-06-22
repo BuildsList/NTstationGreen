@@ -1,11 +1,11 @@
 // BEGIN_INTERNALS
 /*
 MAP_ICON_TYPE: 0
+WINDOW: code\game\gamemodes\gameticker.dm;code\modules\mob\new_player\new_player.dm;code\modules\mob\living\silicon\robot\death.dm;code\modules\mob\new_player\login.dm;code\modules\mob\living\carbon\human\death.dm;code\defines\procs\statistics.dm;code\game\asteroid.dm;code\__HELPERS\sanitize_values.dm;code\__HELPERS\text.dm
 LAST_COMPILE_VERSION: 506.1247
-WINDOW: code\game\gamemodes\gameticker.dm;code\modules\mob\new_player\new_player.dm;code\modules\mob\living\silicon\robot\death.dm;code\modules\mob\new_player\login.dm;code\modules\mob\living\carbon\human\death.dm;code\defines\procs\statistics.dm;code\modules\client\client procs.dm;code\modules\mob\new_player\poll.dm
-DIR: code code\defines code\defines\procs code\game code\game\gamemodes code\modules code\modules\client code\modules\mob code\modules\mob\living code\modules\mob\living\carbon code\modules\mob\living\carbon\human code\modules\mob\living\silicon code\modules\mob\living\silicon\robot code\modules\mob\new_player 
-FILE: code\modules\mob\living\silicon\robot\death.dm
-LAST_COMPILE_TIME: 1403374681
+DIR: code code\__HELPERS code\defines code\defines\procs code\game code\game\gamemodes code\modules code\modules\client code\modules\mob code\modules\mob\living code\modules\mob\living\carbon code\modules\mob\living\carbon\human code\modules\mob\living\silicon code\modules\mob\living\silicon\robot code\modules\mob\new_player 
+FILE: code\defines\procs\statistics.dm
+LAST_COMPILE_TIME: 1403436805
 AUTO_FILE_DIR: OFF
 */
 // END_INTERNALS
