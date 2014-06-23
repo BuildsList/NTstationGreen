@@ -42,7 +42,7 @@ BORG_REMEMBERS 0
 ## To speed things up make the number negative, to slow things down, make the number positive.
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied. 
-RUN_DELAY 1
+RUN_DELAY 2
 WALK_DELAY 4
 
 ## The variables below affect the movement of specific mob types.
@@ -97,7 +97,7 @@ PROBABILITY CHANGELING 2
 PROBABILITY WIZARD 3
 PROBABILITY MALFUNCTION 1
 PROBABILITY BLOB 2
-PROBABILITY METEOR 1
+PROBABILITY METEOR 0
 PROBABILITY EXTENDED 0
 
 ## You probably want to keep sandbox off by default for secret and random.
@@ -188,4 +188,4 @@ GHOST_INTERACTION
 ## Set to 0/commented for "off", silicons will just start with Asimov.
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from (at the time of writing): P.A.L.A.D.I.N., Corporate, Asimov. More can be added by changing the law datum paths in ai_laws.dm.
-DEFAULT_LAWS 2
+DEFAULT_LAWS 1
