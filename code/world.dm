@@ -61,11 +61,11 @@
 	data_core = new /obj/effect/datacore()
 	paiController = new /datum/paiController()
 
-	if(config.sql_enabled)
-		if(!setup_database_connection())
-			world.log << "Your server failed to establish a connection with the database."
-		else
-			world.log << "Database connection established."
+
+	if(!setup_database_connection())
+		world.log << "Your server failed to establish a connection with the database."
+	else
+		world.log << "Database connection established."
 
 	plmaster = new /obj/effect/overlay()
 	plmaster.icon = 'icons/effects/tile_effects.dmi'
@@ -315,8 +315,7 @@ proc/setup_database_connection()
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.
-		if(config.sql_enabled)
-			world.log << "SQL error: " + dbcon.ErrorMsg()
+		world.log << "SQL error: " + dbcon.ErrorMsg()
 
 	return .
 

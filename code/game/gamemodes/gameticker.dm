@@ -138,13 +138,11 @@ var/round_start_time = 0
 			world << "<font color='blue'>and...</font>"
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
 
-//	if(!admins.len)
-//		send2irc("Server", "Round just started with no admins online!")
 	auto_toggle_ooc(0) // Turn it off
 
-	if(config.sql_enabled)
-		spawn(3000)
-			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
+
+	spawn(3000)
+		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 	return 1
 
 /datum/controller/gameticker

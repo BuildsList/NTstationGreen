@@ -168,7 +168,6 @@ datum/shuttle_controller
 					s.move_shuttle()
 					location = DOCKED
 					settimeleft(SHUTTLELEAVETIME)
-					//send2irc("Server", "The Emergency Shuttle has docked with the station.")
 					priority_announce("The Emergency Shuttle has docked with the station. You have [round(timeleft()/60,1)] minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg', "Priority")
 			else if(timeleft <= 0) //Nothing happens if time's not up and the ship's docked or later
 				if(location == DOCKED)

@@ -25,7 +25,6 @@
 	var/log_adminwarn = 1				// log warnings admins get about bomb construction and such
 	var/log_pda = 1						// log pda messages
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/sql_enabled = 1					// for sql switching
 	var/allow_admin_ooccolor = 1		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -52,12 +51,11 @@
 	var/sec_start_brig = 1				//makes sec start in brig or dept sec posts
 
 	var/server
-	var/banappeals
+	var/banappeals = "http://forum.ss13.ru/index.php?showforum=37"
 	var/wikiurl = "http://wiki.animus13.ru" // Default wiki link.
 	var/forumurl = "http://forum.ss13.ru/index.php?act=idx"
 
 	var/forbid_singulo_possession = 0
-	var/useircbot = 0
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -260,8 +258,6 @@
 					config.popup_admin_pm = 1
 				if("allow_holidays")
 					config.allow_holidays = 1
-				if("useircbot")
-					useircbot = 1
 				if("ticklag")
 					Ticklag = text2num(value)
 				if("tickcomp")
@@ -416,8 +412,6 @@
 			continue
 
 		switch(name)
-			if("sql_enabled")
-				config.sql_enabled = 1
 			if("address")
 				sqladdress = value
 			if("port")

@@ -1,6 +1,11 @@
 // BEGIN_INTERNALS
 /*
 MAP_ICON_TYPE: 0
+WINDOW: code\modules\admin\DB ban\functions.dm;code\defines\procs\statistics.dm;code\defines\procs\dbcore.dm;code\game\gamemodes\gameticker.dm;code\world.dm;code\controllers\configuration.dm;code\controllers\shuttle_controller.dm;code\game\gamemodes\game_mode.dm;code\modules\admin\verbs\adminhelp.dm;code\modules\mob\logout.dm;code\modules\admin\admin_ranks.dm;code\modules\admin\holder2.dm;code\modules\admin\permissionverbs\permissionedit.dm
+LAST_COMPILE_VERSION: 506.1247
+DIR: _maps _maps\map_files _maps\map_files\MiniStation code code\__HELPERS code\_onclick code\ATMOSPHERICS code\ATMOSPHERICS\components code\ATMOSPHERICS\components\binary_devices code\controllers code\defines code\defines\procs code\game code\game\gamemodes code\modules code\modules\admin code\modules\admin\permissionverbs code\modules\mob 
+FILE: code\modules\admin\permissionverbs\permissionedit.dm
+LAST_COMPILE_TIME: 1403451248
 AUTO_FILE_DIR: OFF
 */
 // END_INTERNALS
