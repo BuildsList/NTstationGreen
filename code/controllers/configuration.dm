@@ -418,9 +418,9 @@
 				sqlport = value
 			if("database")
 				sqlfdbkdb = value
-			if("feedback_login")
+			if("login")
 				sqlfdbklogin = value
-			if("feedback_password")
+			if("password")
 				sqlfdbkpass = value
 			else
 				diary << "Unknown setting in configuration: '[name]'"
