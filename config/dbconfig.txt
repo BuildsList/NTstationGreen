@@ -10,7 +10,7 @@ ADDRESS localhost
 PORT 3306
 
 ## Database for all SQL functions, not just feedback.
-FEEDBACK_DATABASE feedback
+DATABASE feedback
 
 ## Username/Login used to access the database.
 FEEDBACK_LOGIN username

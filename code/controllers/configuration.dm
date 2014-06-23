@@ -416,7 +416,7 @@
 				sqladdress = value
 			if("port")
 				sqlport = value
-			if("feedback_database")
+			if("database")
 				sqlfdbkdb = value
 			if("feedback_login")
 				sqlfdbklogin = value
