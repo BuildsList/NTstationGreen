@@ -76,13 +76,19 @@
 		AI_mind.current:laws = new /datum/ai_laws/malfunction
 		AI_mind.current:malf_picker = new /datum/module_picker
 		AI_mind.current:show_laws()
-
+		var/mob/living/silicon/decoy/D = new /mob/living/silicon/decoy(AI_mind.current.loc)
+		spawn(200)
+			D.name = AI_mind.current.name
 		greet_malf(AI_mind)
 
 		AI_mind.special_role = "malfunction"
 
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
-
+		var/obj/loc_landmark = locate("landmark*ai")
+		AI_mind.current.loc = loc_landmark.loc
+		for(var/mob/living/silicon/robot/C in AI_mind.current:connected_robots)
+			C.lawsync()
+			C.show_laws()
 /*		AI_mind.current.icon_state = "ai-malf"
 		spawn(10)
 			if(alert(AI_mind.current,"Do you want to use an alternative sprite for your real core?",,"Yes","No")=="Yes")
