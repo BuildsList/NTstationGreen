@@ -1,11 +1,11 @@
 // BEGIN_INTERNALS
 /*
 MAP_ICON_TYPE: 0
-WINDOW: code\modules\admin\DB ban\functions.dm;code\defines\procs\statistics.dm;code\defines\procs\dbcore.dm;code\game\gamemodes\gameticker.dm;code\world.dm;code\controllers\configuration.dm;code\controllers\shuttle_controller.dm;code\modules\admin\permissionverbs\permissionedit.dm;code\controllers\supply_shuttle.dm;code\modules\mob\living\silicon\robot\death.dm;code\modules\mob\living\carbon\human\death.dm
+WINDOW: code\modules\admin\DB ban\functions.dm;code\unused\hivebot\hud.dm;code\_onclick\hud\_defines.dm;code\_onclick\hud\hud.dm;code\_onclick\hud\screen_objects.dm;code\_onclick\hud\alien.dm;code\_onclick\hud\human.dm;code\modules\mob\mob_helpers.dm
 LAST_COMPILE_VERSION: 506.1247
-DIR: _maps _maps\map_files code code\__HELPERS code\_onclick code\ATMOSPHERICS code\ATMOSPHERICS\components code\ATMOSPHERICS\components\binary_devices code\controllers code\defines code\defines\procs code\game code\game\gamemodes code\modules code\modules\admin code\modules\admin\DB ban code\modules\admin\permissionverbs code\modules\mob code\modules\mob\living code\modules\mob\living\carbon code\modules\mob\living\carbon\human code\modules\mob\living\silicon code\modules\mob\living\silicon\robot 
-FILE: code\modules\mob\living\carbon\human\death.dm
-LAST_COMPILE_TIME: 1403451248
+DIR: code code\__HELPERS code\_onclick code\_onclick\hud code\defines\procs code\game\gamemodes code\modules code\modules\admin code\modules\admin\DB ban code\modules\mob code\modules\mob\living code\modules\mob\living\carbon code\modules\mob\living\carbon\human 
+FILE: code\_onclick\hud\screen_objects.dm
+LAST_COMPILE_TIME: 1403513047
 AUTO_FILE_DIR: OFF
 */
 // END_INTERNALS
