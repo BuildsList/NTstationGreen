@@ -1,11 +1,11 @@
 // BEGIN_INTERNALS
 /*
 MAP_ICON_TYPE: 0
-WINDOW: code\modules\admin\DB ban\functions.dm;code\unused\hivebot\hud.dm;code\_onclick\hud\_defines.dm;code\_onclick\hud\hud.dm;code\_onclick\hud\screen_objects.dm;code\_onclick\hud\alien.dm;code\_onclick\hud\human.dm;code\modules\mob\mob_helpers.dm
+WINDOW: code\modules\admin\DB ban\functions.dm;code\unused\hivebot\hud.dm;code\_onclick\hud\_defines.dm;code\_onclick\hud\hud.dm;code\_onclick\hud\screen_objects.dm;code\_onclick\hud\alien.dm;code\_onclick\hud\human.dm;code\modules\mob\mob_helpers.dm;code\modules\admin\IsBanned.dm
 LAST_COMPILE_VERSION: 506.1247
 DIR: code code\__HELPERS code\_onclick code\_onclick\hud code\defines\procs code\game\gamemodes code\modules code\modules\admin code\modules\admin\DB ban code\modules\mob code\modules\mob\living code\modules\mob\living\carbon code\modules\mob\living\carbon\human 
-FILE: code\_onclick\hud\screen_objects.dm
-LAST_COMPILE_TIME: 1403513047
+FILE: code\modules\admin\IsBanned.dm
+LAST_COMPILE_TIME: 1403527457
 AUTO_FILE_DIR: OFF
 */
 // END_INTERNALS
