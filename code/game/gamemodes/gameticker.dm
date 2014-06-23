@@ -139,10 +139,6 @@ var/round_start_time = 0
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
 
 	auto_toggle_ooc(0) // Turn it off
-
-
-	spawn(3000)
-		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 	return 1
 
 /datum/controller/gameticker
