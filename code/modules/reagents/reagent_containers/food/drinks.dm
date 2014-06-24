@@ -165,6 +165,18 @@
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/reagent_containers/food/drinks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/egg))
+		if(src.reagents.total_volume < 5)
+			user << "<span  class='notice'>There's not enough flour left to make a dough.</span>"
+		else
+			src.reagents.remove_reagent("flour", 5, 1)//Deleting 5 flour from the flour sack.
+			var/obj/item/weapon/reagent_containers/food/snacks/dough/D = new /obj/item/weapon/reagent_containers/food/snacks/dough
+			user.unEquip(W)
+			user << "You make a dough."
+			user.put_in_hands(D)
+			qdel(W)
+
 /obj/item/weapon/reagent_containers/food/drinks/soymilk
 	name = "SoyMilk"
 	desc = "It's soy milk. White and nutritious goodness!"
