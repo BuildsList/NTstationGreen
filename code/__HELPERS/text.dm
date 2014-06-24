@@ -41,30 +41,20 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="____255_"))
+/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="&#255;"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
 			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+1)
 			index = findtext(t, char)
-	t = html_encode(t)
-	var/index = findtext(t, "____255_")
-	while(index)
-		t = copytext(t, 1, index) + "&#255;" + copytext(t, index+8)
-		index = findtext(t, "____255_")
 	return t
 
-/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="____255_"))
+/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="&#255;"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
 			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+1)
 			index = findtext(t, char)
-	t = html_encode(t)
-	var/index = findtext(t, "____255_")
-	while(index)
-		t = copytext(t, 1, index) + "&#255;" + copytext(t, index+8)
-		index = findtext(t, "____255_")
 	return t
 
 proc/sanitize_russian(var/msg) //Специально для всего, где не нужно убирать переносы строк и прочее.
@@ -438,11 +428,7 @@ proc/checkhtml(var/t)
 
 // For drunken speak, etc
 proc/slurring(phrase) // using cp1251!
-	phrase = html_decode(phrase)
-	var/index = findtext(phrase, "я")
-	while(index)
-		phrase = copytext(phrase, 1, index) + "Я" + copytext(phrase, index+1)
-		index = findtext(phrase, "я")
+	phrase = rhtml_decode(phrase)
 	var
 		leng=lentext(phrase)
 		counter=lentext(phrase)
@@ -452,10 +438,10 @@ proc/slurring(phrase) // using cp1251!
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(prob(33))
-			if(lowertext(newletter)=="е")	newletter="ё"
 			if(lowertext(newletter)=="и")	newletter="й"
 			if(lowertext(newletter)=="а")	newletter="ах"
-			if(lowertext(newletter)=="ы")	newletter="i"
+		if(lowertext(newletter)=="е")	newletter="ё"
+		if(lowertext(newletter)=="ы")	newletter="i"
 		switch(rand(1,15))
 			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
 			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
@@ -468,7 +454,7 @@ proc/slurring(phrase) // using cp1251!
 	return newphrase
 
 proc/NewStutter(phrase,stunned)
-	phrase = html_decode(phrase)
+	phrase = rhtml_decode(phrase)
 
 	var/list/split_phrase = dd_text2list(phrase," ") //Split it up into words.
 
@@ -591,4 +577,34 @@ proc/NewStutter(phrase,stunned)
 	else
 		. += copytext(into, start, end)
 
+
+/proc/rhtml_encode(var/msg)
+        var/list/c = text2list(msg, "?")
+        if(c.len == 1)
+                c = text2list(msg, "&#255;")
+                if(c.len == 1)
+                        return html_encode(msg)
+        var/out = ""
+        var/first = 1
+        for(var/text in c)
+                if(!first)
+                        out += "&#255;"
+                first = 0
+                out += html_encode(text)
+        return out
+
+/proc/rhtml_decode(var/msg)
+        var/list/c = text2list(msg, "?")
+        if(c.len == 1)
+                c = text2list(msg, "&#255;")
+                if(c.len == 1)
+                        return html_decode(msg)
+        var/out = ""
+        var/first = 1
+        for(var/text in c)
+                if(!first)
+                        out += "&#255;"
+                first = 0
+                out += html_decode(text)
+        return out
 

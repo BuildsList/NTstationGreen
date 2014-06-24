@@ -90,7 +90,7 @@
 
 		// Signal data
 
-		interpreter.SetVar("$content", 	html_decode(signal.data["message"]))
+		interpreter.SetVar("$content", 	rhtml_decode(signal.data["message"]))
 		interpreter.SetVar("$freq"   , 	signal.frequency)
 		interpreter.SetVar("$source" , 	signal.data["name"])
 		interpreter.SetVar("$job"    , 	signal.data["job"])
@@ -292,7 +292,7 @@ datum/signal
 		if((!message || message == "") && message != 0)
 			message = "*beep*"
 		if(!source)
-			source = "[html_encode(uppertext(S.id))]"
+			source = "[rhtml_encode(uppertext(S.id))]"
 			hradio = new // sets the hradio as a radio intercom
 		if(!freq || (!isnum(freq) && text2num(freq) == null))
 			freq = 1459
