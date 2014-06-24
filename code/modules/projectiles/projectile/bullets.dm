@@ -39,6 +39,10 @@
 /obj/item/projectile/bullet/midbullet3 //Only used with the Stechkin Pistol - RobRichards
 	damage = 30
 
+/obj/item/projectile/bullet/midbullet4 // c38 expansive
+	damage = 40
+	stun = 10
+	weaken = 10
 
 /obj/item/projectile/bullet/suffocationbullet//How does this even work?
 	name = "co bullet"

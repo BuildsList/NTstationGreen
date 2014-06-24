@@ -31,9 +31,10 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "d-tiv revolver cylinder"
 	desc = "Oh god, this shouldn't be here"
-	ammo_type = /obj/item/ammo_casing/c38
+	ammo_type = /obj/item/ammo_casing/c38/e
 	caliber = "38"
 	max_ammo = 6
+
 
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
@@ -214,4 +215,5 @@
 /obj/item/ammo_box/magazine/m12g/dragon/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
+
 
