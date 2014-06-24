@@ -27,8 +27,8 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(!msg)	return
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
-/*	var/original_msg = msg
-
+	var/original_msg = msg
+/*
 	//explode the input msg into a list
 	var/list/msglist = text2list(msg, " ")
 
@@ -109,7 +109,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		X << msg
 
 	//show it to the person adminhelping too
-	src << "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
+	src << "<font color='blue'>PM to-<b>Admins</b>: [original_msg]</font>"
 
 	var/admin_number_present = admin_number_total - admin_number_decrease	//Number of admins who are neither afk nor invalid
 	log_admin("HELP: [key_name(src)]: [msg] - heard by [admin_number_present] non-AFK admins who have +BAN.")
