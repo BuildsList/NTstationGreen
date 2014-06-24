@@ -187,7 +187,7 @@ var/datum/controller/event/events
 				if(20)
 					holiday = "Four-Twenty"
 					for(var/obj/machinery/vending/hydroseeds/weedcontainer in machines)
-						weedcontainer.products.Add(/obj/item/seeds/blazeit = 3)
+						weedcontainer.products.Add(/obj/item/seeds/rainbowcannabis = 3)
 					if(YY == 14 && prob(50))	holiday = "Easter"
 				if(22)							holiday = "Earth Day"
 
