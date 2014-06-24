@@ -1565,7 +1565,7 @@ datum/design/nuclear_gun
 	materials = list("$metal" = 5000, "$glass" = 1000, "$uranium" = 2000)
 	reliability = 76
 	build_path = /obj/item/weapon/gun/energy/gun/nuclear
-	locked = 1
+
 
 datum/design/stunrevolver
 	name = "Stun Revolver"
@@ -1575,7 +1575,7 @@ datum/design/stunrevolver
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000)
 	build_path = /obj/item/weapon/gun/energy/stunrevolver
-	locked = 1
+
 
 datum/design/lasercannon
 	name = "Laser Cannon"
@@ -1585,7 +1585,7 @@ datum/design/lasercannon
 	build_type = PROTOLATHE
 	materials = list("$metal" = 10000, "$glass" = 10000, "$diamond" = 2000)
 	build_path = /obj/item/weapon/gun/energy/lasercannon
-	locked = 1
+
 
 datum/design/decloner
 	name = "Decloner"
@@ -1595,7 +1595,7 @@ datum/design/decloner
 	build_type = PROTOLATHE
 	materials = list("$gold" = 5000,"$uranium" = 8000, "mutagen" = 40)
 	build_path = /obj/item/weapon/gun/energy/decloner
-	locked = 1
+
 /*
 datum/design/chemsprayer
 	name = "Chem Sprayer"
@@ -1624,7 +1624,7 @@ datum/design/largecrossbow
 	build_type = PROTOLATHE
 	materials = list("$metal" = 8000, "$glass" = 4000, "$uranium" = 3750, "$silver" = 2000)
 	build_path = /obj/item/weapon/gun/energy/crossbow/largecrossbow
-	locked = 1
+
 
 datum/design/temp_gun
 	name = "Temperature Gun"
@@ -1634,7 +1634,7 @@ datum/design/temp_gun
 	build_type = PROTOLATHE
 	materials = list("$metal" = 10000, "$glass" = 1000, "$silver" = 3750)
 	build_path = /obj/item/weapon/gun/energy/temperature
-	locked = 1
+
 
 datum/design/flora_gun
 	name = "Floral Somatoray"
@@ -1663,7 +1663,7 @@ datum/design/m1911
 	build_type = PROTOLATHE
 	materials = list("$metal" = 6000, "$silver" = 3750, "$gold" = 1000)
 	build_path = /obj/item/weapon/gun/projectile/automatic/deagle/m1911
-	locked = 1
+
 
 datum/design/smg
 	name = "9mm Submachine Gun"
@@ -1673,7 +1673,7 @@ datum/design/smg
 	build_type = PROTOLATHE
 	materials = list("$metal" = 9000, "$silver" = 5000, "$diamond" = 1000)
 	build_path = /obj/item/weapon/gun/projectile/automatic
-	locked = 1
+
 
 datum/design/xray
 	name = "Xray Laser Gun"
@@ -1683,7 +1683,7 @@ datum/design/xray
 	build_type = PROTOLATHE
 	materials = list("$gold" = 8000,"$uranium" = 12000, "$metal" = 10000, "$glass" = 5000)
 	build_path = /obj/item/weapon/gun/energy/xray
-	locked = 1
+
 
 datum/design/ionrifle
 	name = "Ion Rifle"
@@ -1693,7 +1693,7 @@ datum/design/ionrifle
 	build_type = PROTOLATHE
 	materials = list("$silver" = 20000, "$metal" = 10000, "$uranium" = 5000, "$glass" = 5000)
 	build_path = /obj/item/weapon/gun/energy/ionrifle
-	locked = 1
+
 
 datum/design/mag_m1911
 	name = "M1911 Magazine (.45)"
@@ -1888,7 +1888,7 @@ datum/design/security_hud_night
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$gold" = 350)
 	build_path = /obj/item/clothing/glasses/hud/security/night
-	locked = 1
+
 
 /////////////////////////////////////////
 //////////////////Test///////////////////
@@ -1947,7 +1947,7 @@ datum/design/detective_scanner
 	build_type = PROTOLATHE
 	materials = list("$metal" = 3000, "$glass" = 3000)
 	build_path = /obj/item/device/detective_scanner
-	locked = 1
+
 
 datum/design/welding_mask
 	name = "Welding Gas Mask"
