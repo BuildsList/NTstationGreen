@@ -46,8 +46,8 @@
 	return 1
 
 /mob/living/carbon/proc/ChangeToHusk()
-	if(HUSK in mutations)	return
-	mutations.Add(HUSK)
+	if(has_organic_effect(/datum/organic_effect/husk))	return
+	add_organic_effect(/datum/organic_effect/husk)
 	status_flags |= DISFIGURED	//makes them unknown without fucking up other stuff like admintools
 	return 1
 
@@ -59,5 +59,5 @@
 
 /mob/living/carbon/proc/Drain()
 	ChangeToHusk()
-	mutations |= NOCLONE
+	add_organic_effect(/datum/organic_effect/noclone)
 	return 1
