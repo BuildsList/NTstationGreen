@@ -83,7 +83,6 @@ datum/preferences
 		// OOC Metadata:
 	var/metadata = ""
 
-	var/unlock_content = 0
 
 /datum/preferences/New(client/C)
 	blood_type = random_blood_type()
@@ -91,9 +90,6 @@ datum/preferences
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			load_path(C.ckey)
-			unlock_content = C.IsByondMember()
-			if(unlock_content)
-				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if(load_character())
@@ -222,11 +218,8 @@ datum/preferences
 						dat += "<b>Adminhelp Sound:</b> "
 						dat += "<a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & SOUND_ADMINHELP)?"On":"Off"]</a><br>"
 
-					if(unlock_content || check_rights_for(user.client, R_ADMIN))
+					if(check_rights_for(user.client, R_ADMIN))
 						dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'>Change</a><br>"
-
-					if(unlock_content)
-						dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</a><br>"
 						dat += "<b>Ghost Form:</b> <a href='?_src_=prefs;task=input;preference=ghostform'>[ghost_form]</a><br>"
 
 
@@ -562,10 +555,9 @@ datum/preferences
 			if("input")
 				switch(href_list["preference"])
 					if("ghostform")
-						if(unlock_content)
-							var/new_form = input(user, "Thanks for supporting BYOND - Choose your ghostly form:","Thanks for supporting BYOND",null) as null|anything in ghost_forms
-							if(new_form)
-								ghost_form = new_form
+						var/new_form = input(user, "Thank Rel - Choose your ghostly form:","Thank Rel",null) as null|anything in ghost_forms
+						if(new_form)
+							ghost_form = new_form
 					if("name")
 						var/new_name = reject_bad_name( input(user, "Choose your character's name:", "Character Preference")  as text|null )
 						if(new_name)
@@ -665,9 +657,6 @@ datum/preferences
 							backbag = backbaglist.Find(new_backbag)
 			else
 				switch(href_list["preference"])
-					if("publicity")
-						if(unlock_content)
-							toggles ^= MEMBER_PUBLIC
 					if("gender")
 						if(gender == MALE)
 							gender = FEMALE

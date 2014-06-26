@@ -26,10 +26,10 @@
 /client/proc/massmodify_variables(var/atom/O, var/var_name = "", var/method = 0)
 	if(!check_rights(R_VAREDIT))	return
 
-	var/list/locked = list("vars", "key", "ckey", "client", "unlock_content")
+	var/list/locked = list("vars", "key", "ckey", "client")
 
 	for(var/p in forbidden_varedit_object_types)
-		if( istype(O,p) )
+		if( istype(O,p) && !check_rights(R_DEBUG) )
 			usr << "\red It is forbidden to edit this object's variables."
 			return
 

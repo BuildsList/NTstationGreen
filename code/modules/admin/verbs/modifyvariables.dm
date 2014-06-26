@@ -130,7 +130,7 @@ var/list/forbidden_varedit_object_types = list(
 
 	if(!istype(L,/list)) src << "Not a List."
 
-	var/list/locked = list("vars", "client", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")
+	var/list/locked = list("vars", "client", "virus", "viruses", "cuffed", "last_eaten")
 	var/list/ckey_edit = list("key", "ckey")
 	var/list/icon_edit = list("icon", "icon_state", "overlays", "underlays")
 	var/list/names = sortList(L)
@@ -279,11 +279,11 @@ var/list/forbidden_varedit_object_types = list(
 	var/list/icon_edit = list("icon", "icon_state", "overlays", "underlays")
 
 	for(var/p in forbidden_varedit_object_types)
-		if( istype(O,p) )
+		if( istype(O,p) && !check_rights(R_DEBUG) )
 			usr << "\red It is forbidden to edit this object's variables."
 			return
 
-	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key"))
+	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key") && !check_rights(R_DEBUG))
 		usr << "\red You cannot edit ckeys on client objects."
 		return
 

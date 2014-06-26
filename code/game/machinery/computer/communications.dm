@@ -586,7 +586,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		user << "The emergency shuttle is already on its way."
 		return
 
-	call_reason = strip_html_simple(trim(call_reason))
+	call_reason = strip_html(trim(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
 		user << "You must provide a reason."
