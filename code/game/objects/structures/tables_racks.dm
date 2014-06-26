@@ -517,6 +517,13 @@
 			new /obj/item/weapon/table_parts(loc)
 		density = 0
 		qdel(src)
+	else if(usr.a_intent == "disarm" && get_dist(user, src) <= 1 && !usr.buckled)
+		if(prob(70))
+			visible_message("<span class='notice'>[user] climbs on the [src].</span>")
+			usr.loc = src.loc
+		else
+			visible_message("<span class='warning'>[user] slipped off the edge of the [src].</span>")
+			usr.weakened += 3
 	else
 		..()
 

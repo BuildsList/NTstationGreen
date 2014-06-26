@@ -88,12 +88,14 @@ var/savefile/Banlistjob
 	if(rank == "Research")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Scientist")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Geneticist")
+		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Virologist")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Chief Medical Officer")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Research Director")
 		return 1
 	if(rank == "Medical")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Geneticist")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Medical Doctor")
+		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Virologist")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Chief Medical Officer")
 		AddBanjob(ckey, computerid, reason, bannedby, temp, minutes, "Chemist")
 		return 1
