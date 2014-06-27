@@ -261,8 +261,15 @@
 		if ("scream")
 			if (miming)
 				message = "<B>[src]</B> acts out a scream!"
+				m_type = 1
 			else
-				..(act)
+				if (!muzzled)
+					message = "<B>[src]</B> screams!"
+					m_type = 2
+					call_sound_emote("scream")
+				else
+					message = "<B>[src]</B> makes a very loud noise."
+					m_type = 2
 
 		if ("shiver")
 			message = "<B>[src]</B> shivers."
@@ -277,6 +284,19 @@
 				message = "<B>[src]</B> sighs."
 			else
 				..(act)
+
+		if ("laugh")
+			if(miming)
+				message = "<B>[src]</B> acts out a laugh."
+				m_type = 1
+			else
+				if (!muzzled)
+					message = "<B>[src]</B> laughs."
+					m_type = 2
+					call_sound_emote("laugh")
+				else
+					message = "<B>[src]</B> makes a noise."
+					m_type = 2
 
 		if ("signal")
 			if (!src.restrained())
@@ -345,4 +365,15 @@
 		else if (m_type & 2)
 			for (var/mob/O in hearers(src.loc, null))
 				O.show_message(message, m_type)
+
+/mob/living/carbon/human/proc/call_sound_emote(var/E)
+	switch(E)
+		if("scream")
+			if (src.gender == "male")
+				playsound(src.loc, pick('sound/voice/Screams_Male_1.ogg', 'sound/voice/Screams_Male_2.ogg', 'sound/voice/Screams_Male_3.ogg'), 100, 1)
+			else
+				playsound(src.loc, pick('sound/voice/Screams_Woman_1.ogg', 'sound/voice/Screams_Woman_2.ogg', 'sound/voice/Screams_Woman_3.ogg'), 100, 1)
+
+		if("laugh")
+			playsound(src.loc, pick('sound/voice/laugh1.ogg', 'sound/voice/laugh2.ogg', 'sound/voice/laugh3.ogg'), 100, 1)
 
