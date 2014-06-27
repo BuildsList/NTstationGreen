@@ -50,6 +50,7 @@ var/list/department_radio_keys = list(
 	  ":ô" = "alientalk",	"#ô" = "alientalk",		".ô" = "alientalk",
 	  ":å" = "Syndicate",	"#å" = "Syndicate",		".å" = "Syndicate",
 	  ":é" = "Supply",		"#é" = "Supply",		".é" = "Supply",
+	  ":ì" = "Service",		"#ì" = "Service",		".ì" = "Service",
 	  ":ï" = "changeling",	"#ï" = "changeling",	".ï" = "changeling",
 
 	  ":Ê" = "right hand",	"#Ê" = "right hand",	".Ê" = "right hand",
@@ -66,6 +67,7 @@ var/list/department_radio_keys = list(
 	  ":Ô" = "alientalk",	"#Ô" = "alientalk",		".Ô" = "alientalk",
 	  ":Å" = "Syndicate",	"#Å" = "Syndicate",		".Å" = "Syndicate",
 	  ":É" = "Supply",		"#É" = "Supply",		".É" = "Supply",
+	  ":Ì" = "Service",		"#Ì" = "Service",		".Ì" = "Service",
 	  ":Ï" = "changeling",	"#Ï" = "changeling",	".Ï" = "changeling"
 )
 
@@ -399,10 +401,3 @@ var/list/department_radio_keys = list(
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/proc/say_test(var/text)
-	var/ending = copytext(text, length(text))
-	if (ending == "?")
-		return "1"
-	else if (ending == "!")
-		return "2"
-	return "0"

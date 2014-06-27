@@ -295,7 +295,7 @@ proc/checkhtml(var/t)
 		s += 1
 	else if (copytext(t,1,2) == ":")
 		s += 2
-	return pointization(upperrustext(copytext(t, 1, s)) + copytext(t, s))
+	return upperrustext(copytext(t, 1, s)) + copytext(t, s)
 
 /proc/pointization(text as text)
 	if (!text)
