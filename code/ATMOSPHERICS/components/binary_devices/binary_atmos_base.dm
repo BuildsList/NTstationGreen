@@ -44,7 +44,7 @@ obj/machinery/atmospherics/binary
 
 		return null
 
-	Destroy()
+	Del()
 		loc = null
 
 		if(node1)
@@ -60,7 +60,7 @@ obj/machinery/atmospherics/binary
 		..()
 
 	initialize()
-		src.disconnect(src)
+		if(node1 && node2) return
 
 		var/node2_connect = dir
 		var/node1_connect = turn(dir, 180)

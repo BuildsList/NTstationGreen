@@ -16,10 +16,8 @@ obj/machinery/atmospherics/binary/volume_pump
 	icon = 'icons/obj/atmospherics/volume_pump.dmi'
 	icon_state = "intact_off"
 
-	name = "volumetric gas pump"
+	name = "Volumetric gas pump"
 	desc = "A volumetric pump"
-
-	can_unwrench = 1
 
 	var/on = 0
 	var/transfer_rate = 200
@@ -128,9 +126,9 @@ obj/machinery/atmospherics/binary/volume_pump
 			on = !on
 
 		if("set_transfer_rate" in signal.data)
-			transfer_rate = Clamp(
-				text2num(signal.data["set_transfer_rate"]),
+			transfer_rate = between(
 				0,
+				text2num(signal.data["set_transfer_rate"]),
 				air1.volume
 			)
 
@@ -179,4 +177,23 @@ obj/machinery/atmospherics/binary/volume_pump
 		if (!(stat & NOPOWER) && on)
 			user << "\red You cannot unwrench this [src], turn it off first."
 			return 1
-		return ..()
+		var/turf/T = src.loc
+		if (level==1 && isturf(T) && T.intact)
+			user << "\red You must remove the plating first."
+			return 1
+		var/datum/gas_mixture/int_air = return_air()
+		var/datum/gas_mixture/env_air = loc.return_air()
+		if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+			add_fingerprint(user)
+			return 1
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user << "\blue You begin to unfasten \the [src]..."
+		if (do_after(user, 40))
+			user.visible_message( \
+				"[user] unfastens \the [src].", \
+				"\blue You have unfastened \the [src].", \
+				"You hear ratchet.")
+			new /obj/item/pipe(loc, make_from=src)
+			del(src)
+

@@ -271,3 +271,13 @@
 /obj/effect/beam/i_beam/Destroy()
 	qdel(next)
 	..()
+
+
+/obj/effect/beam/i_beam/HasEntered(atom/movable/AM as mob|obj)
+	if(istype(AM, /obj/effect/beam))
+		return
+	spawn(0)
+		hit()
+		return
+	return
+

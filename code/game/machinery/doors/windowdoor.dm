@@ -63,11 +63,6 @@
 	else
 		return 1
 
-/obj/machinery/door/window/CanAtmosPass(var/turf/T)
-	if(get_dir(loc, T) == dir)
-		return !density
-	else
-		return 1
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -92,7 +87,7 @@
 	explosion_resistance = 0
 	src.density = 0
 //	src.sd_SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	update_nearby_tiles()
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
@@ -111,7 +106,7 @@
 	explosion_resistance = initial(explosion_resistance)
 //	if(src.visible)
 //		SetOpacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	update_nearby_tiles()
 	update_freelook_sight()
 	sleep(10)
 

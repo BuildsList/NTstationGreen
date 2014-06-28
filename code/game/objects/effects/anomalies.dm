@@ -116,9 +116,20 @@
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 3)
+	var/turf/location = get_turf(src)
+	for(var/turf/simulated/floor/target_tile in range(0,location))
+
+		var/datum/gas_mixture/napalm = new
+		var/datum/gas/volatile_fuel/fuel = new
+		fuel.moles = 10
+		napalm.trace_gases += fuel
+
+		napalm.temperature = 400+T0C
+		napalm.update_values()
+
+		target_tile.assume_air(napalm)
+		spawn (0) target_tile.hotspot_expose(700, 400)
+
 
 /////////////////////
 

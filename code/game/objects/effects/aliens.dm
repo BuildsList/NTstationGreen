@@ -25,30 +25,20 @@
 
 /obj/structure/alien/resin/New(location)
 	..()
-	air_update_turf(1)
-	return
+	var/turf/T = get_turf(src)
+	T.thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
+
 
 /obj/structure/alien/resin/Destroy()
-	density = 0
-	air_update_turf(1)
+	var/turf/T = get_turf(src)
+	T.thermal_conductivity = initial(T.thermal_conductivity)
 	..()
-	return
-
-/obj/structure/alien/resin/Move()
-	var/turf/T = loc
-	..()
-	move_update_air(T)
-
-/obj/structure/alien/resin/CanAtmosPass()
-	return !density
 
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Purple slime solidified into a wall."
 	icon_state = "resinwall"	//same as resin, but consistency ho!
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
-	return 1
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"

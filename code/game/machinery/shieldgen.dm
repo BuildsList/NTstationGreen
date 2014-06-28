@@ -13,25 +13,40 @@
 /obj/machinery/shield/New()
 	src.dir = pick(1,2,3,4)
 	..()
-	air_update_turf(1)
+	update_nearby_tiles(need_rebuild=1)
 
 /obj/machinery/shield/Destroy()
 	opacity = 0
 	density = 0
-	air_update_turf(1)
+	update_nearby_tiles()
 	..()
 
-/obj/machinery/shield/Move()
-	var/turf/T = loc
-	..()
-	move_update_air(T)
+
+//Looks like copy/pasted code... I doubt 'need_rebuild' is even used here - Nodrak
+/obj/machinery/shield/proc/update_nearby_tiles(need_rebuild)
+	if(!air_master) return 0
+
+	var/turf/simulated/source = get_turf(src)
+	var/turf/simulated/north = get_step(source,NORTH)
+	var/turf/simulated/south = get_step(source,SOUTH)
+	var/turf/simulated/east = get_step(source,EAST)
+	var/turf/simulated/west = get_step(source,WEST)
+
+	if(istype(source)) air_master.tiles_to_update |= source
+	if(istype(north)) air_master.tiles_to_update |= north
+	if(istype(south)) air_master.tiles_to_update |= south
+	if(istype(east)) air_master.tiles_to_update |= east
+	if(istype(west)) air_master.tiles_to_update |= west
+
+	return 1
+
 
 /obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height, air_group)
 	if(!height || air_group) return 0
 	else return ..()
 
-/obj/machinery/shield/CanAtmosPass(var/turf/T)
-	return !density
+///obj/machinery/shield/CanAtmosPass(var/turf/T)
+//	return !density
 
 /obj/machinery/shield/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(!istype(W)) return

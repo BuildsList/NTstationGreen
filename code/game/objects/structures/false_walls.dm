@@ -249,9 +249,26 @@
 		return
 	..()
 
-/obj/structure/falsewall/plasma/proc/burnbabyburn(user)
+/obj/structure/falsewall/plasma/proc/burnbabyburn()
 	playsound(src, 'sound/items/Welder.ogg', 100, 1)
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
+	for(var/turf/simulated/floor/target_tile in range(0,src))
+		/*if(target_tile.parent && target_tile.parent.group_processing)
+			target_tile.parent.suspend_group_processing()*/
+		var/datum/gas_mixture/napalm = new
+		var/toxinsToDeduce = 20
+		napalm.toxins = toxinsToDeduce
+		napalm.temperature = 400+T0C
+		target_tile.assume_air(napalm)
+		spawn (0) target_tile.hotspot_expose(800, 400)
+	for(var/obj/structure/falsewall/plasma/F in range(3,src))//Hackish as fuck, but until temperature_expose works, there is nothing I can do -Sieve
+		var/turf/T = get_turf(F)
+		T.ChangeTurf(/turf/simulated/wall/mineral/plasma/)
+		del (F)
+	for(var/turf/simulated/wall/mineral/plasma/W in range(3,src))
+		W.ignite((800/4))//Added so that you can't set off a massive chain reaction with a small flame
+	for(var/obj/machinery/door/airlock/plasma/D in range(3,src))
+		D.ignite(800/4)
+
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 

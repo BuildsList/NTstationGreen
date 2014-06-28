@@ -89,7 +89,7 @@
 			W.dir = dir_to_set
 			W.ini_dir = W.dir
 			W.anchored = 0
-			W.air_update_turf(1)
+			W.update_nearby_tiles(need_rebuild=1)
 			src.use(1)
 			W.add_fingerprint(user)
 		if("Full Window")
@@ -106,7 +106,7 @@
 			W.dir = SOUTHWEST
 			W.ini_dir = SOUTHWEST
 			W.anchored = 0
-			W.air_update_turf(1)
+			W.update_nearby_tiles(need_rebuild=1)
 			W.add_fingerprint(user)
 			src.use(2)
 	return 0

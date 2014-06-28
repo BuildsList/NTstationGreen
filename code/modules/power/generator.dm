@@ -24,25 +24,26 @@
 
 
 /obj/machinery/power/generator/initialize()
-
 	circ1 = null
 	circ2 = null
+	if(src.loc && anchored)
+		if(src.dir & (EAST|WEST))
+			circ1 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,EAST)
+			circ2 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,WEST)
 
-	circ1 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,WEST)
-	circ2 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,EAST)
-	connect_to_network()
+			if(circ1 && circ2)
+				if(circ1.dir != SOUTH || circ2.dir != NORTH)
+					circ1 = null
+					circ2 = null
 
-	if(circ1)
-		circ1.side = 1
-		circ1.update_icon()
-	if(circ2)
-		circ2.side = 2
-		circ2.update_icon()
+		else if(src.dir & (NORTH|SOUTH))
+			circ1 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,NORTH)
+			circ2 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,SOUTH)
 
-	if(!circ1 || !circ2)
-		stat |= BROKEN
+			if(circ1 && circ2 && (circ1.dir != EAST || circ2.dir != WEST))
+				circ1 = null
+				circ2 = null
 
-	update_icon()
 
 
 /obj/machinery/power/generator/update_icon()

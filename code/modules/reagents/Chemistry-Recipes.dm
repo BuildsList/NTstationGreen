@@ -346,9 +346,19 @@ silicate
 	required_reagents = list("aluminium" = 1, "plasma" = 1, "sacid" = 1 )
 	result_amount = 1
 /datum/chemical_reaction/napalm/on_reaction(var/datum/reagents/holder, var/created_volume)
-	var/turf/simulated/T = get_turf(holder.my_atom)
-	if(istype(T))
-		T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, created_volume)
+	var/turf/location = get_turf(holder.my_atom.loc)
+	for(var/turf/simulated/floor/target_tile in range(0,location))
+
+		var/datum/gas_mixture/napalm = new
+		var/datum/gas/volatile_fuel/fuel = new
+		fuel.moles = created_volume
+		napalm.trace_gases += fuel
+
+		napalm.temperature = 400+T0C
+		napalm.update_values()
+
+		target_tile.assume_air(napalm)
+		spawn (0) target_tile.hotspot_expose(700, 400)
 	holder.del_reagent(id)
 	return
 
@@ -1233,9 +1243,20 @@ datum/chemical_reaction/pestkiller
 		O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 	spawn(50)
 		if(holder && holder.my_atom)
-			var/turf/simulated/T = get_turf(holder.my_atom)
-			if(istype(T))
-				T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
+			var/turf/location = get_turf(holder.my_atom.loc)
+			for(var/turf/simulated/floor/target_tile in range(0,location))
+
+				var/datum/gas_mixture/napalm = new
+				var/datum/gas/volatile_fuel/fuel = new
+				fuel.moles = 50
+				napalm.trace_gases += fuel
+
+				napalm.temperature = 400+T0C
+				napalm.update_values()
+
+				target_tile.assume_air(napalm)
+				spawn (0) target_tile.hotspot_expose(700, 400)
+
 
 //Yellow
 

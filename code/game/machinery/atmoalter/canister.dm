@@ -165,7 +165,6 @@ update_flag
 				environment.merge(removed)
 			else
 				loc.assume_air(removed)
-				air_update_turf()
 			src.update_icon()
 
 

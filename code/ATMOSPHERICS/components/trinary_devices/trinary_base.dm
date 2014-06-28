@@ -52,7 +52,9 @@ obj/machinery/atmospherics/trinary
 
 		return null
 
-	Destroy()
+	Del()
+		loc = null
+
 		if(node1)
 			node1.disconnect(src)
 			del(network1)
@@ -70,7 +72,7 @@ obj/machinery/atmospherics/trinary
 		..()
 
 	initialize()
-		src.disconnect(src)
+		if(node1 && node2 && node3) return
 
 		var/node1_connect = turn(dir, -180)
 		var/node2_connect = turn(dir, -90)

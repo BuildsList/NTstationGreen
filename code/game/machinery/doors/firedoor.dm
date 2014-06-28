@@ -128,8 +128,3 @@
 	else
 		return 1
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(var/turf/T)
-	if(get_dir(loc, T) == dir)
-		return !density
-	else
-		return 1

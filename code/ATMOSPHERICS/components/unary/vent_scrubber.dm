@@ -2,13 +2,11 @@
 	icon = 'icons/obj/atmospherics/vent_scrubber.dmi'
 	icon_state = "off"
 
-	name = "air scrubber"
+	name = "Air Scrubber"
 	desc = "Has a valve and pump attached to it"
 	use_power = 1
 
 	level = 1
-
-	can_unwrench = 1
 
 	var/area/initial_loc
 	var/id_tag = null
@@ -27,9 +25,7 @@
 	var/area_uid
 	var/radio_filter_out
 	var/radio_filter_in
-
 	New()
-		..()
 		initial_loc = get_area(loc)
 		if (initial_loc.master)
 			initial_loc = initial_loc.master
@@ -40,6 +36,7 @@
 		if(ticker && ticker.current_state == 3)//if the game is running
 			src.initialize()
 			src.broadcast_status()
+		..()
 
 	update_icon()
 		if(node && on && !(stat & (NOPOWER|BROKEN)))
@@ -78,7 +75,7 @@
 				"sigtype" = "status"
 			)
 			if(!initial_loc.air_scrub_names[id_tag])
-				var/new_name = "\improper [initial_loc.name] air scrubber #[initial_loc.air_scrub_names.len+1]"
+				var/new_name = "[initial_loc.name] Air Scrubber #[initial_loc.air_scrub_names.len+1]"
 				initial_loc.air_scrub_names[id_tag] = new_name
 				src.name = new_name
 			initial_loc.air_scrub_info[id_tag] = signal.data
@@ -139,7 +136,6 @@
 				air_contents.merge(filtered_out)
 
 				loc.assume_air(removed)
-				air_update_turf()
 
 				if(network)
 					network.update = 1
@@ -153,7 +149,6 @@
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 
 			air_contents.merge(removed)
-			air_update_turf()
 
 			if(network)
 				network.update = 1
@@ -178,13 +173,13 @@
 		if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 			return 0
 
-		if("power" in signal.data)
+		if(signal.data["power"] != null)
 			on = text2num(signal.data["power"])
-		if("power_toggle" in signal.data)
+		if(signal.data["power_toggle"] != null)
 			on = !on
 
-		if("panic_siphon" in signal.data) //must be before if("scrubbing" thing
-			panic = text2num(signal.data["panic_siphon"])
+		if(signal.data["panic_siphon"]) //must be before if("scrubbing" thing
+			panic = text2num(signal.data["panic_siphon"] != null)
 			if(panic)
 				on = 1
 				scrubbing = 0
@@ -192,7 +187,7 @@
 			else
 				scrubbing = 1
 				volume_rate = initial(volume_rate)
-		if("toggle_panic_siphon" in signal.data)
+		if(signal.data["toggle_panic_siphon"] != null)
 			panic = !panic
 			if(panic)
 				on = 1
@@ -202,31 +197,31 @@
 				scrubbing = 1
 				volume_rate = initial(volume_rate)
 
-		if("scrubbing" in signal.data)
+		if(signal.data["scrubbing"] != null)
 			scrubbing = text2num(signal.data["scrubbing"])
-		if("toggle_scrubbing" in signal.data)
+		if(signal.data["toggle_scrubbing"])
 			scrubbing = !scrubbing
 
-		if("co2_scrub" in signal.data)
+		if(signal.data["co2_scrub"] != null)
 			scrub_CO2 = text2num(signal.data["co2_scrub"])
-		if("toggle_co2_scrub" in signal.data)
+		if(signal.data["toggle_co2_scrub"])
 			scrub_CO2 = !scrub_CO2
 
-		if("tox_scrub" in signal.data)
+		if(signal.data["tox_scrub"] != null)
 			scrub_Toxins = text2num(signal.data["tox_scrub"])
-		if("toggle_tox_scrub" in signal.data)
+		if(signal.data["toggle_tox_scrub"])
 			scrub_Toxins = !scrub_Toxins
 
-		if("n2o_scrub" in signal.data)
+		if(signal.data["n2o_scrub"] != null)
 			scrub_N2O = text2num(signal.data["n2o_scrub"])
-		if("toggle_n2o_scrub" in signal.data)
+		if(signal.data["toggle_n2o_scrub"])
 			scrub_N2O = !scrub_N2O
 
-		if("init" in signal.data)
+		if(signal.data["init"] != null)
 			name = signal.data["init"]
 			return
 
-		if("status" in signal.data)
+		if(signal.data["status"] != null)
 			spawn(2)
 				broadcast_status()
 			return //do not update_icon
@@ -250,10 +245,29 @@
 		if (!(stat & NOPOWER) && on)
 			user << "\red You cannot unwrench this [src], turn it off first."
 			return 1
-		return ..()
+		var/turf/T = src.loc
+		if (level==1 && isturf(T) && T.intact)
+			user << "\red You must remove the plating first."
+			return 1
+		var/datum/gas_mixture/int_air = return_air()
+		var/datum/gas_mixture/env_air = loc.return_air()
+		if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+			add_fingerprint(user)
+			return 1
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user << "\blue You begin to unfasten \the [src]..."
+		if (do_after(user, 40))
+			user.visible_message( \
+				"[user] unfastens \the [src].", \
+				"\blue You have unfastened \the [src].", \
+				"You hear ratchet.")
+			new /obj/item/pipe(loc, make_from=src)
+			del(src)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
+/obj/machinery/atmospherics/unary/vent_scrubber/Del()
 	if(initial_loc)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
 	..()
+	return

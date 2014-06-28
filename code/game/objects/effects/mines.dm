@@ -44,12 +44,39 @@
 	qdel(src)
 
 /obj/effect/mine/proc/triggern2o(obj)
-	atmos_spawn_air("n2o", 360)
-	qdel(src)
+	//example: n2o triggerproc
+	//note: im lazy
+
+	for (var/turf/simulated/floor/target in range(1,src))
+		if(!target.blocks_air)
+
+			var/datum/gas_mixture/payload = new
+			var/datum/gas/sleeping_agent/trace_gas = new
+
+			trace_gas.moles = 30
+			payload += trace_gas
+
+			target.zone.air.merge(payload)
+
+	spawn(0)
+		del(src)
+
 
 /obj/effect/mine/proc/triggerplasma(obj)
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 360)
-	qdel(src)
+	for (var/turf/simulated/floor/target in range(1,src))
+		if(!target.blocks_air)
+
+			var/datum/gas_mixture/payload = new
+
+			payload.toxins = 30
+
+			target.zone.air.merge(payload)
+
+			target.hotspot_expose(1000, CELL_VOLUME)
+
+	spawn(0)
+		del(src)
+
 
 /obj/effect/mine/proc/triggerkick(obj)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread

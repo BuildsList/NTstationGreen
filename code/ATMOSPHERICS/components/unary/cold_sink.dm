@@ -4,7 +4,7 @@
 	density = 1
 	use_power = 1
 
-	name = "cold sink"
+	name = "Cold Sink"
 	desc = "Cools gas when connected to pipe network"
 
 	var/on = 0

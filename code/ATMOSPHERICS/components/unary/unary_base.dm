@@ -28,7 +28,9 @@
 
 		return null
 
-	Destroy()
+	Del()
+		loc = null
+
 		if(node)
 			node.disconnect(src)
 			del(network)
@@ -37,29 +39,17 @@
 
 		..()
 
-	initialize(infiniteloop = 0)
-		if(!infiniteloop)
-			src.disconnect(src)
+	initialize()
+		if(node) return
 
 		var/node_connect = dir
 
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 			if(target.initialize_directions & get_dir(target,src))
 				node = target
-				if(!infiniteloop)
-					target.initialize(1)
 				break
-		build_network()
 
 		update_icon()
-
-	default_change_direction_wrench(mob/user, obj/item/weapon/wrench/W)
-		if(..())
-			initialize_directions = dir
-			if(node)
-				disconnect(node)
-			initialize()
-			. = 1
 
 	build_network()
 		if(!network && node)
@@ -92,8 +82,7 @@
 
 	disconnect(obj/machinery/atmospherics/reference)
 		if(reference==node)
-			node = null
-			reference.disconnect(src)
 			del(network)
+			node = null
 
 		return null

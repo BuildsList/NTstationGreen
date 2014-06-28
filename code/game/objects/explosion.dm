@@ -102,11 +102,11 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 		for(var/turf/T in trange(max_range, epicenter))
 
 			var/dist = cheap_pythag(T.x - x0,T.y - y0)
-			var/flame_dist = 0
-			var/hotspot_exists
+//			var/flame_dist = 0
+//			var/hotspot_exists
 
-			if(dist < flame_range)
-				flame_dist = 1
+//			if(dist < flame_range)
+//				flame_dist = 1
 
 			if(dist < devastation_range)		dist = 1
 			else if(dist < heavy_impact_range)	dist = 2
@@ -117,9 +117,9 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			//------- TURF FIRES -------
 
 			if(T)
-				if(flame_dist && prob(40) && !istype(T, /turf/space))
+			/*	if(flame_dist && prob(40) && !istype(T, /turf/space))
 					new/obj/effect/hotspot(T) //Mostly for ambience!
-					hotspot_exists = 1
+					hotspot_exists = 1*/
 				if(dist)
 					if(T)
 						T.ex_act(dist)
@@ -130,10 +130,10 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 					var/atom/movable/AM = atom_movable
 
 					if(AM) //Something is inside T (We have already checked T exists above) - RR
-						if(flame_dist) //if it has flame distance, run this - RR
+					/*	if(flame_dist) //if it has flame distance, run this - RR
 							if(isliving(AM) && !hotspot_exists && !istype(T, /turf/space))
 								if(AM && AM.loc!=null)
-									new /obj/effect/hotspot(AM.loc)
+									new /obj/effect/hotspot(AM.loc)*/
 								//Just in case we missed a mob while they were in flame_range, but a hotspot didn't spawn on them, otherwise it looks weird when you just burst into flame out of nowhere
 						if(dist) //if no flame_dist, run this - RR
 							if(AM)

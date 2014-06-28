@@ -219,3 +219,10 @@
 // eventually maybe have it update icon to show state (timer, prox etc.) like old bombs
 /obj/item/device/transfer_valve/proc/c_state()
 	return
+
+
+/obj/item/device/transfer_valve/HasEntered(atom/movable/AM as mob|obj) //for mousetraps
+	if(attached_device)
+		attached_device.HasEntered(AM)
+
+

@@ -135,6 +135,8 @@
 			found += A.search_contents_for(path,filter_path)
 	return found
 
+/atom/proc/HasEntered(atom/movable/AM as mob|obj)
+	return
 
 
 

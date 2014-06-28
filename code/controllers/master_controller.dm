@@ -132,9 +132,18 @@ datum/controller/game_controller/proc/process()
 				if(!air_processing_killed)
 					timer = world.timeofday
 					last_thing_processed = air_master.type
-					air_master.process()
-					air_cost = (world.timeofday - timer) / 10
-					global_activeturfs = air_master.active_turfs.len
+
+					air_master.current_cycle++
+					if(!air_master.tick()) //Runtimed.
+						air_master.failed_ticks++
+						if(air_master.failed_ticks > 5)
+							//world << "<font color='red'><b>RUNTIMES IN ATMOS TICKER.  Killing air simulation!</font></b>"
+							world.log << "### ZAS SHUTDOWN"
+							message_admins("ZASALERT: unable to run [air_master.tick_progress], shutting down!")
+							log_admin("ZASALERT: unable run zone/process() -- [air_master.tick_progress]")
+							air_processing_killed = 1
+							air_master.failed_ticks = 0
+				air_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
 

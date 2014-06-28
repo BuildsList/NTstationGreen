@@ -236,10 +236,10 @@
 	if(anchored)
 		usr << "It is fastened to the floor therefore you can't rotate it!"
 		return 0
-
+	update_nearby_tiles(need_rebuild=1) //Compel updates before
 	dir = turn(dir, 90)
 //	updateSilicate()
-	air_update_turf(1)
+	update_nearby_tiles(need_rebuild=1)
 	ini_dir = dir
 	add_fingerprint(usr)
 	return
@@ -253,10 +253,10 @@
 	if(anchored)
 		usr << "It is fastened to the floor therefore you can't rotate it!"
 		return 0
-
+	update_nearby_tiles(need_rebuild=1) //Compel updates before
 	dir = turn(dir, 270)
 //	updateSilicate()
-	air_update_turf(1)
+	update_nearby_tiles(need_rebuild=1)
 	ini_dir = dir
 	add_fingerprint(usr)
 	return
@@ -295,7 +295,7 @@
 	else
 		icon_state = "window"
 
-	air_update_turf(1)
+	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 
 	return
@@ -303,24 +303,11 @@
 
 /obj/structure/window/Destroy()
 	density = 0
-	air_update_turf(1)
+	update_nearby_tiles()
 	playsound(src, "shatter", 70, 1)
 	update_nearby_icons()
 	..()
 
-
-/obj/structure/window/Move()
-	var/turf/T = loc
-	..()
-	dir = ini_dir
-	move_update_air(T)
-
-/obj/structure/window/CanAtmosPass(turf/T)
-	if(get_dir(loc, T) == dir)
-		return !density
-	if(dir == SOUTHWEST || dir == SOUTHEAST || dir == NORTHWEST || dir == NORTHEAST)
-		return !density
-	return 1
 
 //checks if this window is full-tile one
 /obj/structure/window/proc/is_fulltile()
@@ -383,3 +370,24 @@
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "fwindow"
+
+//This proc has to do with airgroups and atmos, it has nothing to do with smoothwindows, that's update_nearby_tiles().
+/obj/structure/window/proc/update_nearby_tiles(need_rebuild)
+	if(!air_master) return 0
+	if(!dir in cardinal)
+		var/turf/simulated/source = get_turf(src)
+		if(istype(source))
+			air_master.tiles_to_update |= source
+			for(var/dir in cardinal)
+				var/turf/simulated/target = get_step(source,dir)
+				if(istype(target)) air_master.tiles_to_update |= target
+		return 1
+
+	var/turf/simulated/source = get_turf(src)
+	var/turf/simulated/target = get_step(source,dir)
+
+	if(istype(source)) air_master.tiles_to_update |= source
+	if(istype(target)) air_master.tiles_to_update |= target
+
+	return 1
+
