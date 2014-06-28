@@ -7320,7 +7320,7 @@
 "cKN" = (/obj/structure/table/reinforced,/obj/item/weapon/pen,/turf/unsimulated/floor{dir = 1; icon_state = "green"},/area/centcom/evac)
 "cKO" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/turf/unsimulated/floor{dir = 1; icon_state = "green"},/area/centcom/evac)
 "cKP" = (/turf/simulated/shuttle/wall{icon_state = "swall1"; dir = 2},/area/shuttle/escape/centcom)
-"cKQ" = (/obj/machinery/flasher{id = "shuttle_flasher"; pixel_x = -24; pixel_y = 6},/obj/machinery/flasher_button{id = "shuttle_flasher"; pixel_x = -24; pixel_y = -6},/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor4,/area)
+"cKQ" = (/obj/machinery/flasher{id = "shuttle_flasher"; pixel_x = -24; pixel_y = 6},/obj/machinery/flasher_button{id = "shuttle_flasher"; pixel_x = -24; pixel_y = -6},/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor4,/area/shuttle/escape/centcom)
 "cKR" = (/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "snow"},/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow_corner"},/area/syndicate_mothership)
 "cKS" = (/obj/structure/rack,/obj/item/clothing/head/that,/obj/item/clothing/under/suit_jacket,/obj/item/clothing/tie/waistcoat,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/centcom/holding)
 "cKT" = (/obj/item/weapon/beach_ball,/turf/unsimulated/beach/sand,/area/centcom/holding)
