@@ -1514,7 +1514,7 @@
 "aDf" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor{icon_state = "vault"; dir = 4},/area/ai_monitored/nuke_storage)
 "aDg" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/obj/structure/window/reinforced,/turf/simulated/floor{icon_state = "dark"},/area/gateway)
 "aDh" = (/obj/structure/window/reinforced,/turf/simulated/floor{icon_state = "dark"},/area/gateway)
-"aDi" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/window{name = "Gateway Chamber"; req_access_txt = "62"},/turf/simulated/floor{icon_state = "dark"},/area/gateway)
+"aDi" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/window{dir = 2; name = "Gateway Chamber"; req_access_txt = "62"},/turf/simulated/floor{icon_state = "dark"},/area/gateway)
 "aDj" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 0; scrub_Toxins = 0},/obj/structure/window/reinforced,/turf/simulated/floor{icon_state = "dark"},/area/gateway)
 "aDk" = (/obj/structure/rack{dir = 1},/obj/item/weapon/extinguisher,/obj/item/clothing/mask/gas,/turf/simulated/floor/plating,/area/maintenance/fpmaint)
 "aDl" = (/obj/machinery/suit_storage_unit/standard_unit,/turf/simulated/floor{dir = 10; icon_state = "warning"},/area/ai_monitored/storage/eva)
