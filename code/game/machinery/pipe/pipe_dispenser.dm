@@ -19,6 +19,8 @@
 <A href='?src=\ref[src];make=5;dir=1'>Manifold</A><BR>
 <A href='?src=\ref[src];make=8;dir=1'>Manual Valve</A><BR>
 <A href='?src=\ref[src];make=18;dir=1'>Digital Valve</A><BR>
+<A href='?src=\ref[src];make=21;dir=1'>upward Pipe</A><BR>
+<A href='?src=\ref[src];make=22;dir=1'>downward Pipe</A><BR>
 <b>Devices:</b><BR>
 <A href='?src=\ref[src];make=4;dir=1'>Connector</A><BR>
 <A href='?src=\ref[src];make=7;dir=1'>Vent</A><BR>
@@ -147,6 +149,8 @@ Nah
 <A href='?src=\ref[src];dmake=5'>Bin</A><BR>
 <A href='?src=\ref[src];dmake=6'>Outlet</A><BR>
 <A href='?src=\ref[src];dmake=7'>Chute</A><BR>
+<A href='?src=\ref[src];dmake=21'>Upwards</A><BR>
+<A href='?src=\ref[src];dmake=22'>Downwards</A><BR>
 "}
 
 	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
@@ -187,6 +191,12 @@ Nah
 				if(7)
 					C.ptype = 8
 					C.density = 1
+///// Z-Level stuff
+				if(21)
+					C.ptype = 11
+				if(22)
+					C.ptype = 12
+///// Z-Level stuff
 			C.add_fingerprint(usr)
 			C.update()
 			wait = 1
