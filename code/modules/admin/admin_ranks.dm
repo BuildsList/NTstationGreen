@@ -272,7 +272,7 @@ var/list/admin_ranks = list()								//list of all admin_rank datums
 			D.disassociate()
 
 			if(!findtext(D.rank.name, "([adm_ckey])"))	//not a modified subrank, need to duplicate the admin_rank datum to prevent modifying others too
-				D.rank = new("[D.rank.name]([adm_ckey])", D.rank.rights, D.rank.adds, D.rank.subs)	//duplicate our previous admin_rank but with a new name
+				D.rank = new("[D.rank.name]", D.rank.rights, D.rank.adds, D.rank.subs)	//duplicate our previous admin_rank but with a new name
 				//we don't add this clone to the admin_ranks list, as it is unique to that ckey
 
 			D.rank.process_keyword(keyword)
