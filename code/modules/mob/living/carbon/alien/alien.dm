@@ -223,4 +223,3 @@ Des: Removes all infected images from the alien.
 #undef HEAT_DAMAGE_LEVEL_1
 #undef HEAT_DAMAGE_LEVEL_2
 #undef HEAT_DAMAGE_LEVEL_3
-

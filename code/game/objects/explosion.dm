@@ -20,7 +20,7 @@ proc/trange(var/Dist=0,var/turf/Center=null)//alternative to range (ONLY process
 	return block(x1y1,x2y2)
 
 
-proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, z_transfer = 0)
+proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0)
 	src = null	//so we don't abort once src is deleted
 	epicenter = get_turf(epicenter)
 
@@ -46,12 +46,6 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			//So max power is (3 * 4) + (1.5 * 8) + (0.75 * 15) = 36,25
 			explosion_rec(epicenter, power)
 			return
-
-///// Z-Level Stuff
-		if(z_transfer && (devastation_range > 0 || heavy_impact_range > 0))
-			//transfer the explosion in both directions
-			explosion_z_transfer(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
-///// Z-Level Stuff
 
 		var/start = world.timeofday
 		if(!epicenter) return
@@ -171,20 +165,3 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in trange(range, epicenter))
 		tile.ex_act(2)
-
-///// Z-Level Stuff
-proc/explosion_z_transfer(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, up = 1, down = 1)
-	var/turf/controllerlocation = locate(1, 1, epicenter.z)
-	for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
-		if(controller.down)
-			//start the child explosion, no admin log and no additional transfers
-			explosion(locate(epicenter.x, epicenter.y, controller.down_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 0, 0)
-			if(devastation_range - 2 > 0 || heavy_impact_range - 2 > 0) //only transfer further if the explosion is still big enough
-				explosion(locate(epicenter.x, epicenter.y, controller.down_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 0, 1)
-
-		if(controller.up)
-			//start the child explosion, no admin log and no additional transfers
-			explosion(locate(epicenter.x, epicenter.y, controller.up_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 0, 0)
-			if(devastation_range - 2 > 0 || heavy_impact_range - 2 > 0) //only transfer further if the explosion is still big enough
-				explosion(locate(epicenter.x, epicenter.y, controller.up_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 1, 0)
-///// Z-Level Stuff

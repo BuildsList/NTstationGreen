@@ -53,6 +53,9 @@ datum/controller/game_controller/New()
 	if(!events)
 		new /datum/controller/event()
 
+	if(!air_master)
+		air_master = new /datum/controller/air_system()
+		air_master.setup()
 
 	if(!job_master)
 		job_master = new /datum/controller/occupations()
@@ -68,10 +71,6 @@ datum/controller/game_controller/New()
 
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
-
-	if(!air_master)
-		air_master = new /datum/controller/air_system()
-		air_master.Setup()
 
 	setup_objects()
 	setupgenetics()
@@ -135,7 +134,7 @@ datum/controller/game_controller/proc/process()
 					last_thing_processed = air_master.type
 
 					air_master.current_cycle++
-					if(!air_master.Tick()) //Runtimed.
+					if(!air_master.tick()) //Runtimed.
 						air_master.failed_ticks++
 						if(air_master.failed_ticks > 5)
 							//world << "<font color='red'><b>RUNTIMES IN ATMOS TICKER.  Killing air simulation!</font></b>"
