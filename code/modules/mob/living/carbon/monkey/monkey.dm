@@ -376,3 +376,9 @@
 				playsound(loc, "chimpers", 25, 1, 1)//So aliens can hiss while they hiss yo/N
 			return ..(message)
 
+
+/mob/living/carbon/monkey/verb/ventcrawl()
+	set name = "Crawl through Vent"
+	set desc = "Enter an air vent and crawl through the pipe system."
+	set category = "Monkey"
+	handle_ventcrawl()

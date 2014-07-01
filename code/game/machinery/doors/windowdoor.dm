@@ -11,6 +11,15 @@
 	opacity = 0
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	explosion_resistance = 5
+	air_properties_vary_with_direction = 1
+
+/obj/machinery/door/window/update_nearby_tiles(need_rebuild)
+	if(!air_master)
+		return 0
+
+	air_master.AddTurfToUpdate(get_turf(src))
+
+	return 1
 
 /obj/machinery/door/window/New()
 	..()
@@ -125,7 +134,7 @@
 
 /obj/machinery/door/window/bullet_act(var/obj/item/projectile/Proj)
 	if(Proj.damage)
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		if((Proj.damage_type == BRUTE))
 			take_damage(round(Proj.damage / 2))
 	..()
 

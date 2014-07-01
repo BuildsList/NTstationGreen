@@ -1,6 +1,6 @@
 /obj/machinery/door/poddoor
-	name = "blast door"
-	desc = "A heavy duty blast door that opens mechanically."
+	name = "Podlock"
+	desc = "Why it no open!!!"
 	icon = 'icons/obj/doors/blastdoor.dmi'
 	icon_state = "closed"
 	explosion_resistance = 25
