@@ -9,8 +9,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	config_tag = "changeling"
 	antag_flag = BE_CHANGELING
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
-	required_players = 15
+	protected_jobs = list()
+	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 4
 
