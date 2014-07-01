@@ -379,6 +379,10 @@ Release Pressure: <A href='?src=\ref[src];pressure_adj=-1000'>-</A> <A href='?sr
 				sleep(10)
 			location.assume_air(air_contents)
 			air_contents = new
+	var/datum/gas/sleeping_agent/sleep_gas = new
+	sleep_gas.moles = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	var/list/datum/gas/trace = list(sleep_gas)
+	air_contents.adjust(0,0,0,0,trace)
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/New()
