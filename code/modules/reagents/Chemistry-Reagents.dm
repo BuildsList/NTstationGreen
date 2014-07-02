@@ -951,10 +951,10 @@ datum
 				if(M.stat == 2.0)
 					return
 				if(!M) M = holder.my_atom
-				if(M.getOxyLoss() && prob(80)) M.adjustOxyLoss(-1*REM)
-				if(M.getBruteLoss() && prob(80)) M.heal_organ_damage(1*REM,0)
-				if(M.getFireLoss() && prob(80)) M.heal_organ_damage(0,1*REM)
-				if(M.getToxLoss() && prob(80)) M.adjustToxLoss(-1*REM)
+				if(M.getOxyLoss() && prob(80)) M.adjustOxyLoss(-2*REM)
+				if(M.getBruteLoss() && prob(80)) M.heal_organ_damage(2*REM,0)
+				if(M.getFireLoss() && prob(80)) M.heal_organ_damage(0,2*REM)
+				if(M.getToxLoss() && prob(80)) M.adjustToxLoss(-2*REM)
 				..()
 				return
 
