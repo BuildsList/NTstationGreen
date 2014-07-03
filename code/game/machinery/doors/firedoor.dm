@@ -6,6 +6,7 @@
 	desc = "Apply crowbar"
 	icon = 'icons/obj/doors/Doorfire.dmi'
 	icon_state = "door_open"
+	layer = 2.6
 	opacity = 0
 	density = 0
 	power_channel = ENVIRON
