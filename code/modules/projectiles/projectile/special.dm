@@ -153,7 +153,7 @@
 	trace_residue = null
 	var/range = 2
 
-obj/item/projectile/kinetic/New()
+/obj/item/projectile/kinetic/New()
 	var/turf/proj_turf = get_turf(src)
 	if(!istype(proj_turf, /turf))
 		return
@@ -161,7 +161,7 @@ obj/item/projectile/kinetic/New()
 	var/pressure = environment.return_pressure()
 	if(pressure < 50)
 		name = "full strength kinetic force"
-		damage = 30
+		damage *= 2
 	..()
 
 /obj/item/projectile/kinetic/Range()
