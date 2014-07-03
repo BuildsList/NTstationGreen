@@ -127,12 +127,6 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	if(istype(W, /obj/item/weapon/wirecutters))
 
-///// Z-Level Stuff
-		if(src.d1 == 12 || src.d2 == 12)
-			user << "<span class='warning'>You must cut this cable from above.</span>"
-			return
-///// Z-Level Stuff
-
 		if (shock(user, 50))
 			return
 
@@ -143,17 +137,6 @@ By design, d1 is the smallest direction and d2 is the highest
 
 		for(var/mob/O in viewers(src, null))
 			O.show_message("\red [user] cuts the cable.", 1)
-
-///// Z-Level Stuff
-		if(src.d1 == 11 || src.d2 == 11)
-			var/turf/controllerlocation = locate(1, 1, z)
-			for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
-				if(controller.down)
-					var/turf/below = locate(src.x, src.y, controller.down_target)
-					for(var/obj/structure/cable/c in below)
-						if(c.d1 == 12 || c.d2 == 12)
-							c.Del()
-///// Z-Level Stuff
 
 		investigate_log("was cut by [key_name(usr, usr.client)] in [user.loc.loc]","wires")
 
@@ -374,43 +357,35 @@ obj/structure/cable/proc/avail()
 	. = list()	// this will be a list of all connected power objects
 	var/turf/T
 
-///// Z-Level Stuff
-	if(d1)
-		if(d1 <= 10)
-			T = get_step(src, d1)
-			if(T)
-				. += power_list(T, src, d1, 1)
-		else if (d1 == 11 || d1 == 12)
-			var/turf/controllerlocation = locate(1, 1, z)
-			for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
-				if(controller.up && d1 == 12)
-					T = locate(src.x, src.y, controller.up_target)
-					if(T)
-						. += power_list(T, src, 11, 1)
-				if(controller.down && d1 == 11)
-					T = locate(src.x, src.y, controller.down_target)
-					if(T)
-						. += power_list(T, src, 12, 1)
-	else if(!d1)
+	//get matching cables from the first direction
+	if(d1) //if not a node cable
+		T = get_step(src, d1)
 		if(T)
-			. += power_list(T, src, d1, 1)
+			. += power_list(T, src, turn(d1, 180), powernetless_only) //get adjacents matching cables
 
-	if(d2 == 11 || d2 == 12)
-		var/turf/controllerlocation = locate(1, 1, z)
-		for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
-			if(controller.up && d2 == 12)
-				T = locate(src.x, src.y, controller.up_target)
-				if(T)
-					. += power_list(T, src, 11, 1)
-			if(controller.down && d2 == 11)
-				T = locate(src.x, src.y, controller.down_target)
-				if(T)
-					. += power_list(T, src, 12, 1)
-	else
-		T = get_step(src, d2)
+	if(d1&(d1-1)) //diagonal direction, must check the 4 possibles adjacents tiles
+		T = get_step(src,d1&3) // go north/south
 		if(T)
-			. += power_list(T, src, d2, 1)
-///// Z-Level Stuff
+			. += power_list(T, src, d1 ^ 3, powernetless_only) //get diagonally matching cables
+		T = get_step(src,d1&12) // go east/west
+		if(T)
+			. += power_list(T, src, d1 ^ 12, powernetless_only) //get diagonally matching cables
+
+	. += power_list(loc, src, d1, powernetless_only) //get on turf matching cables
+
+	//do the same on the second direction (which can't be 0)
+	T = get_step(src, d2)
+	if(T)
+		. += power_list(T, src, turn(d2, 180), powernetless_only) //get adjacents matching cables
+
+	if(d2&(d2-1)) //diagonal direction, must check the 4 possibles adjacents tiles
+		T = get_step(src,d2&3) // go north/south
+		if(T)
+			. += power_list(T, src, d2 ^ 3, powernetless_only) //get diagonally matching cables
+		T = get_step(src,d2&12) // go east/west
+		if(T)
+			. += power_list(T, src, d2 ^ 12, powernetless_only) //get diagonally matching cables
+	. += power_list(loc, src, d2, powernetless_only) //get on turf matching cables
 
 	return .
 
@@ -650,75 +625,33 @@ obj/structure/cable/proc/avail()
 				user << "There's already a cable at that position."
 				return
 
-///// Z-Level Stuff
-		// check if the target is open space
-		if(istype(F, /turf/simulated/floor/open))
-			for(var/obj/structure/cable/LC in F)
-				if((LC.d1 == dirn && LC.d2 == 11 ) || ( LC.d2 == dirn && LC.d1 == 11))
-					user << "<span class='warning'>There's already a cable at that position.</span>"
-					return
+		var/obj/structure/cable/C = new(F)
 
-			var/turf/simulated/floor/open/temp = F
-			var/obj/structure/cable/C = new(F)
-			var/obj/structure/cable/D = new(temp.floorbelow)
+		C.cableColor(item_color)
 
-			C.cableColor(item_color)
+		//set up the new cable
+		C.d1 = 0 //it's a O-X node cable
+		C.d2 = dirn
+		C.add_fingerprint(user)
+		C.updateicon()
 
-			C.d1 = 11
-			C.d2 = dirn
-			C.add_fingerprint(user)
-			C.updateicon()
+		//create a new powernet with the cable, if needed it will be merged later
+		var/datum/powernet/PN = new()
+		PN.add_cable(C)
 
-			C.powernet = new()
-			powernets += C.powernet
-			C.powernet.cables += C
+		C.mergeConnectedNetworks(C.d2) //merge the powernet with adjacents powernets
+		C.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
 
-			C.mergeConnectedNetworks(C.d2)
-			C.mergeConnectedNetworksOnTurf()
-
-			D.cableColor(item_color)
-
-			D.d1 = 12
-			D.d2 = 0
-			D.add_fingerprint(user)
-			D.updateicon()
-
-			D.powernet = C.powernet
-			D.powernet.cables += D
-
-			D.mergeConnectedNetworksOnTurf()
-
-		// do the normal stuff
-		else
-///// Z-Level Stuff
-
-			var/obj/structure/cable/C = new(F)
-
-			C.cableColor(item_color)
-
-			//set up the new cable
-			C.d1 = 0 //it's a O-X node cable
-			C.d2 = dirn
-			C.add_fingerprint(user)
-			C.updateicon()
-
-			//create a new powernet with the cable, if needed it will be merged later
-			var/datum/powernet/PN = new()
-			PN.add_cable(C)
-
-			C.mergeConnectedNetworks(C.d2) //merge the powernet with adjacents powernets
-			C.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
-
-			if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
-				C.mergeDiagonalsNetworks(C.d2)
+		if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
+			C.mergeDiagonalsNetworks(C.d2)
 
 
-			use(1)
+		use(1)
 
-			if (C.shock(user, 50))
-				if (prob(50)) //fail
-					new/obj/item/stack/cable_coil(C.loc, 1, C.cable_color)
-					qdel(C)
+		if (C.shock(user, 50))
+			if (prob(50)) //fail
+				new/obj/item/stack/cable_coil(C.loc, 1, C.cable_color)
+				qdel(C)
 
 // called when cable_coil is click on an installed obj/cable
 // or click on a turf that already contains a "node" cable
