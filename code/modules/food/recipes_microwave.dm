@@ -701,7 +701,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/smeatballspagetti
+	result = /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/sauced
 
 /datum/recipe/spesslaw
 	reagents = list("water" = 5)
@@ -725,7 +725,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/sspesslaw
+	result = /obj/item/weapon/reagent_containers/food/snacks/spesslaw/sauced
 
 /datum/recipe/superbiteburger
 	reagents = list("sodiumchloride" = 5, "blackpepper" = 5) //"flour" = 15
@@ -1005,14 +1005,6 @@
 /*/*/*/*/*/*/*/*/*/*/*/*
 /*/*NSV LUNA RECIPES*/*/
 */*/*/*/*/*/*/*/*/*/*/*/
-
-
-
-
-/datum/recipe/candycane
-	reagents = list("sugar" = 5)
-	result = /obj/item/weapon/reagent_containers/food/snacks/candycane
-
 
 /datum/recipe/bun
 	items = list(

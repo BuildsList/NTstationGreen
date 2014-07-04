@@ -653,6 +653,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/sausage
 	name = "sausage"
 	desc = "A piece of mixed, long meat."
+	icon = 'icons/obj/food_ingredients.dmi'
 	icon_state = "sausage"
 	filling_color = "#AB5746"
 	New()
@@ -1704,7 +1705,7 @@
 		reagents.add_reagent("nutriment", 8)
 		bitesize = 2
 
-/obj/item/weapon/reagent_containers/food/snacks/sspesslaw
+/obj/item/weapon/reagent_containers/food/snacks/spesslaw/sauced
 	name = "Sauced Spesslaw"
 	desc = "So Itallian"
 	icon_state = "sspesslaw"
@@ -2884,6 +2885,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/rawsticks
 	name = "raw potato sticks"
 	desc = "Maybe you should cook it first?"
+	icon = 'icons/obj/food_ingredients.dmi'
 	icon_state = "rawsticks"
 	New()
 		..()
@@ -2900,86 +2902,31 @@
 		bitesize = 3
 
 
-
-/obj/item/weapon/reagent_containers/food/snacks/flatdough
-	name = "flat dough"
-	desc = "A flattened dough."
-	icon_state = "flat dough"
-	slice_path = /obj/item/weapon/reagent_containers/food/snacks/doughslice
-	slices_num = 3
-	New()
-		..()
-		reagents.add_reagent("nutriment", 10)
-		bitesize = 3
-
-
-/obj/item/weapon/reagent_containers/food/snacks/doughslice
-	name = "dough slice"
-	desc = "Make your magic."
-	icon_state = "doughslice"
-	New()
-		..()
-		reagents.add_reagent("nutriment", 3)
-		bitesize = 1
-
-
 /obj/item/weapon/reagent_containers/food/snacks/rawcutlet
 	name = "raw cutlet"
 	desc = "A thin piece of meat."
+	icon = 'icons/obj/food_ingredients.dmi'
 	icon_state = "rawcutlet"
 	New()
 		..()
 		reagents.add_reagent("nutriment", 5)
 		bitesize = 2
 
-
-
 /obj/item/weapon/reagent_containers/food/snacks/rawmeatball
 	name = "raw meatball"
 	desc = "A raw meatball."
+	icon = 'icons/obj/food_ingredients.dmi'
 	icon_state = "rawmeatball"
 	New()
 		..()
 		reagents.add_reagent("nutriment", 5)
 		bitesize = 2
 
-
-
-
-///////////////////////////////////////////////////////
-//                                                   //
-//                       Sauces                      //
-//                                                   //
-///////////////////////////////////////////////////////
-
-/*obj/item/weapon/reagent_containers/food/condiment/pack/ketchup
-	name = "ketchup"
-	desc = "Goes well with meat."
-	icon_state = "ketchup"
-	New()
-		..()
-		reagents.add_reagent("ketchup", 1)
-		bitesize = 10*/ //in condiment.dm
-
-
 ///////////////////////////////////////////////////////
 //                                                   //
 //                      Bakery                       //
 //                                                   //
 ///////////////////////////////////////////////////////
-
-/obj/item/weapon/reagent_containers/food/snacks/candycane
-	name = "candy cane"
-	desc = "Sweet and sticky."
-	icon_state = "candycane"
-	New()
-		..()
-		reagents.add_reagent("nutriment", 10)
-		bitesize = 3
-
-
-
-
 /obj/item/weapon/reagent_containers/food/snacks/pattyapple
 	name = "apple patty"
 	desc = "Like grandma's."
@@ -3005,6 +2952,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/flatbread
 	name = "flatbread"
 	desc = "Bland but filling."
+	icon = 'icons/obj/food_ingredients.dmi'
 	icon_state = "flatbread"
 	New()
 		..()
@@ -3019,21 +2967,6 @@
 //                    Cooked food                    //
 //                                                   //
 ///////////////////////////////////////////////////////
-
-
-
-
-/obj/item/weapon/reagent_containers/food/snacks/sbakedpotato
-	name = "sauced potatoes"
-	desc = "It smells and tastes great!"
-	icon_state = "sbakedpotato"
-	New()
-		..()
-		reagents.add_reagent("nutriment", 10)
-		bitesize = 3
-
-
-
 /*obj/item/weapon/reagent_containers/food/snacks/sspaghetti
 	name = "sauced spaghetti"
 	desc = "Long and tasty - 'Tomato Noodles'."
@@ -3043,7 +2976,7 @@
 		reagents.add_reagent("nutriment", 8)
 		bitesize = 3*/
 
-/obj/item/weapon/reagent_containers/food/snacks/smeatballspagetti
+/obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/sauced
 	name = "sauced spaghetti with meatballs"
 	desc = "A tasty dinner - 'Spaghetti Terror'."
 	icon_state = "smeatspaghetti"
@@ -3053,7 +2986,7 @@
 		bitesize = 5
 
 
-/obj/item/weapon/reagent_containers/food/snacks/somelette
+/obj/item/weapon/reagent_containers/food/snacks/omelette/sauced
 	name = "sauced omelette"
 	desc = "A saucy dish - 'Bloody Alien'."
 	icon_state = "somelette"
@@ -3064,8 +2997,7 @@
 
 
 
-/obj/item/weapon/reagent_containers/food/snacks/ssteak
-	name = "sauced steak"
+/obj/item/weapon/reagent_containers/food/snacks/meatsteak/sauced
 	desc = "A sauced meat steak."
 	icon_state = "smeatstake"
 	New()
@@ -3077,6 +3009,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
 	desc = "A tasty meat slice - 'Cutlet'."
+	icon = 'icons/obj/food_ingredients.dmi'
 	icon_state = "cutlet"
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/bacon
 	slices_num = 1
@@ -3113,7 +3046,7 @@
 		bitesize = 3
 
 
-/obj/item/weapon/reagent_containers/food/snacks/shotdog
+/obj/item/weapon/reagent_containers/food/snacks/hotdog/sauced
 	name = "sauced hotdog"
 	desc = "Unrelated to dogs - 'Royal Hotdog'."
 	icon_state = "shotdog"
@@ -3123,7 +3056,7 @@
 		bitesize = 3
 
 
-/obj/item/weapon/reagent_containers/food/snacks/sburger
+/obj/item/weapon/reagent_containers/food/snacks/burger/sauced
 	name = "sauced burger"
 	desc = "A fast way to become fat - 'Space Burger'."
 	icon_state = "shburger"
@@ -3131,18 +3064,6 @@
 		..()
 		reagents.add_reagent("nutriment", 12)
 		bitesize = 3
-
-
-
-/obj/item/weapon/reagent_containers/food/snacks/shamburger
-	name = "sauced hamburger"
-	desc = "A fast way to become fat - 'Star Hamburger'."
-	icon_state = "shburger"
-	New()
-		..()
-		reagents.add_reagent("nutriment", 12)
-		bitesize = 3
-
 
 /obj/item/weapon/reagent_containers/food/snacks/taco
 	name = "taco"
@@ -3168,28 +3089,8 @@
 		qdel(src)
 
 //Burger + Burger Or Hamburger + Hamburger Or Hamburger + Burger = Bib Bite Burger
-/obj/item/weapon/reagent_containers/food/snacks/monkeyburger/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/monkeyburger))
-
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/bigbite(get_turf(user))
-		user << "You make a big bite burger!"
-		del(W)
-		del(src)
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/hamburger))
-
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/bigbite(get_turf(user))
-		user << "You make a big bite burger!"
-		del(W)
-		del(src)
-
-/obj/item/weapon/reagent_containers/food/snacks/hamburger/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/monkeyburger))
-
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/bigbite(get_turf(user))
-		user << "You make a big bite burger!"
-		del(W)
-		del(src)
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/hamburger))
+/obj/item/weapon/reagent_containers/food/snacks/burger/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/burger))
 
 		new /obj/item/weapon/reagent_containers/food/snacks/burger/bigbite(get_turf(user))
 		user << "You make a big bite burger!"
@@ -3200,7 +3101,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/pastatomato/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/faggot))
 
-		new /obj/item/weapon/reagent_containers/food/snacks/smeatballspagetti(get_turf(user))
+		new /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/sauced(get_turf(user))
 		user << "You add meatballs to sauced spaghetti."
 		del(W)
 		del(src)
@@ -3219,23 +3120,11 @@
 			user << "<span  class='notice'>There's not enough ketchup left to make a sauced stake.</span>"
 			return
 		src.reagents.remove_reagent("ketchup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/ssteak(get_turf(user))
+		new /obj/item/weapon/reagent_containers/food/snacks/meatsteak/sauced(get_turf(user))
 		user << "You put ketchup on the steak."
 		del(src)
 		return
 	..()
-
-// Baked potato + ketchup
-/obj/item/weapon/reagent_containers/food/snacks/loadedbakedpotato/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced potato.</span>"
-			return
-		src.reagents.remove_reagent("ketchup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/sbakedpotato(get_turf(user))
-		user << "You add ketchup to baked potato."
-		del(src)
 
 // Spaghetti + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
@@ -3247,39 +3136,25 @@
 	..()
 
 // Meatballs & spaghetti + ketchup
-/obj/item/weapon/reagent_containers/food/snacks/meatspaghetti/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-
 		if(src.reagents.total_volume < 5)
 			user << "<span  class='notice'>There's not enough ketchup left to make a sauced spagheti with meatballs.</span>"
 			return
 		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/smeatballspagetti(get_turf(user))
+		new /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/sauced(get_turf(user))
 		user << "You put ketchup in meat spaghetti."
 		del(src)
 
 // Burger + ketchup
-/obj/item/weapon/reagent_containers/food/snacks/monkeyburger/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/burger/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
 	if(istype(W))
 		if(src.reagents.total_volume < 5)
 			user << "<span  class='notice'>There's not enough ketchup left to make a sauced burger.</span>"
 			return
 		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/sburger(get_turf(user))
+		new /obj/item/weapon/reagent_containers/food/snacks/burger/sauced(get_turf(user))
 		user << "You add ketchup to the burger."
-		del(src)
-		return
-	..()
-
-// Hamburger + ketchup
-/obj/item/weapon/reagent_containers/food/snacks/hamburger/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
-	if(istype(W))
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced hamburger.</span>"
-			return
-		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/shamburger(get_turf(user))
-		user << "You add ketchup to the hamburger."
 		del(src)
 		return
 	..()
@@ -3287,24 +3162,22 @@
 // Hotdog + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/hotdog/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-
 		if(src.reagents.total_volume < 5)
 			user << "<span  class='notice'>There's not enough ketchup left to make a sauced hotdog.</span>"
 			return
 		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/shotdog(get_turf(user))
+		new /obj/item/weapon/reagent_containers/food/snacks/hotdog/sauced(get_turf(user))
 		user << "You add ketchup to the hotdog."
 		del(src)
 
 // omelette + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/omelette/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-
 		if(src.reagents.total_volume < 5)
 			user << "<span  class='notice'>There's not enough ketchup left to make a sauced omelette.</span>"
 			return
 		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/somelette(get_turf(user))
+		new /obj/item/weapon/reagent_containers/food/snacks/omelette/sauced(get_turf(user))
 		user << "You add ketchup to the omelette."
 		del(src)
 
