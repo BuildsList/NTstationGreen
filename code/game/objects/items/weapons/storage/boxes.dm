@@ -341,6 +341,21 @@
 		new /obj/item/weapon/reagent_containers/food/snacks/donkpocket(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/weapon/storage/box/bacon
+	name = "box of bacon strips"
+	desc = "Contains 7 bacon strips"
+	icon_state = "bacon_kit"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/bacon(src)
+
 /obj/item/weapon/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"

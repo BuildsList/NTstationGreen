@@ -5,10 +5,10 @@
 		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob) //Looks like shit, but whatever -- Smet19
-	// Bun + meatball = burger
+	// Bun + meatball = sloppy joe
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/faggot))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger(get_turf(user))
-		user << "You make a burger."
+		new /obj/item/weapon/reagent_containers/food/snacks/burger/joe(get_turf(user))
+		user << "You make a sloppy joe."
 		qdel(W)
 		qdel(src)
 
@@ -95,11 +95,43 @@
 		user << "You make a spellburger ."
 		qdel(W)
 		qdel(src)
+	else if(istype(W,/obj/item/toy/crayon/red))
+		new	/obj/item/weapon/reagent_containers/food/snacks/burger/red(get_turf(user))
+		user << "You make a red burger ."
+		qdel(W)
+		qdel(src)
+	//Bun + Crayon = Crayonburger
+	else if(istype(W,/obj/item/toy/crayon/orange))
+		new	/obj/item/weapon/reagent_containers/food/snacks/burger/orange(get_turf(user))
+		user << "You make a red burger ."
+		qdel(W)
+		qdel(src)
+	else if(istype(W,/obj/item/toy/crayon/green))
+		new	/obj/item/weapon/reagent_containers/food/snacks/burger/green(get_turf(user))
+		user << "You make a red burger ."
+		qdel(W)
+		qdel(src)
+	else if(istype(W,/obj/item/toy/crayon/yellow))
+		new	/obj/item/weapon/reagent_containers/food/snacks/burger/yellow(get_turf(user))
+		user << "You make a red burger ."
+		qdel(W)
+		qdel(src)
+	else if(istype(W,/obj/item/toy/crayon/blue))
+		new	/obj/item/weapon/reagent_containers/food/snacks/burger/blue(get_turf(user))
+		user << "You make a red burger ."
+		qdel(W)
+		qdel(src)
+	else if(istype(W,/obj/item/toy/crayon/purple))
+		new	/obj/item/weapon/reagent_containers/food/snacks/burger/purple(get_turf(user))
+		user << "You make a red burger ."
+		qdel(W)
+		qdel(src)
 	//Bun + Other Stuff = Custom Burger
 	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
 		S.attackby(W,user)
 		qdel(src)
+
 	..()
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob)

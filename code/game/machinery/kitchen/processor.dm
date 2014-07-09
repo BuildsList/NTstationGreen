@@ -28,11 +28,11 @@
 	/* objs */
 	meat
 		input = /obj/item/weapon/reagent_containers/food/snacks/meat
-		output = /obj/item/weapon/reagent_containers/food/snacks/faggot
+		output = /obj/item/weapon/reagent_containers/food/snacks/rawmeatball
 
 	potato
 		input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
-		output = /obj/item/weapon/reagent_containers/food/snacks/fries
+		output = /obj/item/weapon/reagent_containers/food/snacks/rawsticks
 
 	carrot
 		input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot

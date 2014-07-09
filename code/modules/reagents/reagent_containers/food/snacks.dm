@@ -458,7 +458,7 @@
 		..()
 		new/obj/effect/decal/cleanable/egg_smudge(src.loc)
 		reagents.reaction(hit_atom, TOUCH)
-		del(src) // Not qdel, because it'll hit other mobs then the floor for runtimes.
+		qdel(src) // Not qdel, because it'll hit other mobs then the floor for runtimes.
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype( W, /obj/item/toy/crayon ))
@@ -519,10 +519,30 @@
 		reagents.add_reagent("blackpepper", 1)
 		bitesize = 1
 
+/obj/item/weapon/reagent_containers/food/snacks/friedegg/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/bacon))
+		new /obj/item/weapon/reagent_containers/food/snacks/friedegg/baconed(get_turf(user))
+		user << "You add some bacon strips to eggs."
+		qdel(W)
+		qdel(src)
+
+/obj/item/weapon/reagent_containers/food/snacks/friedegg/baconed
+	name = "fried egg with bacon"
+	desc = "A fried egg, with bacon strips and touch of salt and pepper."
+	icon_state = "eggs_bacon"
+	filling_color = "#E8E652"
+	New()
+		..()
+		reagents.add_reagent("nutriment", 12)
+		reagents.add_reagent("sodiumchloride", 1)
+		reagents.add_reagent("blackpepper", 1)
+		bitesize = 1
+
+
 /obj/item/weapon/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
 	desc = "A hard boiled egg."
-	icon_state = "egg"
+	icon_state = "boiled egg"
 	filling_color = "#FFFFE0"
 	New()
 		..()
@@ -700,6 +720,7 @@
 	desc = "The cornerstone of every nutritious breakfast."
 	icon_state = "hburger"
 	filling_color = "#382010"
+	var/sauced = null
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
@@ -712,6 +733,17 @@
 	desc = "A bloody burger."
 	icon_state = "hburger"
 	filling_color = "#382010"
+
+/obj/item/weapon/reagent_containers/food/snacks/burger/joe
+	name = "sloppy joe"
+	desc = "A bun filled with ground meat.Very nutritious."
+	icon_state = "sloppy_joe"
+	filling_color = "#382010"
+	New()
+		..()
+		reagents.add_reagent("nutriment", 10)
+		bitesize = 2
+
 
 /obj/item/weapon/reagent_containers/food/snacks/burger/appendix
 	name = "appendix burger"
@@ -781,6 +813,7 @@
 	icon_state = "omelette"
 	trash = /obj/item/trash/plate
 	filling_color = "#E8BE00"
+	var/sauced
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
@@ -839,7 +872,7 @@
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(src.loc)
 	reagents.reaction(hit_atom, TOUCH)
-	del(src) // Not qdel, because it'll hit other mobs then the floor for runtimes.
+	qdel(src) // Not qdel, because it'll hit other mobs then the floor for runtimes.
 
 /obj/item/weapon/reagent_containers/food/snacks/berryclafoutis
 	name = "berry clafoutis"
@@ -973,6 +1006,8 @@
 
 
 /obj/item/weapon/reagent_containers/food/snacks/human/kebab
+	var/hname = ""
+	var/job = null
 	name = "-kebab"
 	icon_state = "kebab"
 	desc = "A human meat, on a stick."
@@ -1174,6 +1209,7 @@
 	icon_state = "meatsteak"
 	trash = /obj/item/trash/plate
 	filling_color = "#2E1700"
+	var/sauced
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
@@ -1690,6 +1726,7 @@
 	icon_state = "meatballspagetti"
 	trash = /obj/item/trash/plate
 	filling_color = "#F4DA71"
+	var/sauced
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
@@ -2598,6 +2635,7 @@
 	desc = "Fresh footlong ready to go down on."
 	icon_state = "hotdog"
 	filling_color = "#6F2C22"
+	var/sauced
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
@@ -2980,6 +3018,7 @@
 	name = "sauced spaghetti with meatballs"
 	desc = "A tasty dinner - 'Spaghetti Terror'."
 	icon_state = "smeatspaghetti"
+	sauced = 1
 	New()
 		..()
 		reagents.add_reagent("nutriment", 15)
@@ -2990,6 +3029,7 @@
 	name = "sauced omelette"
 	desc = "A saucy dish - 'Bloody Alien'."
 	icon_state = "somelette"
+	sauced = 1
 	New()
 		..()
 		reagents.add_reagent("nutriment", 10)
@@ -3000,6 +3040,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/meatsteak/sauced
 	desc = "A sauced meat steak."
 	icon_state = "smeatstake"
+	sauced = 1
 	New()
 		..()
 		reagents.add_reagent("nutriment", 15)
@@ -3048,6 +3089,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/hotdog/sauced
 	name = "sauced hotdog"
+	sauced = 1
 	desc = "Unrelated to dogs - 'Royal Hotdog'."
 	icon_state = "shotdog"
 	New()
@@ -3056,14 +3098,17 @@
 		bitesize = 3
 
 
-/obj/item/weapon/reagent_containers/food/snacks/burger/sauced
-	name = "sauced burger"
-	desc = "A fast way to become fat - 'Space Burger'."
-	icon_state = "shburger"
+
+/obj/item/weapon/reagent_containers/food/snacks/tacobase
+	name = "taco base"
+	desc = ""
+	icon_state = "taco_base"
+	icon = 'icons/obj/food_ingredients.dmi'
 	New()
 		..()
-		reagents.add_reagent("nutriment", 12)
-		bitesize = 3
+		reagents.add_reagent("nutriment", 1)
+		bitesize = 1
+
 
 /obj/item/weapon/reagent_containers/food/snacks/taco
 	name = "taco"
@@ -3088,14 +3133,21 @@
 		user << "You cut the potato."
 		qdel(src)
 
-//Burger + Burger Or Hamburger + Hamburger Or Hamburger + Burger = Bib Bite Burger
+//Burger + Burger = Bib Bite Burger
 /obj/item/weapon/reagent_containers/food/snacks/burger/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/burger))
-
 		new /obj/item/weapon/reagent_containers/food/snacks/burger/bigbite(get_turf(user))
 		user << "You make a big bite burger!"
-		del(W)
-		del(src)
+		qdel(W)
+		qdel(src)
+
+//Big Bite + Big Bite = Super Bite Burger
+/obj/item/weapon/reagent_containers/food/snacks/burger/bigbite/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/burger/bigbite))
+		new /obj/item/weapon/reagent_containers/food/snacks/burger/superbite(get_turf(user))
+		user << "You make a super bite burger!<b> YOU MAD!!!</b>"
+		qdel(W)
+		qdel(src)
 
 // Sauced spaghetti + meatball = sauced spaghetti with meatballs
 /obj/item/weapon/reagent_containers/food/snacks/pastatomato/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -3103,8 +3155,8 @@
 
 		new /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/sauced(get_turf(user))
 		user << "You add meatballs to sauced spaghetti."
-		del(W)
-		del(src)
+		qdel(W)
+		qdel(src)
 
 ///////////////////////////////////////////////////////
 //                                                   //
@@ -3116,13 +3168,11 @@
 // Steak + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/meatsteak/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
 	if(istype(W))
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced stake.</span>"
+		if(src.sauced)
+			user << "<span  class='notice'>There is enough of ketchup.</span>"
 			return
-		src.reagents.remove_reagent("ketchup", 5, 1)//Deleting 5 flour from the ketchup bottle.
 		new /obj/item/weapon/reagent_containers/food/snacks/meatsteak/sauced(get_turf(user))
-		user << "You put ketchup on the steak."
-		del(src)
+		qdel(src)
 		return
 	..()
 
@@ -3130,56 +3180,36 @@
 /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
 	if(istype(W))
 		new /obj/item/weapon/reagent_containers/food/snacks/pastatomato(get_turf(user))
-		user << "You put ketchup in spaghetti."
-		del(src)
+		qdel(src)
 		return
 	..()
 
 // Meatballs & spaghetti + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced spagheti with meatballs.</span>"
+		if(src.sauced)
+			user << "<span  class='notice'>There is enough of ketchup.</span>"
 			return
-		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
 		new /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti/sauced(get_turf(user))
-		user << "You put ketchup in meat spaghetti."
-		del(src)
-
-// Burger + ketchup
-/obj/item/weapon/reagent_containers/food/snacks/burger/attackby(obj/item/weapon/reagent_containers/food/condiment/pack/ketchup/W as obj, mob/user as mob)
-	if(istype(W))
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced burger.</span>"
-			return
-		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/sauced(get_turf(user))
-		user << "You add ketchup to the burger."
-		del(src)
-		return
-	..()
+		qdel(src)
 
 // Hotdog + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/hotdog/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced hotdog.</span>"
+		if(src.sauced)
+			user << "<span  class='notice'>There is enough of ketchup.</span>"
 			return
-		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
 		new /obj/item/weapon/reagent_containers/food/snacks/hotdog/sauced(get_turf(user))
-		user << "You add ketchup to the hotdog."
-		del(src)
+		qdel(src)
 
 // omelette + ketchup
 /obj/item/weapon/reagent_containers/food/snacks/omelette/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/condiment/pack/ketchup))
-		if(src.reagents.total_volume < 5)
-			user << "<span  class='notice'>There's not enough ketchup left to make a sauced omelette.</span>"
-			return
-		src.reagents.remove_reagent("ketcup", 5, 1)//Deleting 5 flour from the ketchup bottle.
+		if(src.sauced)
+			user << "<span  class='notice'>There is enough of ketchup.</span>"
+			return.
 		new /obj/item/weapon/reagent_containers/food/snacks/omelette/sauced(get_turf(user))
-		user << "You add ketchup to the omelette."
-		del(src)
+		qdel(src)
 
 ///////////////////////////////////////////////////////
 //                                                   //
