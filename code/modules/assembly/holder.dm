@@ -12,7 +12,6 @@
 	var/secured = 0
 	var/obj/item/device/assembly/a_left = null
 	var/obj/item/device/assembly/a_right = null
-	var/obj/special_assembly = null
 
 	proc/attach(var/obj/item/device/D, var/obj/item/device/D2, var/mob/user)
 		return
@@ -20,13 +19,6 @@
 	proc/process_activation(var/obj/item/device/D)
 		return
 
-	HasEntered(atom/movable/AM as mob|obj)
-		if(a_left)
-			a_left.HasEntered(AM)
-		if(a_right)
-			a_right.HasEntered(AM)
-		if(special_assembly)
-			special_assembly.HasEntered(AM)
 
 
 	IsAssemblyHolder()

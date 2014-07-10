@@ -279,11 +279,11 @@ var/list/forbidden_varedit_object_types = list(
 	var/list/icon_edit = list("icon", "icon_state", "overlays", "underlays")
 
 	for(var/p in forbidden_varedit_object_types)
-		if( istype(O,p) && !check_rights(R_DEBUG) )
+		if( istype(O,p) )
 			usr << "\red It is forbidden to edit this object's variables."
 			return
 
-	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key") && !check_rights(R_DEBUG))
+	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key"))
 		usr << "\red You cannot edit ckeys on client objects."
 		return
 
@@ -515,7 +515,7 @@ var/list/forbidden_varedit_object_types = list(
 		if("marked datum")
 			O.vars[variable] = holder.marked_datum
 
-	world.log << "### VarEdit by [src]: [O.type] [variable]=[rhtml_encode("[O.vars[variable]]")]"
+	world.log << "### VarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]"
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [O.vars[variable]]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s [variable] to [O.vars[variable]]", 1)
 

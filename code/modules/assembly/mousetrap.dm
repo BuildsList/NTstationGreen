@@ -126,19 +126,6 @@
 		visible_message("<span class='warning'>[src] is triggered by [A].</span>")
 		triggered(null)
 
-	HasEntered(AM as mob|obj)
-		if(armed)
-			if(ishuman(AM))
-				var/mob/living/carbon/H = AM
-				if(H.m_intent == "run")
-					triggered(H)
-					H.visible_message("<span class='warning'>[H] accidentally steps on [src].</span>", \
-									  "<span class='warning'>You accidentally step on [src]</span>")
-			if(ismouse(AM))
-				triggered(AM)
-		..()
-
-
 
 /obj/item/device/assembly/mousetrap/armed
 	icon_state = "mousetraparmed"
