@@ -5,10 +5,10 @@
 	item_state = "swat"
 	w_class = 4//bulky item
 
-	flags = FPRINT
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+//	flags = FPRINT
+//	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+//	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+//	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/gun, /obj/item/weapon/handcuffs, /obj/item/weapon/tank)
 	slowdown = 9
@@ -49,10 +49,10 @@
 	. = powercell.use(amount)
 	return .
 
-/obj/item/clothing/suit/powered/on_mob_move()
-	if(active)
-		for(var/obj/item/weapon/powerarmor/S in src)
-			S.on_mob_move()
+//obj/item/clothing/suit/powered/on_mob_move()
+//	if(active)
+//		for(var/obj/item/weapon/powerarmor/S in src)
+//			S.on_mob_move()
 
 /obj/item/clothing/suit/powered/process()
 	if(!active)

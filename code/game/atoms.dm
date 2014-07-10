@@ -67,9 +67,6 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/on_mob_move()
-	return
-
 /atom/proc/Bumped(AM as mob|obj)
 	return
 
@@ -138,8 +135,6 @@
 			found += A.search_contents_for(path,filter_path)
 	return found
 
-/atom/proc/HasEntered(atom/movable/AM as mob|obj)
-	return
 
 
 

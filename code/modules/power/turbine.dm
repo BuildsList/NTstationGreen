@@ -126,8 +126,8 @@
 
 	default_deconstruction_crowbar(I)
 
-///obj/machinery/power/compressor/CanAtmosPass(var/turf/T)
-//	return !density
+/obj/machinery/power/compressor/CanAtmosPass(var/turf/T)
+	return !density
 
 /obj/machinery/power/compressor/process()
 	if(!starter)
@@ -219,8 +219,8 @@
 		P += C.rating
 	productivity = P / 6
 
-///obj/machinery/power/turbine/CanAtmosPass(var/turf/T)
-//	return !density
+/obj/machinery/power/turbine/CanAtmosPass(var/turf/T)
+	return !density
 
 /obj/machinery/power/turbine/process()
 

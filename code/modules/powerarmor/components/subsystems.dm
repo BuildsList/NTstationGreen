@@ -20,8 +20,8 @@
 /obj/item/weapon/powerarmor/servos/is_subsystem()
 	return "servo"
 
-/obj/item/weapon/powerarmor/servos/on_mob_move()
-	parent.use_power(powerusage)
+///obj/item/weapon/powerarmor/servos/on_mob_move()
+//	parent.use_power(powerusage)
 
 /obj/item/weapon/powerarmor/servos/cheap
 	name = "cheap servos"
@@ -136,9 +136,9 @@
 		if(0)
 			usr << "\blue Magnetic grip modules engaged."
 
-/obj/item/weapon/powerarmor/grip/magnetic/on_mob_move()
-	if(active)
-		parent.use_power(powerusage)
+///obj/item/weapon/powerarmor/grip/magnetic/on_mob_move()
+//	if(active)
+//		parent.use_power(powerusage)
 
 /obj/item/weapon/powerarmor/grip/magnetic/proc/toggle_grip(sudden = 0)
 	var/mob/living/carbon/human/user = usr
@@ -217,9 +217,9 @@
 		user << "\blue You empty the ore collector into the box."
 		return 1
 
-/obj/item/weapon/powerarmor/orecollector/on_mob_move()
-	if(contents.len < max_ore)
-		for(var/obj/item/weapon/ore/O in get_turf(src))
-			O.loc = src
-			if(contents.len >= max_ore)
-				break
+///obj/item/weapon/powerarmor/orecollector/on_mob_move()
+//	if(contents.len < max_ore)
+//		for(var/obj/item/weapon/ore/O in get_turf(src))
+//			O.loc = src
+//			if(contents.len >= max_ore)
+//				break

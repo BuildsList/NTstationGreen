@@ -220,7 +220,7 @@ datum
 				for(var/mob/living/carbon/slime/M in T)
 					M.apply_water()
 
-				var/hotspot = (locate(/obj/fire) in T)
+				var/hotspot = (locate(/obj/effect/hotspot) in T)
 				if(hotspot && !istype(T, /turf/space))
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
@@ -231,7 +231,7 @@ datum
 			reaction_obj(var/obj/O, var/volume)
 				src = null
 				var/turf/T = get_turf(O)
-				var/hotspot = (locate(/obj/fire) in T)
+				var/hotspot = (locate(/obj/effect/hotspot) in T)
 				if(hotspot && !istype(T, /turf/space))
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
@@ -951,10 +951,10 @@ datum
 				if(M.stat == 2.0)
 					return
 				if(!M) M = holder.my_atom
-				if(M.getOxyLoss() && prob(80)) M.adjustOxyLoss(-2*REM)
-				if(M.getBruteLoss() && prob(80)) M.heal_organ_damage(2*REM,0)
-				if(M.getFireLoss() && prob(80)) M.heal_organ_damage(0,2*REM)
-				if(M.getToxLoss() && prob(80)) M.adjustToxLoss(-2*REM)
+				if(M.getOxyLoss() && prob(80)) M.adjustOxyLoss(-1*REM)
+				if(M.getBruteLoss() && prob(80)) M.heal_organ_damage(1*REM,0)
+				if(M.getFireLoss() && prob(80)) M.heal_organ_damage(0,1*REM)
+				if(M.getToxLoss() && prob(80)) M.adjustToxLoss(-1*REM)
 				..()
 				return
 
@@ -1355,20 +1355,12 @@ datum
 					if (egg.grown)
 						egg.Hatch()*/
 				if((!O) || (!volume))	return 0
-				var/turf/the_turf = get_turf(O)
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = 5
-				napalm.trace_gases += fuel
-				the_turf.assume_air(napalm)
+				O.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
 
 			reaction_turf(var/turf/simulated/T, var/volume)
 				src = null
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = 5
-				napalm.trace_gases += fuel
-				T.assume_air(napalm)
+				if(istype(T))
+					T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
 				return
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with plasma is stronger than fuel!
@@ -2121,7 +2113,7 @@ datum
 				src = null
 				if(volume >= 3)
 					T.MakeSlippery()
-				var/hotspot = (locate(/obj/fire) in T)
+				var/hotspot = (locate(/obj/effect/hotspot) in T)
 				if(hotspot)
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)

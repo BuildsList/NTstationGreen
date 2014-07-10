@@ -23,14 +23,18 @@
 	..()
 	icon_state = mineralType
 	name = "[mineralType] door"
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
 	return
 
 /obj/structure/mineral_door/Destroy()
 	density = 0
-	update_nearby_tiles()
+	air_update_turf(1)
 	..()
 
+/obj/structure/mineral_door/Move()
+	var/turf/T = loc
+	..()
+	move_update_air(T)
 
 /obj/structure/mineral_door/Bumped(atom/user)
 	..()
@@ -55,6 +59,9 @@
 	if(air_group) return 0
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
+	return !density
+
+/obj/structure/mineral_door/CanAtmosPass()
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
@@ -86,7 +93,7 @@
 	density = 0
 	opacity = 0
 	state = 1
-	update_nearby_tiles()
+	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = 0
 
@@ -106,7 +113,7 @@
 	density = 1
 	opacity = 1
 	state = 0
-	update_nearby_tiles()
+	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = 0
 
@@ -223,20 +230,9 @@
 		TemperatureAct(exposed_temperature)
 
 /obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct(temperature)
-	for(var/turf/simulated/floor/target_tile in range(2,loc))
-
-		var/datum/gas_mixture/napalm = new
-
-		var/toxinsToDeduce = temperature/10
-
-		napalm.toxins = toxinsToDeduce
-		napalm.temperature = 200+T0C
-
-		target_tile.assume_air(napalm)
-		spawn (0) target_tile.hotspot_expose(temperature, 400)
-
-		hardness -= toxinsToDeduce/100
-		CheckHardness()
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
+	hardness = 0
+	CheckHardness()
 
 /obj/structure/mineral_door/transparent/diamond
 	mineralType = "diamond"
@@ -272,20 +268,6 @@
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 	..()
 
-
-/obj/structure/mineral_door/proc/update_nearby_tiles(need_rebuild) //Copypasta from airlock code
-	if(!air_master) return 0
-
-	var/turf/simulated/source = loc
-	var/turf/simulated/north = get_step(source,NORTH)
-	var/turf/simulated/south = get_step(source,SOUTH)
-	var/turf/simulated/east = get_step(source,EAST)
-	var/turf/simulated/west = get_step(source,WEST)
-
-	if(istype(source)) air_master.tiles_to_update += source
-	if(istype(north)) air_master.tiles_to_update += north
-	if(istype(south)) air_master.tiles_to_update += south
-	if(istype(east)) air_master.tiles_to_update += east
-	if(istype(west)) air_master.tiles_to_update += west
-
-	return 1
+/obj/structure/mineral_door/resin/BlockSuperconductivity()
+	if(opacity)
+		return 1
