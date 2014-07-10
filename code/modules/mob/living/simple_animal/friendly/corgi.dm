@@ -20,8 +20,6 @@
 	see_in_dark = 5
 	childtype = /mob/living/simple_animal/corgi/puppy
 	species = /mob/living/simple_animal/corgi
-	var/shaved_state = "corgi_shaved"
-	var/shaved = 0
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
@@ -35,21 +33,6 @@
 	usr.reagents.add_reagent("hell_water", 2)
 	R.stone_or_gib(victim)
 
-/mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(user.stat == CONSCIOUS && istype(O, /obj/item/weapon/razor))
-		if (shaved)
-			user << "<span class='warning'>You can't shave this corgi, it's already been shaved.</span>"
-			return
-		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].</span>")
-		if(do_after(user, 50))
-			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O]. </span>")
-			playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
-			shaved = 1
-			icon_state = "[shaved_state]"
-			icon_living = "[shaved_state]"
-			icon_dead = "[shaved_state]_dead"
-		return
-	..()
 
 /mob/living/simple_animal/corgi/show_inv(mob/user as mob)
 	user.set_machine(src)
@@ -488,8 +471,6 @@
 	icon_state = "puppy"
 	icon_living = "puppy"
 	icon_dead = "puppy_dead"
-	shaved_state = "puppy_shaved"
-	shaved = 0
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/corgi/puppy/Topic(href, href_list)
@@ -513,7 +494,6 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
-	shaved_state = "lisa_shaved"
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/corgi/Lisa/Topic(href, href_list)
@@ -550,3 +530,18 @@
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 				emote("growls")
+
+/mob/living/simple_animal/corgi/say(var/message)
+
+	if (length(message) >= 2)
+		if (copytext(message, 1, 3) == ":a")
+			message = copytext(message, 3)
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+			if (stat == 2)
+				return say_dead(message)
+			else
+				alien_talk(message)
+		else
+			if (copytext(message, 1, 2) != "*" && !stat)
+				playsound(loc, "dog1", 25, 1, 1)//So aliens can hiss while they hiss yo/N
+			return ..(message)

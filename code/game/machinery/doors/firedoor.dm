@@ -6,6 +6,7 @@
 	desc = "Apply crowbar"
 	icon = 'icons/obj/doors/Doorfire.dmi'
 	icon_state = "door_open"
+	layer = 2.6
 	opacity = 0
 	density = 0
 	power_channel = ENVIRON
@@ -128,8 +129,3 @@
 	else
 		return 1
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(var/turf/T)
-	if(get_dir(loc, T) == dir)
-		return !density
-	else
-		return 1

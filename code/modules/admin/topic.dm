@@ -801,11 +801,26 @@
 
 		switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
 			if("Yes")
-				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+				var/mins// = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+				var/bantime = input("How long (in minutes)?", "Ban Confirmation", "Cancel") in list("10 Minutes", "1 Hour", "1 Day", "1 Week", "1 Month", "Custom", "Cancel")
+				if(bantime == "10 Minutes")
+					mins = 10
+				if(bantime == "1 Hour")
+					mins = 60
+				if(bantime == "1 Day")
+					mins = 1440
+				if(bantime == "1 Week")
+					mins = 10080
+				if(bantime == "1 Month")
+					mins = 43829
+				if(bantime == "Custom")
+					mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+					if(mins >= 525600) mins = 525599
+				if(bantime == "Cancel")
+					return
 				if(!mins)
 					return
-				if(mins >= 525600) mins = 525599
-				var/reason = input(usr,"Reason?","reason","Griefer") as text|null
+				var/reason = input(usr,"Reason?","reason","Because I'm a shitty admin who doesn't type ban reasons and wants to be demoted.") as text|null
 				if(!reason)
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
@@ -2080,7 +2095,7 @@
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_name"])
-		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
+		src.admincaster_feed_channel.channel_name = strip_html(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
 		while (findtext(src.admincaster_feed_channel.channel_name," ") == 1)
 			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,lentext(src.admincaster_feed_channel.channel_name)+1)
 		src.access_news_network()
@@ -2276,3 +2291,12 @@
 	else if(href_list["ac_set_signature"])
 		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
+
+	else if(href_list["vsc"])
+		if(check_rights(R_ADMIN|R_SERVER))
+			if(href_list["vsc"] == "airflow")
+				vsc.ChangeSettingsDialog(usr,vsc.settings)
+			if(href_list["vsc"] == "plasma")
+				vsc.ChangeSettingsDialog(usr,vsc.plc.settings)
+			if(href_list["vsc"] == "default")
+				vsc.SetDefault(usr)

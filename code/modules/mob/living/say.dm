@@ -50,7 +50,25 @@ var/list/department_radio_keys = list(
 	  ":ô" = "alientalk",	"#ô" = "alientalk",		".ô" = "alientalk",
 	  ":å" = "Syndicate",	"#å" = "Syndicate",		".å" = "Syndicate",
 	  ":é" = "Supply",		"#é" = "Supply",		".é" = "Supply",
-	  ":ï" = "changeling",	"#ï" = "changeling",	".ï" = "changeling"
+	  ":ì" = "Service",		"#ì" = "Service",		".ì" = "Service",
+	  ":ï" = "changeling",	"#ï" = "changeling",	".ï" = "changeling",
+
+	  ":Ê" = "right hand",	"#Ê" = "right hand",	".Ê" = "right hand",
+	  ":Ä" = "left hand",	"#Ä" = "left hand",		".Ä" = "left hand",
+	  ":Ø" = "intercom",	"#Ø" = "intercom",		".Ø" = "intercom",
+	  ":Ð" = "department",	"#Ð" = "department",	".Ð" = "department",
+	  ":Ñ" = "Command",		"#Ñ" = "Command",		".Ñ" = "Command",
+	  ":Ò" = "Science",		"#Ò" = "Science",		".Ò" = "Science",
+	  ":Ü" = "Medical",		"#Ü" = "Medical",		".Ü" = "Medical",
+	  ":Ó" = "Engineering",	"#Ó" = "Engineering",	".Ó" = "Engineering",
+	  ":Û" = "Security",	"#Û" = "Security",		".Û" = "Security",
+	  ":Ö" = "whisper",		"#Ö" = "whisper",		".Ö" = "whisper",
+	  ":È" = "binary",		"#È" = "binary",		".È" = "binary",
+	  ":Ô" = "alientalk",	"#Ô" = "alientalk",		".Ô" = "alientalk",
+	  ":Å" = "Syndicate",	"#Å" = "Syndicate",		".Å" = "Syndicate",
+	  ":É" = "Supply",		"#É" = "Supply",		".É" = "Supply",
+	  ":Ì" = "Service",		"#Ì" = "Service",		".Ì" = "Service",
+	  ":Ï" = "changeling",	"#Ï" = "changeling",	".Ï" = "changeling"
 )
 
 /mob/living/proc/binarycheck()
@@ -80,6 +98,7 @@ var/list/department_radio_keys = list(
 
 /mob/living/say(var/message, var/bubble_type)
 	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = ruscapitalize(message)
 
 	if (!message)
 		return
@@ -286,7 +305,7 @@ var/list/department_radio_keys = list(
 			var/mob/living/simple_animal/parrot/P = A
 			if(P.speech_buffer.len >= 10)
 				P.speech_buffer.Remove(pick(P.speech_buffer))
-			P.speech_buffer.Add(html_decode(message))
+			P.speech_buffer.Add(rhtml_decode(message))
 
 		if(isslime(A)) //Slimes answering to people
 			if (A == src)
@@ -296,7 +315,7 @@ var/list/department_radio_keys = list(
 			if (src in S.Friends)
 				S.speech_buffer = list()
 				S.speech_buffer.Add(src)
-				S.speech_buffer.Add(lowertext(html_decode(message)))
+				S.speech_buffer.Add(lowertext(rhtml_decode(message)))
 
 		if(istype(A, /obj/)) //radio in pocket could work, radio in backpack wouldn't --rastaf0
 			var/obj/O = A
@@ -332,7 +351,7 @@ var/list/department_radio_keys = list(
 
 	var/rendered = null
 	if (length(heard_a))
-		var/message_a = say_quote(message)
+		var/message_a = say_quote(intonation(message))
 
 		if (italics)
 			message_a = "<i>[message_a]</i>"

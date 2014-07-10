@@ -1,7 +1,4 @@
 /mob/living/carbon/human/attack_hand(mob/living/carbon/human/M)
-	if(!istype(M))
-		return
-
 	if(..())	//to allow surgery to return properly.
 		return
 

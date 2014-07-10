@@ -7,7 +7,7 @@
 		usr << "\red Speech is currently admin-disabled."
 		return
 
-	message = trim(copytext(strip_html_simple(message), 1, MAX_MESSAGE_LEN))
+	message = trim(copytext(strip_html(message), 1, MAX_MESSAGE_LEN))
 
 	if (!message || silent)
 		return

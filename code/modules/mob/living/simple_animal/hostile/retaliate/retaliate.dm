@@ -46,5 +46,4 @@
 
 /mob/living/simple_animal/hostile/retaliate/adjustBruteLoss(var/damage)
 	..(damage)
-	if(stat == CONSCIOUS)
-		Retaliate()
+	Retaliate()

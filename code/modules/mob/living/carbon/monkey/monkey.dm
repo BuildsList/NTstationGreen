@@ -361,3 +361,24 @@
 
 /mob/living/carbon/monkey/canBeHandcuffed()
 	return 1
+/mob/living/carbon/monkey/say(var/message)
+
+	if (length(message) >= 2)
+		if (copytext(message, 1, 3) == ":a")
+			message = copytext(message, 3)
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+			if (stat == 2)
+				return say_dead(message)
+			else
+				alien_talk(message)
+		else
+			if (copytext(message, 1, 2) != "*" && !stat)
+				playsound(loc, "chimpers", 25, 1, 1)//So aliens can hiss while they hiss yo/N
+			return ..(message)
+
+
+/mob/living/carbon/monkey/verb/ventcrawl()
+	set name = "Crawl through Vent"
+	set desc = "Enter an air vent and crawl through the pipe system."
+	set category = "Monkey"
+	handle_ventcrawl()

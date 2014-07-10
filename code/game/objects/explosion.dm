@@ -20,7 +20,7 @@ proc/trange(var/Dist=0,var/turf/Center=null)//alternative to range (ONLY process
 	return block(x1y1,x2y2)
 
 
-proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0)
+proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, z_transfer = 1)
 	src = null	//so we don't abort once src is deleted
 	epicenter = get_turf(epicenter)
 
@@ -46,6 +46,12 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			//So max power is (3 * 4) + (1.5 * 8) + (0.75 * 15) = 36,25
 			explosion_rec(epicenter, power)
 			return
+
+///// Z-Level Stuff
+		if(z_transfer && (devastation_range > 0 || heavy_impact_range > 0))
+			//transfer the explosion in both directions
+			explosion_z_transfer(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+///// Z-Level Stuff
 
 		var/start = world.timeofday
 		if(!epicenter) return
@@ -102,11 +108,11 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 		for(var/turf/T in trange(max_range, epicenter))
 
 			var/dist = cheap_pythag(T.x - x0,T.y - y0)
-			var/flame_dist = 0
-			var/hotspot_exists
+//			var/flame_dist = 0
+//			var/hotspot_exists
 
-			if(dist < flame_range)
-				flame_dist = 1
+//			if(dist < flame_range)
+//				flame_dist = 1
 
 			if(dist < devastation_range)		dist = 1
 			else if(dist < heavy_impact_range)	dist = 2
@@ -117,9 +123,9 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			//------- TURF FIRES -------
 
 			if(T)
-				if(flame_dist && prob(40) && !istype(T, /turf/space))
+			/*	if(flame_dist && prob(40) && !istype(T, /turf/space))
 					new/obj/effect/hotspot(T) //Mostly for ambience!
-					hotspot_exists = 1
+					hotspot_exists = 1*/
 				if(dist)
 					if(T)
 						T.ex_act(dist)
@@ -130,10 +136,10 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 					var/atom/movable/AM = atom_movable
 
 					if(AM) //Something is inside T (We have already checked T exists above) - RR
-						if(flame_dist) //if it has flame distance, run this - RR
+					/*	if(flame_dist) //if it has flame distance, run this - RR
 							if(isliving(AM) && !hotspot_exists && !istype(T, /turf/space))
 								if(AM && AM.loc!=null)
-									new /obj/effect/hotspot(AM.loc)
+									new /obj/effect/hotspot(AM.loc)*/
 								//Just in case we missed a mob while they were in flame_range, but a hotspot didn't spawn on them, otherwise it looks weird when you just burst into flame out of nowhere
 						if(dist) //if no flame_dist, run this - RR
 							if(AM)
@@ -165,3 +171,20 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in trange(range, epicenter))
 		tile.ex_act(2)
+
+///// Z-Level Stuff
+proc/explosion_z_transfer(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, up = 1, down = 1)
+	var/turf/controllerlocation = locate(1, 1, epicenter.z)
+	for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
+		if(controller.down)
+			//start the child explosion, no admin log and no additional transfers
+			explosion(locate(epicenter.x, epicenter.y, controller.down_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 0, 0)
+			if(devastation_range - 2 > 0 || heavy_impact_range - 2 > 0) //only transfer further if the explosion is still big enough
+				explosion(locate(epicenter.x, epicenter.y, controller.down_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 0, 1)
+
+		if(controller.up)
+			//start the child explosion, no admin log and no additional transfers
+			explosion(locate(epicenter.x, epicenter.y, controller.up_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 0, 0)
+			if(devastation_range - 2 > 0 || heavy_impact_range - 2 > 0) //only transfer further if the explosion is still big enough
+				explosion(locate(epicenter.x, epicenter.y, controller.up_target), max(devastation_range - 2, 0), max(heavy_impact_range - 2, 0), max(light_impact_range - 2, 0), max(flash_range - 2, 0), 1, 0)
+///// Z-Level Stuff

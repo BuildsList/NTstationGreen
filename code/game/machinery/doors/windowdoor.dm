@@ -11,6 +11,15 @@
 	opacity = 0
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	explosion_resistance = 5
+	air_properties_vary_with_direction = 1
+
+/obj/machinery/door/window/update_nearby_tiles(need_rebuild)
+	if(!air_master)
+		return 0
+
+	air_master.AddTurfToUpdate(get_turf(src))
+
+	return 1
 
 /obj/machinery/door/window/New()
 	..()
@@ -63,11 +72,6 @@
 	else
 		return 1
 
-/obj/machinery/door/window/CanAtmosPass(var/turf/T)
-	if(get_dir(loc, T) == dir)
-		return !density
-	else
-		return 1
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -92,7 +96,7 @@
 	explosion_resistance = 0
 	src.density = 0
 //	src.sd_SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	update_nearby_tiles()
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
@@ -111,7 +115,7 @@
 	explosion_resistance = initial(explosion_resistance)
 //	if(src.visible)
 //		SetOpacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	update_nearby_tiles()
 	update_freelook_sight()
 	sleep(10)
 
@@ -130,7 +134,7 @@
 
 /obj/machinery/door/window/bullet_act(var/obj/item/projectile/Proj)
 	if(Proj.damage)
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		if((Proj.damage_type == BRUTE))
 			take_damage(round(Proj.damage / 2))
 	..()
 
