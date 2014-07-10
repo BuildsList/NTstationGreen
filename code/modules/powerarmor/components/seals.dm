@@ -2,6 +2,8 @@
 	name = "atmospheric seals"
 	desc = "Keeps the bad stuff out."
 	slowdown = 0
+	origin_tech = "materials=4;engineering=2"
+
 	var/sealed = 0
 
 	var/suit_max = FIRE_SUIT_MAX_TEMP_PROTECT
@@ -30,9 +32,8 @@
 				parent.helm.min_cold_protection_temperature = null
 				parent.helm.flags &= ~STOPSPRESSUREDMAGE
 				parent.helm.parent = null
-			if(parent.glovesrequired)
-				parent.gloves.gas_transfer_coefficient = 1
-				parent.gloves.permeability_coefficient = 1
+			parent.gloves.gas_transfer_coefficient = 1
+			parent.gloves.permeability_coefficient = 1
 			if(parent.shoesrequired)
 				parent.shoes.gas_transfer_coefficient = 1
 				parent.shoes.permeability_coefficient = 1
@@ -62,9 +63,8 @@
 				parent.helm.min_cold_protection_temperature = helmet_min
 				parent.helm.flags |= STOPSPRESSUREDMAGE
 				parent.helm.parent = parent
-			if(parent.glovesrequired && parent.gloves)
-				parent.gloves.gas_transfer_coefficient = 0.01
-				parent.gloves.permeability_coefficient = 0.02
+			parent.gloves.gas_transfer_coefficient = 0.01
+			parent.gloves.permeability_coefficient = 0.02
 			if(parent.shoesrequired && parent.shoes)
 				parent.shoes.gas_transfer_coefficient = 0.01
 				parent.shoes.permeability_coefficient = 0.02
@@ -84,6 +84,7 @@
 /obj/item/weapon/powerarmor/atmoseal/standart // Spaceproof, but not fireproof
 	name = "atmospheric seals"
 	desc = "Keeps the vacuum out."
+	origin_tech = "materials=2;engineering=2"
 
 	suit_max = SPACE_SUIT_MAX_TEMP_PROTECT
 	helmet_max = SPACE_HELM_MAX_TEMP_PROTECT
@@ -93,6 +94,7 @@
 /obj/item/weapon/powerarmor/atmoseal/optional
 	name = "togglable atmospheric seals"
 	desc = "Keeps the bad stuff out, but lets you remove your helmet without having to turn the whole suit off."
+	origin_tech = "materials=4;engineering=3"
 
 /obj/item/weapon/powerarmor/atmoseal/optional/New()
 	..()
@@ -161,6 +163,7 @@
 /obj/item/weapon/powerarmor/atmoseal/optional/standart // Spaceproof, but not fireproof
 	name = "togglable atmospheric seals"
 	desc = "Keeps the vacuum out, but lets you remove your helmet without having to turn the whole suit off."
+	origin_tech = "materials=2;engineering=3"
 
 	suit_max = SPACE_SUIT_MAX_TEMP_PROTECT
 	helmet_max = SPACE_HELM_MAX_TEMP_PROTECT

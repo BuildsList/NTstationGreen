@@ -89,7 +89,8 @@
 		for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/simulated/tile = get_step(src,direction)
 			if(istype(tile) && !tile.blocks_air)
-				air_master.tiles_to_update.Add(tile)
+				if(air_master)
+					air_master.tiles_to_update.Add(tile)
 	..()
 
 /turf/simulated/assume_air(datum/gas_mixture/giver)

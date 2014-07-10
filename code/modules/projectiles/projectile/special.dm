@@ -168,6 +168,13 @@
 	range--
 	if(range <= 0)
 		new /obj/item/effect/kinetic_blast(src.loc)
+
+		for(var/turf/T in range(1, src.loc))
+			if(!istype(T, /turf/simulated/wall))
+				T.ex_act(3)
+
+		for(var/obj/structure/S in range(1, src.loc))
+			S.ex_act(3)
 		delete()
 
 /obj/item/projectile/kinetic/on_hit(var/atom/target)
@@ -176,6 +183,14 @@
 		var/turf/simulated/mineral/M = target_turf
 		M.gets_drilled()
 	new /obj/item/effect/kinetic_blast(target_turf)
+
+	if(isturf(target) || istype(target, /obj/structure))
+		for(var/turf/T in range(1, target_turf))
+			if(!istype(T, /turf/simulated/wall))
+				T.ex_act(3)
+
+		for(var/obj/structure/S in range(1, target_turf))
+			S.ex_act(3)
 	..()
 
 /obj/item/effect/kinetic_blast
@@ -185,12 +200,5 @@
 	layer = 4.1
 
 /obj/item/effect/kinetic_blast/New()
-	for(var/turf/T in range(1))
-		if(!istype(T, /turf/simulated/wall))
-			T.ex_act(3)
-
-	for(var/obj/structure/S in range(1))
-		S.ex_act(3)
-
 	spawn(4)
 		qdel(src)
