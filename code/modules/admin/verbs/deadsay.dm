@@ -14,7 +14,7 @@
 	if (src.handle_spam_prevention(msg,MUTE_DEADCHAT))
 		return
 
-	msg = sanitize(msg)
+	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	log_admin("[key_name(src)] : [msg]")
 
 	if (!msg)

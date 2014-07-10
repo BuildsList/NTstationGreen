@@ -105,8 +105,6 @@
 
 	var/coughedtime = null
 
-	var/footstep = 1
-
 	var/inertia_dir = 0
 
 	var/music_lastplayed = "null"
