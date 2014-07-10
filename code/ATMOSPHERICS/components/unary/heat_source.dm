@@ -6,7 +6,7 @@
 	density = 1
 	use_power = 1
 
-	name = "Heat Reservoir"
+	name = "heat reservoir"
 	desc = "Heats gas when connected to pipe network"
 
 	var/on = 0
@@ -26,7 +26,7 @@
 
 	process()
 		..()
-		if(!on || !network)
+		if(!on)
 			return 0
 		var/air_heat_capacity = air_contents.heat_capacity()
 		var/combined_heat_capacity = current_heat_capacity + air_heat_capacity

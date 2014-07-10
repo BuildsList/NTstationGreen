@@ -3,7 +3,7 @@
 	icon_state = "off"
 	use_power = 1
 
-	name = "Air Injector"
+	name = "air injector"
 	desc = "Has a valve and pump attached to it"
 
 	var/on = 0
@@ -49,6 +49,7 @@
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
 			loc.assume_air(removed)
+			air_update_turf()
 
 			if(network)
 				network.update = 1
@@ -105,6 +106,8 @@
 		..()
 
 		set_frequency(frequency)
+		spawn(rand(25,50))
+			broadcast_status()
 
 	receive_signal(datum/signal/signal)
 		if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
@@ -122,7 +125,7 @@
 
 		if("set_volume_rate" in signal.data)
 			var/number = text2num(signal.data["set_volume_rate"])
-			volume_rate = between(0, number, air_contents.volume)
+			volume_rate = Clamp(number, 0, air_contents.volume)
 
 		if("status" in signal.data)
 			spawn(2)

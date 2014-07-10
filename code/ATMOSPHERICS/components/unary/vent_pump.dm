@@ -2,9 +2,11 @@
 	icon = 'icons/obj/atmospherics/vent_pump.dmi'
 	icon_state = "off"
 
-	name = "Air Vent"
+	name = "air vent"
 	desc = "Has a valve and pump attached to it"
 	use_power = 1
+
+	can_unwrench = 1
 
 	var/area/initial_loc
 	level = 1
@@ -22,7 +24,7 @@
 	//2: Do not pass internal_pressure_bound
 	//3: Do not pass either
 
-	var/welded = 0 // Added for aliens -- TLE
+	var/welded = 0
 
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
@@ -43,6 +45,7 @@
 			icon_state = "in"
 
 	New()
+		..()
 		initial_loc = get_area(loc)
 		if (initial_loc.master)
 			initial_loc = initial_loc.master
@@ -53,10 +56,9 @@
 		if(ticker && ticker.current_state == 3)//if the game is running
 			src.initialize()
 			src.broadcast_status()
-		..()
 
 	high_volume
-		name = "Large Air Vent"
+		name = "large air vent"
 		power_channel = EQUIP
 		New()
 			..()
@@ -107,6 +109,7 @@
 					var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
 					loc.assume_air(removed)
+					air_update_turf()
 
 					if(network)
 						network.update = 1
@@ -127,6 +130,7 @@
 						return
 
 					air_contents.merge(removed)
+					air_update_turf()
 
 					if(network)
 						network.update = 1
@@ -164,7 +168,7 @@
 			)
 
 			if(!initial_loc.air_vent_names[id_tag])
-				var/new_name = "[initial_loc.name] Vent Pump #[initial_loc.air_vent_names.len+1]"
+				var/new_name = "\improper [initial_loc.name] vent pump #[initial_loc.air_vent_names.len+1]"
 				initial_loc.air_vent_names[id_tag] = new_name
 				src.name = new_name
 			initial_loc.air_vent_info[id_tag] = signal.data
@@ -190,62 +194,62 @@
 		if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 			return 0
 
-		if(signal.data["purge"] != null)
+		if("purge" in signal.data)
 			pressure_checks &= ~1
 			pump_direction = 0
 
-		if(signal.data["stabalize"] != null)
+		if("stabalize" in signal.data)
 			pressure_checks |= 1
 			pump_direction = 1
 
-		if(signal.data["power"] != null)
+		if("power" in signal.data)
 			on = text2num(signal.data["power"])
 
-		if(signal.data["power_toggle"] != null)
+		if("power_toggle" in signal.data)
 			on = !on
 
-		if(signal.data["checks"] != null)
+		if("checks" in signal.data)
 			pressure_checks = text2num(signal.data["checks"])
 
-		if(signal.data["checks_toggle"] != null)
+		if("checks_toggle" in signal.data)
 			pressure_checks = (pressure_checks?0:3)
 
-		if(signal.data["direction"] != null)
+		if("direction" in signal.data)
 			pump_direction = text2num(signal.data["direction"])
 
-		if(signal.data["set_internal_pressure"] != null)
-			internal_pressure_bound = between(
-				0,
+		if("set_internal_pressure" in signal.data)
+			internal_pressure_bound = Clamp(
 				text2num(signal.data["set_internal_pressure"]),
+				0,
 				ONE_ATMOSPHERE*50
 			)
 
-		if(signal.data["set_external_pressure"] != null)
-			external_pressure_bound = between(
-				0,
+		if("set_external_pressure" in signal.data)
+			external_pressure_bound = Clamp(
 				text2num(signal.data["set_external_pressure"]),
+				0,
 				ONE_ATMOSPHERE*50
 			)
 
-		if(signal.data["adjust_internal_pressure"] != null)
-			internal_pressure_bound = between(
-				0,
+		if("adjust_internal_pressure" in signal.data)
+			internal_pressure_bound = Clamp(
 				internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),
-				ONE_ATMOSPHERE*50
-			)
-
-		if(signal.data["adjust_external_pressure"] != null)
-			external_pressure_bound = between(
 				0,
-				external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),
 				ONE_ATMOSPHERE*50
 			)
 
-		if(signal.data["init"] != null)
+		if("adjust_external_pressure" in signal.data)
+			external_pressure_bound = Clamp(
+				external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),
+				0,
+				ONE_ATMOSPHERE*50
+			)
+
+		if("init" in signal.data)
 			name = signal.data["init"]
 			return
 
-		if(signal.data["status"] != null)
+		if("status" in signal.data)
 			spawn(2)
 				broadcast_status()
 			return //do not update_icon
@@ -271,6 +275,9 @@
 		return
 
 	attackby(obj/item/W, mob/user)
+		if (istype(W, /obj/item/weapon/wrench)&& !(stat & NOPOWER) && on)
+			user << "\red You cannot unwrench this [src], turn it off first."
+			return 1
 		if(istype(W, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
 			if (WT.remove_fuel(0,user))
@@ -291,6 +298,9 @@
 			else
 				user << "\blue You need more welding fuel to complete this task."
 				return 1
+		else
+			return ..()
+
 	examine()
 		set src in oview(1)
 		..()
@@ -304,48 +314,78 @@
 			stat |= NOPOWER
 		update_icon()
 
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-		if (!istype(W, /obj/item/weapon/wrench))
-			return ..()
-		if (!(stat & NOPOWER) && on)
-			user << "\red You cannot unwrench this [src], turn it off first."
-			return 1
-		var/turf/T = src.loc
-		if (level==1 && isturf(T) && T.intact)
-			user << "\red You must remove the plating first."
-			return 1
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
-		if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
-			add_fingerprint(user)
-			return 1
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "\blue You begin to unfasten \the [src]..."
-		if (do_after(user, 40))
-			user.visible_message( \
-				"[user] unfastens \the [src].", \
-				"\blue You have unfastened \the [src].", \
-				"You hear ratchet.")
-			new /obj/item/pipe(loc, make_from=src)
-			del(src)
-
-/obj/machinery/atmospherics/unary/vent_pump/Del()
+/obj/machinery/atmospherics/unary/vent_pump/Destroy()
 	if(initial_loc)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
 	..()
-	return
 
 /*
-	Alt-click to ventcrawl - Monkeys, aliens, and slimes
-	This is a little buggy but somehow that just seems to plague ventcrawl.
-	I am sorry, I don't know why.
+	Alt-click to ventcrawl
 */
-/obj/machinery/atmospherics/unary/vent_pump/AltClick(var/mob/living/carbon/ML)
-	if(istype(ML))
-		var/list/ventcrawl_verbs = list(/mob/living/carbon/monkey/verb/ventcrawl, /mob/living/carbon/alien/verb/ventcrawl, /mob/living/carbon/slime/verb/ventcrawl)
-		if(length(ML.verbs & ventcrawl_verbs)) // alien queens have this removed, an istype would be complicated
-			ML.handle_ventcrawl(src)
-			return
-	..()
+/obj/machinery/atmospherics/unary/vent_pump/AltClick(var/mob/living/L)
+	if(!L.ventcrawler || !isliving(L) || !Adjacent(L))
+		return
+	if(L.stat)
+		L << "You must be conscious to do this!"
+		return
+	if(L.lying)
+		L << "You can't vent crawl while you're stunned!"
+		return
+	if(welded)
+		L << "That vent is welded shut."
+		return
+
+	if(!network || !network.normal_members.len)
+		L << "This vent is not connected to anything."
+		return
+
+	var/list/vents = list()
+	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in network.normal_members)
+		if(temp_vent.welded)
+			continue
+		if(temp_vent in loc)
+			continue
+		var/turf/T = get_turf(temp_vent)
+
+		if(!T || T.z != loc.z)
+			continue
+
+		var/i = 1
+		var/index = "[T.loc.name]\[[i]\]"
+		while(index in vents)
+			i++
+			index = "[T.loc.name]\[[i]\]"
+		vents[index] = temp_vent
+	if(!vents.len)
+		L << "<span class='warning'> There are no available vents to travel to, they could be welded. </span>"
+		return
+
+	var/obj/selection = input(L,"Select a destination.", "Duct System") as null|anything in sortAssoc(vents)
+	if(!selection)	return
+
+	if(!Adjacent(L))
+		return
+	if(iscarbon(L) && L.ventcrawler < 2) // lesser ventcrawlers can't bring items
+		for(var/obj/item/carried_item in L.contents)
+			if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant
+				L << "<span class='warning'> You can't be carrying items or have items equipped when vent crawling!</span>"
+				return
+
+	var/obj/machinery/atmospherics/unary/vent_pump/target_vent = vents[selection]
+	if(!target_vent)
+		return
+
+	for(var/mob/O in viewers(L, null))
+		O.show_message(text("<B>[L] scrambles into the ventillation ducts!</B>"), 1)
+
+	for(var/mob/O in hearers(target_vent,null))
+		O.show_message("You hear something squeezing through the ventilation ducts.",2)
+
+	if(target_vent.welded)		//the vent can be welded while they scrolled through the list.
+		target_vent = src
+		L << "<span class='warning'> The vent you were heading to appears to be welded.</span>"
+	L.loc = target_vent.loc
+	var/area/new_area = get_area(L.loc)
+	if(new_area)
+		new_area.Entered(L)
