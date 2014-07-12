@@ -3,12 +3,14 @@ obj/machinery/atmospherics/trinary/filter
 	icon_state = "intact_off"
 	density = 1
 
-	name = "Gas filter"
+	name = "gas filter"
 
 	req_access = list(access_atmospherics)
 
+	can_unwrench = 1
+
 	var/on = 0
-	var/temp = null // -- TLE
+	var/temp = null
 
 	var/target_pressure = ONE_ATMOSPHERE
 
@@ -16,7 +18,7 @@ obj/machinery/atmospherics/trinary/filter
 /*
 Filter types:
 -1: Nothing
- 0: Carbon Molecules: Plasma Toxin, Oxygen Agent B
+ 0: Plasma: Plasma Toxin, Oxygen Agent B
  1: Oxygen: Oxygen ONLY
  2: Nitrogen: Nitrogen ONLY
  3: Carbon Dioxide: Carbon Dioxide ONLY
@@ -34,9 +36,9 @@ Filter types:
 				radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 	New()
+		..()
 		if(radio_controller)
 			initialize()
-		..()
 
 	update_icon()
 		if(stat & NOPOWER)
@@ -62,7 +64,7 @@ Filter types:
 
 		var/output_starting_pressure = air3.return_pressure()
 
-		if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure )
+		if(output_starting_pressure >= target_pressure)
 			//No need to mix if target is already full!
 			return 1
 
@@ -85,7 +87,7 @@ Filter types:
 			filtered_out.temperature = removed.temperature
 
 			switch(filter_type)
-				if(0) //removing hydrocarbons
+				if(0) //removing plasma
 					filtered_out.toxins = removed.toxins
 					removed.toxins = 0
 
@@ -134,33 +136,9 @@ Filter types:
 
 	initialize()
 		set_frequency(frequency)
-		..()
+		return ..()
 
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-		if (!istype(W, /obj/item/weapon/wrench))
-			return ..()
-		var/turf/T = src.loc
-		if (level==1 && isturf(T) && T.intact)
-			user << "\red You must remove the plating first."
-			return 1
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
-		if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
-			add_fingerprint(user)
-			return 1
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "\blue You begin to unfasten \the [src]..."
-		if (do_after(user, 40))
-			user.visible_message( \
-				"[user] unfastens \the [src].", \
-				"\blue You have unfastened \the [src].", \
-				"You hear ratchet.")
-			new /obj/item/pipe(loc, make_from=src)
-			del(src)
-
-
-obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
+obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob)
 	if(..())
 		return
 
@@ -172,7 +150,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 	var/current_filter_type
 	switch(filter_type)
 		if(0)
-			current_filter_type = "Carbon Molecules"
+			current_filter_type = "Plasma"
 		if(1)
 			current_filter_type = "Oxygen"
 		if(2)
@@ -190,7 +168,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 			<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
 			<b>Filtering: </b>[current_filter_type]<br><HR>
 			<h4>Set Filter Type:</h4>
-			<A href='?src=\ref[src];filterset=0'>Carbon Molecules</A><BR>
+			<A href='?src=\ref[src];filterset=0'>Plasma</A><BR>
 			<A href='?src=\ref[src];filterset=1'>Oxygen</A><BR>
 			<A href='?src=\ref[src];filterset=2'>Nitrogen</A><BR>
 			<A href='?src=\ref[src];filterset=3'>Carbon Dioxide</A><BR>
@@ -213,7 +191,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 	onclose(user, "atmo_filter")
 	return
 
-obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
+obj/machinery/atmospherics/trinary/filter/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)

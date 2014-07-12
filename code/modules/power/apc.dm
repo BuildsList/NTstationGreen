@@ -146,8 +146,8 @@
 	area.power_equip = 0
 	area.power_environ = 0
 	area.power_change()
-//	if(occupier)
-//		malfvacate(1)
+	if(occupier)
+		malfvacate(1)
 	del(wires)
 	if(cell)
 		qdel(cell)
@@ -771,9 +771,7 @@
 		return 0
 	if(!user.client)
 		return 0
-	if ( ! (istype(user, /mob/living/carbon/human) || \
-			istype(user, /mob/living/silicon) || \
-			istype(user, /mob/living/carbon/monkey)) )
+	if (!user.IsAdvancedToolUser())
 		user << "\red You don't have the dexterity to use this [src]!"
 		return 0
 	if(user.restrained())
@@ -877,14 +875,13 @@
 					malfai << "Hack complete. The APC is now under your exclusive control."
 					update_icon()
 
-/*	else if (href_list["occupyapc"])
+	else if (href_list["occupyapc"])
 		if(get_malf_status(usr))
 			malfoccupy(usr)
 
 	else if (href_list["deoccupyapc"])
 		if(get_malf_status(usr))
 			malfvacate()
-*/
 
 	else if (href_list["toggleaccess"])
 		if(istype(usr, /mob/living/silicon))
@@ -907,7 +904,7 @@
 	src.update()
 	update_icon()
 
-/*obj/machinery/power/apc/proc/malfoccupy(var/mob/living/silicon/ai/malf)
+/obj/machinery/power/apc/proc/malfoccupy(var/mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
 	if(istype(malf.loc, /obj/machinery/power/apc)) // Already in an APC
@@ -930,7 +927,7 @@
 	src.occupier.eyeobj.name = "[src.occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	src.occupier.verbs += /mob/living/silicon/ai/proc/corereturn
+//	src.occupier.verbs += /mob/living/silicon/ai/proc/corereturn
 	src.occupier.verbs += /datum/game_mode/malfunction/proc/takeover
 	src.occupier.cancel_camera()
 	if (seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
@@ -961,7 +958,6 @@
 			src.occupier.gib()
 			for(var/obj/item/weapon/pinpointer/point in world)
 				point.the_disk = null //the pinpointer will go back to pointing at the nuke disc.
-*/
 
 
 /obj/machinery/power/apc/proc/ion_act()
@@ -1018,8 +1014,7 @@
 	if (environ > 1) // off=0, off auto=1, on=2, on auto=3
 		use_power(src.environ_consumption, ENVIRON)
 
-	area.calc_lighting()
-	*/
+	area.calc_lighting() */
 
 	lastused_light = area.usage(LIGHT)
 	lastused_equip = area.usage(EQUIP)
@@ -1240,8 +1235,8 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 				ticker.mode:apcs--
 	stat |= BROKEN
 	operating = 0
-//	if(occupier)
-//		malfvacate(1)
+	if(occupier)
+		malfvacate(1)
 	update_icon()
 	update()
 

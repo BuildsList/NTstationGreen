@@ -298,6 +298,31 @@
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
 
+		if("elaugh")
+			if(miming)
+				message = "<B>[src]</B> acts out a laugh."
+				m_type = 1
+			else if (mind.special_role)
+				if (!ready_to_elaugh())
+					if (world.time % 3)
+						usr << "<span class='warning'>You not ready to laugh again!"
+				else
+					message = "<B>[src]</B> laugh like a true evil! Mu-ha-ha!"
+					m_type = 2
+					call_sound_emote("elaugh")
+			else
+				if (!muzzled)
+					if (!ready_to_emote())
+						if (world.time % 3)
+							usr << "<span class='warning'>You not ready to laugh again!"
+					else
+						message = "<B>[src]</B> laughs."
+						m_type = 2
+						call_sound_emote("laugh")
+				else
+					message = "<B>[src]</B> makes a noise."
+					m_type = 2
+
 		if ("signal")
 			if (!src.restrained())
 				var/t1 = round(text2num(param))
@@ -377,3 +402,24 @@
 		if("laugh")
 			playsound(src.loc, pick('sound/voice/laugh1.ogg', 'sound/voice/laugh2.ogg', 'sound/voice/laugh3.ogg'), 100, 1)
 
+		if("elaugh")
+			playsound(src.loc, 'sound/voice/elaugh.ogg', 100, 1)
+
+/mob/living/carbon/human/var/emote_delay = 30
+/mob/living/carbon/human/var/elaugh_delay = 600
+/mob/living/carbon/human/var/last_emoted = 0
+
+
+/mob/living/carbon/human/proc/ready_to_emote()
+	if(world.time >= last_emoted + emote_delay)
+		last_emoted = world.time
+		return 1
+	else
+		return 0
+
+/mob/living/carbon/human/proc/ready_to_elaugh()
+	if(world.time >= last_emoted + elaugh_delay)
+		last_emoted = world.time
+		return 1
+	else
+		return 0

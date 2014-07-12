@@ -27,7 +27,7 @@
 
 	New()
 		..()
-		air_contents.adjust((6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+		src.air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 
@@ -67,10 +67,13 @@
 
 /obj/item/weapon/tank/anesthetic/New()
 	..()
-	var/datum/gas/sleeping_agent/sleep_gas = new()
-	sleep_gas.moles = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
-	var/list/datum/gas/trace = list(sleep_gas)
-	air_contents.adjust((3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD,0,0,0,trace)
+
+	src.air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+
+	var/datum/gas/sleeping_agent/trace_gas = new()
+	trace_gas.moles = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
+
+	src.air_contents.trace_gases += trace_gas
 	return
 
 /*
@@ -89,7 +92,6 @@
 	force = 15
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 
-
 	examine()
 		set src in usr
 		..()
@@ -99,7 +101,9 @@
 
 /obj/item/weapon/tank/air/New()
 	..()
-	air_contents.adjust((6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD,0,(6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+
+	src.air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+	src.air_contents.nitrogen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 	return
 
 
@@ -112,7 +116,7 @@
 	icon_state = "plasma"
 	flags = CONDUCT
 	slot_flags = null	//they have no straps!
-	hitsound = 'sound/weapons/smash.ogg' //Plasma Robust
+	hitsound = 'sound/weapons/smash.ogg' //PLASMA ROBUST
 	flags = CONDUCT
 	throwforce = 15
 	w_class = 3.0
@@ -121,10 +125,10 @@
 	force = 15
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 
-
 /obj/item/weapon/tank/plasma/New()
 	..()
-	air_contents.adjust(0,0,0,(3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+
+	src.air_contents.toxins = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -141,7 +145,7 @@
 
 /obj/item/weapon/tank/plasma/full/New()
 	..()
-	air_contents.adjust(0,0,0,(10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	src.air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /*
@@ -153,11 +157,10 @@
 	icon_state = "emergency"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	w_class = 2.0
-	force = 4.0
 	hitsound = 'sound/weapons/smash.ogg'
-	throwforce = 5
-	force = 5
+	throwforce = 10
+	w_class = 3.0
+	force = 10
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
@@ -165,7 +168,7 @@
 
 	New()
 		..()
-		air_contents.adjust((3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+		src.air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 

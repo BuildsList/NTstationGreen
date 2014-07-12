@@ -19,7 +19,6 @@
 	var/obj/item/weapon/weldingtool/weldtool = null
 	var/obj/item/device/assembly/igniter/igniter = null
 	var/obj/item/weapon/tank/plasma/ptank = null
-	var/turf/previousturf = null
 
 
 /obj/item/weapon/flamethrower/Destroy()
@@ -138,7 +137,6 @@
 	usr.set_machine(src)
 	if(href_list["light"])
 		if(!ptank)	return
-		if(ptank.air_contents.toxins < 1)	return
 		if(!status)	return
 		lit = !lit
 		if(lit)
@@ -164,17 +162,17 @@
 /obj/item/weapon/flamethrower/proc/flame_turf(turflist)
 	if(!lit || operating)	return
 	operating = 1
-	for(var/turf/T in turflist)
-		if(T.density || istype(T, /turf/space))
+	var/turf/previousturf = get_turf(src)
+	for(var/turf/simulated/T in turflist)
+		if(!T.air)
 			break
-		if(!previousturf && length(turflist)>1)
-			previousturf = get_turf(src)
+		if(T == previousturf)
 			continue	//so we don't burn the tile we be standin on
-		if(previousturf && LinkBlocked(previousturf, T))
+		if(!T.CanAtmosPass(previousturf))
 			break
 		ignite_turf(T)
 		sleep(1)
-	previousturf = null
+		previousturf = T
 	operating = 0
 	for(var/mob/M in viewers(1, loc))
 		if((M.client && M.machine == src))
@@ -185,16 +183,15 @@
 /obj/item/weapon/flamethrower/proc/ignite_turf(turf/target)
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
-	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(0.02*(throw_amount/100))
-	//air_transfer.toxins = air_transfer.toxins * 5 // This is me not comprehending the air system. I realize this is retarded and I could probably make it work without fucking it up like this, but there you have it. -- TLE
-	new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(target,air_transfer.toxins,get_dir(loc,target))
-	air_transfer.toxins = 0
+	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(0.05)
+	air_transfer.toxins = air_transfer.toxins * 5
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
-	//target.hotspot_expose(part4.air_contents.temperature*2,300)
-	target.hotspot_expose((ptank.air_contents.temperature*2) + 380,500) // -- More of my "how do I shot fire?" dickery. -- TLE
+	target.hotspot_expose((ptank.air_contents.temperature*2) + 380,500)
 	//location.hotspot_expose(1000,500,1)
+	air_master.add_to_active(target, 0)
 	return
+
 
 /obj/item/weapon/flamethrower/full/New(var/loc)
 	..()

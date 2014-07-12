@@ -1,6 +1,6 @@
 /obj/machinery/door/poddoor
-	name = "Podlock"
-	desc = "Why it no open!!!"
+	name = "blast door"
+	desc = "A heavy duty blast door that opens mechanically."
 	icon = 'icons/obj/doors/blastdoor.dmi'
 	icon_state = "closed"
 	explosion_resistance = 25
@@ -50,7 +50,7 @@
 
 	density = 0
 	explosion_resistance = 0
-	update_nearby_tiles()
+	air_update_turf(1)
 	update_freelook_sight()
 	operating = 0
 
@@ -77,7 +77,7 @@
 	density = 1
 	explosion_resistance = initial(explosion_resistance)
 	SetOpacity(1)
-	update_nearby_tiles()
+	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
 

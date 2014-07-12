@@ -68,7 +68,7 @@
 
 	New()
 		..()
-		air_contents.adjust((6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+		air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 
 /obj/item/weapon/tank/jetpack/oxygen
@@ -79,7 +79,7 @@
 
 	New()
 		..()
-		air_contents.adjust((6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+		air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/weapon/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"
@@ -101,12 +101,4 @@
 		..()
 		ion_trail = new /datum/effect/effect/system/ion_trail_follow()
 		ion_trail.set_up(src)
-		air_contents.adjust(0,(6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
-
-	examine()
-		set src in usr
-		..()
-		if(air_contents.carbon_dioxide < 10)
-			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-			playsound(usr, 'sound/effects/alert.ogg', 50, 1)
-		return
+		air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)

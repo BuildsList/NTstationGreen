@@ -888,6 +888,12 @@ atom/proc/CheckForNukeDisk()
 					X.icon_state = old_icon_state1
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
+
+					// Give the new turf our air, if simulated
+					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+						var/turf/simulated/sim = X
+						sim.copy_air_with_tile(T)
+
 					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
 					if(direction && findtext(X.icon_state, "swall_s"))
 
@@ -919,12 +925,13 @@ atom/proc/CheckForNukeDisk()
 							X.icon = 'icons/turf/shuttle.dmi'
 							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
 							X.name = "wall"
-							del(O) // prevents multiple shuttle corners from stacking
+							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
 						if(!istype(O,/obj)) continue
 						O.loc = X
 					for(var/mob/M in T)
-						if(!istype(M,/mob) || istype(M, /mob/camera/aiEye)) continue // If we need to check for more mobs, I'll add a variable
+						if(!M.move_on_shuttle)
+							continue
 						M.loc = X
 
 //					var/area/AR = X.loc
@@ -953,29 +960,18 @@ atom/proc/CheckForNukeDisk()
 					refined_trg -= B
 					continue moving
 
-	var/list/doors = new/list()
 
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
-			for(var/obj/machinery/door/D2 in T1)
-				doors += D2
-			/*if(T1.parent)
-				air_master.groups_to_rebuild += T1.parent
-			else
-				air_master.tiles_to_update += T1*/
+			air_master.remove_from_active(T1)
+			T1.CalculateAdjacentTurfs()
+			air_master.add_to_active(T1,1)
 
 	if(fromupdate.len)
 		for(var/turf/simulated/T2 in fromupdate)
-			for(var/obj/machinery/door/D2 in T2)
-				doors += D2
-			/*if(T2.parent)
-				air_master.groups_to_rebuild += T2.parent
-			else
-				air_master.tiles_to_update += T2*/
-
-	for(var/obj/O in doors)
-		O:update_nearby_tiles(1)
-
+			air_master.remove_from_active(T2)
+			T2.CalculateAdjacentTurfs()
+			air_master.add_to_active(T2,1)
 
 
 
@@ -1085,8 +1081,8 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 						O.loc = X
 
 					for(var/mob/M in T)
-
-						if(!istype(M,/mob) || istype(M, /mob/camera/aiEye)) continue // If we need to check for more mobs, I'll add a variable
+						if(!M.move_on_shuttle)
+							continue
 						mobs += M
 
 					for(var/mob/M in mobs)
@@ -1117,27 +1113,13 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 					continue moving
 
 
-
-
-	var/list/doors = new/list()
-
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
-			for(var/obj/machinery/door/D2 in T1)
-				doors += D2
-			/*if(T1.parent)
-				air_master.groups_to_rebuild += T1.parent
-			else
-				air_master.tiles_to_update += T1*/
-
-	for(var/obj/O in doors)
-		O:update_nearby_tiles(1)
-
-
+			T1.CalculateAdjacentTurfs()
+			air_master.add_to_active(T1,1)
 
 
 	return copiedobjs
-
 
 
 
@@ -1307,7 +1289,6 @@ var/list/WALLITEMS = list(
 					return 1
 	return 0
 
-
 /obj/proc/atmosanalyzer_scan(var/datum/gas_mixture/air_contents, mob/user, var/obj/target = src)
 	var/obj/icon = target
 	user.visible_message("\red [user] has used the analyzer on \icon[icon] [target].</span>")
@@ -1348,27 +1329,3 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 		return 2
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return 3
-
-
-/proc/between(var/low, var/middle, var/high)
-	return max(min(middle, high), low)
-
-/proc/reverse_direction(var/dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
-

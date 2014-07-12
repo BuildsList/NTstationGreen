@@ -169,10 +169,3 @@ Doesn't work on other aliens/AI.*/
 				//Paralyse(10)
 		src.visible_message("\green <B>[src] hurls out the contents of their stomach!</B>")
 	return
-
-
-/mob/living/carbon/alien/verb/ventcrawl() // -- TLE
-	set name = "Crawl through vent"
-	set desc = "Enter an air vent and crawl through the pipe system."
-	set category = "Alien"
-	handle_ventcrawl()

@@ -5,13 +5,13 @@
 	//node2 is output port
 	//node1 is input port
 
-	name = "Dual Port Air Vent"
+	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
 	level = 1
 
 	high_volume
-		name = "Large Dual Port Air Vent"
+		name = "large dual-port air vent"
 
 		New()
 			..()
@@ -169,23 +169,23 @@
 			pump_direction = 1
 
 		if("set_input_pressure" in signal.data)
-			input_pressure_min = between(
-				0,
+			input_pressure_min = Clamp(
 				text2num(signal.data["set_input_pressure"]),
+				0,
 				ONE_ATMOSPHERE*50
 			)
 
 		if("set_output_pressure" in signal.data)
-			output_pressure_max = between(
-				0,
+			output_pressure_max = Clamp(
 				text2num(signal.data["set_output_pressure"]),
+				0,
 				ONE_ATMOSPHERE*50
 			)
 
 		if("set_external_pressure" in signal.data)
-			external_pressure_bound = between(
-				0,
+			external_pressure_bound = Clamp(
 				text2num(signal.data["set_external_pressure"]),
+				0,
 				ONE_ATMOSPHERE*50
 			)
 
