@@ -540,7 +540,7 @@ var/list/admin_verbs_hideable = list(
 	message_admins("\blue [key_name_admin(usr)] used 'kill air'.", 1)
 
 /client/proc/deadmin_self()
-	set name = "De-admin self"
+	set name = "UNPEDAL MEH!"
 	set category = "Admin"
 
 	if(holder)

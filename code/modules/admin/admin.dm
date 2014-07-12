@@ -538,6 +538,7 @@ var/global/floorIsLava = 0
 	if(!check_rights(0))	return
 
 	var/message = input("Global message to send:", "Admin Announce", null, null)  as message
+	message = sanitize(message)
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
@@ -552,6 +553,7 @@ var/global/floorIsLava = 0
 	if(!check_rights(0))	return
 
 	var/new_admin_notice = input(src,"Set a public notice for this round. Everyone who joins the server will see it.\n(Leaving it blank will delete the current notice):","Set Notice",admin_notice) as message|null
+	new_admin_notice = sanitize(new_admin_notice)
 	if(new_admin_notice == null)
 		return
 	if(new_admin_notice == admin_notice)
@@ -830,8 +832,8 @@ var/global/floorIsLava = 0
 	if(job_master)
 		for(var/datum/job/job in job_master.occupations)
 			count++
-			var/J_title = html_encode(job.title)
-			var/J_totPos = html_encode(job.total_positions)
+			var/J_title = rhtml_encode(job.title)
+			var/J_totPos = rhtml_encode(job.total_positions)
 			dat += "[J_title]: [J_totPos]<br>"
 
 	dat += "</body>"
