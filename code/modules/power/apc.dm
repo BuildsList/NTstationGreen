@@ -927,7 +927,7 @@
 	src.occupier.eyeobj.name = "[src.occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	src.occupier.verbs += /mob/living/silicon/ai/proc/corereturn
+//	src.occupier.verbs += /mob/living/silicon/ai/proc/corereturn
 	src.occupier.verbs += /datum/game_mode/malfunction/proc/takeover
 	src.occupier.cancel_camera()
 	if (seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)

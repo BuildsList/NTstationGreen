@@ -7,9 +7,9 @@
 
 	heat_protection = HANDS
 	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 
-	max_heat_protection_temperature = GLOVES_MAX_HEAT_PROTECITON_TEMPERATURE
-	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECITON_TEMPERATURE
 
 /obj/item/clothing/gloves/powered/proc/get_armor(var/checkconnection = 1)
 	var/mob/living/carbon/human/H = loc
