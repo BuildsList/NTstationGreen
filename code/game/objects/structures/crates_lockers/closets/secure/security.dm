@@ -227,8 +227,8 @@
 		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/device/detective_scanner(src)
 		new /obj/item/clothing/suit/armor/vest/det_suit(src)
-		new /obj/item/ammo_box/c38(src)
-		new /obj/item/ammo_box/c38(src)
+		new /obj/item/ammo_box/c38/e(src)
+		new /obj/item/ammo_box/c38/e(src)
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		return
 
@@ -320,12 +320,11 @@
  	req_access = list(access_armory)
 
 /obj/structure/closet/secure_closet/ammunitionlocker/New()
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
- 		new /obj/item/ammo_casing/shotgun/beanbag(src)
+ 		new /obj/item/ammo_box/shotgun/bean(src)
+ 		new /obj/item/ammo_box/shotgun/bean(src)
+ 		new /obj/item/ammo_box/shotgun/stun(src)
+ 		new /obj/item/ammo_box/shotgun/stun(src)
+ 		new /obj/item/ammo_box/shotgun(src)
+ 		new /obj/item/ammo_box/shotgun(src)
+
 

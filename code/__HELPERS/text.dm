@@ -514,6 +514,9 @@ proc/NewStutter(phrase,stunned)
 	return
 
 
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
+
 /proc/repeat_string(times, string="")
 	. = ""
 	for(var/i=1, i<=times, i++)
