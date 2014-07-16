@@ -86,14 +86,6 @@
 			if(recipe.items)
 				max_n_of_items = max(max_n_of_items, recipe.items.len)
 
-/obj/machinery/cooking/oven/updatefood()
-	for(var/U in food_choices)
-		food_choices.Remove(U)
-	for(var/U in typesof(/obj/item/weapon/reagent_containers/food/snacks/customizable/cook)-(/obj/item/weapon/reagent_containers/food/snacks/customizable/cook))
-		var/obj/item/weapon/reagent_containers/food/snacks/customizable/cook/V = new U
-		src.food_choices += V
-	return
-
 /obj/machinery/cooking/oven/attackby(obj/item/I, mob/user)
 	if(on)
 		user << "The machine is already running."
@@ -149,6 +141,7 @@
 /obj/machinery/cooking/oven/attack_hand(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
+
 
 /obj/machinery/cooking/oven/interact(mob/user as mob) // The oven Menu
 	var/dat = "<div class='statusDisplay'>"
@@ -218,17 +211,20 @@
 	sleep(200)
 	if(!recipe)
 		cooked = fail()
-		on = FALSE
-		icon_state = "oven_off"
-		return
+		stop()
 	else
 		cooked = recipe.make_food(src)
 		cooked.loc = src.loc
 		for(var/i=1,i<efficiency,i++)
 			cooked = new cooked.type(loc)
-		on = FALSE
-		icon_state = "oven_off"
-		return
+		stop()
+
+/obj/machinery/cooking/oven/proc/stop()
+	on = FALSE
+	icon_state = "oven_off"
+	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	return
+
 /obj/machinery/cooking/oven/proc/fail()
 	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
 	var/amount = 0

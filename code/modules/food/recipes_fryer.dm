@@ -36,3 +36,11 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/cabbage,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/meatbun
+
+/datum/recipe/fryer/nugget
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/egg,
+		/obj/item/weapon/reagent_containers/food/snacks/rawcutlet,
+		/obj/item/weapon/reagent_containers/food/snacks/doughslice,
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/nugget

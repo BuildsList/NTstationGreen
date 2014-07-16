@@ -2597,6 +2597,16 @@
 		..()
 		reagents.add_reagent("nutriment", 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/nugget
+	name = "nugget"
+	desc = "Yo nigga, wanna some KFC?"
+	icon_state = "nugget"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 3)
+
+
 
 ////////////////////////////////FOOD ADDITIONS////////////////////////////////////////////
 
