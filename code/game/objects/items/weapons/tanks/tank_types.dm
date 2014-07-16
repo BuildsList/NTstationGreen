@@ -114,6 +114,7 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
+	canbreathe = 0
 	flags = CONDUCT
 	slot_flags = null	//they have no straps!
 	hitsound = 'sound/weapons/smash.ogg' //PLASMA ROBUST
@@ -159,7 +160,7 @@
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/weapons/smash.ogg'
 	throwforce = 10
-	w_class = 3.0
+	w_class = 2.0
 	force = 10
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
