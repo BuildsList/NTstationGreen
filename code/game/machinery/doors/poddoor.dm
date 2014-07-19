@@ -5,6 +5,7 @@
 	icon_state = "closed"
 	explosion_resistance = 25
 	var/id = 1
+	layer = 2.69
 	var/auto_close = 0 // Time in seconds to automatically close when opened, 0 if it doesn't.
 
 /obj/machinery/door/poddoor/preopen
