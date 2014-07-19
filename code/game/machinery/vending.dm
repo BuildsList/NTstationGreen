@@ -546,6 +546,7 @@
 	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2, /obj/item/device/assembly/voice = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
+
 /obj/machinery/vending/coffee
 	name = "hot drinks machine"
 	desc = "A vending machine which dispenses hot drinks."
@@ -675,14 +676,16 @@
 					/obj/item/weapon/reagent_containers/syringe = 12,/obj/item/device/healthanalyzer = 5,/obj/item/weapon/reagent_containers/glass/beaker = 4, /obj/item/weapon/reagent_containers/dropper = 2)
 	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 3,/obj/item/weapon/reagent_containers/pill/stox = 4,/obj/item/weapon/reagent_containers/pill/antitox = 6)
 
-
 //This one's from bay12
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
-	products = list(/obj/item/clothing/under/rank/scientist = 6,/obj/item/clothing/suit/bio_suit = 6,/obj/item/clothing/head/bio_hood = 6,
-					/obj/item/device/transfer_valve = 6,/obj/item/device/assembly/timer = 6,/obj/item/device/assembly/signaler = 6,
-					/obj/item/device/assembly/prox_sensor = 6,/obj/item/device/assembly/igniter = 6)
+	icon_state = "engi"
+	icon_deny = "engi-deny"
+	products = list(	/obj/item/device/assembly/prox_sensor = 10,/obj/item/device/assembly/igniter = 10,/obj/item/device/assembly/signaler = 10,
+						/obj/item/device/transfer_valve = 5, /obj/item/device/assembly/timer = 5)
+	contraband = list(/obj/item/weapon/storage/belt/utility = 2,/obj/item/device/assembly/infra = 5, /obj/item/device/assembly/voice = 5)
+	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
 /obj/machinery/vending/wallmed1
 	name = "\improper NanoMed"
