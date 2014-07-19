@@ -143,7 +143,7 @@
 					if(1)
 						emote("twitch")
 					if(2 to 3)
-						say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
+						say("[prob(50) ? ";" : ""][pick("ДЕРЬМО", "ССАНИНА", "БЛЯДЬ", "ШЛЮХА", "ХУЕСОС", "МАТЬ ЕБАЛ", "ПОШЕЛ НАХУЙ")]")
 				var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 				var/y_offset = pixel_y + rand(-1,1)
 				animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
@@ -155,9 +155,9 @@
 			if (prob(3))
 				switch(pick(1,2,3))
 					if(1)
-						say(pick("IM A PONY NEEEEEEIIIIIIIIIGH", "without oxigen blob don't evoluate?", "CAPTAINS A COMDOM", "[pick("", "that faggot traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!", "can u give me [pick("telikesis","halk","eppilapse")]?", "THe saiyans screwed", "Bi is THE BEST OF BOTH WORLDS>", "I WANNA PET TEH monkeyS", "stop grifing me!!!!", "SOTP IT#"))
+						say(pick("Я ЕБАНЫЙ ПОНИ ИГО-ГООООООО", "биз воздуха блоб будит ивалюцианиравать", "КАПИТАН ГАНДОН!", "[pick("", "этот ебаный предатель")] шораст эльф грифонит миня ПАМАГИТИ!!!", "ты можишь мине дать [pick("телекинезис","халка","епилепсию")]", "ХОС ХУЕСОС", "БИ - ДВА САМЫХ ЛУЧШИХ СЛОВА", "Я ХОТЕТЬ ПАГЛАДИТЬ этих маКаК", "пиристань грифонеть миня!!!!", "ДЕМАН АСТАНАВИСЬ", "ХОП ТРЕЙТОР"))
 					if(2)
-						say(pick("FUS RO DAH","fucking 4rries!", "stat me", ">my face", "roll it easy!", "waaaaaagh!!!", "red wonz go fasta", "FOR TEH EMPRAH", "lol2cat", "dem dwarfs man, dem dwarfs", "SPESS MAHREENS", "hwee did eet fhor khayosss", "lifelike texture ;_;", "luv can bloooom", "PACKETS!!!", "ayy lmao"))
+						say(pick("НАЧАЛЬНИК!","где детонатор", "соблазни меня", "Хочешь я насру", "НАС ОКРУЖИЛИ, ВЫЗЫВАЙ ПОДКРЕПЛЕНИЕ", "РААААААААААААААААР!!!", "гонна го фаст", "ЗА ИМПЕРАТОРА", "лолбля", "эти ебаные дворфы, ебаные дворфы", "ЗА КОСМИЧЕСКИ ДЕСАНТ", "он сдилал эта для хаоса", "пиксельные человечки", "ЯЯЯЗЬ!!!!", "щитсповн", "ойбля я кончил в штаны", "хачу смиятся пять минут", "ЭТОТ ПИДОРАС ОБОСРАЛСЯ!"))
 					if(3)
 						emote("drool")
 
