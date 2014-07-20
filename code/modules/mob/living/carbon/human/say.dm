@@ -61,6 +61,37 @@
 			if(copytext(message, 1, 2) != "*")
 				message = "[upperrustext(replacetext(message, ".", "!"))]!!" //because I don't know how to code properly in getting vars from other files -Bro
 
+		if((src:client) && (src:brainloss < 60)) // D2K5 code
+			if(copytext(message, 1, 2) != "*")
+				message = replacetext(message, "=D", "")
+				message = replacetext(message, "=3", "")
+				message = replacetext(message, "=)", "")
+				message = replacetext(message, "=(", "")
+				message = replacetext(message, "=]", "")
+				message = replacetext(message, "=\[", "")
+				message = replacetext(message, "=o", "")
+				message = replacetext(message, "=P", "")
+				message = replacetext(message, ":P", "")
+				message = replacetext(message, ":D", "")
+				message = replacetext(message, ":)", "")
+				message = replacetext(message, ":3", "")
+				message = replacetext(message, ":(", "")
+				message = replacetext(message, "(", "")
+				message = replacetext(message, ")", "")
+				message = replacetext(message, " D:", "")
+				message = replacetext(message, "трейтор", "предатель")
+				message = replacetext(message, "тритор", "предатель")
+				message = replacetext(message, " малф", " сломан")
+				message = replacetext(message, " визард", " волшебник")
+				message = replacetext(message, " инжинер", " инженер")
+				message = replacetext(message, " инж ", " инженер ")
+				message = replacetext(message, " блять", " блядь")
+				message = replacetext(message, "хармбатон", "дубинка")
+				message = replacetext(message, "хармбатонят", "бьют дубинкой")
+				message = replacetext(message, " спс", " спасибо")
+				message = replacetext(message, " хз", " хуй знает")
+				//message = replacetext(message, "", "")
+
 	..(message)
 
 
