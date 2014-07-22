@@ -905,6 +905,7 @@
 #include "code\modules\flufftext\Hallucination.dm"
 #include "code\modules\flufftext\TextFilters.dm"
 #include "code\modules\food\customizables.dm"
+#include "code\modules\food\food_base.dm"
 #include "code\modules\food\recipes_fryer.dm"
 #include "code\modules\food\recipes_grill.dm"
 #include "code\modules\food\recipes_microwave.dm"

@@ -56,6 +56,11 @@
 		being_cooked.reagents.del_reagent("amatoxin")
 		return being_cooked
 
+/datum/recipe/microwave/jellybase
+	reagents = list("water" = 5, "vodka" = 5)
+	result = /obj/item/weapon/reagent_containers/food/snacks/base/jelly
+
+
 /datum/recipe/microwave/meatballsoup
 	reagents = list("water" = 10)
 	items = list(
@@ -313,13 +318,6 @@
 		being_cooked.reagents.del_reagent("toxin")
 		return being_cooked
 
-/datum/recipe/microwave/taco
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/tacobase,
-		/obj/item/weapon/reagent_containers/food/snacks/cutlet,
-		/obj/item/weapon/reagent_containers/food/snacks/cheesewedge,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/taco
 
 /datum/recipe/microwave/cornedbeef
 	reagents = list("sodiumchloride" = 5)
