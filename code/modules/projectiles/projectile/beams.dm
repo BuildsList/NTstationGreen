@@ -40,6 +40,10 @@
 	forcedodge = 1
 	trace_residue = null
 
+/obj/item/projectile/beam/xray/dalek
+	damage = 40
+	irradiate = 10
+
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
