@@ -35,5 +35,3 @@
 #define R_SPAWN			4096
 
 #define R_MAXPERMISSION 4096 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
-
-#define R_HOST			65535
