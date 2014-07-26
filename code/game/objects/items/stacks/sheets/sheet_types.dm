@@ -35,8 +35,8 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	new/datum/stack_recipe("light fixture frame", /obj/item/light_fixture_frame, 2), \
 	new/datum/stack_recipe("small light fixture frame", /obj/item/light_fixture_frame/small, 1), \
 	new/datum/stack_recipe("grenade casing", /obj/item/weapon/grenade/chem_grenade), \
-	new/datum/stack_recipe("knife blade", /obj/item/butterflyblade, 6, time = 20), \
-	new/datum/stack_recipe("handgun slide", /obj/item/glockslide, 10, time = 30), \
+	new/datum/stack_recipe("knife blade", /obj/item/buildingobject/butterfly/blade, 6, time = 20), \
+	new/datum/stack_recipe("handgun slide", /obj/item/buildingobject/glock/slide, 10, time = 30), \
 	null, \
 	new/datum/stack_recipe("apc frame", /obj/item/apc_frame, 2), \
 	new/datum/stack_recipe("air alarm frame", /obj/item/alarm_frame, 2), \
@@ -68,8 +68,8 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
  */
 var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 	new/datum/stack_recipe("AI core", /obj/structure/AIcore, 5, time = 50, one_per_turf = 1), \
-	new/datum/stack_recipe("knife grip", /obj/item/butterflyhandle, 4, time = 20), \
-	new/datum/stack_recipe("handgun grip", /obj/item/glockgrip, 6, time = 30), \
+	new/datum/stack_recipe("knife grip", /obj/item/buildingobject/butterfly/handle, 4, time = 20), \
+	new/datum/stack_recipe("handgun grip", /obj/item/buildingobject/glock/grip, 6, time = 30), \
 )
 
 /obj/item/stack/sheet/plasteel

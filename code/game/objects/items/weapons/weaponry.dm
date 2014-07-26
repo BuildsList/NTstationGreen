@@ -67,35 +67,35 @@
 	throwforce = 7
 	attack_verb = list("patted", "tapped")
 
-/obj/item/butterflyconstruction
+/obj/item/buildingobject
+	icon = 'icons/obj/buildingobject.dmi'
+
+/obj/item/buildingobject/butterfly/construction
 	name = "unfinished concealed knife"
 	desc = "An unfinished concealed knife, it looks like the screws need to be tightened."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "butterflystep1"
 
-/obj/item/butterflyconstruction/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/buildingobject/butterfly/construction/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/screwdriver))
 		user << "You finish the concealed blade weapon."
 		new /obj/item/weapon/butterfly(user.loc)
 		del(src)
 		return
 
-/obj/item/butterflyblade
+/obj/item/buildingobject/butterfly/blade
 	name = "knife blade"
 	desc = "A knife blade. Unusable as a weapon without a grip."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "butterfly2"
-/obj/item/butterflyhandle
+/obj/item/buildingobject/butterfly/handle
 	name = "concealed knife grip"
 	desc = "A plasteel grip with screw fittings for a blade."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "butterfly1"
 
 
-/obj/item/butterflyhandle/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/butterflyblade))
+/obj/item/buildingobject/butterfly/handle/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/buildingobject/butterfly/blade))
 		user << "You attach the two concealed blade parts."
-		new /obj/item/butterflyconstruction(user.loc)
+		new /obj/item/buildingobject/butterfly/construction(user.loc)
 		del(W)
 		del(src)
 		return
