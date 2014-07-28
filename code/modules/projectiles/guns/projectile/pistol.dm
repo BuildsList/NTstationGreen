@@ -103,20 +103,20 @@
 	origin_tech = "combat=4;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/m9mm
 
-/obj/item/buildingobject/glock/barrel
+/obj/item/weapon/assembly/glock/barrel
 	name = "handgun barrel"
 	desc = "One third of a low-caliber handgun."
 	icon_state = "glock1"
 	m_amt = 400000 // expensive, will need an autolathe upgrade to hold enough metal to produce the barrel. this way you need cooperation between 3 departments to finish even 1.
 
-/obj/item/buildingobject/glock/construction
+/obj/item/weapon/assembly/glock/construction
 	name = "handgun barrel and grip"
 	desc = "Two thirds of a low-caliber handgun."
 	icon_state = "glockstep1"
 	var/construction = 0
 
-/obj/item/buildingobject/glock/construction/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/buildingobject/glock/slide))
+/obj/item/weapon/assembly/glock/construction/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/assembly/glock/slide))
 		user << "You attach the slide to the gun."
 		construction = 1
 		del(W)
@@ -131,20 +131,20 @@
 			del(src)
 			return
 
-/obj/item/buildingobject/glock/barrel/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/buildingobject/glock/grip))
+/obj/item/weapon/assembly/glock/barrel/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/assembly/glock/grip))
 		user << "You attach the grip to the barrel."
-		new /obj/item/buildingobject/glock/construction(user.loc)
+		new /obj/item/weapon/assembly/glock/construction(user.loc)
 		del(W)
 		del(src)
 		return
 
-/obj/item/buildingobject/glock/grip
+/obj/item/weapon/assembly/glock/grip
 	name = "handgun grip"
 	desc = "One third of a low-caliber handgun."
 	icon_state = "glock2"
 
-/obj/item/buildingobject/glock/slide
+/obj/item/weapon/assembly/glock/slide
 	name = "handgun slide"
 	desc = "One third of a low-caliber handgun."
 	icon_state = "glock3"
