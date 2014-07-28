@@ -79,7 +79,7 @@
 		if(istype(mob, /mob/new_player))
 			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // stop the jamsz
 	feedback_add_details("admin_verb","TLobby") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+/* thx to Samul
 /client/verb/togglemidis()
 	set name = "Hear/Silence Midis"
 	set category = "Preferences"
@@ -97,7 +97,7 @@
 			src << admin_sound
 			admin_sound.status ^= SOUND_PAUSED
 	feedback_add_details("admin_verb","TMidi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+*/
 /client/verb/listen_ooc()
 	set name = "Show/Hide OOC"
 	set category = "Preferences"
