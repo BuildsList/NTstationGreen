@@ -5,10 +5,14 @@
 	layer = MOB_LAYER
 	luminosity = 3
 	use_power = 0
+	density = 0
+	anchored = 0
+	layer = 5.0
+
 	var/obj/item/weapon/card/id/botcard			// the ID card that the bot "holds"
 	var/on = 1
-	var/health = 0 //do not forget to set health for your bot!
-	var/maxhealth = 0
+	var/health = 25 //do not forget to set health for your bot!
+	var/maxhealth = 25
 	var/fire_dam_coeff = 1.0
 	var/brute_dam_coeff = 1.0
 	var/open = 0//Maint panel
@@ -166,3 +170,25 @@
 	for(var/mob/O in hearers(src, null))
 		O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"</span>",2)
 	return
+
+
+/obj/item/weapon/assembly/bot
+	name = "basic bot assembly"
+	icon = 'icons/obj/aibots.dmi'
+	force = 3
+	throwforce = 5
+	throw_speed = 2
+	throw_range = 5
+	w_class = 3
+	var/created_name = "Bot"
+
+/obj/item/weapon/assembly/bot/attackby(var/obj/item/W, mob/user as mob)
+	if (istype(W, /obj/item/weapon/pen))
+		var/t = copytext(stripped_input(user, "Enter new robot name", src.name, src.created_name),1,MAX_NAME_LEN)
+		if (!t)
+			return
+		if (!in_range(src, usr) && src.loc != usr)
+			return
+		created_name = t
+	else
+		..()

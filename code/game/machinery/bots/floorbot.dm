@@ -1,40 +1,10 @@
-//Floorbot assemblies
-/obj/item/weapon/toolbox_tiles
-	desc = "It's a toolbox with tiles sticking out the top"
-	name = "tiles and toolbox"
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "toolbox_tiles"
-	force = 3.0
-	throwforce = 10.0
-	throw_speed = 2
-	throw_range = 5
-	w_class = 3.0
-	var/created_name = "Floorbot"
-
-/obj/item/weapon/toolbox_tiles_sensor
-	desc = "It's a toolbox with tiles sticking out the top and a sensor attached"
-	name = "tiles, toolbox and sensor arrangement"
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "toolbox_tiles_sensor"
-	force = 3.0
-	throwforce = 10.0
-	throw_speed = 2
-	throw_range = 5
-	w_class = 3.0
-	var/created_name = "Floorbot"
-
 //Floorbot
 /obj/machinery/bot/floorbot
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
-	layer = 5.0
-	density = 0
-	anchored = 0
-	health = 25
-	maxhealth = 25
-	//weight = 1.0E7
+	req_access = list(access_construction)
+
 	var/amount = 10
 	var/repairing = 0
 	var/improvefloors = 0
@@ -43,7 +13,6 @@
 	var/turf/target
 	var/turf/oldtarget
 	var/oldloc = null
-	req_access = list(access_construction)
 	var/path[] = new()
 	var/targetdirection
 
@@ -404,6 +373,26 @@
 	return
 
 
+
+
+//Floorbot assemblies
+/obj/item/weapon/assembly/bot/toolbox_tiles
+	desc = "It's a toolbox with tiles sticking out the top"
+	name = "tiles and toolbox"
+	icon_state = "toolbox_tiles"
+	force = 10
+	throwforce = 10
+	created_name = "Floorbot"
+
+/obj/item/weapon/assembly/bot/toolbox_tiles_sensor
+	desc = "It's a toolbox with tiles sticking out the top and a sensor attached"
+	name = "tiles, toolbox and sensor arrangement"
+	icon_state = "toolbox_tiles_sensor"
+	force = 10
+	throwforce = 10
+	created_name = "Floorbot"
+
+
 /obj/item/weapon/storage/toolbox/mechanical/attackby(var/obj/item/stack/tile/plasteel/T, mob/user as mob)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
@@ -414,33 +403,24 @@
 	if(user.s_active)
 		user.s_active.close(user)
 	qdel(T)
-	var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
+	var/obj/item/weapon/assembly/bot/toolbox_tiles/B = new /obj/item/weapon/assembly/bot/toolbox_tiles
 	user.put_in_hands(B)
 	user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
 	user.unEquip(src, 1)
 	qdel(src)
 
-/obj/item/weapon/toolbox_tiles/attackby(var/obj/item/W, mob/user as mob)
+/obj/item/weapon/assembly/bot/toolbox_tiles/attackby(var/obj/item/W, mob/user as mob)
 	..()
 	if(isprox(W))
 		qdel(W)
-		var/obj/item/weapon/toolbox_tiles_sensor/B = new /obj/item/weapon/toolbox_tiles_sensor()
+		var/obj/item/weapon/assembly/bot/toolbox_tiles_sensor/B = new /obj/item/weapon/assembly/bot/toolbox_tiles_sensor()
 		B.created_name = src.created_name
 		user.put_in_hands(B)
 		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
 		user.unEquip(src, 1)
 		qdel(src)
 
-	else if (istype(W, /obj/item/weapon/pen))
-		var/t = copytext(stripped_input(user, "Enter new robot name", src.name, src.created_name),1,MAX_NAME_LEN)
-		if (!t)
-			return
-		if (!in_range(src, usr) && src.loc != usr)
-			return
-
-		src.created_name = t
-
-/obj/item/weapon/toolbox_tiles_sensor/attackby(var/obj/item/W, mob/user as mob)
+/obj/item/weapon/assembly/bot/toolbox_tiles_sensor/attackby(var/obj/item/W, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
@@ -450,12 +430,3 @@
 		user << "<span class='notice'>You add the robot arm to the odd looking toolbox assembly! Boop beep!</span>"
 		user.unEquip(src, 1)
 		qdel(src)
-	else if (istype(W, /obj/item/weapon/pen))
-		var/t = stripped_input(user, "Enter new robot name", src.name, src.created_name)
-
-		if (!t)
-			return
-		if (!in_range(src, usr) && src.loc != usr)
-			return
-
-		src.created_name = t

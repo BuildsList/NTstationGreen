@@ -1,29 +1,9 @@
-//Cleanbot assembly
-/obj/item/weapon/bucket_sensor
-	desc = "It's a bucket. With a sensor attached."
-	name = "proxy bucket"
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "bucket_proxy"
-	force = 3.0
-	throwforce = 5.0
-	throw_speed = 2
-	throw_range = 5
-	w_class = 3.0
-	var/created_name = "Cleanbot"
-
-
 //Cleanbot
 /obj/machinery/bot/cleanbot
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot0"
-	layer = 5.0
-	density = 0
-	anchored = 0
-	//weight = 1.0E7
-	health = 25
-	maxhealth = 25
+
 	var/cleaning = 0
 	var/blood = 1
 	var/list/target_types = list()
@@ -343,7 +323,15 @@ text("<A href='?src=\ref[src];operation=oddbutton'>[src.oddbutton ? "Yes" : "No"
 	qdel(src)
 	return
 
-/obj/item/weapon/bucket_sensor/attackby(var/obj/item/W, mob/user as mob)
+
+//Cleanbot assembly
+/obj/item/weapon/assembly/bot/cleanbot
+	desc = "It's a bucket. With a sensor attached."
+	name = "proxy bucket"
+	icon_state = "bucket_proxy"
+	created_name = "Cleanbot"
+
+/obj/item/weapon/assembly/bot/cleanbot/attackby(var/obj/item/W, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		user.drop_item()
@@ -354,11 +342,3 @@ text("<A href='?src=\ref[src];operation=oddbutton'>[src.oddbutton ? "Yes" : "No"
 		user << "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>"
 		user.unEquip(src, 1)
 		qdel(src)
-
-	else if (istype(W, /obj/item/weapon/pen))
-		var/t = copytext(stripped_input(user, "Enter new robot name", src.name, src.created_name),1,MAX_NAME_LEN)
-		if (!t)
-			return
-		if (!in_range(src, usr) && src.loc != usr)
-			return
-		src.created_name = t

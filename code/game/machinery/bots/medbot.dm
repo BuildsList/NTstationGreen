@@ -6,14 +6,11 @@
 /obj/machinery/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
-	layer = 5.0
-	density = 0
-	anchored = 0
 	health = 20
 	maxhealth = 20
 	req_access =list(access_medical)
+
 	var/stunned = 0 //It can be stunned by tasers. Delicate circuits.
 //	var/emagged = 0
 	var/list/botcard_access = list(access_medical)
@@ -47,23 +44,6 @@
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	treatment_tox = "anti_toxin"
-
-/obj/item/weapon/firstaid_arm_assembly
-	name = "first aid/robot arm assembly"
-	desc = "A first aid kit with a robot arm permanently grafted to it."
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "firstaid_arm"
-	var/build_step = 0
-	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
-	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
-	w_class = 3.0
-
-	New()
-		..()
-		spawn(5)
-			if(src.skin)
-				src.overlays += image('icons/obj/aibots.dmi', "kit_skin_[src.skin]")
-
 
 /obj/machinery/bot/medbot/New()
 	..()
@@ -542,7 +522,6 @@
  */
 
 /obj/item/weapon/storage/firstaid/attackby(var/obj/item/robot_parts/S, mob/user as mob)
-
 	if ((!istype(S, /obj/item/robot_parts/l_arm)) && (!istype(S, /obj/item/robot_parts/r_arm)))
 		..()
 		return
@@ -552,7 +531,7 @@
 		user << "<span class='notice'>You need to empty [src] out first.</span>"
 		return
 
-	var/obj/item/weapon/firstaid_arm_assembly/A = new /obj/item/weapon/firstaid_arm_assembly
+	var/obj/item/weapon/assembly/bot/medbot/A = new /obj/item/weapon/assembly/bot/medbot
 	if(istype(src,/obj/item/weapon/storage/firstaid/fire))
 		A.skin = "ointment"
 	else if(istype(src,/obj/item/weapon/storage/firstaid/toxin))
@@ -566,37 +545,42 @@
 	user.unEquip(src, 1)
 	qdel(src)
 
+/obj/item/weapon/assembly/bot/medbot
+	name = "first aid/robot arm assembly"
+	desc = "A first aid kit with a robot arm permanently grafted to it."
+	icon_state = "firstaid_arm"
+	created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
 
-/obj/item/weapon/firstaid_arm_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	var/build_step = 0
+	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
+
+	New()
+		..()
+		spawn(5)
+			if(src.skin)
+				src.overlays += image('icons/obj/aibots.dmi', "kit_skin_[src.skin]")
+
+/obj/item/weapon/assembly/bot/medbot/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
-	if(istype(W, /obj/item/weapon/pen))
-		var/t = copytext(stripped_input(user, "Enter new robot name", src.name, src.created_name),1,MAX_NAME_LEN)
-		if (!t)
-			return
-		if (!in_range(src, usr) && src.loc != usr)
-			return
-		src.created_name = t
-	else
-		switch(build_step)
-			if(0)
-				if(istype(W, /obj/item/device/healthanalyzer))
-					user.drop_item()
-					qdel(W)
-					src.build_step++
-					user << "<span class='notice'>You add the health sensor to [src].</span>"
-					src.name = "First aid/robot arm/health analyzer assembly"
-					src.overlays += image('icons/obj/aibots.dmi', "na_scanner")
+	switch(build_step)
+		if(0)
+			if(istype(W, /obj/item/device/healthanalyzer))
+				user.drop_item()
+				qdel(W)
+				src.build_step++
+				user << "<span class='notice'>You add the health sensor to [src].</span>"
+				src.name = "First aid/robot arm/health analyzer assembly"
+				src.overlays += image('icons/obj/aibots.dmi', "na_scanner")
 
-			if(1)
-				if(isprox(W))
-					user.drop_item()
-					qdel(W)
-					src.build_step++
-					user << "<span class='notice'>You complete the Medibot! Beep boop.</span>"
-					var/turf/T = get_turf(src)
-					var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
-					S.skin = src.skin
-					S.name = src.created_name
-					user.unEquip(src, 1)
-					qdel(src)
-
+		if(1)
+			if(isprox(W))
+				user.drop_item()
+				qdel(W)
+				src.build_step++
+				user << "<span class='notice'>You complete the Medibot! Beep boop.</span>"
+				var/turf/T = get_turf(src)
+				var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
+				S.skin = src.skin
+				S.name = src.created_name
+				user.unEquip(src, 1)
+				qdel(src)
