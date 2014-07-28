@@ -375,23 +375,21 @@
 
 
 
-//Floorbot assemblies
-/obj/item/weapon/assembly/bot/toolbox_tiles
+//Floorbot assembly
+/obj/item/weapon/assembly/bot/floorbot
 	desc = "It's a toolbox with tiles sticking out the top"
 	name = "tiles and toolbox"
 	icon_state = "toolbox_tiles"
 	force = 10
 	throwforce = 10
 	created_name = "Floorbot"
+	var/prox = 0
 
-/obj/item/weapon/assembly/bot/toolbox_tiles_sensor
+/obj/item/weapon/assembly/bot/floorbot/prox // for current map
+	prox = 1
 	desc = "It's a toolbox with tiles sticking out the top and a sensor attached"
 	name = "tiles, toolbox and sensor arrangement"
 	icon_state = "toolbox_tiles_sensor"
-	force = 10
-	throwforce = 10
-	created_name = "Floorbot"
-
 
 /obj/item/weapon/storage/toolbox/mechanical/attackby(var/obj/item/stack/tile/plasteel/T, mob/user as mob)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
@@ -403,26 +401,23 @@
 	if(user.s_active)
 		user.s_active.close(user)
 	qdel(T)
-	var/obj/item/weapon/assembly/bot/toolbox_tiles/B = new /obj/item/weapon/assembly/bot/toolbox_tiles
+	var/obj/item/weapon/assembly/bot/floorbot/B = new /obj/item/weapon/assembly/bot/floorbot
 	user.put_in_hands(B)
 	user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
 	user.unEquip(src, 1)
 	qdel(src)
 
-/obj/item/weapon/assembly/bot/toolbox_tiles/attackby(var/obj/item/W, mob/user as mob)
+/obj/item/weapon/assembly/bot/floorbot/attackby(var/obj/item/W, mob/user as mob)
 	..()
-	if(isprox(W))
-		qdel(W)
-		var/obj/item/weapon/assembly/bot/toolbox_tiles_sensor/B = new /obj/item/weapon/assembly/bot/toolbox_tiles_sensor()
-		B.created_name = src.created_name
-		user.put_in_hands(B)
-		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
-		user.unEquip(src, 1)
-		qdel(src)
-
-/obj/item/weapon/assembly/bot/toolbox_tiles_sensor/attackby(var/obj/item/W, mob/user as mob)
-	..()
-	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
+	if(!prox)
+		if(isprox(W))
+			qdel(W)
+			prox = 1
+			desc = "It's a toolbox with tiles sticking out the top and a sensor attached"
+			name = "tiles, toolbox and sensor arrangement"
+			icon_state = "toolbox_tiles_sensor"
+			user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
+	else if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
 		var/turf/T = get_turf(user.loc)
 		var/obj/machinery/bot/floorbot/A = new /obj/machinery/bot/floorbot(T)
