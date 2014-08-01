@@ -124,7 +124,12 @@ var/list/admin_verbs_permissions = list(
 var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character
 	)
-
+var/list/admin_verbs_mentor = list(
+	/client/proc/toggleadminhelpsound,	/*toggles whether we hear a sound when adminhelps/PMs are used*/
+	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
+	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
+	/client/proc/cmd_admin_pm_panel		/*admin-pm list*/
+	)
 //verbs which can be hidden - needs work
 var/list/admin_verbs_hideable = list(
 	/client/proc/set_ooc,
@@ -205,6 +210,7 @@ var/list/admin_verbs_hideable = list(
 		if(rights & R_REJUVINATE)	verbs += admin_verbs_rejuv
 		if(rights & R_SOUNDS)		verbs += admin_verbs_sounds
 		if(rights & R_SPAWN)		verbs += admin_verbs_spawn
+		if(rights & R_MENTOR)		verbs += admin_verbs_mentor
 
 		for(var/path in holder.rank.adds)
 			verbs += path

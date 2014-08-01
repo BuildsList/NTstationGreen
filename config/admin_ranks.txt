@@ -12,6 +12,7 @@
 # PLEASE NOTE: depending on config options, some abilities will be unavailable regardless if you have permission to use them!
 
 # KEYWORDS:
+# +MENTOR = game helpers
 # +ADMIN = general admin tools, verbs etc
 # +FUN = events, other event-orientated actions. Access to the fun secrets in the secrets panel.
 # +BAN = the ability to ban, jobban and fullban
@@ -28,6 +29,7 @@
 # +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
 
 Admin Observer
+Mentor			= +MENTOR
 Moderator		= +ADMIN
 Admin Candidate		= +@ +BAN
 Trial Admin		= +@  +VAREDIT +BAN +SERVER
