@@ -89,11 +89,16 @@
 
 /obj/item/weapon/gun/projectile/automatic/deagle/m1911
 	name = "\improper M1911"
-	desc = "An M1911 pistol. Uses .45 ammo."
+	desc = "An M1911 pistol. Uses .45 ACP ammo."
 	icon_state = "m1911"
 	force = 13.0
 	origin_tech = "combat=4;materials=4"
 	mag_type = /obj/item/ammo_box/magazine/sm45
+
+/obj/item/weapon/gun/projectile/automatic/deagle/m1911/black
+	name = "\improper M1911A1"
+	desc = "An M1911A1 pistol. Uses .45 ACP ammo."
+	icon_state = "m1911b"
 
 /obj/item/weapon/gun/projectile/automatic/deagle/glock
 	name = "glock"

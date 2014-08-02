@@ -6,7 +6,7 @@
 */
 
 /mob/proc/magic_summon(var/summon_type)
-	var/list/summon_gunslist 			= list("taser","egun","laser","revolver","detective","smg","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","mateba","smg","uzi","crossbow","saw","tommy","retro","stunrevolver","glock","m1911")
+	var/list/summon_gunslist 			= list("taser","egun","laser","revolver","detective","smg","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","mateba","smg","uzi","crossbow","saw","tommy","retro","stunrevolver","glock","m1911", "m1911b")
 	var/list/summon_magiclist 			= list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge","wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffchange", "staffhealing", "armor", "scrying", "staffdoor", "special")
 	var/list/summon_magicspeciallist	= list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos")
 	var/list/summon_mechslist			= list("durand","gygax","d-gygax","marauder","mauler","seraph","d-ripley","reticence","HONK")
@@ -92,6 +92,8 @@
 						new /obj/item/weapon/gun/projectile/automatic/deagle/glock(get_turf(H))
 					if("m1911")
 						new /obj/item/weapon/gun/projectile/automatic/deagle/m1911(get_turf(H))
+					if("m1911b")
+						new /obj/item/weapon/gun/projectile/automatic/deagle/m1911/black(get_turf(H))
 
 			if("magic")
 				switch (randomizemagic)
