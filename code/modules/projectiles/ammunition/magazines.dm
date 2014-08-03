@@ -150,8 +150,8 @@
 	name = "STANAG bullup mag (.308)"
 	icon_state = "stanag"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/c45
-	caliber = ".45"
+	ammo_type = /obj/item/ammo_casing/c38/e
+	caliber = ".308"
 	max_ammo = 30
 
 /obj/item/ammo_box/magazine/stanag/update_icon()
