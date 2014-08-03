@@ -64,6 +64,42 @@
 	icon_state = "c20r[silenced ? "-silencer" : ""][magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"]"
 	return
 
+/obj/item/weapon/gun/projectile/automatic/morita
+	name = "\improper Morita Assault Rifle"
+	desc = "A lightweight bullpup SMG. Uses .308 caliber rounds in medium-capacity magazines."
+	icon_state = "morita1"
+	item_state = "morita1"
+	w_class = 5.0
+	origin_tech = "combat=5;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/stanag
+	slot_flags = SLOT_BACK
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+
+/obj/item/weapon/gun/projectile/automatic/morita/New()
+	..()
+	update_icon()
+	return
+
+/obj/item/weapon/gun/projectile/automatic/morita/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	if(!chambered && !get_ammo() && !alarmed)
+		playsound(user, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
+		update_icon()
+		alarmed = 1
+	return
+
+/obj/item/weapon/gun/projectile/automatic/morita/smg
+	name = "\improper Morita Smart Rifle"
+	desc = "A lightweight, compact bullpup SMG. Uses .308 caliber rounds in medium-capacity magazines."
+	icon_state = "morita2"
+	item_state = "morita2"
+	w_class = 3.0
+
+/obj/item/weapon/gun/projectile/automatic/morita/sniper
+	name = "\improper Morita Sniper Rifle"
+	desc = "A lightweight bullpup SMG with sniper scope. Uses .308 caliber rounds in medium-capacity magazines."
+	icon_state = "morita3"
+	item_state = "morita3"
 
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw

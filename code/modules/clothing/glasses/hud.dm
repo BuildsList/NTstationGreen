@@ -136,6 +136,45 @@ obj/item/clothing/glasses/hud/security/supergars
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/clothing/glasses/hud/security/solideye
+	name = "Solid Eye"
+	desc = "An eye patch combined Enhanced Night Vision Goggles light amplification, termal imaging technology, and also allowed for binocular security functionality."
+	origin_tech = "magnets=4"
+	action_button_name = "Change Visor Mode"
+	icon_state = "solideye-n"
+	item_state = "solideye-n"
+	var/solidmode = 0
+
+/obj/item/clothing/glasses/hud/security/solideye/attack_self()
+	toggle()
+
+/obj/item/clothing/glasses/hud/security/solideye/verb/toggle()
+	set category = "Object"
+	set name = "Change Visor Mode"
+	set src in usr
+	solidtoggle()
+
+/obj/item/clothing/glasses/hud/security/solideye/proc/solidtoggle()			//Loly: proc to change solid eye type.
+	if (solidmode)
+		solidmode = !solidmode
+		icon_state = "solideye-n"
+		item_state = "solideye-n"
+		darkness_view = 8
+		invis_view = SEE_INVISIBLE_MINIMUM
+		vision_flags = initial(vision_flags)
+		usr << "You change [src] mode to Night Vision."
+		update_icon()
+		usr.update_inv_glasses(0)
+	else
+		solidmode = !solidmode
+		icon_state = "solideye-t"
+		item_state = "solideye-t"
+		darkness_view = initial(darkness_view)
+		vision_flags = SEE_MOBS
+		invis_view = 2
+		usr << "You change [src] mode to Thermal."
+		update_icon()
+		usr.update_inv_glasses(0)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/emp_act(severity)
 	if(emagged == 0)
