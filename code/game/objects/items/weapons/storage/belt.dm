@@ -170,6 +170,24 @@
 	item_state = "military"
 	storage_slots = 7
 
+/obj/item/weapon/storage/belt/military/snake
+	name = "sneak belt"
+	desc = "An old combat belt designed to hold a large variety of weapons and gadgets."
+	icon_state = "securitybelt"
+	item_state = "security"
+	storage_slots = 7
+	max_w_class = 5.0
+
+/obj/item/weapon/storage/belt/military/snake/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/stanag(src)
+	new /obj/item/ammo_box/magazine/sm45(src)
+	new /obj/item/ammo_box/magazine/sm45(src)
+	new /obj/item/weapon/grenade/empgrenade(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/reagent_containers/hypospray/medipen/admin(src)
+	new /obj/item/weapon/reagent_containers/hypospray/medipen/admin(src)
+
 /obj/item/weapon/storage/belt/wands
 	name = "wand belt"
 	desc = "A magical belt designed to hold various rods of power. A veritable fanny pack of exotic magic."
