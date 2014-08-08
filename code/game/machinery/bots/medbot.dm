@@ -598,4 +598,3 @@
 					S.name = created_name
 					user.unEquip(src, 1)
 					qdel(src)
-

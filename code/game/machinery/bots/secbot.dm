@@ -1,11 +1,17 @@
 /obj/machinery/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot.  He looks less than thrilled."
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
+	layer = 5.0
+	density = 0
+	anchored = 0
+	health = 25
+	maxhealth = 25
 	fire_dam_coeff = 0.7
 	brute_dam_coeff = 0.5
+//	weight = 1.0E7
 	req_one_access = list(access_security, access_forensics_lockers)
-
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/threatlevel = 0
@@ -30,6 +36,16 @@
 	desc = "It's Officer Beep O'sky! Powered by a potato and a shot of whiskey."
 	idcheck = 0
 	auto_patrol = 1
+
+/obj/item/weapon/secbot_assembly
+	name = "helmet/signaler assembly"
+	desc = "Some sort of bizarre assembly."
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "helmet_signaler"
+	item_state = "helmet"
+	var/build_step = 0
+	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
+
 
 
 /obj/machinery/bot/secbot/New()
@@ -371,7 +387,7 @@ Auto Patrol: []"},
 	visible_message("<span class='danger'> <B>[src] blows apart!</B></span>", 1)
 	var/turf/Tsec = get_turf(src)
 
-	var/obj/item/weapon/assembly/bot/secbot/Sa = new /obj/item/weapon/assembly/bot/secbot(Tsec)
+	var/obj/item/weapon/secbot_assembly/Sa = new /obj/item/weapon/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
@@ -394,8 +410,6 @@ Auto Patrol: []"},
 		target = user
 		mode = BOT_HUNT
 
-
-
 //Secbot Construction
 
 /obj/item/clothing/head/helmet/attackby(var/obj/item/device/assembly/signaler/S, mob/user as mob)
@@ -409,7 +423,7 @@ Auto Patrol: []"},
 
 	if(S.secured)
 		qdel(S)
-		var/obj/item/weapon/assembly/bot/secbot/A = new /obj/item/weapon/assembly/bot/secbot
+		var/obj/item/weapon/secbot_assembly/A = new /obj/item/weapon/secbot_assembly
 		user.put_in_hands(A)
 		user << "<span class='notice'>You add the signaler to the helmet.</span>"
 		user.unEquip(src, 1)
@@ -417,15 +431,7 @@ Auto Patrol: []"},
 	else
 		return
 
-/obj/item/weapon/assembly/bot/secbot
-	name = "helmet/signaler assembly"
-	desc = "Some sort of bizarre assembly."
-	icon_state = "helmet_signaler"
-	item_state = "helmet"
-	var/build_step = 0
-	created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
-
-/obj/item/weapon/assembly/bot/secbot/attackby(obj/item/I, mob/user)
+/obj/item/weapon/secbot_assembly/attackby(obj/item/I, mob/user)
 	..()
 	if(istype(I, /obj/item/weapon/weldingtool))
 		if(!build_step)
@@ -466,6 +472,14 @@ Auto Patrol: []"},
 		S.name = created_name
 		qdel(I)
 		qdel(src)
+
+	else if(istype(I, /obj/item/weapon/pen))
+		var/t = copytext(stripped_input(user, "Enter new robot name", name, created_name),1,MAX_NAME_LEN)
+		if(!t)
+			return
+		if(!in_range(src, usr) && loc != usr)
+			return
+		created_name = t
 
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		if(!build_step)

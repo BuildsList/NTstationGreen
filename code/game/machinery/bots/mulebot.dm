@@ -18,7 +18,6 @@ var/global/mulebot_count = 0
 	maxhealth = 150
 	fire_dam_coeff = 0.7
 	brute_dam_coeff = 0.5
-
 	var/atom/movable/load = null		// the loaded crate (usually)
 	var/list/delivery_beacons = list() //List of beacons that serve as delivery locations.
 	beacon_freq = 1400

@@ -207,7 +207,7 @@
 		if(isprox(D))
 			user << "<span class='notice'>You add [D] to [src].</span>"
 			qdel(D)
-			user.put_in_hands(new /obj/item/weapon/assembly/bot/cleanbot)
+			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 			user.unEquip(src)
 			qdel(src)
 
