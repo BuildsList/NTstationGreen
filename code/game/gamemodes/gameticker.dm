@@ -7,7 +7,7 @@ var/round_start_time = 0
 #define GAME_STATE_FINISHED		4
 
 /datum/controller/gameticker
-	var/const/restart_timeout = 250
+	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
 
 	var/hide_mode = 0
@@ -284,6 +284,7 @@ var/round_start_time = 0
 				declare_completion()
 
 			spawn(50)
+				showcredits()
 				if (mode.station_was_nuked)
 					feedback_set_details("end_proper","nuke")
 					if(!delay_end)

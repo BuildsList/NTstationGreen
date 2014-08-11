@@ -1,3 +1,9 @@
+/mob/living/carbon/human/Move(NewLoc, direct)
+	. = ..()
+	if(.)
+		if(istype(wear_suit))
+			wear_suit.on_mob_move()
+
 /mob/living/carbon/human/movement_delay()
 	if(!has_gravity(src))
 		return -1	//It's hard to be slowed down in space by... anything
@@ -20,6 +26,10 @@
 	if(back)
 		. += back.slowdown
 
+	//Leg based movement delays
+	if(get_num_limbs_of_state(LEG_RIGHT,ORGAN_REMOVED) >= 1)
+		. += 1//1 leg missing, +1 delay
+
 	if(has_organic_effect(/datum/organic_effect/fat))
 		. += 1.5
 	if(bodytemperature < 283.222)
@@ -27,6 +37,14 @@
 
 	. += ..()
 	. += config.human_delay
+
+/mob/living/carbon/human/update_canmove()
+	..()
+
+	if(!get_num_limbs_of_state(LEG_RIGHT,ORGAN_FINE))
+		canmove = 0
+
+	return canmove
 
 /mob/living/carbon/human/Process_Spacemove(var/check_drift = 0)
 	//Can we act
@@ -54,7 +72,7 @@
 		prob_slip = 0 // Changing this to zero to make it line up with the comment, and also, make more sense.
 
 	//Do we have magboots or such on if so no slip
-	if(istype(shoes, /obj/item/clothing/shoes/magboots) && (shoes.flags & NOSLIP))
+	if(istype(shoes) && shoes.negates_gravity())
 		prob_slip = 0
 
 	//Check hands and mod slip

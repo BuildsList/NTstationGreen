@@ -637,6 +637,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 		"mobster",
 		"death commando",
 //		"syndicate commando",
+		"snake eater",
 		"centcom official",
 		"centcom commander",
 		"special ops officer",
@@ -976,7 +977,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/havana(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/M1911(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/deagle/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/lighter/zippo(M), slot_r_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 
@@ -986,6 +987,30 @@ var/global/list/g_fancy_list_of_safe_types = null
 			W.access += get_centcom_access("Special Ops Officer")
 			W.assignment = "Special Ops Officer"
 			W.registered_name = M.real_name
+			W.update_label()
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+		if("snake eater")
+			var/obj/item/device/radio/headset/R = new /obj/item/device/radio/headset/headset_cent(M)
+			R.set_frequency(1441)
+			M.equip_to_slot_or_del(R, slot_ears)
+
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/snake(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/swat/combat(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/solideye(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/snake(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/weapon/butterfly(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/deagle/m1911/black(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/military/snake/full(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/morita/smg(M), slot_back)
+
+			var/obj/item/weapon/card/id/W = new(M)
+			W.icon_state = "centcom"
+			W.access = get_all_accesses()
+			W.access += get_centcom_access("Special Ops Agent")
+			W.assignment = "Special Ops Agent"
+			W.registered_name = "Solid Snake"
 			W.update_label()
 			M.equip_to_slot_or_del(W, slot_wear_id)
 

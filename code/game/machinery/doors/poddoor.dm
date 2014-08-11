@@ -5,9 +5,18 @@
 	icon_state = "closed"
 	explosion_resistance = 25
 	var/id = 1
+	layer = 2.69
 	var/auto_close = 0 // Time in seconds to automatically close when opened, 0 if it doesn't.
 
 /obj/machinery/door/poddoor/preopen
+	icon_state = "open"
+	density = 0
+	opacity = 0
+
+/obj/machinery/door/poddoor/dark
+	icon = 'icons/obj/doors/blastdoor_dark.dmi'
+
+/obj/machinery/door/poddoor/dark/preopen
 	icon_state = "open"
 	density = 0
 	opacity = 0
@@ -83,8 +92,8 @@
 
 	operating = 0
 
-
-
+/obj/machinery/door/poddoor/CanAStarPass()
+	return !density
 
 /*
 /obj/machinery/door/poddoor/two_tile_hor/open()

@@ -1,4 +1,4 @@
-#define UPGRADE_COOLDOWN	40
+#define UPGRADE_COOLDOWN	10
 #define UPGRADE_KILL_TIMER	100
 
 /obj/item/weapon/grab

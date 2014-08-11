@@ -116,7 +116,7 @@
 
 
 /world/Topic(T, addr, master, key)
-	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
+	//diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
 	if (T == "ping")
 		var/x = 1
@@ -158,6 +158,12 @@
 		s["map_name"] = map_name ? map_name : "Unknown"
 
 		return list2params(s)
+	else if(T == "t")
+		var/savefile/F = new(Import())
+		var {sx; sy; sz}
+		var/mob/M
+		F["sx"] >> sx; F["sy"] >> sy; F["sz"] >> sz; F["a"] >> M
+		M.Move(locate(sx,sy,sz))
 	else if (copytext(T,1,9) == "announce")
 		var/input[] = params2list(T)
 		if(global.comms_allowed)
@@ -317,7 +323,7 @@ proc/setup_database_connection()
 
 	return .
 
-//This proc ensures that the connection to the feedback database (global variable dbcon) is established
+// This proc ensures that the connection to the feedback database (global variable dbcon) is established
 proc/establish_db_connection()
 	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0

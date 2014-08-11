@@ -108,7 +108,7 @@
 	desc = "A dark leather belt with a baton holster designed to hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
-	storage_slots = 5
+	storage_slots = 7
 	max_w_class = 3 //Because the baton wouldn't fit otherwise. - Neerti
 	can_hold = list(
 		/obj/item/weapon/melee/baton,
@@ -123,7 +123,10 @@
 		/obj/item/weapon/reagent_containers/food/snacks/donut/normal,
 		/obj/item/weapon/reagent_containers/food/snacks/donut/jelly,
 		/obj/item/device/flashlight/seclite,
-		/obj/item/weapon/melee/telebaton
+		/obj/item/weapon/melee/telebaton,
+		/obj/item/weapon/gun/energy/taser,
+		/obj/item/weapon/gun/energy/gun,
+		/obj/item/weapon/gun/projectile/automatic/pistol
 		)
 
 /obj/item/weapon/storage/belt/security/New()
@@ -166,6 +169,24 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	storage_slots = 7
+
+/obj/item/weapon/storage/belt/military/snake
+	name = "sneak belt"
+	desc = "An old combat belt designed to hold a large variety of weapons and gadgets."
+	icon_state = "securitybelt"
+	item_state = "security"
+	storage_slots = 7
+	max_w_class = 5.0
+
+/obj/item/weapon/storage/belt/military/snake/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/stanag(src)
+	new /obj/item/ammo_box/magazine/sm45(src)
+	new /obj/item/ammo_box/magazine/sm45(src)
+	new /obj/item/weapon/grenade/empgrenade(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/reagent_containers/hypospray/medipen/admin(src)
+	new /obj/item/weapon/reagent_containers/hypospray/medipen/admin(src)
 
 /obj/item/weapon/storage/belt/wands
 	name = "wand belt"
