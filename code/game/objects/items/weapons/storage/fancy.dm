@@ -79,6 +79,23 @@
 	return
 
 /*
+ * Chicken basket
+ */
+/obj/item/weapon/storage/fancy/kfcbasket
+	icon = 'icons/obj/food.dmi'
+	name = "nugget basket"
+	icon_state = "basket6"
+	icon_type = "nugget"
+	storage_slots = 6
+	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/nugget)
+
+/obj/item/weapon/storage/fancy/kfcbasket/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/weapon/reagent_containers/food/snacks/nugget(src)
+	return
+
+/*
  * Candle Box
  */
 
