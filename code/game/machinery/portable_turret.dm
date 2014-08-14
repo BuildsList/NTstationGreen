@@ -98,6 +98,10 @@
 				shot_delay = 30
 				iconholder = 1
 
+			if(/obj/item/weapon/gun/energy/laser/let_taser)
+				iconholder = 1
+				eprojectile = /obj/item/projectile/beam
+
 			if(/obj/item/weapon/gun/energy/laser/practice)
 				iconholder = 1
 				eprojectile = /obj/item/projectile/beam

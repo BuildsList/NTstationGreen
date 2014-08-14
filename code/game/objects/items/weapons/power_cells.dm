@@ -23,6 +23,14 @@
 	user.visible_message("<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>")
 	return (FIRELOSS)
 
+/obj/item/weapon/stock_parts/cell/weak_crap
+	name = "\improper Nanotrasen brand rechargable AA battery"
+	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
+	origin_tech = "powerstorage=0"
+	maxcharge = 100
+	g_amt = 40
+	rating = 2
+
 /obj/item/weapon/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT

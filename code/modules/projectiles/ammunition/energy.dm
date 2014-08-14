@@ -18,6 +18,11 @@
 	e_cost = 83
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/laser/let_taser
+	projectile_type = /obj/item/projectile/beam
+	e_cost = 100
+	select_name = "kill"
+
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/practice
 	select_name = "practice"
