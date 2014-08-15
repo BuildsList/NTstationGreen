@@ -41,7 +41,7 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","?"="?","?"="&#255;","<"="(",">"=")"))
+/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","y"="&#255;","ÿ"="&#255;","<"="(",">"=")","&lt;"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -49,7 +49,7 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char)
 	return t
 
-/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","?"="?","?"="&#255;","?"="&#255;","<"="(",">"=")"))
+/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","y"="&#255;","ÿ"="&#255;","<"="(",">"=")","&lt;"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
