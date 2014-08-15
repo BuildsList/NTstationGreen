@@ -133,6 +133,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		if (changeling.current.mind.assigned_role == "Clown")
 			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 			changeling.current.remove_organic_effect(/datum/organic_effect/clumsy)
+		if (changeling.current.mind.assigned_role == "Mime")
+			changeling.current << "You have evolved beyond your mime nature, allowing you to speak."
+			changeling.current.mind.miming = !changeling.current.mind.miming
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
