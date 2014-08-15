@@ -8,13 +8,6 @@
 	origin_tech = "combat=3;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 
-/obj/item/weapon/gun/energy/laser/let_taser
-	icon_state = "let_taser"
-	name ="Turret Laser"
-	desc = "Laser gun with one shot ammo."
-	origin_tech = "combat=3;materials=3"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/let_taser)
-	cell_type = "/obj/item/weapon/stock_parts/cell/weak_crap"
 
 /obj/item/weapon/gun/energy/laser/practice
 	name = "practice laser gun"

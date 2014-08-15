@@ -1646,15 +1646,6 @@ datum/design/stunrevolver
 	materials = list("$metal" = 5000, "$glass" = 1000)
 	build_path = /obj/item/weapon/gun/energy/stunrevolver
 
-datum/design/stunrevolver
-	name = "Turret Laser"
-	desc = "Laser gun with one shot ammo."
-	id = "turretlaser"
-	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 2)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 6000, "$glass" = 2000)
-	build_path = /obj/item/weapon/gun/energy/laser/let_taser
-
 
 datum/design/lasercannon
 	name = "Laser Cannon"
