@@ -41,7 +41,7 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="&#255;"))
+/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","?"="?","?"="&#255;","<"="(",">"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -49,7 +49,7 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char)
 	return t
 
-/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","пїЅ"="пїЅ","я"="&#255;"))
+/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","?"="?","?"="&#255;","?"="&#255;","<"="(",">"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -57,11 +57,11 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char)
 	return t
 
-proc/sanitize_russian(var/msg) //Специально для всего, где не нужно убирать переносы строк и прочее.
-	var/index = findtext(msg, "я")
+proc/sanitize_russian(var/msg) //?????????? ??? ?????, ??? ?? ????? ??????? ???????? ????? ? ??????.
+	var/index = findtext(msg, "?")
 	while(index)
 		msg = copytext(msg, 1, index) + "&#255;" + copytext(msg, index + 1)
-		index = findtext(msg, "я")
+		index = findtext(msg, "?")
 	return msg
 
 //Runs byond's sanitization proc along-side sanitize_simple
@@ -89,7 +89,7 @@ proc/sanitize_russian(var/msg) //Специально для всего, где не нужно убирать пере
 	for(var/i=1, i<=length(text), i++)
 		switch(text2ascii(text,i))
 			if(62,60,92,47)	return			//rejects the text if it contains these bad characters: <, >, \ or /
-			if(127 to 255)	return			//rejects weird letters like пїЅ
+			if(127 to 255)	return			//rejects weird letters like ?
 			if(0 to 31)		return			//more weird stuff
 			if(32)			continue		//whitespace
 			else			non_whitespace = 1
@@ -317,7 +317,7 @@ proc/checkhtml(var/t)
 		else if (a == 184)
 			t += ascii2text(168)
 		else t += ascii2text(a)
-	t = replacetext(t,"&#255;","Я")
+	t = replacetext(t,"&#255;","?")
 	return t
 
 
@@ -438,10 +438,10 @@ proc/slurring(phrase) // using cp1251!
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(prob(33))
-			if(lowertext(newletter)=="и")	newletter="й"
-			if(lowertext(newletter)=="а")	newletter="ах"
-		if(lowertext(newletter)=="е")	newletter="ё"
-		if(lowertext(newletter)=="ы")	newletter="i"
+			if(lowertext(newletter)=="?")	newletter="?"
+			if(lowertext(newletter)=="?")	newletter="??"
+		if(lowertext(newletter)=="?")	newletter="?"
+		if(lowertext(newletter)=="?")	newletter="i"
 		switch(rand(1,15))
 			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
 			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
@@ -472,7 +472,7 @@ proc/NewStutter(phrase,stunned)
 		//Search for dipthongs (two letters that make one sound.)
 		var/first_sound = copytext(word,1,2)
 		var/first_letter = copytext(word,1,2)
-		if(lowerrustext(first_sound) in list("ч","ш","щ","с"))
+		if(lowerrustext(first_sound) in list("?","?","?","?"))
 			first_letter = first_sound
 
 		//Repeat the first letter to create a stutter.
@@ -607,4 +607,3 @@ proc/NewStutter(phrase,stunned)
                 first = 0
                 out += html_decode(text)
         return out
-
