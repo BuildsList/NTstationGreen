@@ -3,144 +3,19 @@
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/S = new(get_turf(user))
 		S.attackby(W,user)
 		qdel(src)
-
-/obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob) //Looks like shit, but whatever -- Smet19
-	// Bun + meatball = sloppy joe
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/faggot))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/joe(get_turf(user))
-		user << "You make a sloppy joe."
-		qdel(W)
-		qdel(src)
-
-	//Or meatsteak
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/meatsteak))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger(get_turf(user))
-		user << "You make a burger."
-		qdel(W)
-		qdel(src)
-
-	// Bun + sausage = hotdog
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/sausage))
-		new /obj/item/weapon/reagent_containers/food/snacks/hotdog(get_turf(user))
-		user << "You make a hotdog."
-		qdel(W)
-		qdel(src)
-
-	//Bun + brain = brainburger
-	else if(istype(W,/obj/item/organ/brain))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/brain(get_turf(user))
-		user << "You make a braingurger."
-		qdel(W)
-		qdel(src)
-
-	//Bun + appendix = appendix burger
-	else if(istype(W,/obj/item/organ/appendix))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/appendix(get_turf(user))
-		user << "You make a appendix burger"
-		qdel(W)
-		qdel(src)
-
-	//Bun + xenomeat = xenoburger
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/xenomeat))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/xeno(get_turf(user))
-		user << "You make a xenoburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + tofu = tofuburger
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/tofu))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/tofu(get_turf(user))
-		user << "You make a tofuburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + ectoplasm = ghostburger
-	else if(istype(W,/obj/item/weapon/ectoplasm))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/ghost(get_turf(user))
-		user << "You make a ghostburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + clown mask = clownburger
-	else if(istype(W,/obj/item/clothing/mask/gas/clown_hat))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/clown(get_turf(user))
-		user << "You make a clownburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + beret = mimeburger
-	else if(istype(W,/obj/item/clothing/head/beret))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/mime(get_turf(user))
-		user << "You make a mimeburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + Carpmeat = Fishburger
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/carpmeat))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/fish(get_turf(user))
-		user << "You make a fishburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + Robot Head = Roburger
-	else if(istype(W,/obj/item/robot_parts/head))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/roburger(get_turf(user))
-		user << "You make a fishburger ."
-		qdel(W)
-		qdel(src)
-
-	//Bun + Wizard Hat = Spellburger
-	else if(istype(W,/obj/item/clothing/head/wizard/fake || /obj/item/clothing/head/wizard/))
-		new /obj/item/weapon/reagent_containers/food/snacks/burger/spell(get_turf(user))
-		user << "You make a spellburger ."
-		qdel(W)
-		qdel(src)
-	else if(istype(W,/obj/item/toy/crayon/red))
-		new	/obj/item/weapon/reagent_containers/food/snacks/burger/red(get_turf(user))
-		user << "You make a red burger ."
-		qdel(W)
-		qdel(src)
-	//Bun + Crayon = Crayonburger
-	else if(istype(W,/obj/item/toy/crayon/orange))
-		new	/obj/item/weapon/reagent_containers/food/snacks/burger/orange(get_turf(user))
-		user << "You make a red burger ."
-		qdel(W)
-		qdel(src)
-	else if(istype(W,/obj/item/toy/crayon/green))
-		new	/obj/item/weapon/reagent_containers/food/snacks/burger/green(get_turf(user))
-		user << "You make a red burger ."
-		qdel(W)
-		qdel(src)
-	else if(istype(W,/obj/item/toy/crayon/yellow))
-		new	/obj/item/weapon/reagent_containers/food/snacks/burger/yellow(get_turf(user))
-		user << "You make a red burger ."
-		qdel(W)
-		qdel(src)
-	else if(istype(W,/obj/item/toy/crayon/blue))
-		new	/obj/item/weapon/reagent_containers/food/snacks/burger/blue(get_turf(user))
-		user << "You make a red burger ."
-		qdel(W)
-		qdel(src)
-	else if(istype(W,/obj/item/toy/crayon/purple))
-		new	/obj/item/weapon/reagent_containers/food/snacks/burger/purple(get_turf(user))
-		user << "You make a red burger ."
-		qdel(W)
-		qdel(src)
-	//Bun + Other Stuff = Custom Burger
-	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks))
+/obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
 		S.attackby(W,user)
 		qdel(src)
-
 	..()
 
-/obj/item/weapon/reagent_containers/food/snacks/base/pizza/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
 		S.attackby(W,user)
 		qdel(src)
 	..()
-
 
 /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob)
 
