@@ -12,6 +12,10 @@
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
+/mob/living/carbon/human/test2/New()
+	..()
+	mind_initialize()
+	ticker.mode.add_cultist(src)
 
 
 /mob/living/carbon/human/New()
