@@ -59,14 +59,8 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "_maps\ministation.dm"
-#include "_maps\map_files\MiniStation\misc.dm"
-#include "_maps\map_files\MiniStation\supplypacks.dm"
-#include "_maps\map_files\MiniStation\telecomms.dm"
-#include "_maps\map_files\MiniStation\uplink_item.dm"
-#include "_maps\map_files\MiniStation\MiniStation.dmm"
-#include "_maps\map_files\MiniStation\job\jobs.dm"
-#include "_maps\map_files\MiniStation\job\removed.dm"
+#include "_maps\tgstation2.dm"
+#include "_maps\map_files\tgstation.2.1.3.dmm"
 #include "code\_compile_options.dm"
 #include "code\closing_credits.dm"
 #include "code\hub.dm"
