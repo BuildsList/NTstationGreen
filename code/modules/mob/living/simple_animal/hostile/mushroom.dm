@@ -32,8 +32,8 @@
 	var/image/cap_living = null //Where we store our cap icons so we dont generate them constantly to update our icon
 	var/image/cap_dead = null
 	var/limit_maxhealth = 400 //This is the maximum amount of health a walking mushroom can gain.
-	var/limit_damage_lower = 45 //hardcap for lower damage cap a walking mushroom can gain
-	var/limit_damage_upper = 45 //hardcap for upper damage cap a walking mushroom can gain
+	var/limit_damage_lower = 50 //hardcap for lower damage cap a walking mushroom can gain
+	var/limit_damage_upper = 50 //hardcap for upper damage cap a walking mushroom can gain
 	var/list/mushbility = list("stun" = 0, "smash" = 0, "fastheal" = 0, "freeze" = 0, "bluespace" = 0, "spaceproof" = 0, "evolve" = 0, "rampage" = 0,) //learned abilities are stored here
 
 /mob/living/simple_animal/hostile/mushroom/examine()
@@ -48,12 +48,12 @@
 	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
 		health = min(health+2, maxHealth)
 		if(mushbility["fastheal"] == 1)
-			health = min(health+1, maxHealth)
+			health = min(health+3, maxHealth)
 
 /mob/living/simple_animal/hostile/mushroom/New()//Makes every shroom a little unique
 	melee_damage_lower += rand(4,5)
 	melee_damage_upper += rand(4,5)
-	maxHealth += rand(30,50)
+	maxHealth += rand(30,40)
 	move_to_delay = rand(3,11)
 	var/cap_color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	cap_living = image('icons/mob/animal.dmi',icon_state = "mushroom_cap")
@@ -80,11 +80,11 @@
 			return
 		M.visible_message("<span class='notice'>[M] devours [src]!</span>")
 		var/level_gain = (powerlevel - M.powerlevel)
-		if(!bruised && !M.ckey && M.powerlevel <= 20)//Player shrooms can't level up to become robust gods.
+		if(!bruised && !M.ckey && M.powerlevel <= 30)//Player shrooms can't level up to become robust gods.
 			if(level_gain == 0)//So we still gain a level if two mushrooms were the same level
 				level_gain = 1
 			else if (level_gain < 0) //So the winning mushroom is higher level... it still can level up, but at a lower chance.
-				if(prob(round(100 / ((M.powerlevel - powerlevel)/2)))) //chance for levelup decreases for every level the losing shroom is below us
+				if(prob(round(100 / ((M.powerlevel - powerlevel)/2.5)))) //chance for levelup decreases for every level the losing shroom is below us
 					level_gain = 1
 				else
 					level_gain = 0 //Make sure that we don't get negative levelups from being too overleveled!
@@ -99,7 +99,6 @@
 /mob/living/simple_animal/hostile/mushroom/revive()
 	..()
 	UpdateMushroomCap()
-	icon_state = icon_living
 
 /mob/living/simple_animal/hostile/mushroom/Die()
 	visible_message("<span class='notice'>[src] fainted.</span>")
@@ -163,11 +162,11 @@ mob/living/simple_animal/hostile/mushroom/proc/rampage()
 		melee_damage_upper = min(limit_damage_upper, melee_damage_upper + rand(5,7))
 		maxHealth = min(limit_maxhealth, maxHealth + rand(15,22))
 		src.visible_message("<span class='notice'>The [src.name] sheds its cap to become even better at fighting!</span>")
-		move_to_delay = max(3, (move_to_delay - 3))
+		move_to_delay = min(3, (move_to_delay - 3))
 
 	if(powerlevel >= 5 && mushbility["fastheal"] == 0)
 		mushbility["fastheal"] = 1
-		move_to_delay = max(3, (move_to_delay - 3))
+		move_to_delay = min(3, (move_to_delay - 3))
 		src.visible_message("<span class='notice'>The [src.name] seems to move faster now!</span>")
 
 	if(powerlevel >= 3 && mushbility["spaceproof"] == 0)
@@ -218,7 +217,7 @@ mob/living/simple_animal/hostile/mushroom/proc/rampage()
 		if(mushbility["fastheal"] == 1)
 			msg += "- *Fast Metabolism*\n"
 			msg += "- Speeds up movement and regeneration rate.\n"
-		if(mushbility["bluespace"] == 1)
+		if(mushbility["stun"] == 1)
 			msg += "- *Bluespace Teleportation*\n"
 			msg += "- Allows mushroom to teleport to sighted enemies.\n"
 		if(mushbility["stun"] == 1)
@@ -244,7 +243,7 @@ mob/living/simple_animal/hostile/mushroom/proc/rampage()
 
 	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chilli))
 		user << "<span class='notice'>You feed the [I] to the [src].</span>"
-		if(!mushbility["rampage"] == 1 && !factions["lazarus"])
+		if(!mushbility["rampage"] == 1)
 			mushbility["rampage"] = 1
 			friends += user
 			log_game("[key_name(user)] turned a walking mushroom hostile.")
@@ -336,6 +335,7 @@ mob/living/simple_animal/hostile/mushroom/proc/rampage()
 		src.visible_message("<span class='warning'>The <b>[src.name]</b> teleports!</span>")
 		playsound(src, 'sound/effects/EMPulse.ogg', 50, 1)
 		src.loc = L.loc
+		//sleep(1)
 		s.set_up(3, 1, src)
 		s.start()
 
