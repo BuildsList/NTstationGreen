@@ -628,6 +628,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 		"tournament janitor",
 		"lasertag red",
 		"lasertag blue",
+		"roman legionaire",
 		"pirate",
 		"space pirate",
 		"soviet admiral",
@@ -747,6 +748,14 @@ var/global/list/g_fancy_list_of_safe_types = null
 			M.equip_to_slot_or_del(new /obj/item/stack/tile/plasteel(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/stack/tile/plasteel(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/stack/tile/plasteel(M), slot_in_backpack)
+
+		if ("roman legionaire")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/roman(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/roman/legionare(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/claymore(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(M), slot_l_hand)
 
 		if ("lasertag red")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/red(M), slot_w_uniform)
