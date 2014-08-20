@@ -5,7 +5,6 @@
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-<<<<<<< HEAD
 	required_players = 15 // 15 players - 3 players to be the nuke ops = 12 players remaining
 	required_enemies = 3
 	recommended_enemies = 3
