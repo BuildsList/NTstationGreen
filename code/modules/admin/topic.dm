@@ -1045,6 +1045,64 @@
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 2)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Team 2)", 1)
 
+	else if(href_list["ltdome1"])
+		if(!check_rights(R_FUN))	return
+
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+			return
+
+		var/mob/M = locate(href_list["ltdome1"])
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		if(istype(M, /mob/living/silicon/ai))
+			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
+			return
+
+		for(var/obj/item/I in M)
+			M.unEquip(I)
+			if(I)
+				I.loc = M.loc
+				I.layer = initial(I.layer)
+				I.dropped(M)
+
+		M.Paralyse(5)
+		sleep(5)
+		M.loc = pick(ltdome1)
+		spawn(50)
+			M << "\blue You have been sent to the Laser-Tag Thunderdome."
+		log_admin("[key_name(usr)] has sent [key_name(M)] to the laser-tag thunderdome. (BLU)")
+		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the laser-tag thunderdome. (BLU)", 1)
+
+	else if(href_list["ltdome2"])
+		if(!check_rights(R_FUN))	return
+
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+			return
+
+		var/mob/M = locate(href_list["ltdome2"])
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		if(istype(M, /mob/living/silicon/ai))
+			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
+			return
+
+		for(var/obj/item/I in M)
+			M.unEquip(I)
+			if(I)
+				I.loc = M.loc
+				I.layer = initial(I.layer)
+				I.dropped(M)
+
+		M.Paralyse(5)
+		sleep(5)
+		M.loc = pick(ltdome2)
+		spawn(50)
+			M << "\blue You have been sent to the Laser-Tag Thunderdome."
+		log_admin("[key_name(usr)] has sent [key_name(M)] to the laser-tag thunderdome. (RED)")
+		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the laser-tag thunderdome. (RED)", 1)
+
 	else if(href_list["tdomeadmin"])
 		if(!check_rights(R_FUN))	return
 

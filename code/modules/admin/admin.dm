@@ -148,6 +148,8 @@ var/global/floorIsLava = 0
 		body += "<A href='?_src_=holder;tdome2=\ref[M]'>Thunderdome 2</A> | "
 		body += "<A href='?_src_=holder;tdomeadmin=\ref[M]'>Thunderdome Admin</A> | "
 		body += "<A href='?_src_=holder;tdomeobserve=\ref[M]'>Thunderdome Observer</A> | "
+		body += "<A href='?_src_=holder;ltdome1=\ref[M]'>Laser-Tag Thunderdome BLU</A> | "
+		body += "<A href='?_src_=holder;ltdome2=\ref[M]'>Laser-Tag Thunderdome RED</A> | "
 
 	body += "<br>"
 	body += "</body></html>"
