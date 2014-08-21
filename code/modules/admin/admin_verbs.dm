@@ -85,7 +85,9 @@ var/list/admin_verbs_fun = list(
 	)
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	/client/proc/load_savefile,
+	/client/proc/load_savefile_to_turf
 	)
 var/list/admin_verbs_server = list(
 	/datum/admins/proc/startnow,
@@ -188,6 +190,7 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
+	/client/proc/save_to_file,
 	/proc/possess,
 	/proc/release
 	)
