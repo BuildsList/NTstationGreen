@@ -1,3 +1,5 @@
+// Save/Load by ACCount
+
 /client/proc/save_to_file(var/atom/movable/A in world)
 	set category = "Debug"
 	set name = "Save To File"
@@ -26,36 +28,6 @@
 	fdel(txtfile)
 
 
-/atom/movable/Write()
-	fingerprints = null
-	fingerprintshidden = null
-	fingerprintslast = null
-	blood_DNA = null
-	suit_fibers = null
-	tag = null
-	..()
-
-
-/mob/Write()
-	lastattacker = null
-	lastattacked = null
-	attack_log = list()
-	..()
-
-
-/mob/living/carbon/human/Write()
-	overlays = list()
-	//overlays_standing = new/list(21)
-	..()
-	regenerate_icons()
-
-
-/mob/Read()
-	..()
-	regenerate_icons()
-
-
-/datum/wires/Read()
 
 /client/proc/load_savefile(F as file)
 	set category = "Debug"

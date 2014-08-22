@@ -786,6 +786,7 @@
 #include "code\modules\admin\verbs\pray.dm"
 #include "code\modules\admin\verbs\randomverbs.dm"
 #include "code\modules\admin\verbs\savefiles_interface.dm"
+#include "code\modules\admin\verbs\savefiles_readwrite.dm"
 #include "code\modules\admin\verbs\ticklag.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
