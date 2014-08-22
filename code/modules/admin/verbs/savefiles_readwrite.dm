@@ -44,6 +44,14 @@
 	regenerate_icons()
 
 
+// Removes mobs from blood's donor. We do not want to S/L the whole mob from blood syringe
+/datum/reagent/blood/Write(var/savefile/F)
+	var/donor = data["donor"]
+	data["donor"] = null
+	..()
+	data["donor"] = donor
+
+
 
 // Special roles save/load
 /datum/mind/Write(var/savefile/F)
