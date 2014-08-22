@@ -4,7 +4,7 @@
 	voice_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian1_m_s"
-	var/list/hud_list = list()
+	var/tmp/list/hud_list = list()
 
 
 
