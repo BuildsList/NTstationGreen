@@ -303,7 +303,7 @@ proc/load_donator(ckey)
 	if(!dbcon2.IsConnected())
 		log_admin("Failed to load donatorlist. Error: [dbcon2.ErrorMsg()]")
 		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT sum FROM forum2.z_donators WHERE byond='[ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT sum FROM forum2.Z_donators WHERE byond='[ckey]'")
 	query.Execute()
 
 	if (query.item.len)
