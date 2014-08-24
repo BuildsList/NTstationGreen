@@ -1,4 +1,7 @@
-// A lot of hacks to make stuff save/load correctly and keep save files small
+// In this file:
+// * A lot of hacks to make stuff save/load correctly
+// * A lot of hacks to keep save files small
+// * A lot of hacks to stop server crashes on save
 
 
 // Reduces save file size
@@ -27,11 +30,15 @@
 	if(!F["armor"])
 		armor = list("melee" = 0,"bullet" = 0,"laser" = 0,"energy" = 0,"bomb" = 0,"bio" = 0,"rad" = 0)
 
-
 /obj/item/weapon/Write(var/savefile/F)
 	..()
 	if((damtype == "fire" && hitsound == 'sound/items/welder.ogg') || (damtype == "brute" && hitsound == "swing_hit"))
 		F.dir.Remove("hitsound")
+
+/obj/item/weapon/stock_parts/cell/Write(var/savefile/F)
+	..()
+	F.dir.Remove("overlays")
+
 
 
 // Reduces save file size and updates icons correctly
@@ -102,3 +109,19 @@
 				ticker.mode.forge_revolutionary_objectives(src)
 			if("traitor")
 				ticker.mode.traitors.Add(src)
+
+
+
+// Not save any vars for this items:
+
+// Because grabs are totally /tmp/ objects
+/obj/item/weapon/grab/Write(var/savefile/F)
+	return
+
+/obj/item/tk_grab/Write(var/savefile/F)
+	return
+
+// Because saving 50 boolets can trigger infinite loop check.
+// Boolets are respawned on New when magazine is loaded.
+/obj/item/ammo_box/magazine/m762/Write(var/savefile/F)
+	return

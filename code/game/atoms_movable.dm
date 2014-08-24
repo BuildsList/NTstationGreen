@@ -2,7 +2,7 @@
 	layer = 3
 	var/tmp/last_move = null
 	var/anchored = 0
-	var/move_speed = 10
+	var/tmp/move_speed = 10
 	var/tmp/l_move_time = 1
 	var/m_flag = 1
 	var/tmp/throwing = 0

@@ -12,7 +12,6 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 var/global/all_solved_wires = list() //Solved wire associative list, eg; all_solved_wires[/obj/machinery/door/airlock]
 
 /datum/wires
-
 	var/random = 0 // Will the wires be different for every single instance.
 	var/atom/holder = null // The holder
 	var/holder_type = null // The holder type; used to make sure that the holder is the correct type.
@@ -33,8 +32,10 @@ var/global/all_solved_wires = list() //Solved wire associative list, eg; all_sol
 	..()
 	src.holder = holder
 	if(!istype(holder, holder_type))
-		CRASH("Our holder is null/the wrong type!")
-		return
+		spawn(5) // No crashes when wires are loaded from savefiles
+			if(!istype(holder, holder_type))
+				CRASH("Our holder is null/the wrong type!")
+				return
 
 	// Generate new wires
 	if(random)

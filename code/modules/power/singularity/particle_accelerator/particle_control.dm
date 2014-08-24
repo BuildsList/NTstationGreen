@@ -16,7 +16,7 @@
 	dir = 1
 	var/strength_upper_limit = 2
 	var/interface_control = 1
-	var/list/obj/structure/particle_accelerator/connected_parts
+	var/tmp/list/obj/structure/particle_accelerator/connected_parts
 	var/assembled = 0
 	var/parts = null
 	var/datum/wires/particle_acc/control_box/wires = null

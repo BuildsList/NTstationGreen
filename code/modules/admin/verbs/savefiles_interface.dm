@@ -1,4 +1,6 @@
 // Save/Load by ACCount
+// Two BYOND bugs was spotted and reported while working on this.
+
 
 /client/proc/save_to_file(var/atom/movable/A in world)
 	set category = "Debug"
