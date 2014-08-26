@@ -7,9 +7,9 @@
 	density = 0
 	opacity = 0
 	anchored = 1
-	var/health = 30
+	var/health = 18
 	var/health_timestamp = 0
-	var/brute_resist = 4
+	var/brute_resist = 3
 	var/fire_resist = 1
 
 
@@ -187,7 +187,6 @@
 /obj/effect/blob/normal
 	icon_state = "blob"
 	luminosity = 0
-	health = 21
 
 /obj/effect/blob/normal/update_icon()
 	if(health <= 0)

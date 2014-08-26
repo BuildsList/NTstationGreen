@@ -2,8 +2,7 @@
 	name = "factory blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
-	health = 100
-	fire_resist = 2
+	health = 40
 	var/list/spores = list()
 	var/max_spores = 3
 	var/spore_delay = 0
@@ -41,8 +40,8 @@
 	icon_state = "blobpod"
 	icon_living = "blobpod"
 	pass_flags = PASSBLOB
-	health = 40
-	maxHealth = 40
+	health = 20
+	maxHealth = 20
 	speed = 1
 	melee_damage_lower = 2
 	melee_damage_upper = 4
@@ -112,11 +111,11 @@
 	loc.visible_message("<span class='warning'> The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blobspore/Die()
-	// On death, create a small smoke of harmful gas (s-Acid)
+	// On death, create a small smoke of harmful gas
 	var/datum/effect/effect/system/chem_smoke_spread/S = new
 	var/turf/location = get_turf(src)
 
-	// Create the reagents to put into the air, s-acid is yellow and stings a little
+	// Create the reagents to put into the air
 	create_reagents(25)
 	reagents.add_reagent("spore", 25)
 

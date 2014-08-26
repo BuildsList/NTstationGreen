@@ -48,6 +48,7 @@ datum/controller/vote
 						voting.Cut(i,i+1)
 
 	proc/autotransfer()
+		return
 		initiate_vote("crew_transfer","the server")
 
 	proc/reset()
