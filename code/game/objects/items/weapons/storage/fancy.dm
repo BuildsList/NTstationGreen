@@ -56,7 +56,7 @@
 
 /obj/item/weapon/storage/fancy/donut_box/New()
 	..()
-	for(var/i=1; i <= storage_slots; i++)
+	while(contents.len < storage_slots)
 		new /obj/item/weapon/reagent_containers/food/snacks/donut/normal(src)
 	return
 
@@ -74,7 +74,7 @@
 
 /obj/item/weapon/storage/fancy/egg_box/New()
 	..()
-	for(var/i=1; i <= storage_slots; i++)
+	while(contents.len < storage_slots)
 		new /obj/item/weapon/reagent_containers/food/snacks/egg(src)
 	return
 
@@ -96,7 +96,7 @@
 
 /obj/item/weapon/storage/fancy/candle_box/New()
 	..()
-	for(var/i=1; i <= storage_slots; i++)
+	while(contents.len < storage_slots)
 		new /obj/item/candle(src)
 	return
 
@@ -208,7 +208,7 @@
 
 /obj/item/weapon/storage/fancy/cigarcase/New()
 	..()
-	for(var/i=1; i <= storage_slots; i++)
+	while(contents.len < storage_slots)
 		new /obj/item/clothing/mask/cigarette/cigar(src)
 	return
 
@@ -221,6 +221,6 @@
 	..()
 	contents.Cut() // Fastfix. The old cigars will be garbage collected now.
 
-	for(var/i=1; i <= storage_slots; i++)
+	while(contents.len < storage_slots)
 		new /obj/item/clothing/mask/cigarette/cigar/cohiba(src)
 	return

@@ -51,6 +51,64 @@
 	regenerate_icons()
 
 
+// Removing block so badminspawned injectors will get updated block at New()
+/obj/item/weapon/dnainjector/Write(var/savefile/F)
+	..()
+	if(type != /obj/item/weapon/dnainjector) // Not a base type injector
+		F.dir.Remove("fields")
+
+
+// Resetting type to base type so contents will not be respawned twice
+/obj/item/weapon/storage/Write(var/savefile/F)
+	..()
+	var/list/base_simple = list(
+		/obj/item/weapon/storage/belt/utility,
+		/obj/item/weapon/storage/secure/safe,
+		/obj/item/weapon/storage/bible,
+		/obj/item/weapon/storage/belt/soulstone,
+		/obj/item/weapon/storage/belt/wands,
+		/obj/item/weapon/storage/wallet,
+		/obj/item/weapon/storage/backpack/satchel)
+
+	for(var/b_type in base_simple)
+		if(istype(src, b_type))
+			F["type"] << b_type
+
+/obj/item/weapon/storage/box/Write(var/savefile/F)
+	..()
+	if(type != /obj/item/weapon/storage/box) // Not a base type box
+		var/list/ignored_types = list(
+			/obj/item/weapon/storage/box/monkeycubes,
+			/obj/item/weapon/storage/box/matches,
+			/obj/item/weapon/storage/box/snappops)
+
+		if(!(type in ignored_types))
+			F["type"] << /obj/item/weapon/storage/box
+			F["name"] << name
+			F["desc"] << desc
+			F["icon_state"] << icon_state
+			F["storage_slots"] << storage_slots
+			F["max_combined_w_class"] << max_combined_w_class
+			F["use_to_pickup"] << use_to_pickup
+			F["w_class"] << w_class
+		else
+			F.dir.Remove("contents")
+
+
+/obj/item/weapon/storage/toolbox/Write(var/savefile/F)
+	..()
+	if(type != /obj/item/weapon/storage/toolbox) // Not a base type toolbox
+		var/list/ignored_types = list()
+
+		if(!(type in ignored_types))
+			F["type"] << /obj/item/weapon/storage/toolbox
+			F["name"] << name
+			F["desc"] << desc
+			F["icon_state"] << icon_state
+		else
+			F.dir.Remove("contents")
+
+
 // Removes mobs from blood's donor. We do not want to S/L the whole mob from blood syringe
 /datum/reagent/blood/Write(var/savefile/F)
 	var/donor = data["donor"]
