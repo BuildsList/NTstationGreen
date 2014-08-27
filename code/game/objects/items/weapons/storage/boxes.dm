@@ -49,20 +49,25 @@
 	qdel(src)
 
 
-/obj/item/weapon/storage/box/survival/New()
-	..()
-	contents = newlist(
-		/obj/item/clothing/mask/breath,
-		/obj/item/weapon/tank/emergency_oxygen,
-		/obj/item/weapon/reagent_containers/hypospray/medipen)
+/obj/item/weapon/storage/box/survival
+	New()
+		..()
+		contents = list()
+		sleep(1)
+		new /obj/item/clothing/mask/breath( src )
+		new /obj/item/weapon/tank/emergency_oxygen( src )
+		new /obj/item/weapon/reagent_containers/hypospray/medipen( src )
+		return
 
-/obj/item/weapon/storage/box/engineer/New()
-	..()
-	contents = newlist(
-		/obj/item/clothing/mask/breath,
-		/obj/item/weapon/tank/emergency_oxygen/engi,
-		/obj/item/weapon/reagent_containers/hypospray/medipen)
-
+/obj/item/weapon/storage/box/engineer
+	New()
+		..()
+		contents = list()
+		sleep(1)
+		new /obj/item/clothing/mask/breath( src )
+		new /obj/item/weapon/tank/emergency_oxygen/engi( src )
+		new /obj/item/weapon/reagent_containers/hypospray/medipen( src )
+		return
 
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
@@ -99,7 +104,8 @@
 
 /obj/item/weapon/storage/box/syringes
 	name = "box of syringes"
-	desc = "A box full of syringes. A biohazard alert warning is printed on the box."
+	desc = "A box full of syringes."
+	desc = "A biohazard alert warning is printed on the box."
 	icon_state = "syringe"
 
 	New()
@@ -153,6 +159,20 @@
 		new /obj/item/weapon/dnainjector/m2h(src)
 		new /obj/item/weapon/dnainjector/m2h(src)
 		new /obj/item/weapon/dnainjector/m2h(src)
+
+/*/obj/item/weapon/storage/box/blanks	//Blanks removed, go home
+	name = "box of blank shells"
+	desc = "It has a picture of a gun and several warning symbols on the front."
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/blank(src)
+		new /obj/item/ammo_casing/shotgun/blank(src)
+		new /obj/item/ammo_casing/shotgun/blank(src)
+		new /obj/item/ammo_casing/shotgun/blank(src)
+		new /obj/item/ammo_casing/shotgun/blank(src)
+		new /obj/item/ammo_casing/shotgun/blank(src)
+		new /obj/item/ammo_casing/shotgun/blank(src)*/
 
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
@@ -458,7 +478,7 @@
 	can_hold = list(/obj/item/toy/snappop)
 	New()
 		..()
-		while(contents.len < storage_slots)
+		for(var/i=1; i <= storage_slots; i++)
 			new /obj/item/toy/snappop(src)
 
 /obj/item/weapon/storage/box/matches
@@ -473,7 +493,7 @@
 
 	New()
 		..()
-		while(contents.len < storage_slots)
+		for(var/i=1; i <= storage_slots; i++)
 			new /obj/item/weapon/match(src)
 
 	attackby(obj/item/weapon/match/W as obj, mob/user as mob)
@@ -493,9 +513,11 @@
 
 /obj/item/weapon/storage/box/lights
 	name = "box of replacement bulbs"
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "light"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
 	item_state = "syringe_kit"
+	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 	storage_slots=21
 	can_hold = list(/obj/item/weapon/light/tube, /obj/item/weapon/light/bulb)
 	max_combined_w_class = 21

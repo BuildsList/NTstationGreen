@@ -1,6 +1,6 @@
 /obj/item/weapon/storage/bible
 	name = "bible"
-	desc = "To be applied to the head repeatedly."
+	desc = "Apply to head repeatedly."
 	icon_state ="bible"
 	throw_speed = 2
 	throw_range = 5
@@ -9,6 +9,10 @@
 	var/deity_name = "Christ"
 	interaction_sound = "pageturn"//bibles sound like paper when opening/dropping/picking up
 
+/obj/item/weapon/storage/bible/booze
+	name = "bible"
+	desc = "To be applied to the head repeatedly."
+	icon_state ="bible"
 
 /obj/item/weapon/storage/bible/booze/New()
 	..()

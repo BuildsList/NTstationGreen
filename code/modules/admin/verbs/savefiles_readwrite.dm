@@ -51,20 +51,6 @@
 	regenerate_icons()
 
 
-// Resetting contents so contents will not be respawned twice
-/atom/Read(var/savefile/F)
-	..()
-	F["contents"] >> contents
-
-
-// Removing block so badminspawned injectors will get updated block at New()
-/obj/item/weapon/dnainjector/Write(var/savefile/F)
-	..()
-	if(type != /obj/item/weapon/dnainjector) // Not a base type injector
-		F.dir.Remove("fields")
-
-
-
 // Removes mobs from blood's donor. We do not want to S/L the whole mob from blood syringe
 /datum/reagent/blood/Write(var/savefile/F)
 	var/donor = data["donor"]
