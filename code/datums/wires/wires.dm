@@ -32,7 +32,7 @@ var/global/all_solved_wires = list() //Solved wire associative list, eg; all_sol
 	..()
 	src.holder = holder
 	if(!istype(holder, holder_type))
-		spawn(5) // No crashes when wires are loaded from savefiles
+		spawn(10) // No crashes when wires are loaded from savefiles
 			if(!istype(holder, holder_type))
 				CRASH("Our holder is null/the wrong type!")
 				return
