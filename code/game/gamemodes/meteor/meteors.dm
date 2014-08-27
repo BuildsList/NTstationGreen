@@ -157,9 +157,15 @@
 		meteor_effect(heavy)
 		qdel(src)
 
-
 /obj/effect/meteor/ex_act()
 	return
+
+/obj/effect/meteor/Move()
+	. = ..()
+	if(loc == dest)
+		make_debris()
+		meteor_effect(heavy)
+		qdel(src)
 
 
 /obj/effect/meteor/proc/meteor_effect(var/sound=1)
@@ -209,6 +215,7 @@
 
 /obj/effect/meteor/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/pickaxe))
+		make_debris()
 		qdel(src)
 		return
 	..()
