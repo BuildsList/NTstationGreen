@@ -153,7 +153,7 @@
 	trace_residue = null
 	range = 2
 
-/obj/item/projectile/kinetic/New()
+obj/item/projectile/kinetic/New()
 	var/turf/proj_turf = get_turf(src)
 	if(!istype(proj_turf, /turf))
 		return
