@@ -41,7 +41,7 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ÿ"="&#255;","&lt;"=")"))
+/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ÿ"="&#255;","<"="(","&lt;"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -49,7 +49,7 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char)
 	return t
 
-/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ÿ"="&#255;","&lt;"=")"))
+/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ÿ"="&#255;","<"="(","&lt;"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -58,10 +58,10 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 	return t
 
 proc/sanitize_russian(var/msg) //?????????? ??? ?????, ??? ?? ????? ??????? ???????? ????? ? ??????.
-	var/index = findtext(msg, "?")
+	var/index = findtext(msg, "ÿ")
 	while(index)
 		msg = copytext(msg, 1, index) + "&#255;" + copytext(msg, index + 1)
-		index = findtext(msg, "?")
+		index = findtext(msg, "ÿ")
 	return msg
 
 //Runs byond's sanitization proc along-side sanitize_simple
