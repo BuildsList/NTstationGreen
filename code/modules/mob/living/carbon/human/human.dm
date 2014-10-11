@@ -4,7 +4,7 @@
 	voice_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian1_m_s"
-	var/list/hud_list = list()
+	var/tmp/list/hud_list = list()
 
 
 
@@ -12,6 +12,10 @@
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
+/mob/living/carbon/human/test2/New()
+	..()
+	mind_initialize()
+	ticker.mode.add_cultist(src)
 
 
 /mob/living/carbon/human/New()

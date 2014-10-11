@@ -14,6 +14,14 @@
 	name = "oxygen tank"
 	desc = "A tank of oxygen."
 	icon_state = "oxygen"
+	hitsound = 'sound/weapons/smash.ogg'
+	flags = CONDUCT
+	throwforce = 15
+	w_class = 3.0
+	throw_speed = 2
+	throw_range = 7
+	force = 15
+	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 
@@ -48,6 +56,14 @@
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
 	item_state = "an_tank"
+	hitsound = 'sound/weapons/smash.ogg'
+	flags = CONDUCT
+	throwforce = 15
+	w_class = 3.0
+	throw_speed = 2
+	throw_range = 7
+	force = 15
+	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 
 /obj/item/weapon/tank/anesthetic/New()
 	..()
@@ -67,7 +83,14 @@
 	name = "air tank"
 	desc = "Mixed anyone?"
 	icon_state = "oxygen"
-
+	hitsound = 'sound/weapons/smash.ogg'
+	flags = CONDUCT
+	throwforce = 15
+	w_class = 3.0
+	throw_speed = 2
+	throw_range = 7
+	force = 15
+	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 
 	examine()
 		set src in usr
@@ -94,7 +117,14 @@
 	canbreathe = 0
 	flags = CONDUCT
 	slot_flags = null	//they have no straps!
-
+	hitsound = 'sound/weapons/smash.ogg' //PLASMA ROBUST
+	flags = CONDUCT
+	throwforce = 15
+	w_class = 3.0
+	throw_speed = 2
+	throw_range = 7
+	force = 15
+	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 
 /obj/item/weapon/tank/plasma/New()
 	..()
@@ -128,8 +158,11 @@
 	icon_state = "emergency"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
+	hitsound = 'sound/weapons/smash.ogg'
+	throwforce = 10
 	w_class = 2.0
-	force = 4.0
+	force = 10
+	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 

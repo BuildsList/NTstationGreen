@@ -7,7 +7,7 @@ var/round_start_time = 0
 #define GAME_STATE_FINISHED		4
 
 /datum/controller/gameticker
-	var/const/restart_timeout = 250
+	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
 
 	var/hide_mode = 0
@@ -31,7 +31,7 @@ var/round_start_time = 0
 
 /datum/controller/gameticker/proc/pregame()
 
-	login_music = pickweight(list('sound/ambience/title2.ogg' = 49, 'sound/ambience/title1.ogg' = 49, 'sound/ambience/clown.ogg' = 2)) // choose title music!
+	login_music = pickweight(list('sound/ambience/skinofnight.ogg' = 25, 'sound/ambience/rocketman.ogg' = 30, 'sound/ambience/midnight.ogg' = 30, 'sound/ambience/magicfly.ogg' = 25, 'sound/ambience/stayinalive.ogg' = 30, 'sound/ambience/ghostbust.ogg' = 30, 'sound/ambience/title2.ogg' = 20, 'sound/ambience/title1.ogg' = 15, 'sound/ambience/clown.ogg' = 15, 'sound/ambience/gurren1.ogg' = 7)) // choose title music!
 	if(events.holiday == "April Fool's Day")
 		login_music = 'sound/ambience/clown.ogg'
 	for(var/client/C in clients)
@@ -138,13 +138,7 @@ var/round_start_time = 0
 			world << "<font color='blue'>and...</font>"
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
 
-	if(!admins.len)
-		send2irc("Server", "Round just started with no admins online!")
 	auto_toggle_ooc(0) // Turn it off
-
-	if(config.sql_enabled)
-		spawn(3000)
-			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 	return 1
 
 /datum/controller/gameticker
@@ -290,6 +284,7 @@ var/round_start_time = 0
 				declare_completion()
 
 			spawn(50)
+				showcredits()
 				if (mode.station_was_nuked)
 					feedback_set_details("end_proper","nuke")
 					if(!delay_end)
@@ -305,7 +300,7 @@ var/round_start_time = 0
 
 				if(!delay_end)
 					sleep(restart_timeout)
-					kick_clients_in_lobby("\red The round came to an end with you in the lobby.", 1) //second parameter ensures only afk clients are kicked
+//					kick_clients_in_lobby("\red The round came to an end with you in the lobby.", 1) //second parameter ensures only afk clients are kicked
 					world.Reboot()
 				else
 					world << "\blue <B>An admin has delayed the round end</B>"

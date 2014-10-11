@@ -1,5 +1,3 @@
-
-
 /obj/item/clothing/head/centhat
 	name = "\improper Centcom hat"
 	icon_state = "centcom"
@@ -205,3 +203,10 @@
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
 	flags = NODROP
+
+/obj/item/clothing/head/snake
+	name = "sneak band"
+	icon_state = "snake-band"
+	item_state = "snake-band"
+	desc = "An old rusty band, that fluttering in the vacuum."
+	armor = list(melee = 0, bullet = 0, laser = 10,energy = 0, bomb = 0, bio = 0, rad = 0)

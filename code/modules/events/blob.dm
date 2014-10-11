@@ -2,6 +2,7 @@
 	name = "Blob"
 	typepath = /datum/round_event/blob
 	max_occurrences = 1
+	weight = 5
 
 /datum/round_event/blob
 	announceWhen	= 12

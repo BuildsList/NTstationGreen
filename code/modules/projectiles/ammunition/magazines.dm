@@ -31,9 +31,10 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "d-tiv revolver cylinder"
 	desc = "Oh god, this shouldn't be here"
-	ammo_type = /obj/item/ammo_casing/c38
+	ammo_type = /obj/item/ammo_casing/c38/e
 	caliber = "38"
 	max_ammo = 6
+
 
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
@@ -145,6 +146,18 @@
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),2)]"
 
+/obj/item/ammo_box/magazine/stanag
+	name = "STANAG bullup mag (.308)"
+	icon_state = "stanag"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c38/e
+	caliber = ".308"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/stanag/update_icon()
+	..()
+	icon_state = "stanag"
+
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "tommy gun drum (.45)"
 	icon_state = "drum45"
@@ -214,4 +227,5 @@
 /obj/item/ammo_box/magazine/m12g/dragon/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
+
 

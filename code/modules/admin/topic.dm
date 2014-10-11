@@ -801,11 +801,26 @@
 
 		switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
 			if("Yes")
-				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+				var/mins// = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+				var/bantime = input("How long (in minutes)?", "Ban Confirmation", "Cancel") in list("10 Minutes", "1 Hour", "1 Day", "1 Week", "1 Month", "Custom", "Cancel")
+				if(bantime == "10 Minutes")
+					mins = 10
+				if(bantime == "1 Hour")
+					mins = 60
+				if(bantime == "1 Day")
+					mins = 1440
+				if(bantime == "1 Week")
+					mins = 10080
+				if(bantime == "1 Month")
+					mins = 43829
+				if(bantime == "Custom")
+					mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+					if(mins >= 525600) mins = 525599
+				if(bantime == "Cancel")
+					return
 				if(!mins)
 					return
-				if(mins >= 525600) mins = 525599
-				var/reason = input(usr,"Reason?","reason","Griefer") as text|null
+				var/reason = input(usr,"Reason?","reason","Because I'm a shitty admin who doesn't type ban reasons and wants to be demoted.") as text|null
 				if(!reason)
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
@@ -1029,6 +1044,64 @@
 			M << "\blue You have been sent to the Thunderdome."
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 2)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Team 2)", 1)
+
+	else if(href_list["ltdome1"])
+		if(!check_rights(R_FUN))	return
+
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+			return
+
+		var/mob/M = locate(href_list["ltdome1"])
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		if(istype(M, /mob/living/silicon/ai))
+			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
+			return
+
+		for(var/obj/item/I in M)
+			M.unEquip(I)
+			if(I)
+				I.loc = M.loc
+				I.layer = initial(I.layer)
+				I.dropped(M)
+
+		M.Paralyse(5)
+		sleep(5)
+		M.loc = pick(ltdome1)
+		spawn(50)
+			M << "\blue You have been sent to the Laser-Tag Thunderdome."
+		log_admin("[key_name(usr)] has sent [key_name(M)] to the laser-tag thunderdome. (BLU)")
+		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the laser-tag thunderdome. (BLU)", 1)
+
+	else if(href_list["ltdome2"])
+		if(!check_rights(R_FUN))	return
+
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+			return
+
+		var/mob/M = locate(href_list["ltdome2"])
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		if(istype(M, /mob/living/silicon/ai))
+			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
+			return
+
+		for(var/obj/item/I in M)
+			M.unEquip(I)
+			if(I)
+				I.loc = M.loc
+				I.layer = initial(I.layer)
+				I.dropped(M)
+
+		M.Paralyse(5)
+		sleep(5)
+		M.loc = pick(ltdome2)
+		spawn(50)
+			M << "\blue You have been sent to the Laser-Tag Thunderdome."
+		log_admin("[key_name(usr)] has sent [key_name(M)] to the laser-tag thunderdome. (RED)")
+		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the laser-tag thunderdome. (RED)", 1)
 
 	else if(href_list["tdomeadmin"])
 		if(!check_rights(R_FUN))	return
@@ -2080,7 +2153,7 @@
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_name"])
-		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
+		src.admincaster_feed_channel.channel_name = strip_html(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
 		while (findtext(src.admincaster_feed_channel.channel_name," ") == 1)
 			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,lentext(src.admincaster_feed_channel.channel_name)+1)
 		src.access_news_network()

@@ -90,3 +90,16 @@
 		usr << "<span class='notice'>It is currently loaded.</span>"
 	else
 		usr << "<span class='notice'>It is spent.</span>"
+
+/obj/item/weapon/reagent_containers/hypospray/medipen/admin
+	name = "\improper Advanced MediPen"
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge. Filled with adminordrazine."
+	amount_per_transfer_from_this = 10
+	volume = 10
+
+/obj/item/weapon/reagent_containers/hypospray/medipen/New()
+	..()
+	reagents.add_reagent("adminordrazine", 10)
+	update_icon()
+	return
+

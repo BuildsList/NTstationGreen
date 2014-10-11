@@ -1057,12 +1057,12 @@
 			reagents.add_reagent("teapowder", 1+round((potency / 10), 2))
 			reagents.add_reagent("kelotane", 1+round((potency / 20), 1))
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/blazeit
-	seed = "/obj/item/seeds/blazeit"
+/obj/item/weapon/reagent_containers/food/snacks/grown/cannabis
+	seed = "/obj/item/seeds/cannabis"
 	name = "cannabis leaf"
 	desc = "420."
-	icon_state = "blazeit"
-	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/blazeit
+	icon_state = "cannabis"
+	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/cannabis
 	New(var/loc, var/potency = 10)
 		..()
 		if(reagents)
@@ -1071,12 +1071,12 @@
 			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/rainbowblazeit
-	seed = "/obj/item/seeds/rainbowblazeit"
+/obj/item/weapon/reagent_containers/food/snacks/grown/rainbowcannabis
+	seed = "/obj/item/seeds/rainbowcannabis"
 	name = "rainbow cannabis leaf"
 	desc = "BLAZE IT"
-	icon_state = "rainbowblazeit"
-	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/rainbowblazeit
+	icon_state = "rainbowcannabis"
+	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/rainbowcannabis
 	New(var/loc, var/potency = 10)
 		..()
 		if(reagents)

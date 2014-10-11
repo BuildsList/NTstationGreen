@@ -24,6 +24,11 @@
 	toggled = 0
 	autolinkers = list("r_relay")
 
+/obj/machinery/telecomms/relay/preset/aisat
+	id = "AI Satellite Relay"
+	hide = 1
+	autolinkers = list("ai_relay")
+
 /obj/machinery/telecomms/relay/preset/centcom
 	id = "Central Command Relay"
 	autolinkers = list("c_relay")
@@ -35,7 +40,7 @@
 	network = "tcommsat"
 	autolinkers = list("hub", "relay", "s_relay", "m_relay", "r_relay", "c_relay", "science", "medical",
 	"supply", "service", "common", "command", "engineering", "security",
-	"receiverA", "receiverB", "broadcasterA", "broadcasterB")
+	"receiverA", "receiverB", "broadcasterA", "broadcasterB", "ai_relay")
 
 //Receivers
 

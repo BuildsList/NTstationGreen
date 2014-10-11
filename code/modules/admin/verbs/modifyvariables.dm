@@ -136,7 +136,7 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 
 	if(!istype(L,/list)) src << "Not a List."
 
-	var/list/locked = list("vars", "client", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")
+	var/list/locked = list("vars", "client", "virus", "viruses", "cuffed", "last_eaten")
 	var/list/ckey_edit = list("key", "ckey")
 	var/list/icon_edit = list("icon", "icon_state", "overlays", "underlays")
 	var/list/names = sortList(L)

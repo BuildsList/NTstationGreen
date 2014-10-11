@@ -78,10 +78,10 @@ Please contact me on #coderbus IRC. ~Carnie x
 #define LEGCUFF_LAYER			3
 #define HANDS_LAYER				2
 #define FIRE_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS			21		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS		21		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 //////////////////////////////////
 /mob/living/carbon/human
-	var/list/overlays_standing[TOTAL_LAYERS]
+	var/tmp/list/overlays_standing[TOTAL_LAYERS]
 
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
@@ -699,7 +699,7 @@ var/global/list/human_icon_cache = list()
 
 
 /mob/living/carbon/human
-	var/icon_render_key = ""
+	var/tmp/icon_render_key = ""
 
 
 ///////////////////////

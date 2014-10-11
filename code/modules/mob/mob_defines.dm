@@ -7,29 +7,29 @@
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
-	var/obj/screen/flash = null
-	var/obj/screen/blind = null
-	var/obj/screen/hands = null
-	var/obj/screen/pullin = null
-	var/obj/screen/internals = null
-	var/obj/screen/oxygen = null
-	var/obj/screen/i_select = null
-	var/obj/screen/m_select = null
-	var/obj/screen/toxin = null
-	var/obj/screen/fire = null
-	var/obj/screen/bodytemp = null
-	var/obj/screen/healths = null
-	var/obj/screen/throw_icon = null
-	var/obj/screen/nutrition_icon = null
-	var/obj/screen/pressure = null
-	var/obj/screen/damageoverlay = null
+	var/tmp/obj/screen/flash = null
+	var/tmp/obj/screen/blind = null
+	var/tmp/obj/screen/hands = null
+	var/tmp/obj/screen/pullin = null
+	var/tmp/obj/screen/internals = null
+	var/tmp/obj/screen/oxygen = null
+	var/tmp/obj/screen/i_select = null
+	var/tmp/obj/screen/m_select = null
+	var/tmp/obj/screen/toxin = null
+	var/tmp/obj/screen/fire = null
+	var/tmp/obj/screen/bodytemp = null
+	var/tmp/obj/screen/healths = null
+	var/tmp/obj/screen/throw_icon = null
+	var/tmp/obj/screen/nutrition_icon = null
+	var/tmp/obj/screen/pressure = null
+	var/tmp/obj/screen/damageoverlay = null
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
 	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
-	var/obj/screen/zone_sel/zone_sel = null
+	var/tmp/obj/screen/zone_sel/zone_sel = null
 
 	var/damageoverlaytemp = 0
 	var/tmp/computer_id = null
@@ -42,7 +42,7 @@
 	var/sdisabilities = 0	//Carbon
 	var/disabilities = 0	//Carbon
 	var/tmp/atom/movable/pulling = null
-	var/next_move = null
+	var/tmp/next_move = null
 	var/notransform = null	//Carbon
 	var/hand = null
 	var/eye_blind = null	//Carbon
@@ -85,18 +85,18 @@
 	var/shakecamera = 0
 	var/a_intent = "help"//Living
 	var/m_intent = "run"//Living
-	var/lastKnownIP = null
+	var/tmp/lastKnownIP = null
 	var/obj/structure/stool/bed/buckled = null//Living
 	var/obj/item/l_hand = null//Living
 	var/obj/item/r_hand = null//Living
-	var/obj/item/weapon/storage/s_active = null//Carbon
+	var/tmp/obj/item/weapon/storage/s_active = null//Carbon
 
 	var/seer = 0 //for cult//Carbon, probably Human
 	var/see_override = 0 //0 for no override, sets see_invisible = see_override in mob life process
 
-	var/datum/hud/hud_used = null
+	var/tmp/datum/hud/hud_used = null
 
-	var/list/grabbed_by = list(  )
+	var/tmp/list/grabbed_by = list(  )
 	var/list/requests = list(  )
 
 	var/list/mapobjs = list()
@@ -104,6 +104,8 @@
 	var/in_throw_mode = 0
 
 	var/coughedtime = null
+
+	var/footstep = 1
 
 	var/inertia_dir = 0
 
@@ -146,7 +148,7 @@
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
-	var/update_icon = 1 //Set to 1 to trigger update_icons() at the next life() call
+	var/tmp/update_icon = 1 //Set to 1 to trigger update_icons() at the next life() call
 
 	var/status_flags = CANSTUN|CANWEAKEN|CANPARALYSE|CANPUSH	//bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
 

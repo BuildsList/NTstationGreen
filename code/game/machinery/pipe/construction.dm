@@ -21,7 +21,10 @@ Buildable meters
 #define PIPE_VOLUME_PUMP        16
 #define PIPE_HEAT_EXCHANGE      17
 #define PIPE_DVALVE             18
-
+///// Z-Level stuff
+#define PIPE_UP					21
+#define PIPE_DOWN				22
+///// Z-Level stuff
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"
@@ -108,6 +111,10 @@ Buildable meters
 		"volume pump", \
 		"heat exchanger", \
 		"digital valve", \
+///// Z-Level stuff
+		"pipe up", \
+		"pipe down", \
+///// Z-Level stuff
 	)
 	name = nlist[pipe_type+1] + " fitting"
 	var/list/islist = list( \
@@ -130,6 +137,10 @@ Buildable meters
 		"volumepump", \
 		"heunary", \
 		"dvalve", \
+///// Z-Level stuff
+		"cap", \
+		"cap", \
+///// Z-Level stuff
 	)
 	icon_state = islist[pipe_type + 1]
 
@@ -197,6 +208,10 @@ Buildable meters
 			return flip|cw|acw
 		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER)
 			return dir|flip|cw
+///// Z-Level stuff
+		if(PIPE_UP,PIPE_DOWN)
+			return dir
+///// Z-Level stuff
 	return 0
 
 /obj/item/pipe/proc/get_pdir() //endpoints for regular pipes

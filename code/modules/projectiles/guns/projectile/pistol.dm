@@ -89,11 +89,16 @@
 
 /obj/item/weapon/gun/projectile/automatic/deagle/m1911
 	name = "\improper M1911"
-	desc = "An M1911 pistol. Uses .45 ammo."
+	desc = "An M1911 pistol. Uses .45 ACP ammo."
 	icon_state = "m1911"
 	force = 13.0
 	origin_tech = "combat=4;materials=4"
 	mag_type = /obj/item/ammo_box/magazine/sm45
+
+/obj/item/weapon/gun/projectile/automatic/deagle/m1911/black
+	name = "\improper M1911A1"
+	desc = "An M1911A1 pistol. Uses .45 ACP ammo."
+	icon_state = "m1911b"
 
 /obj/item/weapon/gun/projectile/automatic/deagle/glock
 	name = "glock"
@@ -103,22 +108,20 @@
 	origin_tech = "combat=4;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/m9mm
 
-/obj/item/glockbarrel
+/obj/item/weapon/assembly/glock/barrel
 	name = "handgun barrel"
 	desc = "One third of a low-caliber handgun."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "glock1"
 	m_amt = 400000 // expensive, will need an autolathe upgrade to hold enough metal to produce the barrel. this way you need cooperation between 3 departments to finish even 1.
 
-/obj/item/glockconstruction
+/obj/item/weapon/assembly/glock/construction
 	name = "handgun barrel and grip"
 	desc = "Two thirds of a low-caliber handgun."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "glockstep1"
 	var/construction = 0
 
-/obj/item/glockconstruction/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/glockslide))
+/obj/item/weapon/assembly/glock/construction/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/assembly/glock/slide))
 		user << "You attach the slide to the gun."
 		construction = 1
 		del(W)
@@ -133,24 +136,22 @@
 			del(src)
 			return
 
-/obj/item/glockbarrel/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/glockgrip))
+/obj/item/weapon/assembly/glock/barrel/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/assembly/glock/grip))
 		user << "You attach the grip to the barrel."
-		new /obj/item/glockconstruction(user.loc)
+		new /obj/item/weapon/assembly/glock/construction(user.loc)
 		del(W)
 		del(src)
 		return
 
-/obj/item/glockgrip
+/obj/item/weapon/assembly/glock/grip
 	name = "handgun grip"
 	desc = "One third of a low-caliber handgun."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "glock2"
 
-/obj/item/glockslide
+/obj/item/weapon/assembly/glock/slide
 	name = "handgun slide"
 	desc = "One third of a low-caliber handgun."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "glock3"
 
 /obj/item/weapon/silencer

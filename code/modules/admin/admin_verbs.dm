@@ -85,7 +85,9 @@ var/list/admin_verbs_fun = list(
 	)
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	/client/proc/load_savefile,
+	/client/proc/load_savefile_to_turf
 	)
 var/list/admin_verbs_server = list(
 	/datum/admins/proc/startnow,
@@ -124,7 +126,12 @@ var/list/admin_verbs_permissions = list(
 var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character
 	)
-
+var/list/admin_verbs_mentor = list(
+	/client/proc/toggleadminhelpsound,	/*toggles whether we hear a sound when adminhelps/PMs are used*/
+	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
+	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
+	/client/proc/cmd_admin_pm_panel		/*admin-pm list*/
+	)
 //verbs which can be hidden - needs work
 var/list/admin_verbs_hideable = list(
 	/client/proc/set_ooc,
@@ -183,6 +190,7 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
+	/client/proc/save_to_file,
 	/proc/possess,
 	/proc/release
 	)
@@ -205,6 +213,7 @@ var/list/admin_verbs_hideable = list(
 		if(rights & R_REJUVINATE)	verbs += admin_verbs_rejuv
 		if(rights & R_SOUNDS)		verbs += admin_verbs_sounds
 		if(rights & R_SPAWN)		verbs += admin_verbs_spawn
+		if(rights & R_MENTOR)		verbs += admin_verbs_mentor
 
 		for(var/path in holder.rank.adds)
 			verbs += path
@@ -427,7 +436,7 @@ var/list/admin_verbs_hideable = list(
 		feedback_inc("ban_warn",1)
 	else
 		if(C)
-			C << "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>"
+			C << "<font color='red'><BIG><B>“≈¡≈ ¡¿Õ œ–Œœ»—¿“‹ —” ≈, ƒ¿?</B></BIG><br>Further warnings will result in an autoban.</font>"
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
@@ -540,7 +549,7 @@ var/list/admin_verbs_hideable = list(
 	message_admins("\blue [key_name_admin(usr)] used 'kill air'.", 1)
 
 /client/proc/deadmin_self()
-	set name = "De-admin self"
+	set name = "UNPEDAL MEH!"
 	set category = "Admin"
 
 	if(holder)

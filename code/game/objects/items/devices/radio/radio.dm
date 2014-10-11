@@ -21,7 +21,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	var/broadcasting = 0
 	var/listening = 1
 	var/freerange = 0 // 0 - Sanitize frequencies, 1 - Full range
-	var/tmp/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
+	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
 	var/subspace_transmission = 0
 	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
 	var/maxf = 1499
@@ -40,8 +40,8 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 		//FREQ_BROADCASTING = 2
 
 /obj/item/device/radio
-	var/datum/radio_frequency/radio_connection
-	var/list/datum/radio_frequency/secure_radio_connections
+	var/tmp/datum/radio_frequency/radio_connection
+	var/tmp/list/datum/radio_frequency/secure_radio_connections
 
 	proc/set_frequency(new_frequency)
 		radio_controller.remove_object(src, frequency)

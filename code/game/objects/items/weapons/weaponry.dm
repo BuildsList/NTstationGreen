@@ -67,41 +67,41 @@
 	throwforce = 7
 	attack_verb = list("patted", "tapped")
 
-/obj/item/butterflyconstruction
+/obj/item/weapon/assembly
+	icon = 'icons/obj/buildingobject.dmi'
+
+/obj/item/weapon/assembly/butterfly/construction
 	name = "unfinished concealed knife"
 	desc = "An unfinished concealed knife, it looks like the screws need to be tightened."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "butterflystep1"
 
-/obj/item/butterflyconstruction/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/assembly/butterfly/construction/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/screwdriver))
 		user << "You finish the concealed blade weapon."
 		new /obj/item/weapon/butterfly(user.loc)
 		del(src)
 		return
 
-/obj/item/butterflyblade
+/obj/item/weapon/assembly/butterfly/blade
 	name = "knife blade"
 	desc = "A knife blade. Unusable as a weapon without a grip."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "butterfly2"
-/obj/item/butterflyhandle
+/obj/item/weapon/assembly/butterfly/handle
 	name = "concealed knife grip"
 	desc = "A plasteel grip with screw fittings for a blade."
-	icon = 'icons/obj/buildingobject.dmi'
 	icon_state = "butterfly1"
 
 
-/obj/item/butterflyhandle/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/butterflyblade))
+/obj/item/weapon/assembly/butterfly/handle/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/assembly/butterfly/blade))
 		user << "You attach the two concealed blade parts."
-		new /obj/item/butterflyconstruction(user.loc)
+		new /obj/item/weapon/assembly/butterfly/construction(user.loc)
 		del(W)
 		del(src)
 		return
 
 /obj/item/weapon/butterfly/switchblade
-	name = "/proper switchblade"
+	name = "\improper switchblade"
 	desc = "A classic switchblade with gold engraving. Just holding it makes you feel like a gangster."
 	icon_state = "switchblade"
 
@@ -189,6 +189,9 @@
 	w_class = 3
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+/obj/item/weapon/katana/replica
+	name = "katana replica"
+	force = 15
 
 /obj/item/weapon/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")

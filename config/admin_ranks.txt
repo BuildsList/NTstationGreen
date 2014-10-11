@@ -12,6 +12,7 @@
 # PLEASE NOTE: depending on config options, some abilities will be unavailable regardless if you have permission to use them!
 
 # KEYWORDS:
+# +MENTOR = game helpers
 # +ADMIN = general admin tools, verbs etc
 # +FUN = events, other event-orientated actions. Access to the fun secrets in the secrets panel.
 # +BAN = the ability to ban, jobban and fullban
@@ -28,15 +29,13 @@
 # +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
 
 Admin Observer
-Codebase Manager		= +EVERYTHING
+Mentor			= +MENTOR
 Moderator		= +ADMIN
-Admin Candidate	= +@
-Trial Admin		= +@ +SPAWN +REJUV +VAREDIT +BAN
-Badmin			= +@ +POSSESS +BUILDMODE +SERVER +FUN
-Game Admin		= +@ +STEALTH +SOUNDS +DEBUG
-Game Master		= +EVERYTHING
-Headmin			= +EVERYTHING
-
+Admin Candidate		= +@ +BAN
+Trial Admin		= +@  +VAREDIT +BAN +SERVER
+Badmin			= +@ +POSSESS +BUILDMODE +FUN +REJUV +SPAWN
+Game Admin		= +@ +STEALTH +SOUNDS +DEBUG +BUILD
+Game Master		= +@
+Dungeon Master		= +@
 Host			= +EVERYTHING
 
-Coder			= +DEBUG +VAREDIT +SERVER +SPAWN

@@ -266,6 +266,9 @@
 		if (traitor_mob.mind.assigned_role == "Clown")
 			traitor_mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 			traitor_mob.remove_organic_effect(/datum/organic_effect/clumsy)
+		if (traitor_mob.mind.assigned_role == "Mime")
+			traitor_mob << "Your training has allowed you to overcome your mime nature, allowing you to speak."
+			traitor_mob.mind.miming = !traitor_mob.mind.miming
 
 	// find a radio! toolbox(es), backpack, belt, headset
 	var/loc = ""

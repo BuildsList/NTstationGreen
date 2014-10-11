@@ -73,8 +73,6 @@
 	feedback_set_details("round_start","[time2text(world.realtime)]")
 	if(ticker && ticker.mode)
 		feedback_set_details("game_mode","[ticker.mode]")
-	if(revdata.revision)
-		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
 	return 1
 
@@ -160,9 +158,6 @@
 		feedback_set("escaped_on_pod_3",escaped_on_pod_3)
 	if(escaped_on_pod_5 > 0)
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
-
-	send2irc("Server", "Round just ended.")
-
 	return 0
 
 

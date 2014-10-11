@@ -43,6 +43,10 @@
 			tdome1	+= loc
 		if("tdome2")
 			tdome2 += loc
+		if("ltdome1")
+			ltdome1	+= loc
+		if("ltdome2")
+			ltdome2 += loc
 		if("tdomeadmin")
 			tdomeadmin	+= loc
 		if("tdomeobserve")

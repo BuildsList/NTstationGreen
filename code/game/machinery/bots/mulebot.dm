@@ -19,7 +19,7 @@ var/global/mulebot_count = 0
 	fire_dam_coeff = 0.7
 	brute_dam_coeff = 0.5
 	var/atom/movable/load = null		// the loaded crate (usually)
-	var/list/delivery_beacons = list() //List of beacons that serve as delivery locations.
+	var/tmp/list/delivery_beacons = list() //List of beacons that serve as delivery locations.
 	beacon_freq = 1400
 	control_freq = 1447
 	bot_type = MULE_BOT
@@ -27,7 +27,7 @@ var/global/mulebot_count = 0
 
 	suffix = ""
 
-	var/turf/target				// this is turf to navigate to (location of beacon)
+	var/tmp/turf/target				// this is turf to navigate to (location of beacon)
 	var/loaddir = 0				// this the direction to unload onto/load from
 	new_destination = ""	// pending new destination (waiting for beacon response)
 	destination = ""		// destination description

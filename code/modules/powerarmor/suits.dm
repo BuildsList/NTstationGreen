@@ -2,7 +2,7 @@
 	helmrequired = 1
 
 /obj/item/clothing/suit/powered/full/New()
-	atmoseal = new /obj/item/weapon/powerarmor/atmoseal/optional/standard(src)
+	atmoseal = new /obj/item/weapon/powerarmor/atmoseal/optional/standart(src)
 	atmoseal.add_to(src)
 	..()
 
@@ -23,8 +23,8 @@
 	C.add_to(src)
 	subsystems.Add(C)
 
-	melee = new /obj/item/weapon/powerarmor/weapon/melee/pneumatic(src)
-	melee.add_to(src)
+	meele = new /obj/item/weapon/powerarmor/weapon/meele/pneumatic(src)
+	meele.add_to(src)
 
 	ranged_r = new /obj/item/weapon/powerarmor/weapon/ranged/proj/l6(src)
 	ranged_r.add_to(src)
@@ -87,7 +87,7 @@
 /obj/item/clothing/suit/powered/full/mining
 	icon_state = "cryo-engineering"
 	shoesrequired = 1
-	slowdown = 5
+	slowdown = 7
 	armor = list(melee = 5, bullet = 5, laser = 5, energy = 5, bomb = 5, bio = 10, rad = 15)
 
 /obj/item/clothing/suit/powered/full/mining/New()

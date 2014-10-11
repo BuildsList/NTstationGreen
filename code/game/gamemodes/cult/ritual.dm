@@ -228,8 +228,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		if(word1 == wordtravel && word2 == wordhell && word3 == wordtech)
 			return summon_shell()
 		else
-			user.take_overall_damage(30, 0)
-			user << "\red You feel the life draining from you, as if Lord Nar-Sie is displeased with you."
+			user << "\red You feel Lord Nar-Sie is displeased with you."
 			return fizzle()
 
 

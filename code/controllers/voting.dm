@@ -48,6 +48,7 @@ datum/controller/vote
 						voting.Cut(i,i+1)
 
 	proc/autotransfer()
+		return
 		initiate_vote("crew_transfer","the server")
 
 	proc/reset()
@@ -197,10 +198,10 @@ datum/controller/vote
 						question = "End the shift?"
 						choices.Add("Initiate Crew Transfer", "Continue The Round")
 				if("custom")
-					question = html_encode(input(usr,"What is the vote for?") as text|null)
+					question = rhtml_encode(input(usr,"What is the vote for?") as text|null)
 					if(!question)	return 0
 					for(var/i=1,i<=10,i++)
-						var/option = capitalize(html_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null))
+						var/option = capitalize(rhtml_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null))
 						if(!option || mode || !usr.client)	break
 						choices.Add(option)
 				else			return 0

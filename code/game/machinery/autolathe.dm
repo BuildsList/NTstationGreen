@@ -60,6 +60,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 		new /obj/item/weapon/weldingtool/largetank(), \
 		new /obj/item/weapon/handcuffs(), \
 		new /obj/item/ammo_box/a357(), \
+		new /obj/item/ammo_box/c38/e(), \
 		new /obj/item/ammo_box/c10mm(), \
 		new /obj/item/ammo_box/c9mm(), \
 		new /obj/item/ammo_box/c45(), \
@@ -68,7 +69,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 		new /obj/item/ammo_casing/shotgun/buckshot(), \
 		new /obj/item/ammo_casing/shotgun/dart(), \
 		new /obj/item/ammo_casing/shotgun/incendiary(), \
-		new /obj/item/glockbarrel(), \
+		new /obj/item/weapon/assembly/glock/barrel(), \
 		/* new /obj/item/weapon/shield/riot(), */ \
 	)
 

@@ -145,6 +145,8 @@
 	interact(mob/user as mob)
 		return //HTML MENU FOR WIRES GOES HERE
 
+
+
 /*
 	var/small_icon_state = null//If this obj will go inside the assembly use this for icons
 	var/list/small_icon_state_overlays = null//Same here

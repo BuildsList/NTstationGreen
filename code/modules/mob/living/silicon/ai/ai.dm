@@ -762,7 +762,7 @@ var/list/ai_list = list()
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
 	return
 
-/mob/living/silicon/ai/proc/corereturn()
+/*mob/living/silicon/ai/proc/corereturn()
 	set category = "Malfunction"
 	set name = "Return to Main Core"
 
@@ -770,7 +770,7 @@ var/list/ai_list = list()
 	if(!istype(apc))
 		src << "\blue You are already in your Main Core."
 		return
-	apc.malfvacate()
+	apc.malfvacate()*/
 
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	if(stat != CONSCIOUS)

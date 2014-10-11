@@ -2,13 +2,13 @@
 	return 0
 
 
-// melee
-/obj/item/weapon/powerarmor/weapon/melee/multiplier
+// MEELE
+/obj/item/weapon/powerarmor/weapon/meele/multiplier
 	name = "punch repeater"
 	desc = "Repeats your hand's movements with a set of servos."
 	origin_tech = "combat=2;materials=1;programming=1;engineering=1"
 
-/obj/item/weapon/powerarmor/weapon/melee/multiplier/pattack(var/atom/A, var/mob/living/carbon/user)
+/obj/item/weapon/powerarmor/weapon/meele/multiplier/pattack(var/atom/A, var/mob/living/carbon/user)
 	if(ismob(A) && parent.use_power(80))
 		A.attack_hand(user)
 		A.attack_hand(user)
@@ -17,14 +17,14 @@
 	return 0
 
 
-/obj/item/weapon/powerarmor/weapon/melee/pneumatic
+/obj/item/weapon/powerarmor/weapon/meele/pneumatic
 	name = "pneumatic amplifier"
 	desc = "Smashing skulls never was so fun!"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "pneumatics"
 	origin_tech = "combat=3;materials=2;engineering=1"
 
-/obj/item/weapon/powerarmor/weapon/melee/pneumatic/pattack(var/atom/A, var/mob/living/carbon/user)
+/obj/item/weapon/powerarmor/weapon/meele/pneumatic/pattack(var/atom/A, var/mob/living/carbon/user)
 	if(ismob(A) && parent.use_power(250))
 		var/mob/living/M = A
 		M.Stun(8)
@@ -50,14 +50,14 @@
 
 // ENERGY
 /obj/item/weapon/powerarmor/weapon/ranged/energy
-	name = "mounted laser gun"
-	desc = ""
+	name = "mounted proto-kinetic accelerator"
+	desc = "According to Nanotrasen accounting, this is mining equipment used for crushing rocks. It's not very powerful unless used in a low pressure environment."
 	icon_state = "kineticgun"
-	shot_cost = 250
-	gun_name = "laser gun"
+	shot_cost = 180
+	gun_name = "rapid proto-kinetic accelerator"
 	origin_tech = "combat=2;magnets=2;materials=2"
 
-	var/list/ammo_type = list(/obj/item/ammo_casing/energy/laser)
+	var/list/ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 
 
 /obj/item/weapon/powerarmor/weapon/ranged/energy/New()
@@ -90,14 +90,6 @@
 	return
 
 
-/obj/item/weapon/powerarmor/weapon/ranged/energy/kinetic
-	name = "mounted proto-kinetic accelerator"
-	desc = "According to Nanotrasen accounting, this is mining equipment used for crushing rocks. It's not very powerful unless used in a low pressure environment."
-	icon_state = "kineticgun"
-	shot_cost = 180
-	gun_name = "rapid proto-kinetic accelerator"
-	origin_tech = "combat=2;magnets=2;materials=2"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 
 // PROJECTILE
 /obj/item/weapon/powerarmor/weapon/ranged/proj

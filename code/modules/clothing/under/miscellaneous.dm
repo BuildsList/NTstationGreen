@@ -465,3 +465,23 @@
 	body_parts_covered = GROIN|LEGS
 	fitted = 0
 	can_roll = 0
+
+/obj/item/clothing/under/kamina
+	name = "awesome pants"
+	desc = "Just who the hell do you think I am?!"
+	icon_state = "kaminapants"
+	item_state = "kaminapants"
+	item_color = "kaminapants"
+	gender = PLURAL
+	body_parts_covered = GROIN|LEGS
+	fitted = 0
+	can_roll = 0
+
+/obj/item/clothing/under/snake
+	desc = "It's an old jumpsuit, that was worn by 'the man who makes the impossible possible'."
+	name = "sneak suit"
+	icon_state = "snake"
+	item_state = "snake"
+	item_color = "snake"
+	armor = list(melee = 10, bullet = 10, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	can_roll = 0

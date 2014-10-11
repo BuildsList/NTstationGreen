@@ -614,6 +614,20 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Thunderdome (Observer.)"
 	icon_state = "purple"
 
+/area/ltdome
+	name = "\improper Laser-Tag Thunderdome"
+	icon_state = "thunder"
+	requires_power = 0
+	has_gravity = 1
+
+/area/ltdome/ltdome1
+	name = "\improper Laser-Tag Thunderdome (BLU)"
+	icon_state = "blue"
+
+/area/ltdome/ltdome2
+	name = "\improper Laser-Tag Thunderdome (RED)"
+	icon_state = "red"
+
 //ENEMY
 
 //names are used

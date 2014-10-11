@@ -57,7 +57,11 @@
 	icon_state = "riotgun"
 	item_state = "c20r"
 	w_class = 4
-	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/meteor, /obj/item/ammo_casing/energy/meteor/big,
+		/obj/item/ammo_casing/energy/meteor/plasma, /obj/item/ammo_casing/energy/meteor/irradiated,
+		/obj/item/ammo_casing/energy/meteor/meaty, /obj/item/ammo_casing/energy/meteor/meaty/xeno,
+		/obj/item/ammo_casing/energy/meteor/dust)
 	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	var/charge_tick = 0
@@ -78,6 +82,9 @@
 		charge_tick = 0
 		if(!power_supply) return 0
 		power_supply.give(100)
+
+	attack_self(mob/living/user as mob)
+		select_fire(user)
 
 	update_icon()
 		return

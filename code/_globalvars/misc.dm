@@ -32,5 +32,3 @@ var/global/list/bibledeitynames = 	list("Space Jesus","Space Satan","Cthulu","Ar
 "Galactus, Eater of Worlds","Gozer the Gozerian","Crom","The Q Continuum","Arceus","Eru Ilúvatar","Honk Father","Silencer", "Toolboxia","Bhaal","Comdomiom","God-king Boris")
 
 
-
-

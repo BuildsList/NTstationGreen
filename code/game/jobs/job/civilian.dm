@@ -288,7 +288,7 @@ Mime
 
 	if(H.mind)
 		H.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null)
-		H.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/mime/speak(null)
+//		H.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/mime/speak(null)
 		H.mind.miming = 1
 
 	H.rename_self("mime")
