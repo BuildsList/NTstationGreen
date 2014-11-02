@@ -33,6 +33,13 @@
 		rotate()
 	return
 
+/obj/structure/stool/bed/chair/proc/handle_layer()
+	if(dir == NORTH)
+		src.layer = FLY_LAYER
+	else
+		src.layer = OBJ_LAYER
+
+
 /obj/structure/stool/bed/chair/proc/handle_rotation()	//making this into a seperate proc so office chairs can call it on Move()
 	if(src.dir == NORTH)
 		src.layer = FLY_LAYER
