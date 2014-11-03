@@ -463,9 +463,9 @@
 				C.changeNext_move(100)
 				C.last_special = world.time + 100
 				C.visible_message("<span class='warning'>[usr] attempts to unbuckle themself!</span>", \
-							"<span class='notice'>You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still.)</span>")
+							"<span class='notice'>You attempt to unbuckle yourself. (This will take around 0.5 minutes and you need to stay still.)</span>")
 				spawn(0)
-					if(do_after(usr, 1200))
+					if(do_after(usr, 300))
 						if(!C.buckled)
 							return
 						C.visible_message("<span class='danger'>[usr] manages to unbuckle themself!</span>", \
@@ -518,6 +518,9 @@
 				if(istype(HC)) //If you are handcuffed with actual handcuffs... Well what do I know, maybe someone will want to handcuff you with toilet paper in the future...
 					breakouttime = HC.breakouttime
 					displaytime = breakouttime / 600 //Minutes
+				if (CM.mind.assigned_role == "Clown" || CM.mind.assigned_role == "Mime" )
+					breakouttime = breakouttime / 2
+					displaytime = breakouttime / 600
 				CM.visible_message("<span class='warning'>[usr] attempts to remove [HC]!</span>", \
 						"<span class='notice'>You attempt to remove [HC]. (This will take around [displaytime] minutes and you need to stand still.)</span>")
 				spawn(0)
