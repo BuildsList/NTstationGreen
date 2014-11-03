@@ -283,6 +283,12 @@
 	icon_state = "poker_tableparts"
 	flags = null
 
+/obj/item/weapon/table_parts/glass
+	name = "glass table parts"
+	desc = "Careful, fragile."
+	icon_state = "glass_tableparts"
+	flags = null
+
 /obj/item/weapon/module
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_module"

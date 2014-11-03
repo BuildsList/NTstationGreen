@@ -638,6 +638,16 @@ Destroy type values:
 	parts = /obj/item/weapon/table_parts/wood/poker
 
 /*
+ * Glass tables
+ */
+
+/obj/structure/table/glasstable
+	name = "glass table"
+	desc = "A glass version of table. Scientists choice."
+	icon_state = "glass_table"
+	parts = /obj/item/weapon/table_parts/glass
+
+/*
  * Reinforced tables
  */
 /obj/structure/table/reinforced

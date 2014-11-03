@@ -4,11 +4,12 @@
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "Apply crowbar"
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'icons/obj/doors/DoorHazard.dmi'
 	icon_state = "door_open"
 	opacity = 0
 	density = 0
 	layer = 2.6
+	glass = 1
 	power_channel = ENVIRON
 	var/blocked = 0
 	var/nextstate = null
