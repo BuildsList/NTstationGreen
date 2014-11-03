@@ -238,7 +238,7 @@
 
 /mob/camera/blob/verb/rally_spores_power()
 	set category = "Blob"
-	set name = "Rally Spores (5)"
+	set name = "Rally Spores (40)"
 	set desc = "Rally the spores to move to your location."
 
 	var/turf/T = get_turf(src)
@@ -246,7 +246,7 @@
 
 /mob/camera/blob/proc/rally_spores(var/turf/T)
 
-	if(!can_buy(5))
+	if(!can_buy(40))
 		return
 
 	src << "You rally your spores."

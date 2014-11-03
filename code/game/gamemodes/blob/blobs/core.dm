@@ -10,6 +10,9 @@
 	var/point_rate = 2
 
 /obj/effect/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2)
+	if(blob_cores.len > 2)
+		world << "\red \b Кто то спаунит блобы сука."
+		qdel(src)
 	blob_cores += src
 	processing_objects.Add(src)
 	if(!overmind)
