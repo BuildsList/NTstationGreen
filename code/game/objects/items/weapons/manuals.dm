@@ -784,6 +784,21 @@
 	title = "Space Law"
 	page_link = "Space_Law"
 
+	attack_self(mob/user as mob)
+		if(carved)
+			if(store)
+				user << "<span class='notice'>[store] falls out of [title]!</span>"
+				store.loc = get_turf(src.loc)
+				store = null
+				return
+			else
+				user << "<span class='notice'>The pages of [title] have been cut out!</span>"
+				return
+		else
+			user << browse('html/law.html', "window=changes;size=675x650")
+			user.visible_message("[user] opens a book titled \"[src.title]\" and begins reading intently.")
+			onclose(user, "book")
+
 /obj/item/weapon/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
 	icon_state = "bookInfections"
