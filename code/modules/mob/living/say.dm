@@ -356,7 +356,7 @@ var/list/department_radio_keys = list(
 
 	var/rendered = null
 	if (length(heard_a))
-		var/message_a = say_quote(intonation(message))
+		var/message_a = say_quote(message)
 
 		if (italics)
 			message_a = "<i>[message_a]</i>"

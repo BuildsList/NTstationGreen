@@ -67,21 +67,34 @@
 
 /mob/proc/say_quote(var/text, var/isdeadsay)
 	if(!text)
-		return "says, \"...\"";	//not the best solution, but it will stop a large number of runtimes. The cause is somewhere in the Tcomms code
+		return "молчит, \"...\"";	//not the best solution, but it will stop a large number of runtimes. The cause is somewhere in the Tcomms code
+
 	var/ending = copytext(text, length(text))
 	if (src.stuttering)
-		return "stammers, \"[text]\"";
+		return "заикаетс#255, \"[text]\"";
 	if(isliving(src))
 		var/mob/living/L = src
 		if (L.getBrainLoss() >= 60)
-			return "gibbers, \"[text]\"";
-	if (ending == "?")
-		return "asks, \"[text]\"";
-	if (ending == "!")
-		return "exclaims, \"[text]\"";
+			return "бормочет, \"[text]\"";
+	if(ending=="!")
+		ending = copytext(text, length(text) - 1)
+		if(ending=="!!")
+			ending = copytext(text, length(text) - 2)
+			if(ending=="!!!")
+				text = upperrustext(text);
+				return "орет, \"<b>[text]</b>\"";
+			return "кричит, \"<b>[text]</b>\"";
+		else if(ending=="?!")
+			return "возмущен, \"[text]\"";
+		return "восклицает, \"[text]\"";
+	else if(ending=="?")
+		ending = copytext(text, length(text) - 1)
+		if(ending=="!?")
+			return "удивлен, \"[text]\"";
+		return "спрашивает, \"[text]\"";
 	if(isdeadsay)
-		return "[pick("moans","complains","cries","whines")], \"[text]\"";
-	return "says, \"[text]\"";
+		return "[pick("ноет","жалуется","рыдает","нудит")], \"[text]\"";
+	return "говорит, \"[text]\"";
 
 /mob/proc/emote(var/act)
 	return
