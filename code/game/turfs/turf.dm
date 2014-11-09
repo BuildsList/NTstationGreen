@@ -23,6 +23,9 @@
 	var/PathNode/PNode = null //associated PathNode in the A* algorithm
 	//var/pathweight = 1
 
+	// Decal shit.
+	var/list/decals
+
 	flags = 0
 
 /turf/New()
@@ -389,3 +392,19 @@
 			M.Weaken(w_amount)
 			return 1
 	return 0 // no success. Used in clown pda and wet floors
+
+/turf/proc/AddDecal(const/image/decal)
+	if(!decals)
+		decals = new
+
+	decals += decal
+	overlays += decal
+
+/turf/proc/ClearDecals()
+	if(!decals)
+		return
+
+	for(var/image/decal in decals)
+		overlays -= decal
+
+	decals = 0
