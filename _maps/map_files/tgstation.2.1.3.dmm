@@ -3273,7 +3273,7 @@
 "bkW" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor/wood,/area/bridge/meeting_room)
 "bkX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 9},/turf/simulated/floor/wood,/area/bridge/meeting_room)
 "bkY" = (/turf/simulated/wall/r_wall,/area/turret_protected/ai_upload)
-"bkZ" = (/obj/machinery/turretid{name = "AI Chamber turret control"; pixel_x = 24; pixel_y = 24},/turf/simulated/floor{tag = "icon-vault"; icon_state = "vault"},/area/turret_protected/ai_upload)
+"bkZ" = (/obj/machinery/turretid{control_area = "\improper AI Chamber"; name = "AI Chamber turret control"; pixel_x = 24; pixel_y = 24},/turf/simulated/floor{tag = "icon-vault"; icon_state = "vault"},/area/turret_protected/ai_upload)
 "bla" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/wall/r_wall,/area/crew_quarters/captain)
 "blb" = (/obj/machinery/door/airlock/command{name = "Captain's Quarters"; req_access = null; req_access_txt = "20"},/turf/simulated/floor/carpet,/area/crew_quarters/captain)
 "blc" = (/obj/machinery/door/airlock/maintenance{name = "Captain's Office Maintenance"; req_access_txt = "20"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor/plating,/area/crew_quarters/captain)
