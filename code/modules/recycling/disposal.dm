@@ -560,6 +560,10 @@
 			curr = curr.transfer(src)
 			if(!curr && active)
 				last.expel(src, loc, dir)
+			if(hasmob && prob(3))
+				for(var/mob/living/H in src)
+					if(!istype(H,/mob/living/silicon/robot/))
+						H.apply_damage(5, "brute", "chest")
 
 			sleep(1)
 			if(!(count--))

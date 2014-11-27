@@ -304,6 +304,14 @@
 
 	add_fingerprint(user)
 
+/obj.item/weapon/paper/attackby(obj/item/I as obj, mob/user as mob)
+	if(istype(I,/obj/item/weapon/lighter))
+		user << "You carefuly light a paper."
+		new /obj/effect/decal/cleanable/ash(user.loc)
+		del(src)
+		return
+
+
 
 /*
  * Premade paper
