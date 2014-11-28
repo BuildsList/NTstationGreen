@@ -87,7 +87,7 @@ proc/process_med_hud(var/mob/M, var/mob/eye)
 
 
 //Security HUDs. Pass a value for the second argument to enable implant viewing or other special features.
-proc/process_sec_hud(var/mob/M, var/advanced_mode,var/mob/eye)
+proc/process_sec_hud(var/mob/living/M, var/advanced_mode,var/mob/eye)
 	if(!M)
 		return
 	if(!M.client)
