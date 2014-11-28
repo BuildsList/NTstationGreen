@@ -209,4 +209,4 @@
 	icon_state = "snake-band"
 	item_state = "snake-band"
 	desc = "An old rusty band, that fluttering in the vacuum."
-	armor = list(melee = 0, bullet = 0, laser = 10,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 25,energy = 0, bomb = 0, bio = 0, rad = 0)

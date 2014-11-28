@@ -8,11 +8,11 @@
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
-	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
+	armor = list(melee = 45, bullet = 45, laser = 30,energy = 20, bomb = 25, bio = 10, rad = 10)
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/gun, /obj/item/weapon/handcuffs, /obj/item/weapon/tank)
 	slowdown = 6
 
-	var/list/togglearmor = list(melee = 90, bullet = 70, laser = 60,energy = 40, bomb = 75, bio = 75, rad = 75)
+	var/list/togglearmor = list(melee = 95, bullet = 90, laser = 85,energy = 70, bomb = 75, bio = 75, rad = 75)
 	var/active = 0
 
 	var/helmrequired = 0

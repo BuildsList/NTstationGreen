@@ -8,7 +8,7 @@
 	var/on = 0
 	item_state = "swat"
 	flash_protect = 2
-	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
+	armor = list(melee = 45, bullet = 45, laser = 30,energy = 20, bomb = 25, bio = 10, rad = 10)
 	var/obj/item/clothing/suit/powered/parent
 	var/obj/effect/proc_holder/stat_button/button
 

@@ -35,7 +35,7 @@
 	icon_state = "roman"
 	item_color = "roman"
 	item_state = "armor"
-	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
+	armor = list(melee = 25, bullet = 0, laser = 40, energy = 15, bomb = 10, bio = 0, rad = 0)
 	can_roll = 0
 
 /obj/item/clothing/under/waiter
@@ -483,5 +483,5 @@
 	icon_state = "snake"
 	item_state = "snake"
 	item_color = "snake"
-	armor = list(melee = 10, bullet = 10, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 10, bullet = 15, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	can_roll = 0

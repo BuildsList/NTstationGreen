@@ -15,7 +15,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 60, bullet = 25, laser = 75, energy = 15, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -30,7 +30,7 @@
 	icon_state = "hos"
 	item_state = "hos"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 70, bullet = 45, laser = 75, energy = 15, bomb = 25, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
@@ -50,7 +50,7 @@
 	icon_state = "capcarapace"
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
-	armor = list(melee = 50, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 70, bullet = 45, laser = 75, energy = 15, bomb = 25, bio = 0, rad = 0)
 
 
 /obj/item/clothing/suit/armor/riot
@@ -60,7 +60,7 @@
 	item_state = "swat_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	slowdown = 1
-	armor = list(melee = 80, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 85, bullet = 30, laser = 30, energy = 25, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -71,7 +71,7 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(melee = 10, bullet = 80, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 25, bullet = 95, laser = 30, energy = 25, bomb = 0, bio = 0, rad = 0)
 
 
 /obj/item/clothing/suit/armor/laserproof
@@ -80,7 +80,7 @@
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
-	armor = list(melee = 10, bullet = 10, laser = 80, energy = 50, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 25, bullet = 25, laser = 95, energy = 75, bomb = 0, bio = 0, rad = 0)
 	reflect_chance = 40
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(var/def_zone)
@@ -101,7 +101,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
 	slowdown = 1
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 30)
+	armor = list(melee = 85, bullet = 80, laser = 75,energy = 75, bomb = 50, bio = 100, rad = 30)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT

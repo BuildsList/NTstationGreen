@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 20
+	damage = 35
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	flag = "laser"
@@ -30,24 +30,24 @@
 /obj/item/projectile/beam/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 40
+	damage = 60
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"
-	damage = 15
+	damage = 20
 	irradiate = 30
 	forcedodge = 1
 	trace_residue = null
 
 /obj/item/projectile/beam/xray/dalek
-	damage = 40
+	damage = 60
 	irradiate = 10
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
-	damage = 50
+	damage = 75
 	trace_residue = "Considerable ablation and charring."
 	on_hit(var/atom/target, var/blocked = 0)
 		if(istype(target,/turf/)||istype(target,/obj/structure/))
@@ -58,13 +58,13 @@
 /obj/item/projectile/beam/deathlaser
 	name = "death laser"
 	icon_state = "heavylaser"
-	damage = 60
+	damage = 90
 	trace_residue = "Considerable ablation and charring."
 
 /obj/item/projectile/beam/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
-	damage = 30
+	damage = 45
 	trace_residue = "Considerable ablation and charring."
 
 

@@ -1,14 +1,14 @@
 /obj/item/projectile/bullet
 	name = "bullet"
 	icon_state = "bullet"
-	damage = 60
+	damage = 90
 	damage_type = BRUTE
 	nodamage = 0
 	flag = "bullet"
 
 
 /obj/item/projectile/bullet/weakbullet
-	damage = 5
+	damage = 1
 	stun = 5
 	weaken = 5
 
@@ -19,58 +19,58 @@
 	weaken = 5
 
 /obj/item/projectile/bullet/weakbullet3
-	damage = 20
+	damage = 30
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
-	damage = 15
+	damage = 20
 
 
 /obj/item/projectile/bullet/midbullet
-	damage = 20
+	damage = 30
 	stun = 5
 	weaken = 5
 
 
 /obj/item/projectile/bullet/midbullet2
-	damage = 25
+	damage = 35
 
 
 /obj/item/projectile/bullet/midbullet3 //Only used with the Stechkin Pistol - RobRichards
-	damage = 30
+	damage = 45
 
 /obj/item/projectile/bullet/midbullet4 // c38 expansive
-	damage = 40
-	stun = 10
-	weaken = 10
+	damage = 60
+	stun = 15
+	weaken = 15
 
 /obj/item/projectile/bullet/suffocationbullet//How does this even work?
 	name = "co bullet"
-	damage = 20
+	damage = 30
 	damage_type = OXY
 
 
 /obj/item/projectile/bullet/cyanideround
 	name = "poison bullet"
-	damage = 40
+	damage = 60
 	damage_type = TOX
 
 
 /obj/item/projectile/bullet/burstbullet//I think this one needs something for the on hit
 	name = "exploding bullet"
-	damage = 20
+	damage = 35
 
 
 /obj/item/projectile/bullet/stunslug
 	name = "stunslug"
-	damage = 5
-	stun = 10
-	weaken = 10
-	stutter = 10
+	damage = 2
+	stun = 15
+	weaken = 15
+	stutter = 15
 
 
 /obj/item/projectile/bullet/a762
-	damage = 25
+	damage = 35
 
 
 /obj/item/projectile/bullet/incendiary
@@ -82,22 +82,22 @@
 				M.IgniteMob()
 
 /obj/item/projectile/bullet/incendiary/shell
-	damage = 20
+	damage = 30
 
 /obj/item/projectile/bullet/incendiary/mech
-	damage = 5
+	damage = 7
 
 /obj/item/projectile/bullet/incendiary/mid
-	damage = 10
+	damage = 15
 
 /obj/item/projectile/bullet/mime
-	damage = 20
+	damage = 30
 	trace_residue = null
 
 /obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
 		if(istype(target, /mob/living/carbon))
 				var/mob/living/carbon/M = target
-				M.silent = max(M.silent, 10)
+				M.silent = max(M.silent, 15)
 
 
 /obj/item/projectile/bullet/dart
@@ -109,7 +109,7 @@
 	New()
 		..()
 		flags |= NOREACT
-		create_reagents(50)
+		create_reagents(75)
 
 	on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
 		if(istype(target, /mob/living/carbon))
@@ -140,9 +140,9 @@
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"
-	damage = 5
+	damage = 10
 	damage_type = TOX
-	weaken = 5
+	weaken = 10
 	trace_residue = "Sludge residue."
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)

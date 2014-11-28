@@ -6,7 +6,7 @@
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Only for the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
 	permeability_coefficient = 0.01
-	armor = list(melee = 65, bullet = 50, laser = 50,energy = 25, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 75, bullet = 75, laser = 75,energy = 35, bomb = 50, bio = 100, rad = 50)
 
 //Captain's space suit This is not the proper path but I don't currently know enough about how this all works to mess with it.
 /obj/item/clothing/suit/space/captain
@@ -17,7 +17,7 @@
 	w_class = 4
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
 	slowdown = 1
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 75, bullet = 75, laser = 75,energy = 35, bomb = 50, bio = 100, rad = 50)
 
 //Old Spacesuit
 /obj/item/clothing/head/helmet/space/oldsuit
@@ -41,7 +41,7 @@
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 30)
+	armor = list(melee = 90, bullet = 90, laser = 75,energy = 75, bomb = 50, bio = 100, rad = 30)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
@@ -90,7 +90,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 65, bullet = 75, laser = 45,energy = 25, bomb = 30, bio = 30, rad = 30)
 	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
 
 /obj/item/clothing/suit/space/pirate
@@ -101,7 +101,7 @@
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
 	slowdown = 0
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 65, bullet = 75, laser = 45,energy = 25, bomb = 30, bio = 30, rad = 30)
 
 //ERT Suits
 //Normal
@@ -114,7 +114,7 @@
 	w_class = 4
 	allowed = list(/obj/item/weapon/tank/oxygen, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton, /obj/item/weapon/handcuffs)
 	slowdown = 1
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 40, bomb = 50, bio = 100, rad = 30)
+	armor = list(melee = 55, bullet = 60, laser = 60, energy = 45, bomb = 50, bio = 100, rad = 30)
 
 /obj/item/clothing/head/helmet/space/ert
 	name = "ert helmet"
@@ -124,7 +124,7 @@
 	item_color = "ert"
 
 	permeability_coefficient = 0.01
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 40, bomb = 50, bio = 100, rad = 30)
+	armor = list(melee = 55, bullet = 60, laser = 60, energy = 45, bomb = 50, bio = 100, rad = 30)
 
 /obj/item/clothing/suit/space/ert/red
 	name = "red ert hardsuit"

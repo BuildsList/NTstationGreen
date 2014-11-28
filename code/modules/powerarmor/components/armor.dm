@@ -38,14 +38,14 @@
 	name = "reactive armor plating"
 	desc = "Pretty effective against everything, not perfect though."
 	origin_tech = "materials=6"
-	togglearmor = list(melee = 90, bullet = 70, laser = 60, energy = 80, bomb = 75, bio = 50, rad = 75)
+	togglearmor = list(melee = 95, bullet = 90, laser = 85, energy = 95, bomb = 75, bio = 50, rad = 75)
 	slowdown = 2
 
 /obj/item/weapon/powerarmor/reactive/standard
 	name = "standard armor plating"
 	desc = "A set of standard radiation shielded armor plating."
 	origin_tech = "materials=3"
-	togglearmor = list(melee = 15, bullet = 10, laser = 15, energy = 10, bomb = 15, bio = 50, rad = 60)
+	togglearmor = list(melee = 20, bullet = 15, laser = 25, energy = 15, bomb = 15, bio = 50, rad = 60)
 	slowdown = 2
 
 	var/list/upgrades = list("diamond" = 0, "goliath" = 0, "plasteel" = 0,
@@ -54,7 +54,7 @@
 /obj/item/weapon/powerarmor/reactive/standard/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/asteroid/goliath_hide) && upgrades["goliath"] < 4)
 		upgrades["goliath"]++
-		add_armor(list(melee = 10, bullet = 4, laser = 2, bomb = 5, rad = 8))
+		add_armor(list(melee = 15, bullet = 10, laser = 5, bomb = 5, rad = 8))
 		user << "<span class='info'>You strengthen [src], improving its resistance against radiation and melee attacks.</span>"
 		user.unEquip(W)
 		del(W)

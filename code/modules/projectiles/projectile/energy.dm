@@ -28,7 +28,7 @@
 	icon_state = "declone"
 	nodamage = 1
 	damage_type = CLONE
-	irradiate = 40
+	irradiate = 60
 	trace_residue = "Active protein agents."
 
 
@@ -44,23 +44,23 @@
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
-	damage = 10
+	damage = 15
 	damage_type = TOX
 	nodamage = 0
-	weaken = 10
-	stutter = 10
+	weaken = 15
+	stutter = 15
 	trace_residue = null
 
 
 /obj/item/projectile/energy/bolt/large
 	name = "largebolt"
-	damage = 10
+	damage = 20
 
 /obj/item/projectile/energy/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 34
+	damage = 55
 	damage_type = STAMINA
-	range = 7
+	range = 8
 
 

@@ -24,7 +24,7 @@
 	flash_protect = 2
 	can_flip = null
 	tint = 2
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 15, bullet = 5, laser = 5,energy = 0, bomb = 0, bio = 0, rad = 0)
 	origin_tech = "materials=2;engineering=2"
 	action_button_name = "Toggle Welding Mask"
 	visor_flags = MASKCOVERSEYES

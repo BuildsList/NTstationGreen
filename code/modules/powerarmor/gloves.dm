@@ -3,7 +3,7 @@
 	icon_state = "powered"
 	desc = "A pair of armored and wired gloves."
 	item_state = "bgloves"
-	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
+	armor = list(melee = 45, bullet = 45, laser = 30,energy = 20, bomb = 25, bio = 10, rad = 10)
 
 	heat_protection = HANDS
 	cold_protection = HANDS
