@@ -207,7 +207,7 @@ Security Officer
 	dep_access = null;
 	return L
 
-var/list/sec_departments = list("engineering", "supply", "medical", "science")
+var/list/sec_departments = list("инженерный отсек", "отсек снабжени&#255;", "медотсек", "научный отсек")
 
 /datum/job/officer/proc/assign_sec_to_department(var/mob/living/carbon/human/H)
 	if(!sec_departments.len)
@@ -217,22 +217,22 @@ var/list/sec_departments = list("engineering", "supply", "medical", "science")
 		sec_departments -= department
 		var/destination = null
 		switch(department)
-			if("supply")
+			if("отсек снабжени&#255;")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/cargo(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/supply
 				dep_access = list(access_mailsorting, access_mining)
 				destination = /area/security/checkpoint/supply
-			if("engineering")
+			if("инженерный отсек")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/engine(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/engi
 				dep_access = list(access_construction, access_engine)
 				destination = /area/security/checkpoint/engineering
-			if("medical")
+			if("медотсек")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/med(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/med
 				dep_access = list(access_medical)
 				destination = /area/security/checkpoint/medical
-			if("science")
+			if("научный отсек")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/science(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/sci
 				dep_access = list(access_research)
@@ -252,7 +252,7 @@ var/list/sec_departments = list("engineering", "supply", "medical", "science")
 					continue
 				else
 					break
-		H << "<b>You have been assigned to [department]!</b>"
+		H << "<b>Вы были назначены в [department]!</b>"
 		return
 
 /obj/item/device/radio/headset/headset_sec/department/New()

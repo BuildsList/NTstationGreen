@@ -71,7 +71,7 @@
 
 	var/ending = copytext(text, length(text))
 	if (src.stuttering)
-		return "заикаетс#255, \"[text]\"";
+		return "заикаетс&#255;, \"[text]\"";
 	if(isliving(src))
 		var/mob/living/L = src
 		if (L.getBrainLoss() >= 60)
@@ -93,7 +93,7 @@
 			return "удивлен, \"[text]\"";
 		return "спрашивает, \"[text]\"";
 	if(isdeadsay)
-		return "[pick("ноет","жалуется","рыдает","нудит")], \"[text]\"";
+		return "[pick("ноет","жалуетс&#255;","рыдает","нудит")], \"[text]\"";
 	return "говорит, \"[text]\"";
 
 /mob/proc/emote(var/act)
