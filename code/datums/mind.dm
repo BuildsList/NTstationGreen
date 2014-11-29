@@ -181,14 +181,14 @@ datum/mind
 	proc/show_memory(mob/recipient, window=1)
 		if(!recipient)
 			recipient = current
-		var/output = "<B>[current.real_name]'s Memories:</B><br>"
+		var/output = "<B>Воспоминани&#255; персонажа [current.real_name].</B><br>"
 		output += memory
 
 		if(objectives.len)
-			output += "<B>Objectives:</B>"
+			output += "<B>Задани&#255;:</B>"
 			var/obj_count = 1
 			for(var/datum/objective/objective in objectives)
-				output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+				output += "<br><B>Задание #[obj_count++]</B>: [objective.explanation_text]"
 
 		if(window)	recipient << browse(output,"window=memory")
 		else		recipient << "<i>[output]</i>"

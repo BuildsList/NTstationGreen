@@ -299,11 +299,11 @@ var/global/datum/controller/occupations/job_master
 			H = new_mob
 		job.apply_fingerprints(H)
 
-	H << "<b>You are the [rank].</b>"
-	H << "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
-	H << "<b>To speak on your department's radio channel, use the :h button. To see available channels, examine your headset.</b>"
+	H << "<b>Вы занимаете должность [rank].</b>"
+	H << "<b>Как [rank], вы непосредственно подчин&#255;етесь персонажу, занимающему должность [job.supervisors]. Это может изменитьс&#255; при особых обсто&#255;тельствах.</b>"
+	H << "<b>Чтобы разговаривать по радиоканалу своего отдела используй приписку :h. Исследуйте свой наушник, чтобы узнать доступные радиоканалы.</b>"
 	if(job.req_admin_notify)
-		H << "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>"
+		H << "<b>Вы зан&#255;ли важную дл&#255; Игровой Прогрессии профессию. Если вы отсоедин&#255;етесь от серера - оповестите администрацию через adminhel (F1).</b>"
 
 	H.update_hud() 	// Tmp fix for Github issue 1006. TODO: make all procs in update_icons.dm do client.screen |= equipment no matter what.
 	return 1
