@@ -480,6 +480,15 @@ var/list/ai_list = list()
 						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 	return
 
+/mob/living/silicon/robot/attack_larva(mob/living/carbon/alien/larva/L as mob)
+	switch(L.a_intent)
+		if("help")
+			visible_message("\blue [L] rubs it's head against [src]")
+		else
+			var/damage = rand(5, 10)
+			visible_message("\red <B>[L] bites [src]!</B>")
+			adjustBruteLoss(damage)
+
 /mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")

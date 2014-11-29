@@ -62,3 +62,13 @@
 					visible_message("<span class='danger'>[M] has tried to disarm [src]!</span>", \
 						"<span class='userdanger'>[M] has tried to disarm [src]!</span>")
 	return
+
+/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
+	switch(L.a_intent)
+		if("help")
+			visible_message("\blue [L] rubs it's head against [src]")
+		else
+			var/damage = rand(5, 10)
+			visible_message("\red <B>[L] bites [src]!</B>")
+			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			adjustBruteLoss(damage)

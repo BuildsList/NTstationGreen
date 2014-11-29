@@ -659,7 +659,14 @@
 							O.show_message(text("\red <B>[] attempted to force back []!</B>", M, src), 1)
 	return
 
-
+/mob/living/silicon/robot/attack_larva(mob/living/carbon/alien/larva/L as mob)
+	switch(L.a_intent)
+		if("help")
+			visible_message("\blue [L] rubs it's head against [src]")
+		else
+			var/damage = rand(5, 10)
+			visible_message("\red <B>[L] bites [src]!</B>")
+			adjustBruteLoss(damage)
 
 /mob/living/silicon/robot/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)

@@ -232,6 +232,16 @@
 			updatehealth()
 	return
 
+/mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L as mob)
+	switch(L.a_intent)
+		if("help")
+			visible_message("\blue [L] rubs it's head against [src]")
+		else
+			var/damage = rand(5, 10)
+			visible_message("\red <B>[L] bites [src]!</B>")
+			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			adjustBruteLoss(damage)
+
 /mob/living/carbon/monkey/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
