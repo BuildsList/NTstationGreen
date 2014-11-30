@@ -56,7 +56,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/cmd_admin_create_centcom_report,
-	/client/proc/check_words			/*displays cult-words*/
+	/client/proc/check_words,			/*displays cult-words*/
+	/client/proc/checkAccount
 	)
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,

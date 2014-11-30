@@ -935,12 +935,15 @@ atom/proc/CheckForNukeDisk()
 					var/old_dir1 = T.dir
 					var/old_icon_state1 = T.icon_state
 					var/old_icon1 = T.icon
+					var/list/old_decals = T.decals
 
 					var/turf/X = new T.type(B)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
-
+					X.decals = old_decals
+					for(var/image/decal in X.decals)
+						X.overlays += decal
 
 					// Give the new turf our air, if simulated
 					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
