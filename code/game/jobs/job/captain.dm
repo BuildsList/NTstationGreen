@@ -3,6 +3,7 @@ Captain
 */
 /datum/job/captain
 	title = "Captain"
+	r_title = "Капитан"
 	flag = CAPTAIN
 	department_head = list("Centcom")
 	department_flag = ENGSEC
@@ -10,6 +11,7 @@ Captain
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
+	r_supervisors = "Представител&#255;м Нанотрасен и Космозакону"
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	minimal_player_age = 14
@@ -56,6 +58,7 @@ Head of Personnel
 */
 /datum/job/hop
 	title = "Head of Personnel"
+	r_title = "Начальник Персонала"
 	flag = HOP
 	department_head = list("Captain")
 	department_flag = CIVILIAN
@@ -63,6 +66,7 @@ Head of Personnel
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
+	r_supervisors = "капитану"
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	minimal_player_age = 10

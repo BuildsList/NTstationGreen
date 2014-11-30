@@ -14,7 +14,7 @@
 
 	switch(act) //Alphabetical please
 		if ("deathgasp")
-			message = "<B>[src]</B> lets out a waning guttural screech, green blood bubbling from its maw..."
+			message = "<B>[src]</B> испускает ослабленный гортанный выкрик, зелена&#255; кровь пузыритс&#255; из его пасти ..."
 			m_type = 2
 
 		if ("gnarl")
@@ -24,44 +24,44 @@
 
 		if ("hiss")
 			if(!muzzled)
-				message = "<B>[src]</B> hisses."
+				message = "<B>[src]</B> шипит."
 				m_type = 2
 
 		if ("moan")
-			message = "<B>[src]</B> moans!"
+			message = "<B>[src]</B> стонет!"
 			m_type = 2
 
 		if ("roar")
 			if (!muzzled)
-				message = "<B>[src]</B> roars."
+				message = "<B>[src]</B> рычит."
 				m_type = 2
 
 		if ("roll")
 			if (!src.restrained())
-				message = "<B>[src]</B> rolls."
+				message = "<B>[src]</B> катитс&#255;."
 				m_type = 1
 
 		if ("scratch")
 			if (!src.restrained())
-				message = "<B>[src]</B> scratches."
+				message = "<B>[src]</B> царапаетс&#255;."
 				m_type = 1
 
 		if ("scretch")
 			if (!muzzled)
-				message = "<B>[src]</B> scretches."
+				message = "<B>[src]</B> царапаетс&#255;."
 				m_type = 2
 
 		if ("shiver")
-			message = "<B>[src]</B> shivers."
+			message = "<B>[src]</B> дрожит."
 			m_type = 2
 
 		if ("sign")
 			if (!src.restrained())
-				message = text("<B>[src]</B> signs[].", (text2num(param) ? text(" the number []", text2num(param)) : null))
+				message = text("<B>[src]</B> показывает[].", (text2num(param) ? text(" число []", text2num(param)) : null))
 				m_type = 1
 
 		if ("tail")
-			message = "<B>[src]</B> waves its tail."
+			message = "<B>[src]</B> машет хвостом."
 			m_type = 1
 
 		if ("help") //This is an exception

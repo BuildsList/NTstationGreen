@@ -1310,8 +1310,6 @@
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\telepad.dm"
 #include "code\modules\telesci\telesci_computer.dm"
-#include "code\unused\gamemodes\deathmatch.dm"
-#include "code\unused\gamemodes\restructuring.dm"
 #include "code\WorkInProgress\buildmode.dm"
 #include "code\WorkInProgress\explosion_particles.dm"
 #include "code\WorkInProgress\animusstation\loly_secret_shop.dm"

@@ -3,6 +3,7 @@ Chief Medical Officer
 */
 /datum/job/cmo
 	title = "Chief Medical Officer"
+	r_title = "Главный Врач"
 	flag = CMO
 	department_head = list("Captain")
 	department_flag = MEDSCI
@@ -10,6 +11,7 @@ Chief Medical Officer
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
+	r_supervisors = "капитану"
 	selection_color = "#ffddf0"
 	req_admin_notify = 1
 	minimal_player_age = 7
@@ -44,6 +46,7 @@ Medical Doctor
 */
 /datum/job/doctor
 	title = "Medical Doctor"
+	r_title = "Врач"
 	flag = DOCTOR
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
@@ -51,6 +54,7 @@ Medical Doctor
 	total_positions = 5
 	spawn_positions = 3
 	supervisors = "the chief medical officer"
+	r_supervisors = "главному врачу"
 	selection_color = "#ffeef0"
 
 	default_pda = /obj/item/device/pda/medical
@@ -78,6 +82,7 @@ Chemist
 */
 /datum/job/chemist
 	title = "Chemist"
+	r_title = "Химик"
 	flag = CHEMIST
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
@@ -85,6 +90,7 @@ Chemist
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the chief medical officer"
+	r_supervisors = "главному врачу"
 	selection_color = "#ffeef0"
 
 	default_pda = /obj/item/device/pda/chemist
@@ -107,6 +113,7 @@ Geneticist
 */
 /datum/job/geneticist
 	title = "Geneticist"
+	r_title = "Генетик"
 	flag = GENETICIST
 	department_head = list("Chief Medical Officer", "Research Director")
 	department_flag = MEDSCI
@@ -114,6 +121,7 @@ Geneticist
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the chief medical officer and research director"
+	r_supervisors = "главному врачу и научному руководителю"
 	selection_color = "#ffeef0"
 
 	default_pda = /obj/item/device/pda/geneticist
@@ -137,6 +145,7 @@ Virologist
 */
 /datum/job/virologist
 	title = "Virologist"
+	r_title = "Вирусолог"
 	flag = VIROLOGIST
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
@@ -144,6 +153,7 @@ Virologist
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
+	r_supervisors = "главному врачу"
 	selection_color = "#ffeef0"
 
 	default_pda = /obj/item/device/pda/viro

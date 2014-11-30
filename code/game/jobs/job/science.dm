@@ -3,6 +3,7 @@ Research Director
 */
 /datum/job/rd
 	title = "Research Director"
+	r_title = "Научный Руководитель"
 	flag = RD
 	department_head = list("Captain")
 	department_flag = MEDSCI
@@ -10,6 +11,7 @@ Research Director
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
+	r_supervisors = "капитан"
 	selection_color = "#ffddff"
 	req_admin_notify = 1
 	minimal_player_age = 7
@@ -47,6 +49,7 @@ Scientist
 */
 /datum/job/scientist
 	title = "Scientist"
+	r_title = "Ученый"
 	flag = SCIENTIST
 	department_head = list("Research Director")
 	department_flag = MEDSCI
@@ -54,6 +57,7 @@ Scientist
 	total_positions = 5
 	spawn_positions = 3
 	supervisors = "the research director"
+	r_supervisors = "научному руоводителю"
 	selection_color = "#ffeeff"
 
 	default_pda = /obj/item/device/pda/toxins
@@ -75,6 +79,7 @@ Roboticist
 */
 /datum/job/roboticist
 	title = "Roboticist"
+	r_title = "Робототехник"
 	flag = ROBOTICIST
 	department_head = list("Research Director")
 	department_flag = MEDSCI
@@ -82,6 +87,7 @@ Roboticist
 	total_positions = 2
 	spawn_positions = 1
 	supervisors = "research director"
+	r_supervisors = "научному руоводителю"
 	selection_color = "#ffeeff"
 
 	default_pda = /obj/item/device/pda/roboticist

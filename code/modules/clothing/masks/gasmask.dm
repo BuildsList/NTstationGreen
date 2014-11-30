@@ -231,7 +231,7 @@
 			message = replacetext(message, "l", "£")
 			message = replacetext(message, "s", "§")
 			message = replacetext(message, "u", "µ")
-			message = replacetext(message, "b", "ß")
+			message = replacetext(message, "b", "&#255;")
 	return message
 
 

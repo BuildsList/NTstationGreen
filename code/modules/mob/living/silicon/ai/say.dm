@@ -22,11 +22,11 @@
 	var/ending = copytext(text, length(text))
 
 	if (ending == "?")
-		return "queries, \"[text]\"";
+		return "запрашивает, \"[text]\"";
 	else if (ending == "!")
-		return "declares, \"[text]\"";
+		return "объ&#255;вл&#255;ет, \"[text]\"";
 
-	return "states, \"[text]\"";
+	return "констатирует, \"[text]\"";
 
 /mob/living/silicon/ai/IsVocal()
 	return !config.silent_ai

@@ -3,12 +3,14 @@ Assistant
 */
 /datum/job/assistant
 	title = "Assistant"
+	r_title = "Асистент"
 	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "absolutely everyone"
+	r_supervisors = "абсолютно всем"
 	selection_color = "#dddddd"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()

@@ -1,11 +1,13 @@
 /datum/job/hos
 	title = "Safety Administrator"
+	r_titile = "Администратор Безопасности"
 	flag = HOS
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
+	r_supervisors = "капитану"
 	selection_color = "#ffdddd"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
@@ -32,12 +34,14 @@
 
 /datum/job/warden
 	title = "Correctional Advisor"
+	r_title = "Коррекционный Советник"
 	flag = WARDEN
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the safety administrator"
+	r_supervisors = "администратору безопастности"
 	selection_color = "#ffeeee"
 
 
@@ -61,12 +65,14 @@
 
 /datum/job/detective
 	title = "Detective"
+	r_title = "Детектив"
 	flag = DETECTIVE
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the safety administrator"
+	r_supervisors = "администратору безопастности"
 	selection_color = "#ffeeee"
 
 
@@ -98,12 +104,14 @@
 
 /datum/job/officer
 	title = "Crew Supervisor"
+	r_title = "Руководитель Экипажа"
 	flag = OFFICER
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the safety administrator"
+	r_supervisors = "администратору безопастности"
 	selection_color = "#ffeeee"
 
 
@@ -125,12 +133,14 @@
 
 /datum/job/hop
 	title = "Head of Personnel"
+	r_title = "Начальник Персонала"
 	flag = HOP
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
+	r_supervisors = "капитану"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1

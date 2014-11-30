@@ -5,8 +5,8 @@
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
-	voice_message = "hisses"
-	say_message = "hisses"
+	voice_message = "шипит"
+	say_message = "шипит"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null

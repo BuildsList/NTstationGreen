@@ -15,40 +15,40 @@
 	switch(act) //Alphabetically sorted please.
 		if ("burp")
 			if (!muzzled)
-				message = "<B>[src]</B> burps."
+				message = "<B>[src]</B> рыгает."
 				m_type = 2
 		if ("choke")
-			message = "<B>[src]</B> chokes."
+			message = "<B>[src]</B> давитс&#255;."
 			m_type = 2
 		if ("collapse")
 			Paralyse(2)
-			message = "<B>[src]</B> collapses!"
+			message = "<B>[src]</B> валитс&#255; с ног!"
 			m_type = 2
 		if ("dance")
 			if (!src.restrained())
-				message = "<B>[src]</B> dances around happily."
+				message = "<B>[src]</B> счастливо танцует вокруг."
 				m_type = 1
 		if ("drool")
-			message = "<B>[src]</B> drools."
+			message = "<B>[src]</B> пускает слюни."
 			m_type = 1
 		if ("gasp")
-			message = "<B>[src]</B> gasps."
+			message = "<B>[src]</B> задыхаетс&#255;."
 			m_type = 2
 		if ("gnarl")
 			if (!muzzled)
 				message = "<B>[src]</B> gnarls and shows its teeth.."
 				m_type = 2
 		if ("hiss")
-			message = "<B>[src]</B> hisses softly."
+			message = "<B>[src]</B> м&#255;гко шипит."
 			m_type = 1
 		if ("jump")
-			message = "<B>[src]</B> jumps!"
+			message = "<B>[src]</B> прыгает!"
 			m_type = 1
 		if ("moan")
-			message = "<B>[src]</B> moans!"
+			message = "<B>[src]</B> стонет!"
 			m_type = 2
 		if ("nod")
-			message = "<B>[src]</B> nods its head."
+			message = "<B>[src]</B> кивает своей головой."
 			m_type = 1
 //		if ("roar")
 //			if (!muzzled)
@@ -56,44 +56,44 @@
 //				m_type = 2
 		if ("roll")
 			if (!src.restrained())
-				message = "<B>[src]</B> rolls."
+				message = "<B>[src]</B> укатываетс&#255;."
 				m_type = 1
 		if ("scratch")
 			if (!src.restrained())
-				message = "<B>[src]</B> scratches."
+				message = "<B>[src]</B> царапаетс&#255;."
 				m_type = 1
 		if ("scretch")
 			if (!muzzled)
-				message = "<B>[src]</B> scretches."
+				message = "<B>[src]</B> царапаетс&#255;."
 				m_type = 2
 		if ("shake")
-			message = "<B>[src]</B> shakes its head."
+			message = "<B>[src]</B> мотает своей головой."
 			m_type = 1
 		if ("shiver")
-			message = "<B>[src]</B> shivers."
+			message = "<B>[src]</B> тр&#255;сетс&#255;."
 			m_type = 2
 		if ("sign")
 			if (!src.restrained())
-				message = text("<B>The alien</B> signs[].", (text2num(param) ? text(" the number []", text2num(param)) : null))
+				message = text("<B>Чужой</B> показывает[].", (text2num(param) ? text(" число []", text2num(param)) : null))
 				m_type = 1
 //		if ("sit")
 //			message = "<B>[src]</B> sits down." //Larvan can't sit down, /N
 //			m_type = 1
 		if ("sulk")
-			message = "<B>[src]</B> sulks down sadly."
+			message = "<B>[src]</B> угрюмо кукситс&#255;."
 			m_type = 1
 		if ("sway")
-			message = "<B>[src]</B> sways around dizzily."
+			message = "<B>[src]</B> головокружительно шатаетс&#255;."
 			m_type = 1
 		if ("tail")
-			message = "<B>[src]</B> waves its tail."
+			message = "<B>[src]</B> тр&#255;сет хвостом."
 			m_type = 1
 		if ("twitch")
-			message = "<B>[src]</B> twitches violently."
+			message = "<B>[src]</B> &#255;ростно дергаетс&#255;."
 			m_type = 1
 		if ("whimper")
 			if (!muzzled)
-				message = "<B>[src]</B> whimpers."
+				message = "<B>[src]</B> скулит."
 				m_type = 2
 
 		if ("help") //"The exception"
