@@ -123,7 +123,7 @@
 
 		L.Stun(stunforce)
 		L.Weaken(stunforce)
-		L.apply_effect(stunforce*3, STUTTER)
+		L.apply_effect(stunforce*1.5, STUTTER)
 
 		L.visible_message("<span class='danger'>[L] has been stunned with [src] by [user]!</span>")
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)

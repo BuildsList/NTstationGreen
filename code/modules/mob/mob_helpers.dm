@@ -200,10 +200,10 @@ proc/isdrone(A)
 
 proc/slur(phrase)
 	phrase = html_decode(phrase)
-	var/index = findtext(phrase, "ÿ")
+	var/index = findtext(phrase, "&#255;")
 	while(index)
-		phrase = copytext(phrase, 1, index) + "ß" + copytext(phrase, index+1)
-		index = findtext(phrase, "ÿ")
+		phrase = copytext(phrase, 1, index) + "ÿ" + copytext(phrase, index+1)
+		index = findtext(phrase, "&#255;")
 	var
 		leng=lentext(phrase)
 		counter=lentext(phrase)
@@ -232,10 +232,10 @@ proc/slur(phrase)
 			if(13)	newletter="<small>[newletter]</small>"
 		newphrase+="[newletter]"
 		counter-=1
-	index = findtext(phrase, "ÿ")
+	index = findtext(newphrase, "ÿ")
 	while(index)
-		phrase = copytext(phrase, 1, index) + "&#255;" + copytext(phrase, index+1)
-		index = findtext(phrase, "ÿ")
+		newphrase = copytext(newphrase, 1, index) + "&#255;" + copytext(newphrase, index+1)
+		index = findtext(newphrase, "ÿ")
 	return newphrase
 
 /proc/stutter(n)
