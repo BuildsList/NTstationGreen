@@ -1314,7 +1314,7 @@
 "azn" = (/turf/simulated/wall,/area/hallway/secondary/construction{name = "\improper Garden"})
 "azo" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/wall,/area/hallway/secondary/construction{name = "\improper Garden"})
 "azp" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/turf/simulated/floor/plating,/area/hallway/secondary/construction{name = "\improper Garden"})
-"azq" = (/obj/item/weapon/folder/red,/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"azq" = (/obj/item/weapon/folder/red,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
 "azr" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor{icon_state = "dark"},/area/gateway)
 "azs" = (/obj/machinery/gateway{dir = 9},/turf/simulated/floor{icon_state = "vault"; dir = 1},/area/gateway)
 "azt" = (/obj/machinery/gateway{dir = 1},/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/gateway)
