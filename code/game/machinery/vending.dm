@@ -406,7 +406,7 @@
 	if(!message)
 		return
 
-	visible_message("<span class='name'>[src]</span> <span class='game say'>beeps, \"[message]\"</span>")
+	visible_message("<span class='name'>[src]</span> <span class='game say'>гудит, \"[message]\"</span>")
 
 
 /obj/machinery/vending/power_change()
@@ -460,7 +460,7 @@
 		return 0
 
 	throw_item.throw_at(target, 16, 3)
-	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
+	visible_message("<span class='danger'>[src] выстрелил [throw_item] в [target]!</span>")
 	return 1
 
 

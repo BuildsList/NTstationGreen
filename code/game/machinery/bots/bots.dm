@@ -298,7 +298,7 @@
 	if((!src.on) || (!message))
 		return
 	for(var/mob/O in hearers(src, null))
-		O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"</span>",2)
+		O.show_message("<span class='game say'><span class='name'>[src]</span> сигналит, \"[message]\"</span>",2)
 	return
 
 /obj/machinery/bot/proc/declare() //Signals a medical or security HUD user to a relevant bot's activity.
