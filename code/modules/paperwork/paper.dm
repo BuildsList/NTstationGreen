@@ -274,6 +274,12 @@
 	if(user && user.has_organic_effect(/datum/organic_effect/clumsy))
 		clown = 1
 
+	if(istype(P,/obj/item/weapon/lighter))
+		user << "You carefuly light a paper."
+		new /obj/effect/decal/cleanable/ash(user.loc)
+		del(src)
+		return
+
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
 		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links]<HR>[stamps]</BODY></HTML>", "window=[name]")
 		return
@@ -303,14 +309,6 @@
 		user << "<span class='notice'>You stamp the paper with your rubber stamp.</span>"
 
 	add_fingerprint(user)
-
-/obj.item/weapon/paper/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I,/obj/item/weapon/lighter))
-		user << "You carefuly light a paper."
-		new /obj/effect/decal/cleanable/ash(user.loc)
-		del(src)
-		return
-
 
 
 /*
