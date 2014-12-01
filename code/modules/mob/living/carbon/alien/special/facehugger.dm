@@ -102,7 +102,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		Attach(hit_atom)
 
 /obj/item/clothing/mask/facehugger/proc/Attach(M as mob)
-	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M))
+	if( (!iscorgi(M) && !ismonkey(M) && !ishuman(M) ) || isalien(M))
 		return 0
 	if(attached)
 		return 0
@@ -170,12 +170,20 @@ var/const/MAX_ACTIVE_TIME = 400
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/organ/limb/L = H.getlimb(/obj/item/organ/limb/chest)
-			if(L.status != ORGAN_ROBOTIC && !(target.status_flags & XENO_HOST))
-				new /obj/item/alien_embryo(target)
+			if(L.status != ORGAN_ROBOTIC && !(H.status_flags & XENO_HOST))
+				new /obj/item/alien_embryo(H)
+			src.loc = get_turf(H)
 
+		if(ismonkey(target))
+			var/mob/living/carbon/monkey/M = target
+			if(!(M.status_flags & XENO_HOST))
+				new /obj/item/alien_embryo(M)
+			src.loc = get_turf(M)
 
 		if(iscorgi(target))
 			var/mob/living/simple_animal/corgi/C = target
+			if(!(C.status_flags & XENO_HOST))
+				new /obj/item/alien_embryo(C)
 			src.loc = get_turf(C)
 			C.facehugger = null
 	else

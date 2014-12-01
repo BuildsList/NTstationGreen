@@ -7,7 +7,7 @@
 		usr << "\red Speech is currently admin-disabled."
 		return
 
-	message = trim(copytext(strip_html(message), 1, MAX_MESSAGE_LEN))
+	message = trim(copytext(message, 1, MAX_MESSAGE_LEN))
 
 	if (!message || silent)
 		return
@@ -36,7 +36,7 @@
 	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 		return
 
-	var/whispers = "whispers"
+	var/whispers = "шепчет"
 
 
 	var/critical = InCritical()
@@ -52,16 +52,13 @@
 		var/message_len = length(message)
 		message = copytext(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
 		message = Ellipsis(message, 10, 1)
-		whispers = "whispers in their final breath"
+		whispers = "прошептал на последнем дыхании"
 
 	var/italics = 1
 	var/message_range = 1
 
 	if(src.wear_mask)
 		message = wear_mask.speechModification(message)
-
-	if (src.stuttering)
-		message = stutter(message)
 
 	for (var/obj/O in view(message_range, src))
 		spawn (0)
@@ -93,9 +90,9 @@
 
 	for (var/mob/M in watching)
 		if (M.say_understands(src))
-			rendered = "<span class='game say'><span class='name'>[src.name]</span> [whispers] something.</span>"
+			rendered = "<span class='game say'><span class='name'>[src.name]</span> что-то [whispers].</span>"
 		else
-			rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> [whispers] something.</span>"
+			rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> что-то [whispers].</span>"
 		M.show_message(rendered, 2)
 
 	if (length(heard_a))
@@ -132,7 +129,7 @@
 			rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] [whispers], <span class='message'>\"[message_c]\"</span></span>"
 			M.show_message(rendered, 2)
 		else
-			rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> [whispers] something.</span>"
+			rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> что-то [whispers].</span>"
 			M.show_message(rendered, 2)
 
 	if (italics)

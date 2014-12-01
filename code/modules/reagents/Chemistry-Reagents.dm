@@ -3281,14 +3281,18 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!data) data = 1
 				data++
-				M.jitteriness = max(M.jitteriness-5,0)
 				if(data >= boozepwr)
 					if (!M.stuttering) M.stuttering = 1
-					M.stuttering += 4
+					M.stuttering += 1
+					if (!M.slurring) M.slurring = 1
+					M.slurring += 1
+					M.jitteriness = max(M.jitteriness+1,0)
 					M.Dizzy(5)
-				if(data >= boozepwr*2.5 && prob(33))
+				if(data >= boozepwr*2 && prob(66))
 					if (!M.confused) M.confused = 1
 					M.confused += 3
+					if (!M.drowsyness) M.drowsyness = 1
+					M.drowsyness += 3
 				if(data >= boozepwr*10 && prob(33))
 					M.adjustToxLoss(2)
 				..()
@@ -3319,7 +3323,7 @@ datum
 			id = "beer"
 			description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 			color = "#664300" // rgb: 102, 67, 0
-			boozepwr = 80
+			boozepwr = 70
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += 1
@@ -3388,7 +3392,7 @@ datum
 			id = "bilk"
 			description = "This appears to be beer mixed with milk. Disgusting."
 			color = "#895C4C" // rgb: 137, 92, 76
-			boozepwr = 90
+			boozepwr = 80
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.getBruteLoss() && prob(10)) M.heal_organ_damage(1,0)
@@ -3758,7 +3762,7 @@ datum
 			id = "iced_beer"
 			description = "A beer which is so cold the air around it freezes."
 			color = "#664300" // rgb: 102, 67, 0
-			boozepwr = 80
+			boozepwr = 70
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.bodytemperature > 270)

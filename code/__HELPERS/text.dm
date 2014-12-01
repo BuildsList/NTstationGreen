@@ -317,7 +317,7 @@ proc/checkhtml(var/t)
 		else if (a == 184)
 			t += ascii2text(168)
 		else t += ascii2text(a)
-	t = replacetext(t,"&#255;","?")
+	t = replacetext(t,"&#255;","ß")
 	return t
 
 
@@ -438,10 +438,10 @@ proc/slurring(phrase) // using cp1251!
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(prob(33))
-			if(lowertext(newletter)=="?")	newletter="?"
-			if(lowertext(newletter)=="?")	newletter="??"
-		if(lowertext(newletter)=="?")	newletter="?"
-		if(lowertext(newletter)=="?")	newletter="i"
+			if(lowertext(newletter)=="î")	newletter="ó"
+			if(lowertext(newletter)=="å")	newletter="ý"
+		if(lowertext(newletter)=="û")	newletter="i"
+		if(lowertext(newletter)=="ð")	newletter="r"
 		switch(rand(1,15))
 			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
 			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
@@ -453,14 +453,15 @@ proc/slurring(phrase) // using cp1251!
 		counter-=1
 	return newphrase
 
-proc/NewStutter(phrase,stunned)
+proc/NewStutter(phrase/*,stunned*/)
 	phrase = rhtml_decode(phrase)
 
 	var/list/split_phrase = dd_text2list(phrase," ") //Split it up into words.
 
 	var/list/unstuttered_words = split_phrase.Copy()
 	var/i = rand(1,3)
-	if(stunned) i = split_phrase.len
+	/*if(stunned) */
+	i = split_phrase.len
 	for(,i > 0,i--) //Pick a few words to stutter on.
 
 		if (!unstuttered_words.len)
@@ -470,9 +471,9 @@ proc/NewStutter(phrase,stunned)
 		var/index = split_phrase.Find(word) //Find the word in the split phrase so we can replace it.
 
 		//Search for dipthongs (two letters that make one sound.)
-		var/first_sound = copytext(word,1,2)
+		var/first_sound = copytext(word,1,7)
 		var/first_letter = copytext(word,1,2)
-		if(lowerrustext(first_sound) in list("?","?","?","?"))
+		if(lowerrustext(first_sound) in list("&#255;"))
 			first_letter = first_sound
 
 		//Repeat the first letter to create a stutter.
@@ -579,7 +580,7 @@ proc/NewStutter(phrase,stunned)
 
 
 /proc/rhtml_encode(var/msg)
-        var/list/c = text2list(msg, "?")
+        var/list/c = text2list(msg, "ÿ")
         if(c.len == 1)
                 c = text2list(msg, "&#255;")
                 if(c.len == 1)
@@ -594,7 +595,7 @@ proc/NewStutter(phrase,stunned)
         return out
 
 /proc/rhtml_decode(var/msg)
-        var/list/c = text2list(msg, "?")
+        var/list/c = text2list(msg, "ÿ")
         if(c.len == 1)
                 c = text2list(msg, "&#255;")
                 if(c.len == 1)

@@ -198,16 +198,55 @@ proc/isdrone(A)
 		p++
 	return sanitize(t)
 
+proc/slur(phrase)
+	phrase = html_decode(phrase)
+	var/index = findtext(phrase, "я")
+	while(index)
+		phrase = copytext(phrase, 1, index) + "Я" + copytext(phrase, index+1)
+		index = findtext(phrase, "я")
+	var
+		leng=lentext(phrase)
+		counter=lentext(phrase)
+		newphrase=""
+		newletter=""
+
+	while(counter>=1)
+		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(prob(33))
+			if(lowerrustext(newletter)=="о")	newletter="у"
+			if(lowerrustext(newletter)=="ы")	newletter="i"
+			if(lowerrustext(newletter)=="р")	newletter="r"
+			if(lowerrustext(newletter)=="л")	newletter="ль"
+			if(lowerrustext(newletter)=="з")	newletter="с"
+			if(lowerrustext(newletter)=="в")	newletter="ф"
+			if(lowerrustext(newletter)=="б")	newletter="п"
+			if(lowerrustext(newletter)=="г")	newletter="х"
+			if(lowerrustext(newletter)=="д")	newletter="т"
+			if(lowerrustext(newletter)=="л")	newletter="ль"
+		switch(rand(1,15))
+			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
+			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
+			if(7)	newletter+="'"
+			if(9,10)	newletter="<b>[newletter]</b>"
+			if(11,12)	newletter="<big>[newletter]</big>"
+			if(13)	newletter="<small>[newletter]</small>"
+		newphrase+="[newletter]"
+		counter-=1
+	index = findtext(phrase, "я")
+	while(index)
+		phrase = copytext(phrase, 1, index) + "&#255;" + copytext(phrase, index+1)
+		index = findtext(phrase, "я")
+	return newphrase
 
 /proc/stutter(n)
-	var/te = rhtml_decode(n)
+	var/msg = n
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
-		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+		var/n_letter = copytext(msg, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
+		if (prob(80) && (ckey(n_letter) in list("а","о","у","е","ё","ы","и","ю","э","ш","с","ф","х","з","м","н","щ","г","л","в","д")))
 			if (prob(10))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
@@ -220,23 +259,27 @@ proc/isdrone(A)
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+	return t
 
 /proc/derpspeech(message, stuttering)
-	message = replacetext(message, " am ", " ")
-	message = replacetext(message, " is ", " ")
-	message = replacetext(message, " are ", " ")
-	message = replacetext(message, "you", "u")
-	message = replacetext(message, "help", "halp")
-	message = replacetext(message, "grief", "grife")
-	message = replacetext(message, "space", "spess")
+	message = replacetext(message, "хос", "хуесос")
+	message = replacetext(message, "капитан", "гондон")
+	message = replacetext(message, "убивают", "грифонируют")
+	message = replacetext(message, "убивает", "грифонит")
+	message = replacetext(message, "смо", "чмо")
+	message = replacetext(message, "учен", "хуй дрочен")
+	message = replacetext(message, "космо", "спесс")
 	message = replacetext(message, "carp", "crap")
-	message = replacetext(message, "reason", "raisin")
+	message = replacetext(message, "что", "чо")
+	message = replacetext(message, "закон", "ло")
+	message = replacetext(message, "предатель", "тритар")
+	//As retarded as players are. - Rel.
 	if(prob(50))
 		message = upperrustext(message)
-		message += "[stutter(pick("!", "!!", "!!!"))]"
-	if(!stuttering && prob(15))
-		message = stutter(message)
+		message = replacetext(message, ".", "!")
+		message += "[pick("!", "!!", "!!!")]"
+	if(stuttering && prob(15))
+		message = NewStutter(message)
 	return message
 
 

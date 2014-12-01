@@ -64,7 +64,7 @@ obj/item/proc/get_clamped_volume()
 	user.lastattacked = M
 	M.lastattacker = user
 
-	add_logs(user, M, "attacked", object=src.name, addition="(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+	add_logs(user, M, "attacked", object=src.name, addition="(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 
 	M.attacked_by(src, user, def_zone)
 	//add_fingerprint(user)	//Their fingerprints should be on it anyway at this point.

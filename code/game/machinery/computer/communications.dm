@@ -465,7 +465,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	dat += "<form name='callshuttle' id='[form_id]' action='?src=\ref[src]' method='get' style='display: inline'>"
 	dat += "<input type='hidden' name='src' value='\ref[src]'>"
 	dat += "<input type='hidden' name='operation' value='[ai_interface ? "ai-callshuttle2" : "callshuttle2"]'>"
-	dat += "<b>Nature of emergency:</b><BR> <input type='text' id='reasonfield' name='call' style='width:250px; background-color:#FFDDDD; onkeydown='getLength() onkeyup='getLength()' onkeypress='getLength()'>"
+//	dat += "<b>Nature of emergency:</b><BR> <input type='text' id='reasonfield' name='call' style='width:250px; background-color:#FFDDDD; onkeydown='getLength() onkeyup='getLength()' onkeypress='getLength()'>"
 	dat += "<BR>Are you sure you want to call the shuttle? \[ <a href='#' onclick='submit()'>Call</a> \]"
 	return dat
 
@@ -555,7 +555,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	return dat
 
 /obj/machinery/computer/communications/proc/make_announcement(var/mob/living/user, var/is_silicon)
-	var/input = sanitize(stripped_input(user, "Please choose a message to announce to the station crew.", "What?"))
+	var/input = sanitize_russian(stripped_input(user, "Please choose a message to announce to the station crew.", "What?"))
 	if(!input || !user.canUseTopic(src))
 		return
 	if(is_silicon)
@@ -586,7 +586,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		user << "The emergency shuttle is already on its way."
 		return
 
-	call_reason = strip_html(trim(call_reason))
+	call_reason = sanitize_russian(stripped_input(user, "Please enter an evacuation reason.", "What?"))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
 		user << "You must provide a reason."
