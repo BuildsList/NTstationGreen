@@ -17,6 +17,7 @@
 	g_amt = 20
 	origin_tech = "magnets=1;engineering=1"
 	var/tmp/obj/machinery/telecomms/buffer // simple machine buffer for device linkage
+	var/is_used = 0
 	hitsound = 'sound/weapons/tap.ogg'
 
 
