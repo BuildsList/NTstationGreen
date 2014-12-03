@@ -6,7 +6,7 @@ Website: http://ss13.ru/
 
 Code: https://github.com/AniBay/NTstation13
 
-Fourms:  http://forum.ss13.ru/
+Forum:  http://forum.ss13.ru/
 
 
 #LICENSE
