@@ -404,3 +404,24 @@ Lawyer
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
 	H.equip_to_slot_or_del(new /obj/item/device/laser_pointer(H), slot_l_store)
+
+/*
+Barber and equip
+*/
+/datum/job/barber
+	title = "Barber"
+	r_title = "Парикмахер"
+	flag = ASSISTANT
+	department_flag = CIVILIAN
+	faction = "Station"
+	total_positions = -1
+	spawn_positions = -1
+	supervisors = "the head of personnel"
+	r_supervisors = "глава персонала"
+	selection_color = "#dddddd"
+	default_id = /obj/item/weapon/card/id/assistant
+
+/datum/job/assistant/equip_items(var/mob/living/carbon/human/H)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/white(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/white(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/weapon/razor(H), slot_l_store)
