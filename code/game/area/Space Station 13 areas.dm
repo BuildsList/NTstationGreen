@@ -1747,6 +1747,7 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Strange Location"
 	icon_state = "away"
 	has_gravity = 1
+	requires_power = 0
 
 /area/awaymission/example
 	name = "\improper Strange Station"
