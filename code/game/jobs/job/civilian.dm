@@ -3,7 +3,7 @@ Bartender
 */
 /datum/job/bartender
 	title = "Bartender"
-	r_title = "Р…Р°СЂРјРµРЅ"
+	r_title = "Бармен"
 	flag = BARTENDER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -11,7 +11,7 @@ Bartender
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/bar
@@ -58,7 +58,7 @@ Chef
 */
 /datum/job/chef
 	title = "Chef"
-	r_title = "РЋРµС„-РїРѕРІР°СЂ"
+	r_title = "Шеф-повар"
 	flag = CHEF
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -66,7 +66,7 @@ Chef
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/chef
@@ -88,7 +88,7 @@ Botanist
 */
 /datum/job/hydro
 	title = "Botanist"
-	r_title = "Р…РѕС‚Р°РЅРёРє"
+	r_title = "Ботаник"
 	flag = BOTANIST
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -96,7 +96,7 @@ Botanist
 	total_positions = 3
 	spawn_positions = 2
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/botanist
@@ -121,7 +121,7 @@ Quartermaster
 */
 /datum/job/qm
 	title = "Quartermaster"
-	r_title = "В РІР°СЂС‚РёСЂРјРµР№СЃС‚РµСЂ"
+	r_title = "Квартирмейстер"
 	flag = QUARTERMASTER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -129,7 +129,7 @@ Quartermaster
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/quartermaster
@@ -152,7 +152,7 @@ Cargo Technician
 */
 /datum/job/cargo_tech
 	title = "Cargo Technician"
-	r_title = "в€љСЂСѓР·РѕРІРѕР№ вЂњРµС…РЅРёРє"
+	r_title = "Грузовой Техник"
 	flag = CARGOTECH
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -160,7 +160,7 @@ Cargo Technician
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the quartermaster and the head of personnel"
-	r_supervisors = "РєРІР°СЂС‚РёСЂРјРµР№СЃС‚РµСЂСѓ Рё РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "квартирмейстеру и начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/cargo
@@ -181,7 +181,7 @@ Shaft Miner
 */
 /datum/job/mining
 	title = "Shaft Miner"
-	r_title = "РЋР°С…С‚РµСЂ"
+	r_title = "Шахтер"
 	flag = MINER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -189,7 +189,7 @@ Shaft Miner
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "the quartermaster and the head of personnel"
-	r_supervisors = "РєРІР°СЂС‚РёСЂРјРµР№СЃС‚РµСЂСѓ Рё РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "квартирмейстеру и начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/shaftminer
@@ -222,7 +222,7 @@ Clown
 */
 /datum/job/clown
 	title = "Clown"
-	r_title = "В Р»РѕСѓРЅ"
+	r_title = "Клоун"
 	flag = CLOWN
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -230,7 +230,7 @@ Clown
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/clown
@@ -268,7 +268,7 @@ Mime
 */
 /datum/job/mime
 	title = "Mime"
-	r_title = "С›РёРј"
+	r_title = "Мим"
 	flag = MIME
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -276,7 +276,7 @@ Mime
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/mime
@@ -314,7 +314,7 @@ Janitor
 */
 /datum/job/janitor
 	title = "Janitor"
-	r_title = "вЂќР±РѕСЂС‰РёРє"
+	r_title = "Уборщик"
 	flag = JANITOR
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -322,7 +322,7 @@ Janitor
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
 	default_pda = /obj/item/device/pda/janitor
@@ -342,7 +342,7 @@ Librarian
 */
 /datum/job/librarian
 	title = "Librarian"
-	r_title = "Р…РёР±Р»РёРѕС‚РµРєР°СЂСЊ"
+	r_title = "Библиотекарь"
 	flag = LIBRARIAN
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -371,7 +371,7 @@ Lawyer
 */
 /datum/job/lawyer
 	title = "Lawyer"
-	r_title = "С‘СЂРёСЃС‚"
+	r_title = "Юрист"
 	flag = LAWYER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
@@ -379,7 +379,7 @@ Lawyer
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the head of personnel"
-	r_supervisors = "РЅР°С‡Р°Р»СЊРЅРёРєСѓ РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 	var/global/lawyers = 0 //Counts lawyer amount
 
@@ -410,14 +410,14 @@ Barber and equip
 */
 /datum/job/barber
 	title = "Barber"
-	r_title = "С•Р°СЂРёРєРјР°С…РµСЂ"
-	flag = BARBER
+	r_title = "Парикмахер"
+	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "the head of personnel"
-	r_supervisors = "РіР»Р°РІР° РїРµСЂСЃРѕРЅР°Р»Р°"
+	r_supervisors = "глава персонала"
 	selection_color = "#dddddd"
 	default_id = /obj/item/weapon/card/id/assistant
 
