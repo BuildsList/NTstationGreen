@@ -146,7 +146,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	ttone = "objection"
 
 /obj/item/device/pda/barber
-	icon_state = "NONE"
+	icon_state = "pda-barber"
 	ttone = "slash"
 
 /obj/item/device/pda/botanist

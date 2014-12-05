@@ -57,10 +57,10 @@
 
 /obj/item/clothing/under/rank/barber
 	name = "barber suit"
-	desc = "<i>barber's fancy suit</i>"
+	desc = "barber's fancy suit"
 	icon_state = "barber"
+	item_state = "barber"
 	item_color = "barber"
-	fitted = 0
 
 
 /obj/item/clothing/under/rank/head_of_personnel

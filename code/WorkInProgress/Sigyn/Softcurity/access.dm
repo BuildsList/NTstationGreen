@@ -226,6 +226,8 @@
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway)
 		if("Atmospheric Technician")
 			return list(access_atmospherics, access_maint_tunnels, access_emergency_storage, access_construction)
+		if("Barber")
+			return list(access_barbershop)
 		if("Bartender")
 			return list(access_bar)
 		if("Chemist")
@@ -493,7 +495,7 @@
 			return "Code Gold"
 
 /proc/get_all_jobs()
-	return list("Assistant", "Captain", "Head of Personnel", "Bartender", "Chef", "Botanist", "Quartermaster", "Cargo Technician",
+	return list("Assistant", "Captain", "Head of Personnel", "Bartender", "Barber", "Chef", "Botanist", "Quartermaster", "Cargo Technician",
 				"Shaft Miner", "Clown", "Mime", "Janitor", "Librarian", "Lawyer", "Chaplain", "Chief Engineer", "Station Engineer",
 				"Atmospheric Technician", "Roboticist", "Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist",
 				"Research Director", "Scientist", "Head of Security", "Warden", "Detective", "Security Officer")
