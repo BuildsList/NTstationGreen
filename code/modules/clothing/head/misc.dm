@@ -145,6 +145,12 @@
 	icon_state = "bowler"
 	item_state = "bowler"
 
+/obj/item/clothing/head/boater
+	name = "boater"
+	desc = "Gentleman, sit down in that chair and relax!"
+	icon_state = "boater"
+	item_state = "boater"
+
 /obj/item/clothing/head/witchwig
 	name = "witch costume wig"
 	desc = "Eeeee~heheheheheheh!"

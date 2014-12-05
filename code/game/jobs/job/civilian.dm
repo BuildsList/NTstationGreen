@@ -85,7 +85,7 @@ Chef
 
 /*
 Barber
-
+*/
 
 /datum/job/barber
 	title = "Barber"
@@ -100,45 +100,25 @@ Barber
 	r_supervisors = "начальнику персонала"
 	selection_color = "#dddddd"
 
-//	default_pda = /obj/item/device/pda/bar
-//	default_headset = /obj/item/device/radio/headset/headset_srv
+	default_pda = /obj/item/device/pda/barber
+	default_headset = /obj/item/device/radio/headset/headset_srv
 
-//	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_mineral_storeroom, access_weapons)
-//	minimal_access = list(access_bar, access_mineral_storeroom)
-//	assistant_access = list(access_bar)
-	assistant_title = "Barber"
+	access = list(access_barbershop, access_maint_tunnels)
+	minimal_access = list(access_barbershop, access_maint_tunnels)
+	assistant_access = list(access_barbershop)
+	assistant_title = "Barber's Assistant"
 
-/datum/job/bartender/equip_backpack(var/mob/living/carbon/human/H)
-	switch(H.backbag)
-		if(1) //No backpack or satchel
+/datum/job/hydro/equip_items(var/mob/living/carbon/human/H)
 
-			var/obj/item/weapon/storage/box/box = new default_storagebox(H)
-			new /obj/item/ammo_casing/shotgun/beanbag(box)
-			new /obj/item/ammo_casing/shotgun/beanbag(box)
-			new /obj/item/ammo_casing/shotgun/beanbag(box)
-			new /obj/item/ammo_casing/shotgun/beanbag(box)
-			H.equip_to_slot_or_del(box, slot_r_hand)
+	var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/barber(H)
+	U.attachTie(new /obj/item/clothing/tie/black())
+	H.equip_to_slot_or_del(U, slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/latex(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/boater(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/weapon/razor(H), slot_s_store)
 
-		if(2) // Backpack
-			var/obj/item/weapon/storage/backpack/BPK = new default_backpack(H)
-			new default_storagebox(BPK)
-			H.equip_to_slot_or_del(BPK, slot_back,1)
-		if(3) //Satchel
-			var/obj/item/weapon/storage/backpack/BPK = new default_satchel(H)
-			new default_storagebox(BPK)
-			H.equip_to_slot_or_del(BPK, slot_back,1)
-
-/datum/job/bartender/equip_items(var/mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/bartender(H), slot_w_uniform)
-
-	if(H.backbag != 1)
-		H.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-*/
 /*
 Botanist
 */

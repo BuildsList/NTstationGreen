@@ -55,6 +55,14 @@
 	item_color = "clown"
 	fitted = 0
 
+/obj/item/clothing/under/rank/barber
+	name = "barber suit"
+	desc = "<i>barber's fancy suit</i>"
+	icon_state = "barber"
+	item_state = "barber"
+	item_color = "barber"
+	fitted = 0
+
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."

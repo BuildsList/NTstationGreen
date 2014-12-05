@@ -2465,7 +2465,7 @@
 "aVu" = (/obj/machinery/door/firedoor,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 32; pixel_y = 0},/turf/simulated/floor{dir = 4; icon_state = "arrival"},/area/hallway/secondary/entry)
 "aVv" = (/turf/simulated/wall,/area/security/vacantoffice)
 "aVw" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/barricade/wooden,/turf/simulated/floor/plating,/area/security/vacantoffice)
-"aVx" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass{name = "Barbershop"},/obj/structure/barricade/wooden,/turf/simulated/floor{tag = "icon-redbluefull"; icon_state = "redbluefull"},/area/security/vacantoffice)
+"aVx" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass{name = "Barbershop"},/turf/simulated/floor{tag = "icon-redbluefull"; icon_state = "redbluefull"},/area/security/vacantoffice)
 "aVy" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/barricade/wooden,/turf/simulated/floor/plating,/area/security/vacantoffice)
 "aVz" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/wall,/area/security/vacantoffice)
 "aVA" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/turf/simulated/floor/plating,/area/maintenance/port)

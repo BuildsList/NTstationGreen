@@ -64,6 +64,7 @@
 /var/const/access_mineral_storeroom = 64
 /var/const/access_minisat = 65
 /var/const/access_weapons = 66 //Weapon authorization for secbots
+/var/const/access_barbershop = 67
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
@@ -204,7 +205,7 @@
 	            access_hydroponics, access_library, access_lawyer, access_virology, access_cmo, access_qm, access_surgery,
 	            access_theatre, access_research, access_mining, access_mailsorting, access_weapons,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
-	            access_keycard_auth, access_tcomsat, access_gateway, access_mineral_storeroom)
+	            access_keycard_auth, access_tcomsat, access_gateway, access_mineral_storeroom, access_barbershop)
 
 /proc/get_all_centcom_access()
 	return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_medsci, access_cent_engineering, access_cent_living, access_cent_secret, access_cent_captain)
@@ -217,7 +218,7 @@
 		if(0)
 			return get_all_accesses()
 		if(1) //station general
-			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer)
+			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_barbershop)
 		if(2) //security
 			return list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_hos)
 		if(3) //medbay
@@ -379,6 +380,8 @@
 			return "Mineral Storage"
 		if(access_weapons)
 			return "Weapon Permit"
+		if(access_barbershop)
+			return "Barbershop"
 
 /proc/get_centcom_access_desc(A) //Changing this to reflect the new sprites
 	switch(A)
@@ -400,7 +403,7 @@
 			return "Code Gold"
 
 /proc/get_all_jobs()
-	return list("Assistant", "Captain", "Head of Personnel", "Bartender", "Chef", "Botanist", "Quartermaster", "Cargo Technician",
+	return list("Assistant", "Captain", "Head of Personnel", "Bartender", "Barber", "Chef", "Botanist", "Quartermaster", "Cargo Technician",
 				"Shaft Miner", "Clown", "Mime", "Janitor", "Librarian", "Lawyer", "Chaplain", "Chief Engineer", "Station Engineer",
 				"Atmospheric Technician", "Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist",
 				"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer")
