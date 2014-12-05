@@ -59,7 +59,6 @@
 	name = "barber suit"
 	desc = "<i>barber's fancy suit</i>"
 	icon_state = "barber"
-	item_state = "barber"
 	item_color = "barber"
 	fitted = 0
 
