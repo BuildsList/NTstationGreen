@@ -8,6 +8,7 @@
 	anchored = 1
 	var/shattered = 0
 
+/* We got barber stuff now
 
 /obj/structure/mirror/attack_hand(mob/user as mob)
 	if(shattered)	return
@@ -36,7 +37,7 @@
 			H.hair_style = new_style
 
 		H.update_hair()
-
+*/
 
 /obj/structure/mirror/proc/shatter()
 	if(shattered)	return
