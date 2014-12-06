@@ -16,7 +16,7 @@
 	switch(act)//Hello, how would you like to order? Alphabetically!
 		if ("aflap")
 			if (!src.restrained())
-				message = "<B>[src]</B> ЗЛОСТНО хлопает крыльями!"
+				message = "<B>[src]</B> ЗЛОСТНО хлопает крыль&#255;ми!"
 				m_type = 2
 
 		if ("blush")
@@ -34,9 +34,9 @@
 				if (!M)
 					param = null
 				if (param)
-					message = "<B>[src]</B> кланится для [param]."
+					message = "<B>[src]</B> кланитс&#255; дл&#255; [param]."
 				else
-					message = "<B>[src]</B> кланится."
+					message = "<B>[src]</B> кланитс&#255;."
 			m_type = 1
 
 		if ("burp")
@@ -44,7 +44,7 @@
 			m_type = 2
 
 		if ("choke")
-			message = "<B>[src]</B> давится!"
+			message = "<B>[src]</B> давитс&#255;!"
 			m_type = 2
 
 		if ("chuckle")
@@ -57,7 +57,7 @@
 			m_type = 2
 
 		if ("cough")
-			message = "<B>[src]</B> задыхается!"
+			message = "<B>[src]</B> задыхаетс&#255;!"
 			m_type = 2
 
 		if ("dance")
@@ -82,7 +82,7 @@
 
 		if ("flap")
 			if (!src.restrained())
-				message = "<B>[src]</B> хлопает крыльями."
+				message = "<B>[src]</B> хлопает крыль&#255;ми."
 				m_type = 2
 
 		if ("flipoff")
@@ -102,11 +102,11 @@
 			m_type = 1
 
 		if ("frown")
-			message = "<B>[src]</B> хмурится."
+			message = "<B>[src]</B> хмуритс&#255;."
 			m_type = 1
 
 		if ("gasp")
-			message = "<B>[src]</B> задыхается!"
+			message = "<B>[src]</B> задыхаетс&#255;!"
 			m_type = 2
 
 		if ("giggle")
@@ -128,7 +128,7 @@
 				message = "<B>[src]</B> свирепо смотрит."
 
 		if ("grin")
-			message = "<B>[src]</B> скалится."
+			message = "<B>[src]</B> скалитс&#255;."
 			m_type = 1
 
 		if ("jump")
@@ -136,7 +136,7 @@
 			m_type = 1
 
 		if ("laugh")
-			message = "<B>[src]</B> смеется."
+			message = "<B>[src]</B> смеетс&#255;."
 			m_type = 2
 
 		if ("look")
@@ -190,7 +190,7 @@
 			m_type = 1
 
 		if ("pout")
-			message = "<B>[src]</B> дуется."
+			message = "<B>[src]</B> дуетс&#255;."
 			m_type = 1
 
 		if ("rude")
@@ -204,7 +204,7 @@
 				if (!M)
 					param = null
 				if (param)
-					message = "<B>[src]</B> делает неприличный жест для [param]!"
+					message = "<B>[src]</B> делает неприличный жест дл&#255; [param]!"
 				else
 					message = "<B>[src]</B> делает неприличный жест."
 			m_type = 1
@@ -214,7 +214,7 @@
 			m_type = 2
 
 		if ("shake")
-			message = "<B>[src]</B> трясет своей головой."
+			message = "<B>[src]</B> тр&#255;сет своей головой."
 			m_type = 1
 
 		if ("sigh")
@@ -222,15 +222,15 @@
 			m_type = 2
 
 		if ("sit")
-			message = "<B>[src]</B> садится."
+			message = "<B>[src]</B> садитс&#255;."
 			m_type = 1
 
 		if ("smile")
-			message = "<B>[src]</B> улыбается."
+			message = "<B>[src]</B> улыбаетс&#255;."
 			m_type = 1
 
 		if ("smirk")
-			message = "<B>[src]</B> ухмыляется."
+			message = "<B>[src]</B> ухмыл&#255;етс&#255;."
 			m_type = 1
 
 		if ("snap")
@@ -279,16 +279,16 @@
 			if (!M)
 				param = null
 			if (param)
-				message = "<B>[src]</B> пялится на [param]."
+				message = "<B>[src]</B> п&#255;литс&#255; на [param]."
 			else
-				message = "<B>[src]</B> пялится."
+				message = "<B>[src]</B> п&#255;литс&#255;."
 
 		if ("sulk")
-			message = "<B>[src]</B> куксится."
+			message = "<B>[src]</B> кукситс&#255;."
 			m_type = 1
 
 		if ("sway")
-			message = "<B>[src]</B> вяло пошатывается."
+			message = "<B>[src]</B> в&#255;ло пошатываетс&#255;."
 			m_type = 1
 
 		if ("tap")
@@ -308,11 +308,11 @@
 			m_type = 1
 
 		if ("twitch")
-			message = "<B>[src]</B> яростно дергается."
+			message = "<B>[src]</B> &#255;ростно дергаетс&#255;."
 			m_type = 1
 
 		if ("twitch_s")
-			message = "<B>[src]</B> дергается."
+			message = "<B>[src]</B> дергаетс&#255;."
 			m_type = 1
 
 		if ("wave")
@@ -336,10 +336,10 @@
 			m_type = 2
 
 		if ("help")
-			src << "Справка по эмоциям. Вы можете использовать эмоции через say: \"*emote\":\n\naflap, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough, dance, deathgasp, drool, flap, flipoff, frown, gasp, giggle, glare-(none)/mob, grin, jump, laugh, look, me, nod, point-atom, pout, rude, scream, shake, sit, sigh, smile, smirk, snap, sneeze, sniff, snore, snort, spit, stare-(none)/mob, sulk, sway, tap, thumbsup, thumbsdown, tremble, twitch, twitch_s, wave, whimper, whistle, whistle2 yawn"
+			src << "Справка по эмоци&#255;м. Вы можете использовать эмоции через say: \"*emote\":\n\naflap, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough, dance, deathgasp, drool, flap, flipoff, frown, gasp, giggle, glare-(none)/mob, grin, jump, laugh, look, me, nod, point-atom, pout, rude, scream, shake, sit, sigh, smile, smirk, snap, sneeze, sniff, snore, snort, spit, stare-(none)/mob, sulk, sway, tap, thumbsup, thumbsdown, tremble, twitch, twitch_s, wave, whimper, whistle, whistle2 yawn"
 
 		else
-			src << "<span class='notice'> Неиспользуемая эмоция '[act]'. Наберите *help для полного списка.</span>"
+			src << "<span class='notice'> Неиспользуема&#255; эмоци&#255; '[act]'. Наберите *help дл&#255; полного списка.</span>"
 
 
 

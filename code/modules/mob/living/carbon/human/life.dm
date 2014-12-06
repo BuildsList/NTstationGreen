@@ -129,7 +129,7 @@
 				for(var/mob/O in viewers(src, null))
 					if(O == src)
 						continue
-					O.show_message(text("\red <B>[src] бьется в припадке!"), 1)
+					O.show_message(text("\red <B>[src] бьетс&#255; в припадке!"), 1)
 				Paralyse(10)
 				Jitter(1000)
 		if (disabilities & COUGHING)
