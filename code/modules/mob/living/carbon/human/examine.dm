@@ -6,6 +6,14 @@
 		usr << "<span class='notice'>Something is there but you can't see it.</span>"
 		return
 
+// Jack Rost's eximine
+
+	if (check_rights(1,0))
+		usr << "<font color='blue'>Mob Real Name - [src.real_name ? src.real_name : "No Real Name"]</font>"
+		usr << "<font color='blue'>Player in mob - [src.client ? src.client.key : "No player"]</font>"
+
+ //end of Jack Rost's code
+
 	var/skipgloves = 0
 	var/skipsuitstorage = 0
 	var/skipjumpsuit = 0
