@@ -61,7 +61,7 @@
 // BEGIN_INCLUDE
 #include "_maps\tgstation2.dm"
 #include "_maps\map_files\tgstation.2.1.3.dmm"
-#include "_maps\RandomZLevels\spacehotel.dmm"
+#include "_maps\RandomZLevels\beach.dmm"
 #include "code\_compile_options.dm"
 #include "code\closing_credits.dm"
 #include "code\hub.dm"
@@ -597,7 +597,6 @@
 #include "code\game\objects\items\stacks\tiles\tile_types.dm"
 #include "code\game\objects\items\weapons\AI_modules.dm"
 #include "code\game\objects\items\weapons\airlock_painter.dm"
-#include "code\game\objects\items\weapons\barber_tools.dm"
 #include "code\game\objects\items\weapons\cards_ids.dm"
 #include "code\game\objects\items\weapons\cigs_lighters.dm"
 #include "code\game\objects\items\weapons\clown_items.dm"

@@ -145,10 +145,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-lawyer"
 	ttone = "objection"
 
-/obj/item/device/pda/barber
-	icon_state = "pda-barber"
-	ttone = "slash"
-
 /obj/item/device/pda/botanist
 	//default_cartridge = /obj/item/weapon/cartridge/botanist
 	icon_state = "pda-hydro"

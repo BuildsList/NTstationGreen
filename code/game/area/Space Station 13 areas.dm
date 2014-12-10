@@ -914,10 +914,6 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Chief Engineer's Office"
 	icon_state = "head_quarters"
 
-/area/crew_quarters/barbershop
-	name = "\improper Barbershop"
-	icon_state = "head_quarters"
-
 /area/mint
 	name = "\improper Mint"
 	icon_state = "green"

@@ -84,42 +84,6 @@ Chef
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/chefhat(H), slot_head)
 
 /*
-Barber
-*/
-
-/datum/job/barber
-	title = "Barber"
-	r_title = "Парикмахер"
-	flag = BARBER
-	department_head = list("Head of Personnel")
-	department_flag = CIVILIAN
-	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "the head of personnel"
-	r_supervisors = "начальнику персонала"
-	selection_color = "#dddddd"
-
-	default_pda = /obj/item/device/pda/barber
-	default_headset = /obj/item/device/radio/headset/headset_srv
-
-	access = list(access_barbershop, access_maint_tunnels)
-	minimal_access = list(access_barbershop, access_maint_tunnels)
-	assistant_access = list(access_barbershop)
-	assistant_title = "Barber's Assistant"
-
-/datum/job/barber/equip_items(var/mob/living/carbon/human/H)
-
-	var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/barber(H)
-	U.attachTie(new /obj/item/clothing/tie/black())
-	H.equip_to_slot_or_del(U, slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/latex(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/boater(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/weapon/razor(H), slot_s_store)
-
-/*
 Botanist
 */
 /datum/job/hydro

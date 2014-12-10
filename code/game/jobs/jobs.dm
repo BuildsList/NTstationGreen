@@ -28,7 +28,6 @@ var/const/VIROLOGIST		=(1<<6)
 var/const/CIVILIAN			=(1<<2)
 
 var/const/HOP				=(1<<0)
-var/const/BARBER			=(1<<1)
 var/const/BARTENDER			=(1<<1)
 var/const/BOTANIST			=(1<<2)
 var/const/CHEF				=(1<<3)
@@ -90,7 +89,6 @@ var/list/science_positions = list(
 
 var/list/civilian_positions = list(
 	"Head of Personnel",
-	"Barber",
 	"Bartender",
 	"Botanist",
 	"Chef",

@@ -285,7 +285,6 @@ var/global/list/paint_variants = list(
 	new /datum/paint_info(DIR_ONE,"bar"),
 	new /datum/paint_info(DIR_ONE,"cafeteria"),
 	new /datum/paint_info(DIR_ONE,"checker"),
-	new /datum/paint_info(DIR_ONE,"barber"),
 	new /datum/paint_info(DIR_ONE,"grimy"),
 	new /datum/paint_info(DIR_ONE,"hydrofloor"),
 	new /datum/paint_info(DIR_ONE,"showroomfloor"),
