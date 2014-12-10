@@ -15,6 +15,7 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/weapon/wrench(), \
 		new /obj/item/clothing/head/welding(), \
 		new /obj/item/weapon/stock_parts/console_screen(), \
+		new /obj/item/weapon/table_parts/glass(), \
 		new /obj/item/weapon/airlock_electronics(), \
 		new /obj/item/weapon/airalarm_electronics(), \
 		new /obj/item/weapon/firealarm_electronics(), \

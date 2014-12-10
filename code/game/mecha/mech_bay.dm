@@ -80,7 +80,7 @@
 	name = "mech bay power control console"
 	density = 1
 	anchored = 1
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "recharge_comp"
 	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
 	var/obj/machinery/mech_bay_recharge_port/recharge_port

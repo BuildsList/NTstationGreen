@@ -2,7 +2,7 @@
 /obj/machinery/computer2
 	name = "computer"
 	desc = "A computer workstation."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "aiupload"
 	density = 1
 	anchored = 1.0

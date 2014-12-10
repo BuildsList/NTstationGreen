@@ -1,6 +1,6 @@
 /obj/machinery/computer/aifixer
 	name = "\improper AI system integrity restorer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "ai-fixer"
 	req_access = list(access_captain, access_robotics, access_heads)
 	var/mob/living/silicon/ai/occupier = null
@@ -8,7 +8,7 @@
 	circuit = /obj/item/weapon/circuitboard/aifixer
 
 /obj/machinery/computer/aifixer/New()
-	src.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
+	src.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-empty")
 	..()
 
 
@@ -94,7 +94,7 @@
 		return
 	if (href_list["fix"])
 		src.active = 1
-		src.overlays += image('icons/obj/computer.dmi', "ai-fixer-on")
+		src.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-on")
 		while (src.occupier.health < 100)
 			src.occupier.adjustOxyLoss(-1)
 			src.occupier.adjustFireLoss(-1)
@@ -106,12 +106,12 @@
 				src.occupier.lying = 0
 				dead_mob_list -= src.occupier
 				living_mob_list += src.occupier
-				src.overlays -= image('icons/obj/computer.dmi', "ai-fixer-404")
-				src.overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
+				src.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-404")
+				src.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-full")
 			src.updateUsrDialog()
 			sleep(10)
 		src.active = 0
-		src.overlays -= image('icons/obj/computer.dmi', "ai-fixer-on")
+		src.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-on")
 
 
 		src.add_fingerprint(usr)
@@ -130,8 +130,8 @@
 		if (occupier)
 			switch (occupier.stat)
 				if (0)
-					overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
+					overlays += image('icons/obj/computer_old.dmi', "ai-fixer-full")
 				if (2)
-					overlays += image('icons/obj/computer.dmi', "ai-fixer-404")
+					overlays += image('icons/obj/computer_old.dmi', "ai-fixer-404")
 		else
-			overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
+			overlays += image('icons/obj/computer_old.dmi', "ai-fixer-empty")

@@ -86,7 +86,7 @@ obj/machinery/computer/general_air_control/Destroy()
 		..()
 
 obj/machinery/computer/general_air_control
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "tank"
 
 	circuit = /obj/item/weapon/circuitboard/air_management
@@ -208,7 +208,7 @@ obj/machinery/computer/general_air_control/Topic(href, href_list)
 /////////////////////////////////////////////////////////////
 
 obj/machinery/computer/general_air_control/large_tank_control
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "tank"
 
 	var/input_tag
@@ -351,7 +351,7 @@ obj/machinery/computer/general_air_control/large_tank_control/Topic(href, href_l
 /////////////////////////////////////////////////////////////
 
 obj/machinery/computer/general_air_control/fuel_injection
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "atmos"
 
 	var/device_tag

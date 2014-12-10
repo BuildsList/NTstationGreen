@@ -1,6 +1,6 @@
 /obj/machinery/computer/prisoner
 	name = "prisoner management console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "explosive"
 	req_access = list(access_brig)
 	circuit = "/obj/item/weapon/circuitboard/prisoner"

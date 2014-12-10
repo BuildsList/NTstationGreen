@@ -1,6 +1,6 @@
 /obj/machinery/computer/curer
 	name = "Cure Research Machine"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "dna"
 	var/curing
 	var/virusing

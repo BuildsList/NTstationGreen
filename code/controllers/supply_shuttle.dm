@@ -76,7 +76,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 /obj/machinery/computer/supplycomp
 	name = "supply shuttle console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "supply"
 	req_access = list(access_cargo)
 	circuit = /obj/item/weapon/circuitboard/supplycomp
@@ -89,7 +89,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 /obj/machinery/computer/ordercomp
 	name = "supply ordering console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "request"
 	circuit = /obj/item/weapon/circuitboard/ordercomp
 	var/temp = null

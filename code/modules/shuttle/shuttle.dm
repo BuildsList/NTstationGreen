@@ -89,7 +89,7 @@ datum/shuttle_manager/proc/move_shuttle(var/override_delay, var/override_diskche
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "shuttle"
 	req_access = list( )
 	circuit = /obj/item/weapon/circuitboard/shuttle

@@ -1,7 +1,7 @@
 
 /obj/machinery/computer/cloning
 	name = "cloning console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "dna"
 	circuit = /obj/item/weapon/circuitboard/cloning
 	req_access = list(access_heads) //Only used for record deletion right now.

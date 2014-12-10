@@ -554,5 +554,5 @@ What a mess.*/
 	..(severity)
 
 /obj/machinery/computer/secure_data/detective_computer
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "messyfiles"

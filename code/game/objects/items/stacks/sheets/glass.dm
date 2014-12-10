@@ -5,6 +5,7 @@
  *		Glass shards - TODO: Move this into code/game/object/item/weapons
  */
 
+
 /*
  * Glass sheets
  */
@@ -16,9 +17,9 @@
 	g_amt = MINERAL_MATERIAL_AMOUNT
 	origin_tech = "materials=1"
 
-
 /obj/item/stack/sheet/glass/attack_self(mob/user as mob)
 	construct_window(user)
+
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user)
 	..()

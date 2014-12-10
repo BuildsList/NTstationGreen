@@ -786,7 +786,7 @@ var/global/datum/tension/tension_master
 		else
 			A.real_name = "[syndicate_commando_rank] [syndicate_commano_name]"
 		A.copy_to(new_syndicate_commando)
-		
+
 		ready_dna(new_syndicate_commando)
 
 		//Creates mind stuff.
@@ -827,7 +827,7 @@ var/global/datum/tension/tension_master
 
 /obj/machinery/computer/Borg_station
 	name = "Cyborg Station Terminal"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "syndishuttle"
 	req_access = list()
 	var/temp = null

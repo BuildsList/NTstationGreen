@@ -513,7 +513,7 @@
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA scanner access console"
 	desc = "Scan DNA."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "scanner"
 	density = 1
 	circuit = /obj/item/weapon/circuitboard/scan_consolenew

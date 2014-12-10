@@ -1,6 +1,6 @@
 /obj/machinery/computer/mecha
 	name = "exosuit control console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "mecha"
 	req_access = list(access_robotics)
 	circuit = "/obj/item/weapon/circuitboard/mecha_control"

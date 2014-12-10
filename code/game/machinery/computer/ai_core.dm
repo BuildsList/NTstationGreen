@@ -300,23 +300,23 @@ That prevents a few funky behaviors.
 								T.occupier = A
 								A.control_disabled = 1
 								if (A.stat == 2)
-									T.overlays += image('icons/obj/computer.dmi', "ai-fixer-404")
+									T.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-404")
 								else
-									T.overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
-								T.overlays -= image('icons/obj/computer.dmi', "ai-fixer-empty")
+									T.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-full")
+								T.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-empty")
 								A.cancel_camera()
 								A << "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here."
 								U << "\blue <b>Transfer successful</b>: \black [A.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed."
 						else
 							if(!C.contents.len && T.occupier && !T.active)
 								C.name = "inteliCard - [T.occupier.name]"
-								T.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
+								T.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-empty")
 								if (T.occupier.stat == 2)
 									C.icon_state = "aicard-404"
-									T.overlays -= image('icons/obj/computer.dmi', "ai-fixer-404")
+									T.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-404")
 								else
 									C.icon_state = "aicard-full"
-									T.overlays -= image('icons/obj/computer.dmi', "ai-fixer-full")
+									T.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-full")
 								T.occupier << "You have been downloaded to a mobile storage device. Still no remote access."
 								U << "\blue <b>Transfer successful</b>: \black [T.occupier.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
 								T.occupier.loc = C
@@ -339,8 +339,8 @@ That prevents a few funky behaviors.
 								T.occupier = A
 								C.AI = null
 								A.control_disabled = 1
-								T.overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
-								T.overlays -= image('icons/obj/computer.dmi', "ai-fixer-empty")
+								T.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-full")
+								T.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-empty")
 								A.cancel_camera()
 								A << "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here."
 								U << "\blue <b>Transfer successful</b>: \black [A.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed."
@@ -349,8 +349,8 @@ That prevents a few funky behaviors.
 								if (T.occupier.stat)
 									U << "\red <b>ERROR</b>: \black [T.occupier.name] data core is corrupted. Unable to install."
 								else
-									T.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
-									T.overlays -= image('icons/obj/computer.dmi', "ai-fixer-full")
+									T.overlays += image('icons/obj/computer_old.dmi', "ai-fixer-empty")
+									T.overlays -= image('icons/obj/computer_old.dmi', "ai-fixer-full")
 									T.occupier << "You have been downloaded to a mobile storage device. Still no remote access."
 									U << "\blue <b>Transfer successful</b>: \black [T.occupier.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
 									T.occupier.loc = C

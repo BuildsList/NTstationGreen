@@ -1,6 +1,6 @@
 /obj/machinery/computer/diseasesplicer
 	name = "Disease Splicer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/computer_old.dmi'
 	icon_state = "crew"
 	//brightnessred = 0
 //	brightnessgreen = 2
