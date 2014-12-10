@@ -287,7 +287,8 @@
 	name = "glass table parts"
 	desc = "Careful, fragile."
 	icon_state = "glass_tableparts"
-	m_amt = 12000
+	m_amt = 4000
+	g_amt = 10000
 	flags = null
 
 /obj/item/weapon/module
