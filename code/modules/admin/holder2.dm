@@ -1,9 +1,9 @@
 var/list/admin_datums = list()
 
 /datum/admins
-	var/datum/admin_rank/rank
-
+	var/rank			= "Temporary Admin"
 	var/client/owner	= null
+	var/rights = 0
 	var/fakekey			= null
 
 	var/tmp/datum/marked_datum
@@ -15,17 +15,14 @@ var/list/admin_datums = list()
 
 	var/tmp/savefile/savefile // Stores save file used by save files interface
 
-/datum/admins/New(datum/admin_rank/R, ckey)
+/datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(!ckey)
-		ERROR("Admin datum created without a ckey argument. Datum has been deleted")
+		error("Admin datum created without a ckey argument. Datum has been deleted")
 		del(src)
 		return
-	if(!istype(R))
-		ERROR("Admin datum created without a rank. Datum has been deleted")
-		del(src)
-		return
-	rank = R
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
+	rank = initial_rank
+	rights = initial_rights
 	admin_datums[ckey] = src
 
 /datum/admins/proc/associate(client/C)
@@ -55,7 +52,7 @@ proc/admin_proc()
 NOTE: it checks usr! not src! So if you're checking somebody's rank in a proc which they did not call
 you will have to do something like if(client.rights & R_ADMIN) yourself.
 */
-/proc/check_rights(rights_required, show_msg=1)
+/proc/check_rights(rights_required, show_msg=0)
 	if(usr && usr.client)
 		if (check_rights_for(usr.client, rights_required))
 			return 1
@@ -70,8 +67,8 @@ you will have to do something like if(client.rights & R_ADMIN) yourself.
 		if(usr.client.holder)
 			if(!other || !other.holder)
 				return 1
-			if(usr.client.holder.rank.rights != other.holder.rank.rights)	//Check values smaller than 65536
-				if( (usr.client.holder.rank.rights & other.holder.rank.rights) == other.holder.rank.rights )
+			if(usr.client.holder.rights != other.holder.rights)	//Check values smaller than 65536
+				if( (usr.client.holder.rights & other.holder.rights) == other.holder.rights )
 					return 1	//we have all the rights they have and more
 		usr << "<font color='red'>Error: Cannot proceed. They have greater or equal rights to us.</font>"
 	return 0
@@ -87,7 +84,7 @@ you will have to do something like if(client.rights & R_ADMIN) yourself.
 //This proc checks whether subject has at least ONE of the rights specified in rights_required.
 /proc/check_rights_for(client/subject, rights_required)
 	if(subject && subject.holder && subject.holder.rank)
-		if(rights_required && !(rights_required & subject.holder.rank.rights))
+		if(rights_required && !(rights_required & subject.holder.rights))
 			return 0
 		return 1
 	return 0

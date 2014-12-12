@@ -56,7 +56,6 @@ Chaplain
 	if(href_list["seticon"])
 		var/iconi = text2num(href_list["seticon"])
 
-		var/biblename = biblenames[iconi]
 		var/obj/item/weapon/storage/bible/B = locate(href_list["bible"])
 
 		B.icon_state = biblestates[iconi]
@@ -66,8 +65,6 @@ Chaplain
 		setupbiblespecifics(B, usr)
 
 		usr.put_in_hands(B) // Update inhand icon
-
-		feedback_set_details("religion_book","[biblename]")
 
 		usr << browse(null, "window=editicon") // Close window
 
@@ -109,7 +106,6 @@ Chaplain
 				B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 			else
 				B.name = "The Holy Book of [new_religion]"
-		feedback_set_details("religion_name","[new_religion]")
 
 	spawn(1)
 		var/deity_name = "Space Jesus"
@@ -118,8 +114,6 @@ Chaplain
 		if ((length(new_deity) == 0) || (new_deity == "Space Jesus") )
 			new_deity = deity_name
 		B.deity_name = new_deity
-
-		feedback_set_details("religion_deity","[new_deity]")
 
 		//Open bible selection
 		var/dat = "<html><head><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"

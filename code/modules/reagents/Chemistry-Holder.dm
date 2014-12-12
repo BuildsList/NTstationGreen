@@ -268,7 +268,6 @@ datum
 
 								var/created_volume = C.result_amount*multiplier
 								if(C.result)
-									feedback_add_details("chemical_reaction","[C.result]|[C.result_amount*multiplier]")
 									multiplier = max(multiplier, 1) //this shouldnt happen ...
 									add_reagent(C.result, C.result_amount*multiplier)
 
@@ -320,10 +319,11 @@ datum
 
 			check_gofast(var/mob/M)
 				if(istype(M, /mob))
-					if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("unholywater")||M.reagents.has_reagent("nuka_cola"))
-						return 1
-					else
-						M.status_flags &= ~GOTTAGOFAST
+					if(M.reagents)
+						if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("unholywater")||M.reagents.has_reagent("nuka_cola"))
+							return 1
+						else
+							M.status_flags &= ~GOTTAGOFAST
 
 			update_total()
 				total_volume = 0

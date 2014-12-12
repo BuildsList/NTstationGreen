@@ -1,4 +1,7 @@
 /client/proc/only_one()
+
+	if(!check_rights(R_DEBUG))	return
+
 	if(!ticker)
 		alert("The game hasn't started yet!")
 		return

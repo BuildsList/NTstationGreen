@@ -7,6 +7,7 @@
 		return
 
 	if(href_list["makeAntag"])
+		if(!check_rights(R_SERVER))	return
 		switch(href_list["makeAntag"])
 			if("1")
 				message_admins("[key_name_admin(usr)] created traitors.")
@@ -146,10 +147,101 @@
 		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
 
 	else if(href_list["editrights"])
-		edit_rights_topic(href_list)
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[key_name_admin(usr)] attempted to edit the admin permissions without sufficient rights.")
+			log_admin("[key_name(usr)] attempted to edit the admin permissions without sufficient rights.")
+			return
+
+		var/adm_ckey
+
+		var/task = href_list["editrights"]
+		if(task == "add")
+			var/new_ckey = ckey(input(usr,"New admin's ckey","Admin ckey", null) as text|null)
+			if(!new_ckey)	return
+			if(new_ckey in admin_datums)
+				usr << "<font color='red'>Error: Topic 'editrights': [new_ckey] is already an admin</font>"
+				return
+			adm_ckey = new_ckey
+			task = "rank"
+		else if(task != "show")
+			adm_ckey = ckey(href_list["ckey"])
+			if(!adm_ckey)
+				usr << "<font color='red'>Error: Topic 'editrights': No valid ckey</font>"
+				return
+
+		var/datum/admins/D = admin_datums[adm_ckey]
+
+		if(task == "remove")
+			if(alert("Are you sure you want to remove [adm_ckey]?","Message","Yes","Cancel") == "Yes")
+				if(!D)	return
+				admin_datums -= adm_ckey
+				D.disassociate()
+
+				message_admins("[key_name_admin(usr)] removed [adm_ckey] from the admins list")
+				log_admin("[key_name(usr)] removed [adm_ckey] from the admins list")
+				log_admin_rank_modification(adm_ckey, "Removed")
+
+		else if(task == "rank")
+			var/new_rank
+			if(admin_ranks.len)
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (admin_ranks|"*New Rank*")
+			else
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("White Lord","Administrator", "Moderator", "*New Rank*")
+
+			var/rights = 0
+			if(D)
+				rights = D.rights
+			switch(new_rank)
+				if(null,"") return
+				if("*New Rank*")
+					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
+					if(config.admin_legacy_system)
+						new_rank = ckeyEx(new_rank)
+					if(!new_rank)
+						usr << "<font color='red'>Error: Topic 'editrights': Invalid rank</font>"
+						return
+					if(config.admin_legacy_system)
+						if(admin_ranks.len)
+							if(new_rank in admin_ranks)
+								rights = admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
+							else
+								admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
+				else
+					if(config.admin_legacy_system)
+						new_rank = ckeyEx(new_rank)
+						rights = admin_ranks[new_rank]				//we input an existing rank, use its rights
+
+			if(D)
+				D.disassociate()								//remove adminverbs and unlink from client
+				D.rank = new_rank								//update the rank
+				D.rights = rights								//update the rights based on admin_ranks (default: 0)
+			else
+				D = new /datum/admins(new_rank, rights, adm_ckey)
+
+			var/client/C = directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
+			D.associate(C)											//link up with the client and add verbs
+
+			message_admins("[key_name_admin(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
+			log_admin("[key_name(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
+			log_admin_rank_modification(adm_ckey, new_rank)
+
+		else if(task == "permissions")
+			if(!D)	return
+			var/list/permissionlist = list()
+			for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
+				permissionlist[rights2text(i)] = i
+			var/new_permission = input("Select a permission to turn on/off", "Permission toggle", null, null) as null|anything in permissionlist
+			if(!new_permission)	return
+			D.rights ^= permissionlist[new_permission]
+
+			message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey]")
+			log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
+			log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+
+		edit_admin_permissions()
 
 	else if(href_list["call_shuttle"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_FUN))	return
 
 
 		switch(href_list["call_shuttle"])
@@ -178,7 +270,7 @@
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["edit_shuttle_time"])
-		if(!check_rights(R_SERVER))	return
+		if(!check_rights(R_DEBUG))	return
 
 		emergency_shuttle.settimeleft( input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", emergency_shuttle.timeleft() ) as num )
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [emergency_shuttle.timeleft()]")
@@ -298,7 +390,6 @@
 		Banlist["minutes"] << minutes
 		Banlist["bannedby"] << usr.ckey
 		Banlist.cd = "/base"
-		feedback_inc("ban_edit",1)
 		unbanpanel()
 
 	/////////////////////////////////////new ban stuff
@@ -324,7 +415,6 @@
 				if("Yes")
 					ban_unban_log_save("[key_name(usr)] removed [key_name(M)]'s appearance ban")
 					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
-					feedback_inc("ban_appearance_unban", 1)
 					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
 					appearance_unban(M)
 					message_admins("\blue [key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban", 1)
@@ -337,7 +427,6 @@
 					return
 				ban_unban_log_save("[key_name(usr)] appearance banned [key_name(M)]. reason: [reason]")
 				log_admin("[key_name(usr)] appearance banned [key_name(M)]. \nReason: [reason]")
-				feedback_inc("ban_appearance",1)
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 				notes_add(M.ckey, "Appearance banned - [reason]")
@@ -684,9 +773,7 @@
 					for(var/job in notbannedlist)
 						ban_unban_log_save("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes. reason: [reason]")
 						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
-						feedback_inc("ban_job_tmp",1)
 						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
-						feedback_add_details("ban_job_tmp","- [job]")
 						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
 						if(!msg)
 							msg = job
@@ -706,9 +793,7 @@
 						for(var/job in notbannedlist)
 							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
-							feedback_inc("ban_job",1)
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-							feedback_add_details("ban_job","- [job]")
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 							if(!msg)	msg = job
 							else		msg += ", [job]"
@@ -738,8 +823,6 @@
 						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
 						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
-						feedback_inc("ban_job_unban",1)
-						feedback_add_details("ban_job_unban","- [job]")
 						jobban_unban(M, job)
 						if(!msg)	msg = job
 						else		msg += ", [job]"
@@ -827,9 +910,7 @@
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
 				M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
 				M << "\red This is a temporary ban, it will be removed in [mins] minutes."
-				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
-				feedback_inc("ban_tmp_mins",mins)
 				if(config.banappeals)
 					M << "\red To try to resolve this matter head to [config.banappeals]"
 				else
@@ -858,7 +939,6 @@
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This is a permanent ban.")
 				log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 				message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
-				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
 				del(M.client)
@@ -897,7 +977,7 @@
 		usr << browse(dat, "window=c_mode")
 
 	else if(href_list["f_secret"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_SERVER))	return
 
 		if(ticker && ticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1371,44 +1451,10 @@
 			H.update_inv_hands()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
-		feedback_inc("admin_cookies_spawned",1)
 		H << "\blue Your prayers have been answered!! You received the <b>best cookie</b>!"
 
 	else if(href_list["BlueSpaceArtillery"])
-		if(!check_rights(R_ADMIN|R_FUN))	return
-
-		var/mob/living/M = locate(href_list["BlueSpaceArtillery"])
-		if(!isliving(M))
-			usr << "This can only be used on instances of type /mob/living"
-			return
-
-		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Blue Space Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
-			return
-
-		if(BSACooldown)
-			src.owner << "Standby!  Reload cycle in progress!  Gunnary crews ready in five seconds!"
-			return
-
-		BSACooldown = 1
-		spawn(50)
-			BSACooldown = 0
-
-		M << "You've been hit by bluespace artillery!"
-		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [src.owner]")
-		message_admins("[key_name(M)] has been hit by Bluespace Artillery fired by [src.owner]")
-
-		var/turf/simulated/floor/T = get_turf(M)
-		if(istype(T))
-			if(prob(80))	T.break_tile_to_plating()
-			else			T.break_tile()
-
-		if(M.health == 1)
-			M.gib()
-		else
-			M.adjustBruteLoss( min( 99 , (M.health - 1) )    )
-			M.Stun(20)
-			M.Weaken(20)
-			M.stuttering = 20
+		return
 
 	else if(href_list["CentcommReply"])
 		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"])
@@ -1451,14 +1497,14 @@
 		usr.client.jumptomob(M)
 
 	else if(href_list["getmob"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_DEBUG))	return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locate(href_list["getmob"])
 		usr.client.Getmob(M)
 
 	else if(href_list["sendmob"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_DEBUG))	return
 
 		var/mob/M = locate(href_list["sendmob"])
 		usr.client.sendmob(M)
@@ -1634,51 +1680,35 @@
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("monkey")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
 				for(var/mob/living/carbon/human/H in mob_list)
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
 				for(var/mob/living/carbon/human/H in mob_list)
 					spawn(0)
 						H.corgize()
 				ok = 1
 /* DEATH SQUADS
 			if("striketeam")
-				if(usr.client.strike_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","Strike")
+				usr.client.strike_team()
 */
 			if("tripleAI")
 				usr.client.triple_ai()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TriAI")
 			if("gravity")
 				alert("WIP - event unavailable")
 /*				E = new /datum/round_event/weightless()
 				log_admin("[key_name(usr)] triggered a gravity-failure event.", 1)
-				message_admins("[key_name_admin(usr)] triggered a gravity-failure event.", 1)
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","Grav")	*/
+				message_admins("[key_name_admin(usr)] triggered a gravity-failure event.", 1)	*/
 			if("power")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","P")
 				log_admin("[key_name(usr)] made all areas powered", 1)
 				message_admins("[key_name_admin(usr)] made all areas powered", 1)
 				power_restore()
 			if("unpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","UP")
 				log_admin("[key_name(usr)] made all areas unpowered", 1)
 				message_admins("[key_name_admin(usr)] made all areas unpowered", 1)
 				power_failure()
 			if("quickpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","QP")
 				log_admin("[key_name(usr)] made all SMESs powered", 1)
 				message_admins("[key_name_admin(usr)] made all SMESs powered", 1)
 				power_restore_quick()
@@ -1689,8 +1719,6 @@
 				var/objective = copytext(sanitize(input("Enter an objective")),1,MAX_MESSAGE_LEN)
 				if(!objective)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TA([objective])")
 				for(var/mob/living/carbon/human/H in player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
@@ -1719,8 +1747,6 @@
 				message_admins("[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective]", 1)
 				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
 			if("togglebombcap")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BC")
 				switch(MAX_EX_LIGHT_RANGE)
 					if(14)
 						MAX_EX_LIGHT_RANGE = 16
@@ -1750,108 +1776,66 @@
 				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
 
 			if("wave")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","MW")
 				message_admins("[key_name_admin(usr)] has spawned meteors")
 				E = new /datum/round_event/meteor_wave()
 			if("gravanomalies")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","GA")
 				message_admins("[key_name_admin(usr)] has spawned a gravitational anomaly")
 				E = new /datum/round_event/anomaly/anomaly_grav()
 			if("pyroanomalies")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PYRO")
 				message_admins("[key_name_admin(usr)] has spawned a pyroclastic anomaly")
 				E = new /datum/round_event/anomaly/anomaly_pyro()
 			if("blackhole")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BH")
 				message_admins("[key_name_admin(usr)] has spawned a vortex anomaly")
 				E = new /datum/round_event/anomaly/anomaly_vortex()
 			if("timeanomalies")	//dear god this code was awful :P Still needs further optimisation
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","STA")
 				message_admins("[key_name_admin(usr)] has made wormholes")
 				E = new /datum/round_event/wormholes()
 			if("npcblob")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BL")
 				message_admins("[key_name_admin(usr)] has spawned an NPC blob", 1)
 				E = new /datum/round_event/blob()
 			if("goblob")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BLO")
 				message_admins("[key_name_admin(usr)] has spawned a blob overmind", 1)
 				E = new /datum/round_event/blob/overmind()
 			if("aliens")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","AL")
 				message_admins("[key_name_admin(usr)] has spawned aliens", 1)
 				E = new /datum/round_event/alien_infestation()
 			if("alien_silent")								//replaces the spawn_xeno verb
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ALS")
 				create_xeno()
 			if("brand")
 				E = new /datum/round_event/brand_intelligence()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BI")
 				message_admins("[key_name_admin(usr)] started an aggressive marketing campaign", 1)
 			if("spiders")
 				E = new /datum/round_event/spider_infestation()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SL")
 				message_admins("[key_name_admin(usr)] has spawned spiders", 1)
 			if("bluespaceanomaly")
 				E = new /datum/round_event/anomaly/anomaly_bluespace()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BA")
 				message_admins("[key_name_admin(usr)] has triggered a bluespace anomaly", 1)
 			if("comms_blackout")
 				E = new /datum/round_event/communications_blackout()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","CB")
 				message_admins("[key_name_admin(usr)] triggered a communications blackout.", 1)
 			if("spaceninja")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SN")
 				message_admins("[key_name_admin(usr)] has sent in a space ninja", 1)
 				E = new /datum/round_event/ninja()
 			if("carp")
 				E = new /datum/round_event/carp_migration()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","C")
 				message_admins("[key_name_admin(usr)] has spawned carp.", 1)
 			if("radiation")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","R")
 				message_admins("[key_name_admin(usr)] has has irradiated the station", 1)
 				E = new /datum/round_event/radiation_storm()
 			if("immovable")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","IR")
 				message_admins("[key_name_admin(usr)] has sent an immovable rod to the station", 1)
 				E = new /datum/round_event/immovable_rod()
 			if("prison_break")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PB")
 				message_admins("[key_name_admin(usr)] has allowed a prison break", 1)
 				E = new /datum/round_event/prison_break()
 			if("lightsout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","LO")
 				message_admins("[key_name_admin(usr)] has broke a lot of lights", 1)
 				E = new /datum/round_event/electrical_storm{lightsoutAmount = 2}()
 			if("blackout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BO")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
 				for(var/obj/machinery/light/L in world)
 					L.broken()
 			if("whiteout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","WO")
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
 				for(var/obj/machinery/light/L in world)
 					L.fix()
@@ -1859,8 +1843,6 @@
 				if(floorIsLava)
 					usr << "The floor is lava already."
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","LF")
 
 				//Options
 				var/length = input(usr, "How long will the lava last? (in seconds)", "Length", 180) as num
@@ -1911,8 +1893,6 @@
 					floorIsLava = 0
 				return
 			if("virus")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","V")
 				switch(alert("Do you want this to be a random disease or do you have something in mind?",,"Make Your Own","Random","Choose"))
 					if("Make Your Own")
 						AdminCreateVirus(usr.client)
@@ -1924,61 +1904,39 @@
 						var/datum/round_event/disease_outbreak/DO = E
 						DO.virus_type = virus
 			if("retardify")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","RET")
 				for(var/mob/living/carbon/human/H in player_list)
 					H << "\red <B>You suddenly feel stupid.</B>"
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody retarded")
 			if("eagles")//SCRAW
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","EgL")
 				for(var/obj/machinery/door/airlock/W in world)
 					if(W.z == 1 && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				priority_announce("Centcom airlock control override activated. Please take this time to get acquainted with your coworkers.", null, 'sound/AI/commandreport.ogg')
 			if("guns")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SG")
 				usr.magic_summon("guns")
 			if("magic")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SM")
 				usr.magic_summon("magic")
 			if("mechs")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","S-MECHS")
 				usr.magic_summon("mechs")
 			if("melee")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","S-MELEE")
 				usr.magic_summon("melee")
 			if("dorf")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","DF")
 				for(var/mob/living/carbon/human/B in mob_list)
 					B.facial_hair_style = "Dward Beard"
 					B.update_hair()
 				message_admins("[key_name_admin(usr)] activated dorf mode")
 			if("ionstorm")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","I")
 				message_admins("[key_name_admin(usr)] triggered an ion storm")
 				E = new /datum/round_event/ion_storm()
 			if("spacevines")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","K")
 				message_admins("[key_name_admin(usr)] has spawned spacevines", 1)
 				E = new /datum/round_event/spacevine()
 			if("onlyone")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OO")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered a battle to the death (only one)")
 			if("energeticflux")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FLUX")
 				message_admins("[key_name_admin(usr)] has triggered an energetic flux")
 				E = new /datum/round_event/anomaly/anomaly_flux()
 		if(E)
@@ -2021,22 +1979,16 @@
 			if("check_antagonist")
 				check_antagonists()
 			if("moveminingshuttle")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShM")
 				var/datum/shuttle_manager/s = shuttles["mining"]
 				if(istype(s)) s.move_shuttle(0,1)
 				message_admins("[key_name_admin(usr)] moved mining shuttle", 1)
 				log_admin("[key_name(usr)] moved the mining shuttle")
 			if("movelaborshuttle")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShL")
 				var/datum/shuttle_manager/s = shuttles["laborcamp"]
 				if(istype(s)) s.move_shuttle(0,1)
 				message_admins("[key_name_admin(usr)] moved labor shuttle", 1)
 				log_admin("[key_name(usr)] moved the labor shuttle")
 			if("moveferry")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShF")
 				var/datum/shuttle_manager/s = shuttles["ferry"]
 				if(istype(s)) s.move_shuttle(0,1)
 				message_admins("[key_name_admin(usr)] moved the centcom ferry", 1)
@@ -2121,7 +2073,7 @@
 				if(admin_datums)
 					for(var/ckey in admin_datums)
 						var/datum/admins/D = admin_datums[ckey]
-						dat += "[ckey] - [D.rank.name]<br>"
+						dat += "[ckey] - [D.rank]<br>"
 					usr << browse(dat, "window=showadmins;size=600x500")
 
 	else if(href_list["secretscoder"])
@@ -2174,7 +2126,6 @@
 			var/choice = alert("Please confirm Feed channel creation","Network Channel Handler","Confirm","Cancel")
 			if(choice=="Confirm")
 				news_network.CreateFeedChannel(src.admincaster_feed_channel.channel_name, src.admincaster_signature, src.admincaster_feed_channel.locked, 1)
-				feedback_inc("newscaster_channels",1)
 				log_admin("[key_name(usr)] created command feed channel: [src.admincaster_feed_channel.channel_name]!")
 				src.admincaster_screen=5
 		src.access_news_network()
@@ -2197,7 +2148,6 @@
 			src.admincaster_screen = 6
 		else
 			news_network.SubmitArticle(src.admincaster_feed_message.body, src.admincaster_signature, src.admincaster_feed_channel.channel_name, null, 1)
-			feedback_inc("newscaster_stories",1)
 			src.admincaster_screen=4
 
 		for(var/obj/machinery/newscaster/NEWSCASTER in allCasters)

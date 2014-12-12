@@ -193,19 +193,15 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				for(var/datum/objective/objective in changeling.objectives)
 					if(objective.check_completion())
 						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
-						feedback_add_details("changeling_objective","[objective.type]|SUCCESS")
 					else
 						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						feedback_add_details("changeling_objective","[objective.type]|FAIL")
 						changelingwin = 0
 					count++
 
 			if(changelingwin)
 				text += "<br><font color='green'><b>The changeling was successful!</b></font>"
-				feedback_add_details("changeling_success","SUCCESS")
 			else
 				text += "<br><font color='red'><b>The changeling has failed.</b></font>"
-				feedback_add_details("changeling_success","FAIL")
 			text += "<br>"
 
 		world << text

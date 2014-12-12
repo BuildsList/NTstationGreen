@@ -2,6 +2,8 @@
 	set name = "Possess Obj"
 	set category = "Object"
 
+	if(!check_rights(R_POSSESS))	return
+
 	if(istype(O,/obj/machinery/singularity))
 		if(config.forbid_singulo_possession)
 			usr << "It is forbidden to possess singularities."
@@ -24,12 +26,13 @@
 	usr.name = O.name
 	usr.client.eye = O
 	usr.control_object = O
-	feedback_add_details("admin_verb","PO") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
 	set category = "Object"
 	//usr.loc = get_turf(usr)
+
+	if(!check_rights(R_POSSESS))	return
 
 	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object
 		usr.real_name = usr.name_archive
@@ -42,12 +45,3 @@
 	usr.loc = O.loc
 	usr.client.eye = usr
 	usr.control_object = null
-	feedback_add_details("admin_verb","RO") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/proc/givetestverbs(mob/M as mob in mob_list)
-	set desc = "Give this guy possess/release verbs"
-	set category = "Debug"
-	set name = "Give Possessing Verbs"
-	M.verbs += /proc/possess
-	M.verbs += /proc/release
-	feedback_add_details("admin_verb","GPV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

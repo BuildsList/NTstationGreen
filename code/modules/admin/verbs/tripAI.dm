@@ -2,6 +2,8 @@
 	set category = "Fun"
 	set name = "Create AI Triumvirate"
 
+	if(!check_rights(R_FUN))	return
+
 	if(ticker.current_state > GAME_STATE_PREGAME)
 		usr << "This option is currently only usable during pregame. This may change at a later date."
 		return

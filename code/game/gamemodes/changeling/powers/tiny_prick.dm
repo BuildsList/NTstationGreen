@@ -90,7 +90,6 @@
 		user << "<span class='notice'>We stealthily sting [target.name].</span>"
 	hardset_dna(target, NewDNA.uni_identity, NewDNA.struc_enzymes, NewDNA.real_name, NewDNA.mutantrace, NewDNA.blood_type)
 	updateappearance(target)
-	feedback_add_details("changeling_powers","TS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/extract_dna
@@ -108,7 +107,6 @@ obj/effect/proc_holder/changeling/sting/extract_dna
 /obj/effect/proc_holder/changeling/sting/extract_dna/sting_action(var/mob/user, var/mob/target)
 	add_logs(user, target, "stung", object="extraction sting")
 	user.mind.changeling.absorb_dna(target, user)
-	feedback_add_details("changeling_powers","ED")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/mute
@@ -122,7 +120,6 @@ obj/effect/proc_holder/changeling/sting/mute
 /obj/effect/proc_holder/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_logs(user, target, "stung", object="mute sting")
 	target.silent += 30
-	feedback_add_details("changeling_powers","MS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/blind
@@ -139,7 +136,6 @@ obj/effect/proc_holder/changeling/sting/blind
 	target.disabilities |= NEARSIGHTED
 	target.eye_blind = 20
 	target.eye_blurry = 40
-	feedback_add_details("changeling_powers","BS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/LSD
@@ -155,7 +151,6 @@ obj/effect/proc_holder/changeling/sting/LSD
 	spawn(rand(300,600))
 		if(target)
 			target.hallucination = max(400, target.hallucination)
-	feedback_add_details("changeling_powers","HS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/cryo
@@ -171,5 +166,4 @@ obj/effect/proc_holder/changeling/sting/cryo
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
-	feedback_add_details("changeling_powers","CS")
 	return 1

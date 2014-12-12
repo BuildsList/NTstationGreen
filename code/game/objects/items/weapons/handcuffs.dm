@@ -48,11 +48,6 @@
 				loc = C
 				C.handcuffed = src
 				C.update_inv_handcuffed(0)
-			if(cable)
-				feedback_add_details("handcuffs","C")
-			else
-				feedback_add_details("handcuffs","H")
-
 			add_logs(user, C, "handcuffed")
 
 /obj/item/weapon/handcuffs/cable

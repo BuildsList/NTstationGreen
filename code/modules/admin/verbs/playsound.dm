@@ -23,8 +23,6 @@ var/sound/admin_sound
 
 	admin_sound.frequency = 1 //Remove this line when the AFD stuff above is gone
 	admin_sound.wait = 0
-	feedback_add_details("admin_verb","PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 /client/proc/play_local_sound(S as sound)
 	set category = "Fun"
@@ -34,7 +32,6 @@ var/sound/admin_sound
 	log_admin("[key_name(src)] played a local sound [S]")
 	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
-	feedback_add_details("admin_verb","PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/stop_sounds()
 	set category = "Debug"
@@ -46,8 +43,6 @@ var/sound/admin_sound
 		for(var/mob/M in player_list)
 			if(M.client)
 				M << sound(null)
-		feedback_add_details("admin_verb","SS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 	else
 		return
 #undef SOUND_CHANNEL_ADMIN

@@ -24,5 +24,3 @@
 	changeling.chem_recharge_slowdown += 0.5
 	user << "<span class='notice'>We shape our glands to take the voice of <b>[mimic_voice]</b>, this will stop us from regenerating chemicals while active.</span>"
 	user << "<span class='notice'>Use this power again to return to our original voice and reproduce chemicals again.</span>"
-
-	feedback_add_details("changeling_powers","MV")

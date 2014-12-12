@@ -1,7 +1,5 @@
 var/list/forbidden_varedit_object_types = list(
 										/datum/admins,						//Admins editing their own admin-power object? Yup, sounds like a good idea.
-										/obj/machinery/blackbox_recorder,	//Prevents people messing with feedback gathering
-										/datum/feedback_variable			//Prevents people messing with feedback gathering
 									)
 
 var/list/var_kinds = list("text","num","type","text2type","reference","mob reference",
@@ -17,16 +15,6 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 		types += "DELETE FROM LIST"
 	return types
 
-
-/*
-/client/proc/cmd_modify_object_variables(obj/O as obj|mob|turf|area in world)
-	set category = "Debug"
-	set name = "Edit Variables"
-	set desc="(target) Edit a target item's variables"
-	src.modify_variables(O)
-	feedback_add_details("admin_verb","EDITV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-*/
-
 /client/proc/cmd_modify_ticker_variables()
 	set category = "Debug"
 	set name = "Edit Ticker Variables"
@@ -35,7 +23,6 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 		src << "Game hasn't started yet."
 	else
 		src.modify_variables(ticker)
-		feedback_add_details("admin_verb","ETV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/mod_list_add_ass() //haha
 	var/class = input("What kind of variable?","Variable Type") as null|anything in var_kinds()
@@ -157,7 +144,7 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 	if(variable in locked)
 		if(!check_rights(R_DEBUG))	return
 	if(variable in ckey_edit)
-		if(!check_rights(R_SPAWN|R_DEBUG)) return
+		if(!check_rights(R_DEBUG)) return
 	if(variable in icon_edit)
 		if(!check_rights(R_FUN|R_DEBUG)) return
 
@@ -302,7 +289,7 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 		if(param_var_name == "holder" || (param_var_name in locked))
 			if(!check_rights(R_DEBUG))	return
 		if(param_var_name in ckey_edit)
-			if(!check_rights(R_SPAWN|R_DEBUG)) return
+			if(!check_rights(R_DEBUG)) return
 		if(param_var_name in icon_edit)
 			if(!check_rights(R_FUN|R_DEBUG)) return
 
@@ -364,7 +351,7 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 		if(variable == "holder" || (variable in locked))
 			if(!check_rights(R_DEBUG)) return
 		if(variable in ckey_edit)
-			if(!check_rights(R_SPAWN|R_DEBUG)) return
+			if(!check_rights(R_DEBUG)) return
 		if(variable in icon_edit)
 			if(!check_rights(R_FUN|R_DEBUG)) return
 
@@ -522,4 +509,3 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 	world.log << "### VarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]"
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [O.vars[variable]]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s [variable] to [O.vars[variable]]", 1)
-

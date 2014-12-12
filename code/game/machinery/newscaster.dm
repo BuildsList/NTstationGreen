@@ -510,7 +510,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				var/choice = alert("Please confirm Feed channel creation","Network Channel Handler","Confirm","Cancel")
 				if(choice=="Confirm")
 					news_network.CreateFeedChannel(src.channel_name, src.scanned_user, c_locked)
-					feedback_inc("newscaster_channels",1)
 					src.screen=5
 			src.updateUsrDialog()
 			//src.update_icon()
@@ -539,7 +538,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				src.screen=6
 			else
 				news_network.SubmitArticle(msg, scanned_user, channel_name, photo)
-				feedback_inc("newscaster_stories",1)
 				src.screen=4
 			src.updateUsrDialog()
 
@@ -986,7 +984,6 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 
 /obj/machinery/newscaster/proc/print_paper()
-	feedback_inc("newscaster_newspapers_printed",1)
 	var/obj/item/weapon/newspaper/NEWSPAPER = new /obj/item/weapon/newspaper
 	for(var/datum/feed_channel/FC in news_network.network_channels)
 		NEWSPAPER.news_content += FC

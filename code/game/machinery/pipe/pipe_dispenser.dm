@@ -191,12 +191,6 @@ Nah
 				if(7)
 					C.ptype = 8
 					C.density = 1
-///// Z-Level stuff
-				if(21)
-					C.ptype = 11
-				if(22)
-					C.ptype = 12
-///// Z-Level stuff
 			C.add_fingerprint(usr)
 			C.update()
 			wait = 1

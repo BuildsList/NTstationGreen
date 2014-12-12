@@ -176,7 +176,7 @@ var/next_external_rsc = 0
 
 	var/admin_rank = "Player"
 	if(src.holder && src.holder.rank)
-		admin_rank = src.holder.rank.name
+		admin_rank = src.holder.rank
 
 	var/sql_ip = sql_sanitize_text(src.address)
 	var/sql_computerid = sql_sanitize_text(src.computer_id)
@@ -191,12 +191,6 @@ var/next_external_rsc = 0
 		//New player!! Need to insert all the stuff
 		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO erro_player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[sql_ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		query_insert.Execute()
-
-/*	//Logging player access
-	var/serverip = "[world.internet_address]:[world.port]"
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `erro_connection_log`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
-	query_accesslog.Execute()
-*/
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT

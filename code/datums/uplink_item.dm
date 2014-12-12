@@ -52,7 +52,6 @@ var/list/uplink_items = list()
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
-		feedback_add_details("traitor_uplink_items_bought", "[item]")
 		return new item(loc)
 
 /datum/uplink_item/proc/buy(var/obj/item/device/uplink/U, var/mob/user)
@@ -583,5 +582,4 @@ var/list/uplink_items = list()
 	if(possible_items.len)
 		var/datum/uplink_item/I = pick(possible_items)
 		U.uses -= max(0, I.cost)
-		feedback_add_details("traitor_uplink_items_bought","RN")
 		return new I.item(loc)

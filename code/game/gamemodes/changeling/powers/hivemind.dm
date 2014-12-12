@@ -28,7 +28,6 @@ var/list/datum/dna/hivemind_bank = list()
 
 	hivemind_bank += chosen_dna
 	user << "<span class='notice'>We channel the DNA of [chosen_name] to the air.</span>"
-	feedback_add_details("changeling_powers","HU")
 	return 1
 
 /obj/effect/proc_holder/changeling/hivemind_download
@@ -67,5 +66,4 @@ var/list/datum/dna/hivemind_bank = list()
 		changeling.absorbed_dna.Cut(1,2)
 	changeling.absorbed_dna |= chosen_dna
 	user << "<span class='notice'>We absorb the DNA of [S] from the air.</span>"
-	feedback_add_details("changeling_powers","HD")
 	return 1

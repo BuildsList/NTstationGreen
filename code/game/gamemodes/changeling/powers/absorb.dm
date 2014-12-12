@@ -45,7 +45,6 @@
 				target << "<span class='danger'>You feel a sharp stabbing pain!</span>"
 				target.take_overall_damage(40)
 
-		feedback_add_details("changeling_powers","A[stage]")
 		if(!do_mob(user, target, 150))
 			user << "<span class='warning'>Our absorption of [target] has been interrupted!</span>"
 			changeling.isabsorbing = 0

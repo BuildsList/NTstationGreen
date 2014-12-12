@@ -15,13 +15,10 @@
 	if(!chosen_dna)
 		return
 
-
 	user.dna = chosen_dna
 	user.real_name = chosen_dna.real_name
 	updateappearance(user)
 	domutcheck(user, null)
-
-	feedback_add_details("changeling_powers","TR")
 	return 1
 
 /datum/changeling/proc/select_dna(var/prompt, var/title)

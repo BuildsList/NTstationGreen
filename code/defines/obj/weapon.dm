@@ -205,8 +205,6 @@
 					H.legcuffed = src
 					src.loc = H
 					H.update_inv_legcuffed(0)
-					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-
 			else
 				L.apply_damage(20,BRUTE)
 	..()

@@ -139,10 +139,8 @@
 	switch(event)
 		if("Red alert")
 			set_security_level(SEC_LEVEL_RED)
-			feedback_inc("alert_keycard_auth_red",1)
 		if("Emergency Maintenance Access")
 			make_maint_all_access()
-			feedback_inc("alert_keycard_auth_maint",1)
 
 /var/emergency_access = 0
 /proc/make_maint_all_access()

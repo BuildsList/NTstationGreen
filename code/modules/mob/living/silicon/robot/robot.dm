@@ -140,7 +140,6 @@
 			hands.icon_state = "standard"
 			icon_state = "robot"
 			modtype = "Stand"
-			feedback_inc("cyborg_standard",1)
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
@@ -162,7 +161,6 @@
 					icon_state = "service_male"
 					animation_length=43
 			modtype = "Butler"
-			feedback_inc("cyborg_service",1)
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
@@ -170,7 +168,6 @@
 			icon_state = "minerborg"
 			animation_length = 30
 			modtype = "Miner"
-			feedback_inc("cyborg_miner",1)
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -179,7 +176,6 @@
 			animation_length = 35
 			modtype = "Med"
 			status_flags &= ~CANPUSH
-			feedback_inc("cyborg_medical",1)
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
@@ -189,7 +185,6 @@
 			modtype = "Sec"
 			//speed = -1 Secborgs have nerfed tasers now, so the speed boost is not necessary
 			status_flags &= ~CANPUSH
-			feedback_inc("cyborg_security",1)
 
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
@@ -197,7 +192,6 @@
 			icon_state = "engiborg"
 			animation_length = 45
 			modtype = "Eng"
-			feedback_inc("cyborg_engineering",1)
 
 		if("Janitor")
 			module = new /obj/item/weapon/robot_module/janitor(src)
@@ -205,7 +199,6 @@
 			icon_state = "janiborg"
 			animation_length = 22
 			modtype = "Jan"
-			feedback_inc("cyborg_janitor",1)
 
 	overlays -= "eyes" //Takes off the eyes that it started with
 

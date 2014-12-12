@@ -27,7 +27,6 @@
 	user.humanize((TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPSRC),chosen_dna.real_name)
 
 	changeling.purchasedpowers -= src
-	feedback_add_details("changeling_powers","LFT")
 	qdel(user)
 	return 1
 

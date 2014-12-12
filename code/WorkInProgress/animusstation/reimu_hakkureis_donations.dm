@@ -15,7 +15,6 @@ DromedaryCo packet:/obj/item/weapon/storage/fancy/cigarettes/dromedaryco:50
 Premium Havanian Cigar:/obj/item/clothing/mask/cigarette/cigar/havana:130
 Beer bottle:/obj/item/weapon/reagent_containers/food/drinks/beer:80
 Captain flask:/obj/item/weapon/reagent_containers/food/drinks/flask:200
-pAI card:/obj/item/device/paicard:200
 Three Mile Island Ice Tea:/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/threemileisland:100
 
 Costume sets
@@ -127,7 +126,7 @@ var/list/datum/donator/donators = list()
 
 		var/obj/spawned = new path
 
-		var/where = user.equip_in_one_of_slots(spawned, slots, del_on_fail=0)
+		var/where = user.equip_in_one_of_slots(spawned, slots, qdel_on_fail=0)
 
 		if (!where)
 			spawned.loc = user.loc
@@ -191,7 +190,10 @@ proc/build_prizes_list()
 	if (!donators[ckey]) //It doesn't exist yet
 		if (load_donator(ckey))
 			var/datum/donator/D = donators[ckey]
-			D.show()
+			if(D)
+				D.show()
+			else
+				usr << browse ("<b>You have not donated or the database is inaccessible.</b>", "window=donatorpanel")
 		else
 			usr << browse ("<b>You have not donated or the database is inaccessible.</b>", "window=donatorpanel")
 	else

@@ -50,8 +50,5 @@
 	else
 		world << "\blue <B>Nobody survived the meteor storm!</B>"
 
-	feedback_set_details("round_end_result","end - evacuation")
-	feedback_set("round_end_result",survivors)
-
 	..()
 	return 1

@@ -89,10 +89,11 @@
 							S.use(2)
 							user << "<span class='notice'>You added the plating!</span>"
 							var/turf/Tsrc = get_turf(src)
-							Tsrc.ChangeTurf(/turf/simulated/wall)
-							for(var/turf/simulated/wall/X in Tsrc.loc)
-								if(X)	transfer_fingerprints_to(X)
-							qdel(src)
+							if(Tsrc)
+								Tsrc.ChangeTurf(/turf/simulated/wall)
+								for(var/turf/simulated/wall/X in Tsrc.loc)
+									if(X)	transfer_fingerprints_to(X)
+								qdel(src)
 						return
 
 				if(/obj/item/stack/sheet/plasteel)
@@ -114,10 +115,11 @@
 								S.use(1)
 								user << "<span class='notice'>Wall fully reinforced!</span>"
 								var/turf/Tsrc = get_turf(src)
-								Tsrc.ChangeTurf(/turf/simulated/wall/r_wall)
-								for(var/turf/simulated/wall/r_wall/X in Tsrc.loc)
-									if(X)	transfer_fingerprints_to(X)
-								qdel(src)
+								if(Tsrc)
+									Tsrc.ChangeTurf(/turf/simulated/wall/r_wall)
+									for(var/turf/simulated/wall/r_wall/X in Tsrc.loc)
+										if(X)	transfer_fingerprints_to(X)
+									qdel(src)
 							return
 						else
 							if(S.amount < 1) return ..()

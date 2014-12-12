@@ -127,6 +127,8 @@
 	if(!assailant.canmove || assailant.lying)
 		qdel(src)
 		return
+	if(!assailant)
+		return
 
 	last_upgrade = world.time
 

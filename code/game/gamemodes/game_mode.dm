@@ -69,11 +69,6 @@
 /datum/game_mode/proc/post_setup()
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
-
-	feedback_set_details("round_start","[time2text(world.realtime)]")
-	if(ticker && ticker.mode)
-		feedback_set_details("game_mode","[ticker.mode]")
-	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
 	return 1
 
 ///make_antag_chance()
@@ -94,7 +89,7 @@
 
 
 /datum/game_mode/proc/declare_completion()
-	var/clients = 0
+/*	var/clients = 0
 	var/surviving_humans = 0
 	var/surviving_total = 0
 	var/ghosts = 0
@@ -158,6 +153,7 @@
 		feedback_set("escaped_on_pod_3",escaped_on_pod_3)
 	if(escaped_on_pod_5 > 0)
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
+		*/
 	return 0
 
 
