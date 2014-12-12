@@ -119,7 +119,8 @@
 
 	if(!admin_id)	return
 
-	var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin` SET flags = [new_permission] WHERE id = [admin_id]")
+	var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin_ranks` SET flags = [new_permission] WHERE id = [admin_id]")
 	insert_query.Execute()
+	usr << "\blue Permission edited."
 	var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.`erro_admin_log` (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Edit permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]');")
 	log_query.Execute()
