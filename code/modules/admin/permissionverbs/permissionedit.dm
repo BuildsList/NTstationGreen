@@ -28,10 +28,10 @@
 	for(var/adm_ckey in admin_datums)
 		var/datum/admins/D = admin_datums[adm_ckey]
 		if(!D)	continue
-
+		
 		var/rights = rights2text(D.rank.rights," ")
 		if(!rights)	rights = "*none*"
-
+		
 		output += "<tr>"
 		output += "<td style='text-align:right;'>[adm_ckey] <a class='small' href='?src=\ref[src];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>"
 		output += "<td><a href='?src=\ref[src];editrights=rank;ckey=[adm_ckey]'>[D.rank.name]</a></td>"
@@ -73,16 +73,14 @@
 	if(!istext(adm_ckey) || !istext(new_rank))
 		return
 
-	var/DBQuery/select_query = dbcon.NewQuery("SELECT id, rank FROM erro_admin WHERE ckey = '[adm_ckey]'")
+	var/DBQuery/select_query = dbcon.NewQuery("SELECT id FROM erro_admin WHERE ckey = '[adm_ckey]'")
 	select_query.Execute()
 
 	var/new_admin = 1
 	var/admin_id
-	var/curr_rank
 	while(select_query.NextRow())
 		new_admin = 0
 		admin_id = text2num(select_query.item[1])
-		curr_rank = select_query.item[2]
 
 	if(new_admin)
 		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO `erro_admin` (`id`, `ckey`, `rank`, `level`, `flags`) VALUES (null, '[adm_ckey]', '[new_rank]', -1, 0)")
@@ -93,17 +91,10 @@
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
 			var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin` SET rank = '[new_rank]' WHERE id = [admin_id]")
-			var/DBQuery/insert_rank = dbcon.NewQuery("INSERT INTO `erro_admin_rank` (`rank`, `flags`) VALUES ('[new_rank]', 0)")
+			insert_query.Execute()
 			var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.`erro_admin_log` (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Edited the rank of [adm_ckey] to [new_rank]');")
-			if(new_rank != curr_rank)
-				insert_query.Execute()
-				insert_rank.Execute()
-				log_query.Execute()
-				usr << "\blue New admin rank added."
-			else
-				insert_query.Execute()
-				log_query.Execute()
-				usr << "\blue Admin rank changed."
+			log_query.Execute()
+			usr << "\blue Admin rank changed."
 
 
 /datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
@@ -119,20 +110,17 @@
 	if(!adm_ckey || !istext(adm_ckey) || !isnum(new_permission))
 		return
 
-	var/DBQuery/select_query = dbcon.NewQuery("SELECT id, flags, rank FROM erro_admin WHERE ckey = '[adm_ckey]'")
+	var/DBQuery/select_query = dbcon.NewQuery("SELECT id, flags FROM erro_admin WHERE ckey = '[adm_ckey]'")
 	select_query.Execute()
 
 	var/admin_id
-	var/admin_rank
 	while(select_query.NextRow())
 		admin_id = text2num(select_query.item[1])
-		admin_rank = select_query.item[3]
 
 	if(!admin_id)	return
 
-	var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin` SET flags = [new_permission] WHERE id = [admin_id]")
+	var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin_ranks` SET flags = [new_permission] WHERE id = [admin_id]")
 	insert_query.Execute()
-	var/DBQuery/update_rank = dbcon.NewQuery("UPDATE `erro_admin_rank` SET flags = [new_permission] WHERE rank = [admin_rank]")
-	update_rank.Execute()
+	usr << "\blue Permission edited."
 	var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.`erro_admin_log` (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Edit permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]');")
 	log_query.Execute()
