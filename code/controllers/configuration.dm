@@ -24,7 +24,6 @@
 	var/log_adminchat = 1				// log admin chat messages
 	var/log_adminwarn = 1				// log warnings admins get about bomb construction and such
 	var/log_pda = 1						// log pda messages
-	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/allow_admin_ooccolor = 1		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -211,8 +210,6 @@
 					config.log_adminwarn = 1
 				if("log_pda")
 					config.log_pda = 1
-				if("log_hrefs")
-					config.log_hrefs = 1
 				if("allow_admin_ooccolor")
 					config.allow_admin_ooccolor = 1
 				if("allow_vote_restart")

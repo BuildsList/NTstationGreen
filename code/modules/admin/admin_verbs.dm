@@ -84,7 +84,6 @@ var/list/admin_verbs_server = list(
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
 	/datum/admins/proc/toggleaban,
-	/client/proc/toggle_log_hrefs,
 	/datum/admins/proc/immreboot,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI
@@ -161,7 +160,6 @@ var/list/admin_verbs_hideable = list(
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
 	/datum/admins/proc/toggleaban,
-	/client/proc/toggle_log_hrefs,
 	/datum/admins/proc/immreboot,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
@@ -509,21 +507,8 @@ var/list/admin_verbs_hideable = list(
 			deadmin()
 			src << "<span class='interface'>You are now a normal player.</span>"
 
-/client/proc/toggle_log_hrefs()
-	set name = "Toggle href logging"
-	set category = "Server"
-	if(!holder)	return
-	if(config)
-		if(config.log_hrefs)
-			config.log_hrefs = 0
-			src << "<b>Stopped logging hrefs</b>"
-		else
-			config.log_hrefs = 1
-			src << "<b>Started logging hrefs</b>"
-
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
 	set category = "Admin"
 	if(holder)
 		src.holder.output_ai_laws()
-
