@@ -497,7 +497,7 @@ client
 			modify_variables(D, href_list["varnamechange"], 0)
 
 		else if(href_list["varnamemass"] && href_list["datummass"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_BUILDMODE))	return
 
 			var/atom/A = locate(href_list["datummass"])
 			if(!istype(A))
@@ -507,7 +507,7 @@ client
 			cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
 		else if(href_list["give_spell"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_FUN))	return
 
 			var/mob/M = locate(href_list["give_spell"])
 			if(!istype(M))
@@ -518,7 +518,7 @@ client
 			href_list["datumrefresh"] = href_list["give_spell"]
 
 		else if(href_list["give_disease"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_FUN))	return
 
 			var/mob/M = locate(href_list["give_disease"])
 			if(!istype(M))
@@ -561,7 +561,7 @@ client
 			href_list["datumrefresh"] = href_list["build_mode"]
 
 		else if(href_list["drop_everything"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_DEBUG))	return
 
 			var/mob/M = locate(href_list["drop_everything"])
 			if(!istype(M))
@@ -572,7 +572,7 @@ client
 				usr.client.cmd_admin_drop_everything(M)
 
 		else if(href_list["direct_control"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_DEBUG))	return
 
 			var/mob/M = locate(href_list["direct_control"])
 			if(!istype(M))
@@ -594,7 +594,7 @@ client
 			href_list["datumrefresh"] = href_list["make_skeleton"]
 
 		else if(href_list["delall"])
-			if(!check_rights(R_DEBUG|R_SERVER))	return
+			if(!check_rights(R_DEBUG))	return
 
 			var/obj/O = locate(href_list["delall"])
 			if(!isobj(O))
@@ -637,7 +637,7 @@ client
 					message_admins("\blue [key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
 
 		else if(href_list["addreagent"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_FUN))	return
 
 			var/atom/A = locate(href_list["addreagent"])
 
@@ -853,7 +853,7 @@ client
 
 
 		else if(href_list["adjustDamage"] && href_list["mobToDamage"])
-			if(!check_rights(0))	return
+			if(!check_rights(R_REJUVINATE))	return
 
 			var/mob/living/L = locate(href_list["mobToDamage"])
 			if(!istype(L)) return

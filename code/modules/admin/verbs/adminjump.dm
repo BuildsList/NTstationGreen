@@ -79,9 +79,8 @@
 	set category = "Admin"
 	set name = "Get Mob"
 	set desc = "Mob to teleport"
-	if(!src.holder)
-		src << "Only administrators may use this command."
-		return
+
+	if(!check_rights(R_DEBUG))	return
 
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]", 1)
@@ -92,9 +91,7 @@
 	set name = "Get Key"
 	set desc = "Key to teleport"
 
-	if(!src.holder)
-		src << "Only administrators may use this command."
-		return
+	if(!check_rights(R_DEBUG))	return
 
 	var/list/keys = list()
 	for(var/mob/M in player_list)
@@ -114,9 +111,9 @@
 /client/proc/sendmob(var/mob/M in sortmobs())
 	set category = "Admin"
 	set name = "Send Mob"
-	if(!src.holder)
-		src << "Only administrators may use this command."
-		return
+
+	if(!check_rights(R_DEBUG))	return
+
 	var/area/A = input(usr, "Pick an area.", "Pick an area") in return_sorted_areas()
 	if(A)
 		M.loc = pick(get_area_turfs(A))

@@ -86,7 +86,7 @@
 	set name = "Reload Admins"
 	set category = "Admin"
 
-	if(!src.holder)	return
+	if(!check_rights(R_DEBUG))	return
 
 	message_admins("[key_name_admin(usr)] manually reloaded admins")
 	load_admins()
