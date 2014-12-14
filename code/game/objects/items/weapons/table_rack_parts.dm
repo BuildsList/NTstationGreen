@@ -89,6 +89,22 @@
 	qdel(src)
 	return
 
+/*
+ * Glass Table Parts
+ */
+
+/obj/item/weapon/table_parts/glass/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if (istype(W, /obj/item/weapon/wrench))
+		new /obj/item/stack/sheet/metal( user.loc )
+		new /obj/item/stack/sheet/glass( user.loc )
+		qdel(src)
+
+/obj/item/weapon/table_parts/glass/attack_self(mob/user as mob)
+	new /obj/structure/table/glasstable( user.loc )
+	user.drop_item()
+	qdel(src)
+	return
+
 
 /*
  * Rack Parts
