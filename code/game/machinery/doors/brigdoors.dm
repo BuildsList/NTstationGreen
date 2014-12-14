@@ -183,14 +183,14 @@
 		usr.set_machine(src)
 		if(href_list["timing"]) //switch between timing and not timing
 			var/timeleft = timeleft()
-			timeleft = min(max(round(timeleft), 0), 600)
+			timeleft = min(max(round(timeleft), 0), 6000)
 			timing = text2num(href_list["timing"])
 			timeset(timeleft)
 		else if(href_list["tp"]) //adjust timer
 			var/timeleft = timeleft()
 			var/tp = text2num(href_list["tp"])
 			timeleft += tp
-			timeleft = min(max(round(timeleft), 0), 600)
+			timeleft = min(max(round(timeleft), 0), 6000)
 			timeset(timeleft)
 			//src.timing = 1
 			//src.closedoor()
