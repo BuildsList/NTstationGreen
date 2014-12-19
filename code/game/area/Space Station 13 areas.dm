@@ -979,6 +979,7 @@ proc/process_ghost_teleport_locs()
 /area/crew_quarters/bar
 	name = "\improper Bar"
 	icon_state = "bar"
+	ambientsounds = list('sound/ambience/ambgaybar.ogg', 'sound/ambience/ambchrist.ogg')
 
 /area/crew_quarters/theatre
 	name = "\improper Theatre"

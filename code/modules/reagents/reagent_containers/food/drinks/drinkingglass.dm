@@ -465,6 +465,12 @@
 		reagents.add_reagent("cola", 50)
 		on_reagent_change()
 
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/milk
+	New()
+		..()
+		reagents.add_reagent("milk", 25)
+		on_reagent_change()
+
 //Fancy Drinking Glasses
 
 /obj/item/weapon/reagent_containers/food/drinks/fancy
