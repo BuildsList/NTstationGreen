@@ -1,14 +1,14 @@
 /datum/game_mode/traitor/double_agents
 	name = "double agents"
 	config_tag = "double_agents"
-	restricted_jobs = list("Cyborg", "AI", "Captain", "Head of Personnel", "Chief Medical Officer", "Research Director", "Chief Engineer", "Head of Security") // Human / Minor roles only.
+	restricted_jobs = list("Security Officer", "Warden", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer") // Human / Minor roles only.
 	required_players = 20
 	required_enemies = 5
 	recommended_enemies = 8
 
 	traitor_name = "double agent"
 
-	traitors_possible = 8 //hard limit on traitors if scaling is turned off
+	traitors_possible = 6 //hard limit on traitors if scaling is turned off
 	scale_modifier = 0.5 // Nearly twice as many double agents
 
 	var/list/target_list = list()

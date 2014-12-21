@@ -1787,9 +1787,9 @@
 			if("blackhole")
 				message_admins("[key_name_admin(usr)] has spawned a vortex anomaly")
 				E = new /datum/round_event/anomaly/anomaly_vortex()
-			if("timeanomalies")	//dear god this code was awful :P Still needs further optimisation
+/*			if("timeanomalies")	//dear god this code was awful :P Still needs further optimisation
 				message_admins("[key_name_admin(usr)] has made wormholes")
-				E = new /datum/round_event/wormholes()
+				E = new /datum/round_event/wormholes() */
 			if("npcblob")
 				message_admins("[key_name_admin(usr)] has spawned an NPC blob", 1)
 				E = new /datum/round_event/blob()
