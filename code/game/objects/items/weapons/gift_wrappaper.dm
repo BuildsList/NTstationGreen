@@ -27,7 +27,7 @@
 		/obj/item/weapon/storage/photo_album,
 		/obj/item/weapon/storage/box/snappops,
 		/obj/item/weapon/storage/fancy/crayons,
-		/obj/item/weapon/storage/backpack/holding,
+		/obj/item/weapon/storage/backpack/toyholding,
 		/obj/item/weapon/storage/belt/champion,
 		/obj/item/weapon/soap/deluxe,
 		/obj/item/weapon/pickaxe/silver,
@@ -63,7 +63,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiavulgaris,
 		/obj/item/device/paicard,
 		/obj/item/device/violin,
-		/obj/item/weapon/storage/belt/utility/full,
+		/obj/item/weapon/storage/belt/utility,
 		/obj/item/clothing/tie/horrible)
 
 	if(!ispath(gift_type,/obj/item))	return

@@ -77,6 +77,11 @@
 	max_w_class = 3 //It is a backpack for your belt!
 	slot_flags = SLOT_BELT
 
+/obj/item/weapon/storage/backpack/toyholding
+	name = "bag of holding"
+	desc = "A backpack that opens into a localized pocket of Blue Space. Replica from 'NT Toys Corp.'."
+	icon_state = "holdingpack"
+
 /obj/item/weapon/storage/backpack/santabag
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver toys to all the nice children in space in Christmas! Wow, it's pretty big!"
