@@ -58,7 +58,8 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 //Human Overlays Indexes/////////
 #define BODYPARTS_LAYER			21		//Limbs
-#define BODY_LAYER				20		//underwear, undershirts, socks, eyes, lips(makeup)
+#define BODY_LAYER				22		//underwear, undershirts, socks, eyes, lips(makeup)
+#define AUGMENTS_LAYER			20
 #define MUTATIONS_LAYER			19		//Tk headglows etc.
 #define DAMAGE_LAYER			18		//damage indicators (cuts and burns)
 #define UNIFORM_LAYER			17
@@ -78,7 +79,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 #define LEGCUFF_LAYER			3
 #define HANDS_LAYER				2
 #define FIRE_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS		21		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS		22		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 //////////////////////////////////
 /mob/living/carbon/human
 	var/tmp/list/overlays_standing[TOTAL_LAYERS]
@@ -202,7 +203,6 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 	apply_overlay(MUTATIONS_LAYER)
 
-
 /mob/living/carbon/human/proc/update_body()
 	remove_overlay(BODY_LAYER)
 
@@ -308,6 +308,32 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 	apply_overlay(FIRE_LAYER)
 
+/mob/living/carbon/human/proc/update_augments()
+	remove_overlay(AUGMENTS_LAYER)
+
+	var/list/standing	= list()
+	var/g = (gender == FEMALE) ? "f" : "m"
+
+
+	if(getlimb(/obj/item/augment/r_arm))
+		standing	+= image("icon"='icons/mob/augments.dmi', "icon_state"="r_arm_s", "layer"=-AUGMENTS_LAYER)
+	if(getlimb(/obj/item/augment/l_arm))
+		standing	+= image("icon"='icons/mob/augments.dmi', "icon_state"="l_arm_s", "layer"=-AUGMENTS_LAYER)
+
+	if(getlimb(/obj/item/augment/r_leg))
+		standing	+= image("icon"='icons/mob/augments.dmi', "icon_state"="r_leg_s", "layer"=-AUGMENTS_LAYER)
+	if(getlimb(/obj/item/augment/l_leg))
+		standing	+= image("icon"='icons/mob/augments.dmi', "icon_state"="l_leg_s", "layer"=-AUGMENTS_LAYER)
+
+	if(getlimb(/obj/item/augment/chest))
+		standing	+= image("icon"='icons/mob/augments.dmi', "icon_state"="chest_[g]_s", "layer"=-AUGMENTS_LAYER)
+	if(getlimb(/obj/item/augment/head))
+		standing	+= image("icon"='icons/mob/augments.dmi', "icon_state"="head_[g]_s", "layer"=-AUGMENTS_LAYER)
+
+	if(standing.len)
+		overlays_standing[AUGMENTS_LAYER]	= standing
+
+	apply_overlay(AUGMENTS_LAYER)
 
 /* --------------------------------------- */
 //For legacy support.
