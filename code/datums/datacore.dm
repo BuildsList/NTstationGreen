@@ -29,15 +29,15 @@
 
 
 /obj/effect/datacore/proc/get_manifest(monochrome, OOC)
-	var/list/heads = new()
-	var/list/sec = new()
-	var/list/eng = new()
-	var/list/med = new()
-	var/list/sci = new()
-	var/list/civ = new()
-	var/list/bot = new()
-	var/list/misc = new()
-	var/list/isactive = new()
+	var/list/heads = list()
+	var/list/sec = list()
+	var/list/eng = list()
+	var/list/med = list()
+	var/list/sci = list()
+	var/list/civ = list()
+	var/list/bot = list()
+	var/list/misc = list()
+	var/list/isactive = list()
 	var/dat = {"
 	<head><style>
 		.manifest {border-collapse:collapse;}
