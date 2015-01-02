@@ -102,7 +102,88 @@
 	body_part = LEG_RIGHT
 	dam_icon = "r_leg"
 
+/////AUGMENTATION\\\\\
 
+/obj/item/organ/limb/augment
+	name = "cyberlimb"
+	desc = "You should never be seeing this!"
+	icon = 'icons/obj/surgery.dmi'
+	origin_tech = "programming=2;biotech=3"
+	status = ORGAN_ROBOTIC
+	body_part = null
+	var/list/construction_cost = list("metal"=250)
+	var/construction_time = 75
+
+/obj/item/organ/limb/augment/chest
+	name = "robotic chest"
+	desc = "A Robotic chest"
+	max_damage = 200
+	icon_state = "chest_m_s"
+	body_part = CHEST
+	construction_cost = list("metal"=350)
+
+/obj/item/organ/limb/augment/head
+	name = "robotic head"
+	desc = "A Robotic head"
+	max_damage = 200
+	icon_state = "head_m_s"
+	body_part = HEAD
+	construction_cost = list("metal"=350)
+	var/obj/item/organ/brain/brain
+
+/obj/item/organ/limb/augment/l_arm
+	name = "robotic left arm"
+	desc = "A Robotic arm"
+	max_damage = 75
+	icon_state = "l_arm_s"
+	body_part = ARM_LEFT
+
+/obj/item/organ/limb/augment/l_leg
+	name = "robotic left leg"
+	desc = "A Robotic leg"
+	max_damage = 75
+	icon_state = "l_leg_s"
+	body_part = LEG_LEFT
+
+/obj/item/organ/limb/augment/r_arm
+	name = "robotic right arm"
+	desc = "A Robotic arm"
+	max_damage = 75
+	icon_state = "r_arm_s"
+	body_part = ARM_RIGHT
+
+/obj/item/organ/limb/augment/r_leg
+	name = "robotic right leg"
+	desc = "A Robotic leg"
+	max_damage = 75
+	icon_state = "r_leg_s"
+	body_part = LEG_RIGHT
+
+
+/obj/item/organ/limb/augment/head/attackby(var/obj/item/I,var/mob/M)
+	if(istype(I,/obj/item/organ/brain))
+		var/obj/item/organ/brain/B = I
+
+		if(!B.brainmob || !B.brainmob.mind)
+			M << "<span class='warning'>This brain is unresponsive.</span>"
+			return
+
+		M.unEquip(B)
+		B.loc = src
+		brain = B
+		M << "<span class='notice'>You insert the brain into [src].</span>"
+
+
+	if(istype(I, /obj/item/weapon/crowbar))
+
+		if(!brain)
+			return
+
+		brain.loc = get_turf(src)
+		contents -= brain
+		brain = null
+
+		M << "<span class='notice'>You pop the brain out of the [src].</span>"
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc

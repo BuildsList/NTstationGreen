@@ -1544,7 +1544,7 @@ datum/design/augment_l_arm
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = MECHFAB
 	materials = list("$metal" = 250)
-	build_path = /obj/item/augment/l_arm
+	build_path = /obj/item/organ/limb/augment/l_arm
 	category = "Misc"
 
 datum/design/augment_r_arm
@@ -1554,7 +1554,7 @@ datum/design/augment_r_arm
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = MECHFAB
 	materials = list("$metal" = 250)
-	build_path = /obj/item/augment/r_arm
+	build_path = /obj/item/organ/limb/augment/r_arm
 	category = "Misc"
 
 datum/design/augment_l_leg
@@ -1564,7 +1564,7 @@ datum/design/augment_l_leg
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = MECHFAB
 	materials = list("$metal" = 250)
-	build_path = /obj/item/augment/l_leg
+	build_path = /obj/item/organ/limb/augment/l_leg
 	category = "Misc"
 
 datum/design/augment_r_leg
@@ -1574,7 +1574,7 @@ datum/design/augment_r_leg
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = MECHFAB
 	materials = list("$metal" = 250)
-	build_path = /obj/item/augment/r_leg
+	build_path = /obj/item/organ/limb/augment/r_leg
 	category = "Misc"
 
 datum/design/augment_chest
@@ -1584,7 +1584,7 @@ datum/design/augment_chest
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = MECHFAB
 	materials = list("$metal" = 350)
-	build_path = /obj/item/augment/chest
+	build_path = /obj/item/organ/limb/augment/chest
 	category = "Misc"
 
 datum/design/augment_head
@@ -1594,7 +1594,7 @@ datum/design/augment_head
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = MECHFAB
 	materials = list("$metal" = 350)
-	build_path = /obj/item/augment/head
+	build_path = /obj/item/organ/limb/augment/head
 	category = "Misc"
 
 datum/design/synthetic_flash

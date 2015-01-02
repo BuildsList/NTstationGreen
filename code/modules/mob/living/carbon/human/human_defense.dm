@@ -130,14 +130,11 @@ emp_act
 
 	var/obj/item/organ/limb/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 
-	if(affecting.state == ORGAN_REMOVED)
-		if(istype(I, /obj/item/augment))
-			var/obj/item/organ/limb/affecting_accurate = get_organ(check_zone(user.zone_sel.selecting)) //so augmenting doesn't "miss"
-			var/obj/item/augment/AUG = I
-			augmentation(affecting_accurate,user, AUG)
-
-		return 0//No limb/Augmentation time
-
+	if(istype(I, /obj/item/organ/limb/augment))
+		var/obj/item/organ/limb/affecting_accurate = get_organ(check_zone(user.zone_sel.selecting)) //so augmenting doesn't "miss"
+		var/obj/item/organ/limb/augment/AUG = I
+		augmentation(affecting_accurate,user, AUG)
+	if(affecting.state == ORGAN_REMOVED)	return 0//No limb/Augmentation time
 
 	var/hit_area = parse_zone(affecting.name)
 
