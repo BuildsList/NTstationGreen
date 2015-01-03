@@ -44,7 +44,7 @@ var/round_start_time = 0
 			ERROR("configuration was null when retrieving the lobby_countdown value.")
 			pregame_timeleft = 120
 		world << "<B><FONT color='blue'>Добро пожаловать в лобби!</FONT></B>"
-		world << "Настройте своего персонажа  и приготовьтесь к началу игры. Раунд начнётс&#255; через [pregame_timeleft] секунд"
+		world << "Настройте своего персонажа и приготовьтесь к началу игры. Раунд начнётс&#255; через [pregame_timeleft] секунд"
 		while(current_state == GAME_STATE_PREGAME)
 			sleep(10)
 			if(going)

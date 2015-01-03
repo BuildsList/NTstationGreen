@@ -262,7 +262,7 @@
 	. = 1
 	if (traitor_mob.mind)
 		if (traitor_mob.mind.assigned_role == "Clown")
-			traitor_mob << "Професси&#255; клоуна было лишь прикрытие, что бы проникнуть на станцию. Теперь мы можете не притвор&#255;тс&#255; и пользоватьс&#255; оружием нормально."
+			traitor_mob << "Професси&#255; клоуна было лишь прикрытие, чтобы проникнуть на станцию. Теперь мы можете не притвор&#255;тс&#255; и пользоватьс&#255; оружием нормально."
 			traitor_mob.remove_organic_effect(/datum/organic_effect/clumsy)
 
 	// find a radio! toolbox(es), backpack, belt, headset
@@ -292,7 +292,7 @@
 			target_radio.hidden_uplink = T
 			T.uplink_owner = "[traitor_mob.key]"
 			target_radio.traitor_frequency = freq
-			traitor_mob << "Синдикат запихнул магазин игрушек в ваш наушник. Смените частоту на [format_frequency(freq)], что бы открыть тёмную сторону вашего наушника."
+			traitor_mob << "Синдикат запихнул магазин игрушек в ваш наушник. Смените частоту на [format_frequency(freq)], чтобы открыть тёмную сторону вашего наушника."
 			traitor_mob.mind.store_memory("<B>Радио частота:</B> [format_frequency(freq)] ([R.name] [loc]).")
 		else if (istype(R, /obj/item/device/pda))
 			// generate a passcode if the uplink is hidden in a PDA
@@ -304,7 +304,7 @@
 			var/obj/item/device/pda/P = R
 			P.lock_code = pda_pass
 
-			traitor_mob << "Синдикат запихнул магазин игрушек в ваш ПДА. Просто введите \"[pda_pass]\" в меню смены рингтона, что бы открыть тёмную сторону вашего ПДА."
+			traitor_mob << "Синдикат запихнул магазин игрушек в ваш ПДА. Просто введите \"[pda_pass]\" в меню смены рингтона, чтобы открыть тёмную сторону вашего ПДА."
 			traitor_mob.mind.store_memory("<B>Пароль от ПДА:</B> [pda_pass] ([R.name] [loc]).")
 	//Begin code phrase.
 	if(!safety)//If they are not a rev. Can be added on to.

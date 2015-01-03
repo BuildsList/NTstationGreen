@@ -115,6 +115,13 @@
 	desc = "Wearing these makes you looks useless, and only good for your sex appeal."
 	icon_state = "bunny"
 
+/obj/item/clothing/head/rabbithead
+	name = "rabbit head"
+	desc = "It's unspeakably stylish"
+	icon_state = "rabbit_h"
+	item_state = "rabbit_h"
+	flags = HEADCOVERSEYES|BLOCKHAIR
+
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."

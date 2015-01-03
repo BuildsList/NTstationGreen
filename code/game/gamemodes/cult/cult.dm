@@ -121,7 +121,7 @@
 		var/explanation
 		switch(cult_objectives[obj_count])
 			if("survive")
-				explanation = "Наше учение должно жить. Сделайте так, что бы [acolytes_needed] членов экипажа успешно эвакуировались со станции."
+				explanation = "Наше учение должно жить. Сделайте так, чтобы [acolytes_needed] членов экипажа успешно эвакуировались со станции."
 			if("sacrifice")
 				if(sacrifice_target)
 					explanation = "Принесите в жертву [sacrifice_target.name], the [sacrifice_target.assigned_role]. Вам понадобитьс&#255; жервенна&#255; руна (Hell blood join) и три культиста."
@@ -326,9 +326,9 @@
 			switch(cult_objectives[obj_count])
 				if("survive")
 					if(!check_survive())
-						explanation = "Сделайте так, что бы [acolytes_needed] членов экипажа успешно эвакуировались со станции. <font color='green'><B>Успех!</B></font>"
+						explanation = "Сделайте так, чтобы [acolytes_needed] членов экипажа успешно эвакуировались со станции. <font color='green'><B>Успех!</B></font>"
 					else
-						explanation = "Сделайте так, что бы [acolytes_needed] членов экипажа успешно эвакуировались со станции. <font color='red'>Провал.</font>"
+						explanation = "Сделайте так, чтобы [acolytes_needed] членов экипажа успешно эвакуировались со станции. <font color='red'>Провал.</font>"
 				if("sacrifice")
 					if(sacrifice_target)
 						if(sacrifice_target in sacrificed)

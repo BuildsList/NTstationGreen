@@ -199,7 +199,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)
-		var/text = "<br><font size=3><b>волшебниками/ведьмами были:</b></font>"
+		var/text = "<br><font size=3><b>[(wizards.len>1)?"Волшебниками были":"Волшебником был"]:</b></font>"
 
 		for(var/datum/mind/wizard in wizards)
 
@@ -230,7 +230,7 @@
 			else
 				text += "<br><font color='red'><B>Волшебник провалил одно или несколько из своих заданий!</B></font>"
 			if(wizard.spell_list.len>0)
-				text += "<br><B>[wizard.name] использовал текущие заклинани&#255;: </B>"
+				text += "<br><B>[wizard.name] использовал такие заклинани&#255;: </B>"
 				var/i = 1
 				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
 					text += "[S.name]"

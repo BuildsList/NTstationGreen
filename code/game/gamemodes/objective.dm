@@ -173,7 +173,7 @@ datum/objective/hijack/check_completion()
 
 
 datum/objective/block
-	explanation_text = "Ќе допустить, что бы хот&#255; бы одна ограническа&#255; форма жизни покинула станцию на шатлле."
+	explanation_text = "Ќе допустить, чтобы хот&#255; бы одна ограническа&#255; форма жизни покинула станцию на шатлле."
 	dangerrating = 25
 
 datum/objective/block/check_completion()
@@ -331,16 +331,16 @@ datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	else if(faction == "blue")
 		targetinfo = new/datum/objective_item/unique/docs_red
-	explanation_text = "ѕолучить [targetinfo.name] которые наход&#255;тс&#255; у [target.current.real_name], [target.assigned_role], нашего агента."
+	explanation_text = "«аполучите [targetinfo.name] которые наход&#255;тс&#255; у [target.current.real_name], [target.assigned_role]."
 	steal_target = targetinfo.targetitem
 
 
 datum/objective/steal/exchange/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "ѕолучить [targetinfo.name] которые наход&#255;тс&#255; у [target.current.real_name], [target.assigned_role], нашего агента."
+		explanation_text = "«аполучите [targetinfo.name] которые наход&#255;тс&#255; у [target.current.real_name], [target.assigned_role]."
 	else
-		explanation_text = "ѕолучить [targetinfo.name]"
+		explanation_text = "«аполучите [targetinfo.name]."
 
 
 datum/objective/steal/exchange/backstab
@@ -351,7 +351,7 @@ datum/objective/steal/exchange/backstab/set_faction(var/faction)
 		targetinfo = new/datum/objective_item/unique/docs_red
 	else if(faction == "blue")
 		targetinfo = new/datum/objective_item/unique/docs_blue
-	explanation_text = "Ќе проиграйте [targetinfo.name]."
+	explanation_text = "[targetinfo.name] не должны попасть в чужие руки."
 	steal_target = targetinfo.targetitem
 
 
@@ -361,7 +361,7 @@ datum/objective/download
 
 datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(10,20)
-	explanation_text = "—качайте [target_amount] научных уровней."
+	explanation_text = "”крадите [target_amount] уровней научных исследований."
 	return target_amount
 
 datum/objective/download/check_completion()
