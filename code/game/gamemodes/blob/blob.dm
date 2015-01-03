@@ -59,17 +59,17 @@ var/list/blob_nodes = list()
 
 
 /datum/game_mode/blob/announce()
-	world << "<B>The current game mode is - <font color='green'>Blob</font>!</B>"
-	world << "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>"
-	world << "You must kill it all while minimizing the damage to the station."
+	world << "<B>Текущий игровой режим - <font color='green'>Блоб</font>!</B>"
+	world << "<B>Опасный инопланетный организм с огромной скоростью размножаетс&#255; на станции</B>"
+	world << "Вы должны уничтожить его минимизиру&#255; убытки дл&#255; станции."
 
 
 /datum/game_mode/blob/proc/greet_blob(var/datum/mind/blob)
-	blob.current << "<B>\red You are infected by the Blob!</B>"
-	blob.current << "<b>Your body is ready to give spawn to a new blob core which will eat this station.</b>"
-	blob.current << "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>"
-	blob.current << "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>"
-	blob.current << "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>"
+	blob.current << "<B>\red Вы заражены спорами Блоба!</B>"
+	blob.current << "<b>Ваше тело готово породить &#255;дро Блоба, которое будет размножатс&#255; и пожирать станцию.</b>"
+	blob.current << "<b>Найдите укромное место и возьмите под контроль Блоба, что бы захватить станцию.</b>"
+	blob.current << "<b>Если вы уже нашли нужное место - подождите; это произойдет автоматически и вы никак не можете укорить этот процесс.</b>"
+	blob.current << "<b>Если вы не на станции или в космосе - вы умрете; убедитесь, что вы стоите на твёрдой земле.</b>"
 	return
 
 /datum/game_mode/blob/proc/show_message(var/message)
@@ -130,11 +130,11 @@ var/list/blob_nodes = list()
 
 		sleep(100)
 
-		show_message("<span class='alert'>You feel tired and bloated.</span>")
+		show_message("<span class='alert'>Вы чувствуете себ&#255; уставшим и хочетс&#255; рвать.</span>")
 
 		sleep(wait_time)
 
-		show_message("<span class='alert'>You feel like you are about to burst.</span>")
+		show_message("<span class='alert'>Вы чувствуете, как будто готовы разорватс&#255; в любой момент.</span>")
 
 		sleep(wait_time / 2)
 

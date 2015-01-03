@@ -12,8 +12,8 @@
 
 
 /datum/game_mode/meteor/announce()
-	world << "<B>The current game mode is - Meteor!</B>"
-	world << "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>"
+	world << "<B>Текущий игровой режим - Метеор!</B>"
+	world << "<B>Космическа&#255; станци&#255; попала в массивное скопление метеоритов. Вы должны выбратс&#255; со станции домой. Живым.</B>"
 
 
 /datum/game_mode/meteor/post_setup()
@@ -38,17 +38,17 @@
 			if(!location)	continue
 			switch(location.loc.type)
 				if( /area/shuttle/escape/centcom )
-					text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
+					text += "<br><b><font size=2>[player.real_name] спасс&#255; на экстреном шатлле.</font></b>"
 				if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod4/centcom )
-					text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
+					text += "<br><font size=2>[player.real_name] спасс&#255; на подах.</font>"
 				else
-					text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
+					text += "<br><font size=1>[player.real_name] выжил, но не улетел.</font>"
 			survivors++
 
 	if(survivors)
-		world << "\blue <B>The following survived the meteor storm</B>:[text]"
+		world << "\blue <B>Выжившие во врем&#255; метиоритного дожд&#255;</B>:[text]"
 	else
-		world << "\blue <B>Nobody survived the meteor storm!</B>"
+		world << "\blue <B>Никто не выжил после метеоритного дожд&#255;!</B>"
 
 	..()
 	return 1

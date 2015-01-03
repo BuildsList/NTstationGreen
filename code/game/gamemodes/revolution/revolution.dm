@@ -34,8 +34,8 @@
 //Announces the game type//
 ///////////////////////////
 /datum/game_mode/revolution/announce()
-	world << "<B>The current game mode is - Revolution!</B>"
-	world << "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>"
+	world << "<B>Текущий игровой режим - Революци&#255;!</B>"
+	world << "<B>Кто-то из члена персонала решил свергнуть глав! Ло&#255;льные члены персонала должны защитить глав любой ценой. "//<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@
 			var/datum/objective/mutiny/rev_obj = new
 			rev_obj.owner = rev_mind
 			rev_obj.target = head_mind
-			rev_obj.explanation_text = "Assassinate [head_mind.name], the [head_mind.assigned_role]."
+			rev_obj.explanation_text = "Убить [head_mind.name], [head_mind.assigned_role]."
 			rev_mind.objectives += rev_obj
 
 	//	equip_traitor(rev_mind.current, 1) //changing how revs get assigned their uplink so they can get PDA uplinks. --NEO
@@ -112,15 +112,15 @@
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.owner = rev_mind
 		rev_obj.target = head_mind
-		rev_obj.explanation_text = "Assassinate [head_mind.name], the [head_mind.assigned_role]."
+		rev_obj.explanation_text = "Убить [head_mind.name], [head_mind.assigned_role]."
 		rev_mind.objectives += rev_obj
 
 /datum/game_mode/proc/greet_revolutionary(var/datum/mind/rev_mind, var/you_are=1)
 	var/obj_count = 1
 	if (you_are)
-		rev_mind.current << "\red <FONT size = 3><B>You are a member of the revolutionaries' leadership!</B></FONT>"
+		rev_mind.current << "\red <FONT size = 3><B>Вы &#255;вл&#255;етесь одним из глав революционного движени&#255;!</B></FONT>"
 	for(var/datum/objective/objective in rev_mind.objectives)
-		rev_mind.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		rev_mind.current << "<B>Задание #[obj_count]</B>: [objective.explanation_text]"
 		rev_mind.special_role = "Head Revolutionary"
 		obj_count++
 
@@ -133,7 +133,7 @@
 
 	if (mob.mind)
 		if (mob.mind.assigned_role == "Clown")
-			mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
+			mob << "Професси&#255; клоуна было лишь прикрытие, что бы проникнуть на станцию. Теперь мы можете не притвор&#255;тс&#255; и пользоватьс&#255; оружием нормально."
 			mob.remove_organic_effect(/datum/organic_effect/clumsy)
 
 
@@ -148,9 +148,9 @@
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if (!where)
-		mob << "The Syndicate were unfortunately unable to get you a flash."
+		mob << "Синдикат не смог снабдить вас флешкой."
 	else
-		mob << "The flash in your [where] will help you to persuade the crew to join your cause."
+		mob << "Флешка находитьс&#255; в [where]. Она поможет вам в продвижени&#255; революции в массы."
 		mob.update_icons()
 		return 1
 
@@ -190,7 +190,7 @@
 	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
 		return 0
 	revolutionaries += rev_mind
-	rev_mind.current << "\red <FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT>"
+	rev_mind.current << "\red <FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут отмечены синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT>"
 	rev_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has been converted to the revolution!</font>"
 	rev_mind.special_role = "Revolutionary"
 	update_rev_icons_added(rev_mind)
@@ -205,18 +205,18 @@
 		rev_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has renounced the revolution!</font>"
 
 		if(beingborged)
-			rev_mind.current << "\red <FONT size = 3><B>The frame's firmware detects and deletes your neural reprogramming!  You remember nothing from the moment you were flashed until now.</B></FONT>"
+			rev_mind.current << "\red <FONT size = 3><B>Программное обеспечение уничтожило последстви&#255; нейронного перепрограммировани&#255; и вы забыли всё, что было после вспышки.</B></FONT>"
 
 		else
-			rev_mind.current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</B></FONT>"
+			rev_mind.current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции! Вы забыли всё, что было после вспышки... в голове только им&#255; того, кто ослепил вас...</B></FONT>"
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))
 			if(beingborged)
-				M << "The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it."
+				M << "Програмное обеспечение полностью очистило мозг после его использовани&#255;."
 
 			else
-				M << "[rev_mind.current] looks like they just remembered their real allegiance!"
+				M << "[rev_mind.current] кажетс&#255; вспомнил то, кем он &#255;вл&#255;лс&#255; на самом деле!"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,9 +344,9 @@
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
 	if(finished == 1)
-		world << "\red <FONT size = 3><B> The heads of staff were killed or abandoned the station! The revolutionaries win!</B></FONT>"
+		world << "\red <FONT size = 3><B> Ло&#255;листы были убиты или покинули станцию. Победа революции!</B></FONT>"
 	else if(finished == 2)
-		world << "\red <FONT size = 3><B> The heads of staff managed to stop the revolution!</B></FONT>"
+		world << "\red <FONT size = 3><B> Ло&#255;листы смогли остановить революцию!</B></FONT>"
 	..()
 	return 1
 
@@ -354,21 +354,21 @@
 	var/list/targets = list()
 
 	if(head_revolutionaries.len || gamemode_is("revolution"))
-		var/text = "<br><font size=3><b>The head revolutionaries were:</b></font>"
+		var/text = "<br><font size=3><b>Главами революции были:</b></font>"
 
 		for(var/datum/mind/headrev in head_revolutionaries)
-			text += "<br><b>[headrev.key]</b> was <b>[headrev.name]</b> ("
+			text += "<br><b>[headrev.key]</b> был <b>[headrev.name]</b> ("
 			if(headrev.current)
 				if(headrev.current.stat == DEAD)
-					text += "died"
+					text += "мёртв"
 				else if(headrev.current.z != 1)
-					text += "fled the station"
+					text += "покинул станцию"
 				else
-					text += "survived the revolution"
+					text += "выжил во врем&#255; революции"
 				if(headrev.current.real_name != headrev.name)
-					text += " as <b>[headrev.current.real_name]</b>"
+					text += " как <b>[headrev.current.real_name]</b>"
 			else
-				text += "body destroyed"
+				text += "тело уничтожено"
 			text += ")"
 
 			for(var/datum/objective/mutiny/objective in headrev.objectives)
@@ -378,21 +378,21 @@
 		world << text
 
 	if(revolutionaries.len || gamemode_is("revolution"))
-		var/text = "<br><font size=3><b>The revolutionaries were:</b></font>"
+		var/text = "<br><font size=3><b>Революционерами были:</b></font>"
 
 		for(var/datum/mind/rev in revolutionaries)
-			text += "<br><b>[rev.key]</b> was <b>[rev.name]</b> ("
+			text += "<br><b>[rev.key]</b> был <b>[rev.name]</b> ("
 			if(rev.current)
 				if(rev.current.stat == DEAD)
-					text += "died"
+					text += "мёртв"
 				else if(rev.current.z != 1)
-					text += "fled the station"
+					text += "покинул станцию"
 				else
-					text += "survived the revolution"
+					text += "выжил во врем&#255; революции"
 				if(rev.current.real_name != rev.name)
-					text += " as <b>[rev.current.real_name]</b>"
+					text += " как <b>[rev.current.real_name]</b>"
 			else
-				text += "body destroyed"
+				text += "тело уничтожено"
 			text += ")"
 		text += "<br>"
 
@@ -400,25 +400,25 @@
 
 
 	if( head_revolutionaries.len || revolutionaries.len || gamemode_is("revolution") )
-		var/text = "<br><font size=3><b>The heads of staff were:</b></font>"
+		var/text = "<br><font size=3><b>Цел&#255;ми революции были:</b></font>"
 
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
 				text += "<font color='red'>"
-			text += "<br><b>[head.key]</b> was <b>[head.name]</b> ("
+			text += "<br><b>[head.key]</b> был <b>[head.name]</b> ("
 			if(head.current)
 				if(head.current.stat == DEAD)
-					text += "died"
+					text += "мёртв"
 				else if(head.current.z != 1)
-					text += "fled the station"
+					text += "улетел  со станции"
 				else
-					text += "survived the revolution"
+					text += "выжил во врем&#255; революции"
 				if(head.current.real_name != head.name)
-					text += " as <b>[head.current.real_name]</b>"
+					text += " как <b>[head.current.real_name]</b>"
 			else
-				text += "body destroyed"
+				text += "тело уничтожено"
 			text += ")"
 			if(target)
 				text += "</font>"

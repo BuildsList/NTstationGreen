@@ -43,8 +43,8 @@ var/round_start_time = 0
 		else
 			ERROR("configuration was null when retrieving the lobby_countdown value.")
 			pregame_timeleft = 120
-		world << "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>"
-		world << "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds"
+		world << "<B><FONT color='blue'>Добро пожаловать в лобби!</FONT></B>"
+		world << "Настройте своего персонажа  и приготовьтесь к началу игры. Раунд начнётс&#255; через [pregame_timeleft] секунд"
 		while(current_state == GAME_STATE_PREGAME)
 			sleep(10)
 			if(going)
@@ -71,14 +71,14 @@ var/round_start_time = 0
 			runnable_modes = config.get_runnable_modes()
 			if (runnable_modes.len==0)
 				current_state = GAME_STATE_PREGAME
-				world << "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby."
+				world << "<B>Невозможно выбрать играбельный режим.</B> Возвращаемс&#255; в лобби."
 				return 0
 			src.mode = pickweight(runnable_modes)
 
 	else
 		src.mode = config.pick_mode(master_mode)
 		if (!src.mode.can_start())
-			world << "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players and [mode.required_enemies] eligible antagonists needed. Reverting to pre-game lobby."
+			world << "<B>Невозможно начать [mode.name].</B> Недостаточно игроков, требуетс&#255; [mode.required_players] игроков из которых [mode.required_enemies] могут быть рол&#255;ми. Возвращаемс&#255; в лобби."
 			del(mode)
 			current_state = GAME_STATE_PREGAME
 			job_master.ResetOccupations()
@@ -94,7 +94,7 @@ var/round_start_time = 0
 		if(!can_continue)
 			del(mode)
 			current_state = GAME_STATE_PREGAME
-			world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
+			world << "<B>Ошибка в старте [master_mode].</B> Возвращаемс&#255; в лобби."
 			job_master.ResetOccupations()
 			return 0
 	else
@@ -105,8 +105,8 @@ var/round_start_time = 0
 		for (var/datum/game_mode/M in runnable_modes)
 			modes+=M.name
 		modes = sortList(modes)
-		world << "<B>The current game mode is - Secret!</B>"
-		world << "<B>Possibilities:</B> [english_list(modes)]"
+		world << "<B>Текущий игровой режим - Секрет!</B>"
+		world << "<B>Возможные режимы:</B> [english_list(modes)]"
 	else
 		src.mode.announce()
 
@@ -131,11 +131,11 @@ var/round_start_time = 0
 			//Deleting Startpoints but we need the ai point to AI-ize people later
 			if (S.name != "AI")
 				qdel(S)
-		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
+		world << "<FONT color='blue'><B>Удачи и весёлой игры!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
 		if(events.holiday)
-			world << "<font color='blue'>and...</font>"
+			world << "<font color='blue'>и...</font>"
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
 
 	auto_toggle_ooc(0) // Turn it off
@@ -266,7 +266,7 @@ var/round_start_time = 0
 		if(captainless)
 			for(var/mob/M in player_list)
 				if(!istype(M,/mob/new_player))
-					M << "Captainship not forced on anyone."
+					M << "Капитан отсутствует на станции."
 
 
 	proc/process()
@@ -287,17 +287,17 @@ var/round_start_time = 0
 				showcredits()
 				if (mode.station_was_nuked)
 					if(!delay_end)
-						world << "\blue <B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>"
+						world << "\blue <B>Станци&#255; была уничтожена, перезагрузка через [restart_timeout/10] секунд</B>"
 				else
 					if(!delay_end)
-						world << "\blue <B>Restarting in [restart_timeout/10] seconds</B>"
+						world << "\blue <B>Перезагрузка через [restart_timeout/10] секунд</B>"
 
 				if(!delay_end)
 					sleep(restart_timeout)
-					kick_clients_in_lobby("\red The round came to an end with you in the lobby.", 1) //second parameter ensures only afk clients are kicked
+					kick_clients_in_lobby("\red Раунд кончилс&#255;, а ты ещё в лобби..", 1) //second parameter ensures only afk clients are kicked
 					world.Reboot()
 				else
-					world << "\blue <B>An admin has delayed the round end</B>"
+					world << "\blue <B>Администратор отложил конец раунда.</B>"
 
 		return 1
 
@@ -311,28 +311,28 @@ var/round_start_time = 0
 
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2 && aiPlayer.mind)
-			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.mind.key])'s laws at the end of the game were:</b>"
+			world << "<b>Законы [aiPlayer.name] (Игрок: [aiPlayer.mind.key]) к концу ранда были:</b>"
 			aiPlayer.show_laws(1)
 		else if (aiPlayer.mind) //if the dead ai has a mind, use its key instead
-			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.mind.key])'s laws when it was deactivated were:</b>"
+			world << "<b>Законы [aiPlayer.name] (Игрок: [aiPlayer.mind.key]) перед деактивацией были:</b>"
 			aiPlayer.show_laws(1)
 
 		if (aiPlayer.connected_robots.len)
-			var/robolist = "<b>[aiPlayer.real_name]'s loyal minions were:</b> "
-			var/vsrobolist = "\red <b>[aiPlayer.real_name]'s disloyal minions were:</b> \black"
+			var/robolist = "<b>Ло&#255;льными миньонами [aiPlayer.real_name] были:</b> "
+			var/vsrobolist = "\red <b>Самосто&#255;тельными миньонами [aiPlayer.real_name] были:</b> \black"
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				if (is_special_character(robo) && robo.mind)
-					vsrobolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.mind.key]), ":" (Played by: [robo.mind.key]), "]"
+					vsrobolist += "[robo.name][robo.stat?" (Деактивирован) (Игрок: [robo.mind.key]), ":" (Игрок: [robo.mind.key]), "]"
 					continue
-				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.mind.key]), ":" (Played by: [robo.mind.key]), "]"
+				robolist += "[robo.name][robo.stat?" (Деактивирован) (Игрок: [robo.mind.key]), ":" (Игрок: [robo.mind.key]), "]"
 			world << "[robolist]"
 			world << "[vsrobolist]"
 	for (var/mob/living/silicon/robot/robo in mob_list)
 		if (!robo.connected_ai && robo.mind)
 			if (robo.stat != 2)
-				world << "<b>[robo.name] (Played by: [robo.mind.key]) survived as an AI-less borg! Its laws were:</b>"
+				world << "<b>[robo.name] (Игрок: [robo.mind.key]) был самосто&#255;тельным киборгом. Его законы:</b>"
 			else
-				world << "<b>[robo.name] (Played by: [robo.mind.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
+				world << "<b>[robo.name] (Игрок: [robo.mind.key]) не смож выжить, будучи самосто&#255;тельным киборгом. Его законы:</b>"
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)

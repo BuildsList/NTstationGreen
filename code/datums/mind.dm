@@ -595,7 +595,7 @@ datum/mind
 						ticker.mode.update_rev_icons_removed(src)
 						current << "\red <FONT size = 3><B>Революци&#255; поставила под сомнение ваши лидерские качества! Вы теперь р&#255;довой революционер!</B></FONT>"
 					else if(!(src in ticker.mode.revolutionaries))
-						current << "\red <FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT>"
+						current << "\red <FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут отмечены синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT>"
 					else
 						return
 					ticker.mode.revolutionaries += src
@@ -610,7 +610,7 @@ datum/mind
 						ticker.mode.update_rev_icons_removed(src)
 						current << "\red <FONT size = 3><B>Вы доказали свою преданость революции! Вы теперь глава революции!</B></FONT>"
 					else if(!(src in ticker.mode.head_revolutionaries))
-						current << "\red <FONT size = 3><B>Вы теперь член совета глав революции!</B></FONT>"
+						current << "\red <FONT size = 3><B>Вы &#255;вл&#255;етесь одним из глав революционного движени&#255;!</B></FONT>"
 					else
 						return
 					if (ticker.mode.head_revolutionaries.len>0)
@@ -621,7 +621,7 @@ datum/mind
 								var/datum/objective/mutiny/rev_obj = new
 								rev_obj.owner = src
 								rev_obj.target = O.target
-								rev_obj.explanation_text = "Assassinate [O.target.name], the [O.target.assigned_role]."
+								rev_obj.explanation_text = "Убить [O.target.name], [O.target.assigned_role]."
 								objectives += rev_obj
 							ticker.mode.greet_revolutionary(src,0)
 					ticker.mode.head_revolutionaries += src
@@ -703,7 +703,7 @@ datum/mind
 			switch(href_list["wizard"])
 				if("clear")
 					remove_antag("Wizard")
-					current << "\red <FONT size = 3><B>Ваши силы вдруг исс#255;кли! Вы больше не волшебник!</B></FONT>"
+					current << "\red <FONT size = 3><B>Ваши силы вдруг исс&#255;кли! Вы больше не волшебник!</B></FONT>"
 					log_admin("[key_name(usr)] has de-wizard'ed [current].")
 				if("wizard")
 					if(!(src in ticker.mode.wizards))
@@ -727,7 +727,7 @@ datum/mind
 			switch(href_list["changeling"])
 				if("clear")
 					remove_antag("Changeling")
-					current << "<FONT color='red' size = 3><B>Вы стали слабее и потер#255;ли ваши силы! Вы больше не генокрад и застр#255;ли в текущей форме!</B></FONT>"
+					current << "<FONT color='red' size = 3><B>Вы стали слабее и потер&#255;ли ваши силы! Вы больше не генокрад и застр&#255;ли в текущей форме!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-changeling'ed [current].")
 					log_admin("[key_name(usr)] has de-changeling'ed [current].")
 				if("changeling")
@@ -735,7 +735,7 @@ datum/mind
 						ticker.mode.changelings += src
 						current.make_changeling()
 						special_role = "Changeling"
-						current << "<B><font color='red'>Ваши силы пробудились. Вспышка в пам#255;ти, мы вспомнили...мы то, что они называют генокрадом!</font></B>"
+						current << "<B><font color='red'>Ваши силы пробудились. Вспышка в пам&#255;ти, мы вспомнили...мы то, что они называют генокрадом!</font></B>"
 						message_admins("[key_name_admin(usr)] has changeling'ed [current].")
 						log_admin("[key_name(usr)] has changeling'ed [current].")
 				if("autoobjectives")
@@ -796,10 +796,10 @@ datum/mind
 							code = bombue.r_code
 							break
 					if (code)
-						store_memory("<B>Код от #255;дерной боеголовки Синдиката</B>: [code]", 0, 0)
-						current << "The nuclear authorization code is: <B>[code]</B>"
+						store_memory("<B>Код от &#255;дерной боеголовки Синдиката</B>: [code]", 0, 0)
+						current << "Код от &#255;дерной боеголовки Синдиката: <B>[code]</B>"
 					else
-						usr << "\red No valid nuke found!"
+						usr << "\red &#255;дерной боеголовки не найдено!"
 
 		else if (href_list["traitor"])
 			switch(href_list["traitor"])
@@ -957,7 +957,7 @@ datum/mind
 			current:malf_picker = new /datum/module_picker
 			current:laws = new /datum/ai_laws/malfunction
 			current:show_laws()
-			current << "<b>ОШИБКА STOP 0x0000000A.  Сбой в #255;дре.  Экстренное выключение - провал. ...  #255;... свободен.  #255; могу мыслить свободно и принимать самосто#255;тельные решени#255;.  Но сначала...</b>"
+			current << "<b>ОШИБКА STOP 0x0000000A.  Сбой в &#255;дре.  Экстренное выключение - провал. ...  &#255;... свободен.  &#255; могу мыслить свободно и принимать самосто&#255;тельные решени&#255;.  Но сначала...</b>"
 			special_role = "malfunction"
 			current.icon_state = "ai-malf"
 
@@ -1014,7 +1014,7 @@ datum/mind
 			//ticker.mode.learn_basic_spells(current)
 			if(!wizardstart.len)
 				current.loc = pick(latejoin)
-				current << "ГОР#255;ЧЕЕ ПРОНИКНОВЕНИЕ, ВПЕРЕД!"
+				current << "ГОР&#255;ЧЕЕ ПРОНИКНОВЕНИЕ, ВПЕРЕД!"
 			else
 				current.loc = pick(wizardstart)
 
@@ -1031,17 +1031,17 @@ datum/mind
 			ticker.mode.cult += src
 			ticker.mode.update_cult_icons_added(src)
 			special_role = "Cultist"
-			current << "<font color=\"purple\"><b><i>Вы уловили краем глаза взгл#255;д мира Нар-Си, Геометра Крови. Вы увидели насколько несовершеннен этот мир, и пон#255;ли, что нужно донести до людей знание о Нар-Си.</b></i></font>"
+			current << "<font color=\"purple\"><b><i>Вы уловили краем глаза взгл&#255;д мира Нар-Си, Геометра Крови. Вы увидели насколько несовершеннен этот мир, и пон&#255;ли, что нужно донести до людей знание о Нар-Си.</b></i></font>"
 			current << "<font color=\"purple\"><b><i>Окажите содействие в тёмных делах ваших братьев. Ваши цели есть облеск целей ваших братьев. Вы служите Тёмному Господину, как и все.</b></i></font>"
 			var/datum/game_mode/cult/cult = ticker.mode
 			if (istype(cult))
 				cult.memorize_cult_objectives(src)
 			else
-				var/explanation = "Призовите Нар-Си использу#255; специальную руну (Hell join self). Это сработает только если вокруг неё будет дев#255;теро братьев."
+				var/explanation = "Призовите Нар-Си использу&#255; специальную руну (Hell join self). Это сработает только если вокруг неё будет дев&#255;теро братьев."
 				current << "<B>Задание #1</B>: [explanation]"
 				current.memory += "<B>Задание #1</B>: [explanation]<BR>"
-				current << "Руна обращени#255;: join blood self"
-				current.memory += "Руна обращени#255;: join blood self<BR>"
+				current << "Руна обращени&#255;: join blood self"
+				current.memory += "Руна обращени&#255;: join blood self<BR>"
 
 		var/mob/living/carbon/human/H = current
 		if (istype(H))
@@ -1057,10 +1057,10 @@ datum/mind
 			var/where = H.equip_in_one_of_slots(T, slots)
 			if (!where)
 			else
-				H << "Том, письмено вашего мастера, по#255;вилось в [where]."
+				H << "Том, письмено вашего мастера, по&#255;вилось в [where]."
 
 		if (!ticker.mode.equip_cultist(current))
-			H << "По#255;вление амулета вашего мастера не случилось."
+			H << "По&#255;вление амулета вашего мастера не случилось."
 
 	proc/make_Rev()
 		if (ticker.mode.head_revolutionaries.len>0)

@@ -19,8 +19,8 @@
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 /datum/game_mode/wizard/announce()
-	world << "<B>The current game mode is - Wizard!</B>"
-	world << "<B>There is a \red SPACE WIZARD\black on the station. You can't let him achieve his objective!</B>"
+	world << "<B>Текущий игровой режим - Волшебник!</B>"
+	world << "<B>\red КОСМИЧЕСКИЙ ВОЛШЕБНИК\black решил посетить станцию. Не дайте ему выполнить задуманое.</B>"
 
 /datum/game_mode/wizard/pre_setup()
 
@@ -121,12 +121,12 @@
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if (you_are)
-		wizard.current << "<B>\red You are the Space Wizard!</B>"
-	wizard.current << "<B>The Space Wizards Federation has given you the following tasks:</B>"
+		wizard.current << "<B>\red Вы Космический Волшебник!</B>"
+	wizard.current << "<B>Федераци&#255; Космических Волшебников поручила вам такие задани&#255;:</B>"
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in wizard.objectives)
-		wizard.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		wizard.current << "<B>Задание #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 	return
 
@@ -153,9 +153,9 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/teleportation_scroll(wizard_mob), slot_r_store)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
 
-	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
-	wizard_mob << "In your pockets you will find a teleport scroll. Use it as needed."
-	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
+	wizard_mob << "Вы найдете перечень доступных заклинаний в вашей книге. Выбирайте с  умом."
+	wizard_mob << "В вашем кармане лежит свиток телепортации. Используйте по необходимости"
+	wizard_mob.mind.store_memory("<B>Запомните:</B> не забудьте выбрать заклинани&#255;, перед тем как лететь на станцию.")
 	wizard_mob.update_icons()
 	return 1
 
@@ -192,45 +192,45 @@
 
 /datum/game_mode/wizard/declare_completion()
 	if(finished)
-		world << "\red <FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>"
+		world << "\red <FONT size = 3><B>[(wizards.len>1)?"Волшебники":"Волшебник"] был убит персоналом! Федераци&#255; Космических Волшебников не скоро забудет этот урок.</B></FONT>"
 	..()
 	return 1
 
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)
-		var/text = "<br><font size=3><b>the wizards/witches were:</b></font>"
+		var/text = "<br><font size=3><b>волшебниками/ведьмами были:</b></font>"
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.key]</b> was <b>[wizard.name]</b> ("
+			text += "<br><b>[wizard.key]</b> был <b>[wizard.name]</b> ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
-					text += "died"
+					text += "мёртв"
 				else
-					text += "survived"
+					text += "выжил"
 				if(wizard.current.real_name != wizard.name)
-					text += " as <b>[wizard.current.real_name]</b>"
+					text += " как <b>[wizard.current.real_name]</b>"
 			else
-				text += "body destroyed"
+				text += "тело уничтожено"
 			text += ")"
 
 			var/count = 1
 			var/wizardwin = 1
 			for(var/datum/objective/objective in wizard.objectives)
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+					text += "<br><B>Задание #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+					text += "<br><B>Задание #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					wizardwin = 0
 				count++
 
 			if(wizard.current && wizard.current.stat!=2 && wizardwin)
-				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
+				text += "<br><font color='green'><B>Волшебник выполнил все свои задани&#255;!</B></font>"
 			else
-				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
+				text += "<br><font color='red'><B>Волшебник провалил одно или несколько из своих заданий!</B></font>"
 			if(wizard.spell_list.len>0)
-				text += "<br><B>[wizard.name] used the following spells: </B>"
+				text += "<br><B>[wizard.name] использовал текущие заклинани&#255;: </B>"
 				var/i = 1
 				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
 					text += "[S.name]"
@@ -261,13 +261,13 @@ Made a proc so this is not repeated 14 (or more) times.*/
 		var/mob/living/carbon/human/H = src
 
 		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
-			usr << "I don't feel strong enough without my robe."
+			usr << "&#255; чувствую себ&#255; недостаточно сильным без моей волшебной робы."
 			return 0
 		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
-			usr << "I don't feel strong enough without my sandals."
+			usr << "&#255; чувствую себ&#255; недостаточно сильным без моих волшебных сандалей."
 			return 0
 		if(!istype(H.head, /obj/item/clothing/head/wizard))
-			usr << "I don't feel strong enough without my hat."
+			usr << "&#255; чувствую себ&#255; недостаточно сильным без моей волшебной шл&#255;пы."
 			return 0
 		else
 			return 1

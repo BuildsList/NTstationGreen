@@ -24,14 +24,14 @@
 /mob/camera/blob/Login()
 	..()
 	sync_mind()
-	src << "<span class='notice'>You are the overmind!</span>"
-	src << "You are the overmind and can control the blob! You can expand, which will attack people, and place new blob pieces such as..."
-	src << "<b>Normal Blob</b> will expand your reach and allow you to upgrade into special blobs that perform certain functions."
-	src << "<b>Shield Blob</b> is a strong and expensive blob which can take more damage. It is fireproof and can block air, use this to protect yourself from station fires."
-	src << "<b>Resource Blob</b> is a blob which will collect more resources for you, try to build these earlier to get a strong income. It will benefit from being near your core or multiple nodes, by having an increased resource rate; put it alone and it won't create resources at all."
-	src << "<b>Node Blob</b> is a blob which will grow, like the core. Unlike the core it won't give you a small income but it can power resource and factory blobs to increase their rate."
-	src << "<b>Factory Blob</b> is a blob which will spawn blob spores which will attack nearby food. Putting this nearby nodes and your core will increase the spawn rate; put it alone and it will not spawn any spores."
-	src << "<b>Shortcuts:</b> CTRL Click = Expand Blob / Middle Mouse Click = Rally Spores / Alt Click = Create Shield"
+	src << "<span class='notice'>¬ы теперь Ќадмозг!</span>"
+	src << " ак Ќадмозг вы можете управл&#255;ть &#255;дром Ѕлоба. “еперь вы можете расшир&#255;тьс&#255;, что бы вредить люд&#255;м и ставить новые блоки, такие  как..."
+	src << "<b>Normal Blob</b>: &#255;вл&#255;етс&#255; стандартным блоком, который поможет захватить станцию."
+	src << "<b>Shield Blob</b>: более укрепленна&#255; и дорога&#255; верси&#255; обычного Ѕлоба, котора&#255; огнеупорна и может блокировать воздух. ѕолезно против ассистентов-пиротехников. "
+	src << "<b>Resource Blob</b>: особый вид Ѕлоба, который будет давать вам очки на постройку, постройте в самом начале парочку таких, что бы получить стабильный приход ресурсов.  »меет прирост эфективности, если размещать возле &#255;дра или узлов; в одиночку ресурсный Ѕлоб не будет производить ресурсов."
+	src << "<b>Node Blob</b>: так же как и &#255;дро, оно светитс&#255;, но не дает небольшую прибавку к ресурсам. »спользуйте его, как автоматический распространитель нормальных Ѕлобов и в св&#255;зке с ресурсными Ѕлобами.."
+	src << "<b>Factory Blob</b>: Ѕлоб, который будет создавать споры, которые будут  защищать &#255;дро и атаковать любые признаки жизни. “ак же как и ресурсный Ѕлоб, должен находитс&#255; возле &#255;дра или узла, чтобы увеличить частоту производства спор; в одиночку оно не будет работать."
+	src << "<b>’откеи:</b> CTRL Click = —оздать Normal Blob / Middle Mouse Click = вызвать споры / Alt Click = —оздать Shield Blob"
 	update_health()
 
 /mob/camera/blob/proc/update_health()
