@@ -1071,7 +1071,7 @@ datum/mind
 					var/datum/objective/mutiny/rev_obj = new
 					rev_obj.owner = src
 					rev_obj.target = O.target
-					rev_obj.explanation_text = "Assassinate [O.target.current.real_name], the [O.target.assigned_role]."
+					rev_obj.explanation_text = "Убейте [O.target.current.real_name],[O.target.assigned_role]."
 					objectives += rev_obj
 				ticker.mode.greet_revolutionary(src,0)
 		ticker.mode.head_revolutionaries += src
