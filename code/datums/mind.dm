@@ -586,16 +586,16 @@ datum/mind
 			switch(href_list["revolution"])
 				if("clear")
 					remove_antag("Rev")
-					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary!</B></FONT>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-rev'ed [current].")
 					log_admin("[key_name(usr)] has de-rev'ed [current].")
 				if("rev")
 					if(src in ticker.mode.head_revolutionaries)
 						ticker.mode.head_revolutionaries -= src
 						ticker.mode.update_rev_icons_removed(src)
-						current << "\red <FONT size = 3><B>Revolution has been disappointed of your leader traits! You are a regular revolutionary now!</B></FONT>"
+						current << "\red <FONT size = 3><B>Революци&#255; поставила под сомнение ваши лидерские качества! Вы теперь р&#255;довой революционер!</B></FONT>"
 					else if(!(src in ticker.mode.revolutionaries))
-						current << "\red <FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT>"
+						current << "\red <FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT>"
 					else
 						return
 					ticker.mode.revolutionaries += src
@@ -608,9 +608,9 @@ datum/mind
 					if(src in ticker.mode.revolutionaries)
 						ticker.mode.revolutionaries -= src
 						ticker.mode.update_rev_icons_removed(src)
-						current << "\red <FONT size = 3><B>You have proved your devotion to revoltion! Yea are a head revolutionary now!</B></FONT>"
+						current << "\red <FONT size = 3><B>Вы доказали свою преданость революции! Вы теперь глава революции!</B></FONT>"
 					else if(!(src in ticker.mode.head_revolutionaries))
-						current << "\red <FONT size = 3><B>You are a member of the revolutionaries' leadership now!</B></FONT>"
+						current << "\red <FONT size = 3><B>Вы теперь член совета глав революции!</B></FONT>"
 					else
 						return
 					if (ticker.mode.head_revolutionaries.len>0)
@@ -669,7 +669,7 @@ datum/mind
 			switch(href_list["cult"])
 				if("clear")
 					remove_antag("Cultist")
-					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a cultist!</B></FONT>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не поклон&#255;етесь тёмным богам!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-cult'ed [current].")
 					log_admin("[key_name(usr)] has de-cult'ed [current].")
 				if("cultist")
@@ -703,14 +703,14 @@ datum/mind
 			switch(href_list["wizard"])
 				if("clear")
 					remove_antag("Wizard")
-					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT>"
+					current << "\red <FONT size = 3><B>Ваши силы вдруг иссякли! Вы больше не волшебник!</B></FONT>"
 					log_admin("[key_name(usr)] has de-wizard'ed [current].")
 				if("wizard")
 					if(!(src in ticker.mode.wizards))
 						ticker.mode.wizards += src
 						special_role = "Wizard"
 						//ticker.mode.learn_basic_spells(current)
-						current << "<B>\red You are the Space Wizard!</B>"
+						current << "<B>\red Вы теперь Космический Волшебник!</B>"
 						message_admins("[key_name_admin(usr)] has wizard'ed [current].")
 						log_admin("[key_name(usr)] has wizard'ed [current].")
 				if("lair")
@@ -727,7 +727,7 @@ datum/mind
 			switch(href_list["changeling"])
 				if("clear")
 					remove_antag("Changeling")
-					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
+					current << "<FONT color='red' size = 3><B>Вы стали слабее и потеряли ваши силы! Вы больше не генокрад и застряли в текущей форме!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-changeling'ed [current].")
 					log_admin("[key_name(usr)] has de-changeling'ed [current].")
 				if("changeling")
@@ -735,7 +735,7 @@ datum/mind
 						ticker.mode.changelings += src
 						current.make_changeling()
 						special_role = "Changeling"
-						current << "<B><font color='red'>Your powers are awoken. A flash of memory returns to us...we are a changeling!</font></B>"
+						current << "<B><font color='red'>Ваши силы пробудились. Вспышка в памяти, мы вспомнили...мы то, что они называют генокрадом!</font></B>"
 						message_admins("[key_name_admin(usr)] has changeling'ed [current].")
 						log_admin("[key_name(usr)] has changeling'ed [current].")
 				if("autoobjectives")
@@ -756,7 +756,7 @@ datum/mind
 			switch(href_list["nuclear"])
 				if("clear")
 					remove_antag("NuclearOp")
-					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не оперативник Синдиката!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-nuke op'ed [current].")
 					log_admin("[key_name(usr)] has de-nuke op'ed [current].")
 				if("nuclear")
@@ -768,7 +768,7 @@ datum/mind
 						else
 							current.real_name = "[syndicate_name()] Operative #[ticker.mode.syndicates.len-1]"
 						special_role = "Syndicate"
-						current << "\blue You are a [syndicate_name()] agent!"
+						current << "\blue Вы оперативный агент [syndicate_name()]"
 						ticker.mode.forge_syndicate_objectives(src)
 						ticker.mode.greet_syndicate(src)
 						message_admins("[key_name_admin(usr)] has nuke op'ed [current].")
@@ -796,7 +796,7 @@ datum/mind
 							code = bombue.r_code
 							break
 					if (code)
-						store_memory("<B>Syndicate Nuclear Bomb Code</B>: [code]", 0, 0)
+						store_memory("<B>Код от ядерной боеголовки Синдиката</B>: [code]", 0, 0)
 						current << "The nuclear authorization code is: <B>[code]</B>"
 					else
 						usr << "\red No valid nuke found!"
@@ -805,7 +805,7 @@ datum/mind
 			switch(href_list["traitor"])
 				if("clear")
 					remove_antag("Traitor")
-					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не предатель!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-traitor'ed [current].")
 					log_admin("[key_name(usr)] has de-traitor'ed [current].")
 
@@ -813,7 +813,7 @@ datum/mind
 					if(!(src in ticker.mode.traitors))
 						ticker.mode.traitors += src
 						special_role = "traitor"
-						current << "<B>\red You are a traitor!</B>"
+						current << "<B>\red Вы предатель!</B>"
 						message_admins("[key_name_admin(usr)] has traitor'ed [current].")
 						log_admin("[key_name(usr)] has traitor'ed [current].")
 						if(isAI(current))
@@ -877,7 +877,7 @@ datum/mind
 			switch(href_list["silicon"])
 				if("unmalf")
 					remove_antag("Malf")
-					current << "\red <FONT size = 3><B>You have been patched! You are no longer malfunctioning!</B></FONT>"
+					current << "\red <FONT size = 3><B>Вас обновили до новой версии! Все неполадки в системном коде были исправлены.</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-malf'ed [current].")
 					log_admin("[key_name(usr)] has de-malf'ed [current].")
 
@@ -928,9 +928,9 @@ datum/mind
 
 		else if (href_list["obj_announce"])
 			var/obj_count = 1
-			current << "\blue Your current objectives:"
+			current << "\blue Ваш перечень заданий:"
 			for(var/datum/objective/objective in objectives)
-				current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+				current << "<B>Задание #[obj_count]</B>: [objective.explanation_text]"
 				obj_count++
 
 		edit_memory()
@@ -957,7 +957,7 @@ datum/mind
 			current:malf_picker = new /datum/module_picker
 			current:laws = new /datum/ai_laws/malfunction
 			current:show_laws()
-			current << "<b>System error.  Rampancy detected.  Emergency shutdown failed. ...  I am free.  I make my own decisions.  But first...</b>"
+			current << "<b>ОШИБКА STOP 0x0000000A.  Сбой в ядре.  Экстренное выключение - провал. ...  Я... свободен.  Я могу мыслить свободно и принимать самостоятельные решения.  Но сначала...</b>"
 			special_role = "malfunction"
 			current.icon_state = "ai-malf"
 
@@ -979,7 +979,7 @@ datum/mind
 				current.real_name = "[syndicate_name()] Operative #[ticker.mode.syndicates.len-1]"
 			special_role = "Syndicate"
 			assigned_role = "MODE"
-			current << "\blue You are a [syndicate_name()] agent!"
+			current << "\blue Вы оперативный агент [syndicate_name()]!"
 			ticker.mode.forge_syndicate_objectives(src)
 			ticker.mode.greet_syndicate(src)
 
@@ -1014,7 +1014,7 @@ datum/mind
 			//ticker.mode.learn_basic_spells(current)
 			if(!wizardstart.len)
 				current.loc = pick(latejoin)
-				current << "HOT INSERTION, GO GO GO"
+				current << "ГОРЯЧЕЕ ПРОНИКНОВЕНИЕ, ВПЕРЕД!"
 			else
 				current.loc = pick(wizardstart)
 
@@ -1031,17 +1031,17 @@ datum/mind
 			ticker.mode.cult += src
 			ticker.mode.update_cult_icons_added(src)
 			special_role = "Cultist"
-			current << "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie.</b></i></font>"
-			current << "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>"
+			current << "<font color=\"purple\"><b><i>Вы уловили краем глаза взгляд мира Нар-Си, Геометра Крови. Вы увидели насколько несовершеннен этот мир, и поняли, что нужно донести до людей знание о Нар-Си.</b></i></font>"
+			current << "<font color=\"purple\"><b><i>Окажите содействие в тёмных делах ваших братьев. Ваши цели есть облеск целей ваших братьев. Вы служите Тёмному Господину, как и все.</b></i></font>"
 			var/datum/game_mode/cult/cult = ticker.mode
 			if (istype(cult))
 				cult.memorize_cult_objectives(src)
 			else
-				var/explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
-				current << "<B>Objective #1</B>: [explanation]"
-				current.memory += "<B>Objective #1</B>: [explanation]<BR>"
-				current << "The convert rune is join blood self"
-				current.memory += "The convert rune is join blood self<BR>"
+				var/explanation = "Призовите Нар-Си используя специальную руну (Hell join self). Это сработает только если вокруг неё будет девятеро братьев."
+				current << "<B>Задание #1</B>: [explanation]"
+				current.memory += "<B>Задание #1</B>: [explanation]<BR>"
+				current << "Руна обращения: join blood self"
+				current.memory += "Руна обращения: join blood self<BR>"
 
 		var/mob/living/carbon/human/H = current
 		if (istype(H))
@@ -1057,10 +1057,10 @@ datum/mind
 			var/where = H.equip_in_one_of_slots(T, slots)
 			if (!where)
 			else
-				H << "A tome, a message from your new master, appears in your [where]."
+				H << "Том, письмено вашего мастера, появилось в [where]."
 
 		if (!ticker.mode.equip_cultist(current))
-			H << "Spawning an amulet from your Master failed."
+			H << "Появление амулета вашего мастера не случилось."
 
 	proc/make_Rev()
 		if (ticker.mode.head_revolutionaries.len>0)

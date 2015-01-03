@@ -47,6 +47,7 @@
 	SUIT_TYPE = /obj/item/clothing/suit/space/rig
 	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig
 	MASK_TYPE = /obj/item/clothing/mask/breath
+	STORAGE_TYPE = /obj/item/clothing/shoes/magboots
 
 /obj/machinery/suit_storage_unit/medical
 	SUIT_TYPE = /obj/item/clothing/suit/space/rig/medical

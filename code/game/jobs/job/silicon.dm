@@ -28,7 +28,7 @@ Cyborg
 */
 /datum/job/cyborg
 	title = "Cyborg"
-	r_title = "Киборг"
+	r_title = "киборг"
 	flag = CYBORG
 	department_flag = ENGSEC
 	faction = "Station"
