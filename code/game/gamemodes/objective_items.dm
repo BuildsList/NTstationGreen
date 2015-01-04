@@ -122,7 +122,7 @@ datum/objective_item/blueprints/check_special_completion(var/obj/item/I)
 	return 0
 
 datum/objective_item/steal/slime
-	name = "не использованный экстракт слизня"
+	name = "неиспользованный экстракт слайма"
 	targetitem = /obj/item/slime_extract
 	difficulty = 3
 	excludefromjob = list("Research Director","Scientist")
