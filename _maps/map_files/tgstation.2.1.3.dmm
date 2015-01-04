@@ -251,7 +251,7 @@
 "aeQ" = (/obj/structure/rack,/obj/item/weapon/gun/energy/gun{pixel_x = -3; pixel_y = 3},/obj/item/weapon/gun/energy/gun,/obj/item/weapon/gun/energy/gun{pixel_x = 3; pixel_y = -3},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/ai_monitored/security/armory)
 "aeR" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor{dir = 10; icon_state = "warning"},/area/ai_monitored/security/armory)
 "aeS" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "warning"},/area/ai_monitored/security/armory)
-"aeT" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 5},/obj/structure/reagent_dispensers/peppertank{pixel_y = -32},/obj/machinery/bot/ed209,/turf/simulated/floor{dir = 6; icon_state = "warning"},/area/ai_monitored/security/armory)
+"aeT" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 5},/obj/structure/reagent_dispensers/peppertank{pixel_y = -32},/turf/simulated/floor{dir = 6; icon_state = "warning"},/area/ai_monitored/security/armory)
 "aeU" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/wall/r_wall,/area/ai_monitored/security/armory)
 "aeV" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/floor{icon_state = "showroomfloor"},/area/security/main)
 "aeW" = (/obj/machinery/atmospherics/pipe/manifold{pipe_color = "red"; dir = 4; icon_state = "manifold-r-f"; initialize_directions = 11; level = 1; name = "pipe manifold"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/security/main)
