@@ -261,7 +261,7 @@
 
 	else if (!disk_rescued &&  station_was_nuked &&           syndies_didnt_escape)
 		world << "<FONT size = 3><B>“ќ“јЋ№Ќџ… Ё —“≈–ћ»Ќј“”—!</B></FONT>"
-		world << "<B>ќперативные агенты [syndicate_name()] уничтожили [station_name()], но не успели улететь и поджарились вместе с персоналом.</B> ¬ следующий раз не проебите диск, дауны!"
+		world << "<B>ќперативные агенты [syndicate_name()] уничтожили [station_name()], но не успели улететь и поджарились вместе с персоналом.</B>"
 
 	else if (!disk_rescued && !station_was_nuked &&  nuke_off_station && !syndies_didnt_escape)
 		world << "<FONT size = 3><B>„астична&#255; победа персонала</B></FONT>"

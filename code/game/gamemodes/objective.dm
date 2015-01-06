@@ -147,7 +147,7 @@ datum/objective/protect/update_explanation_text()
 
 
 datum/objective/hijack
-	explanation_text = "Улететь на эвакуационном шатлле в одиночку."
+	explanation_text = "Улететь на эвакуационном шаттле в одиночку."
 	dangerrating = 25
 
 datum/objective/hijack/check_completion()
@@ -173,7 +173,7 @@ datum/objective/hijack/check_completion()
 
 
 datum/objective/block
-	explanation_text = "Не допустить, чтобы хот&#255; бы одна ограническа&#255; форма жизни покинула станцию на шатлле."
+	explanation_text = "Не допустить, чтобы хот&#255; бы одна ограническа&#255; форма жизни покинула станцию на шаттле."
 	dangerrating = 25
 
 datum/objective/block/check_completion()
@@ -196,7 +196,7 @@ datum/objective/block/check_completion()
 
 
 datum/objective/escape
-	explanation_text = "Покинуть станцию на эвакуационном шатлле или поде, не будучи пойманым."
+	explanation_text = "Покинуть станцию на эвакуационном шаттле или спасательной капсуле, не будучи пойманным."
 	dangerrating = 5
 
 datum/objective/escape/check_completion()

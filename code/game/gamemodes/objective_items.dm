@@ -40,7 +40,7 @@ datum/objective_item/steal/magboots
 	excludefromjob = list("Chief Engineer")
 
 datum/objective_item/steal/corgimeat
-	name = "ломтик мяса корги"
+	name = "ломтик м&#255;са корги"
 	targetitem = /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	difficulty = 5
 	excludefromjob = list("Head of Personnel") //>hurting your little buddy ever
@@ -58,7 +58,7 @@ datum/objective_item/steal/hypo
 	excludefromjob = list("Chief Medical Officer")
 
 datum/objective_item/steal/nukedisc
-	name = "диск ядерной аутентификации"
+	name = "диск &#255;дерной аутентификации"
 	targetitem = /obj/item/weapon/disk/nuclear
 	difficulty = 5
 	excludefromjob = list("Captain")
@@ -165,7 +165,7 @@ datum/objective_item/special/boh
 	difficulty = 10
 
 datum/objective_item/special/hypercell
-	name = "батарейку с гипер зарядом"
+	name = "батарейку с гипер зар&#255;дом"
 	targetitem = /obj/item/weapon/stock_parts/cell/hyper
 	difficulty = 5
 
@@ -176,7 +176,7 @@ datum/objective_item/special/laserpointer
 
 //Stack objectives get their own subtype
 datum/objective_item/stack
-	name = "пять картонок"
+	name = "п&#255;ть картонок"
 	targetitem = /obj/item/stack/sheet/cardboard
 	difficulty = 9001
 
@@ -189,16 +189,16 @@ datum/objective_item/stack/check_special_completion(var/obj/item/stack/S)
 	return found_amount>=target_amount
 
 datum/objective_item/stack/diamond
-	name = "десять алмазов"
+	name = "дес&#255;ть алмазов"
 	targetitem = /obj/item/stack/sheet/mineral/diamond
 	difficulty = 10
 
 datum/objective_item/stack/gold
-	name = "пятьдесят слитков золота"
+	name = "п&#255;тьдес&#255;т слитков золота"
 	targetitem = /obj/item/stack/sheet/mineral/gold
 	difficulty = 15
 
 datum/objective_item/stack/uranium
-	name = "двадцать пять обработанных стержней урана"
+	name = "двадцать п&#255;ть обработанных стержней урана"
 	targetitem = /obj/item/stack/sheet/mineral/uranium
 	difficulty = 10

@@ -38,7 +38,7 @@
 			if(!location)	continue
 			switch(location.loc.type)
 				if( /area/shuttle/escape/centcom )
-					text += "<br><b><font size=2>[player.real_name] спасс&#255; на экстреном шатлле.</font></b>"
+					text += "<br><b><font size=2>[player.real_name] спасс&#255; на экстреном шаттле.</font></b>"
 				if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod4/centcom )
 					text += "<br><font size=2>[player.real_name] спасс&#255; на подах.</font>"
 				else

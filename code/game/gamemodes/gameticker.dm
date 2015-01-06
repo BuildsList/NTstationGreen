@@ -294,7 +294,7 @@ var/round_start_time = 0
 
 				if(!delay_end)
 					sleep(restart_timeout)
-					kick_clients_in_lobby("\red Раунд кончилс&#255;, а ты ещё в лобби..", 1) //second parameter ensures only afk clients are kicked
+					kick_clients_in_lobby("\red Прекрати мастурбировать, или я расскажу твоей матери.", 1) //second parameter ensures only afk clients are kicked
 					world.Reboot()
 				else
 					world << "\blue <B>Администратор отложил конец раунда.</B>"

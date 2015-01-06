@@ -48,7 +48,7 @@ Captain
 	L.imp_in = H
 	L.implanted = 1
 
-	world << "<b>[H.real_name] - новый капитан!</b>"
+	world << "<b>Капитан станции - [H.real_name]!</b>"
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
