@@ -59,7 +59,9 @@ emp_act
 
 	var/obj/item/organ/limb/affecting = get_organ(check_zone(def_zone))
 
-	if(check_shields(P.damage, "the [P.name]"))
+	var/obj/item/S = check_shields(P.damage, "the [P.name]")
+	if(S)
+		S.shield_block_event(P)
 		if(affecting.state != ORGAN_REMOVED)
 			affecting.dismember(null, GUN_DISMEMBERMENT, 0)
 			P.on_hit(src, 100, def_zone)
