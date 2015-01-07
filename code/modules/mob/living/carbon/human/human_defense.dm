@@ -96,13 +96,13 @@ emp_act
 		if(I.IsShield() && (prob(50 - round(damage / 3))))
 			visible_message("<span class='danger'>[src] blocks [attack_text] with [l_hand]!</span>", \
 							"<span class='userdanger'>[src] blocks [attack_text] with [l_hand]!</span>")
-			return 1
+			return I
 	if(r_hand && istype(r_hand, /obj/item/weapon))
 		var/obj/item/weapon/I = r_hand
 		if(I.IsShield() && (prob(50 - round(damage / 3))))
 			visible_message("<span class='danger'>[src] blocks [attack_text] with [r_hand]!</span>", \
 							"<span class='userdanger'>[src] blocks [attack_text] with [r_hand]!</span>")
-			return 1
+			return I
 	if(wear_suit && istype(wear_suit, /obj/item/))
 		var/obj/item/I = wear_suit
 		if(I.IsShield() && (prob(35)))
@@ -121,7 +121,7 @@ emp_act
 			if(buckled)
 				buckled.unbuckle()
 			src.loc = picked
-			return 1
+			return I
 	return 0
 
 
@@ -138,8 +138,11 @@ emp_act
 
 	var/hit_area = parse_zone(affecting.name)
 
-	if((user != src) && check_shields(I.force, "the [I.name]"))
-		return 0
+	if(user != src)
+		var/obj/item/S = check_shields(I.force, "the [I.name]")
+		if (S)
+			S.shield_block_event(I)
+			return 0
 
 	if(I.attack_verb && I.attack_verb.len)
 		visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I] by [user]!</span>", \
