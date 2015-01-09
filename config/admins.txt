@@ -1,5 +1,5 @@
 ###############################################################################################
-# Basically, ckey goes first. Rank goes after the "="                                         #
+# Basically, ckey goes first. Rank goes after the "-"                                         #
 # Case is not important for ckey.                                                             #
 # Case IS important for the rank.                                                             #
 # All punctuation (spaces etc) EXCEPT '-', '_' and '@' will be stripped from rank names.      #
@@ -7,9 +7,10 @@
 # NOTE: if the rank-name cannot be found in admin_ranks.txt, they will not be adminned! ~Carn #
 # NOTE: syntax was changed to allow hyphenation of ranknames, since spaces are stripped.      #
 ###############################################################################################
-MyLittleLoly = Game Master
-Smet19 = Game Master
-relativist = Game Master
-ZLOFENIX = Game Master
-account12 = Game Master
-Strinkor = Host
+MyLittleLoly - Game Master
+Smet19 - Game Master
+relativist - Game Master
+ZLOFENIX - Game Master
+account12 - Game Master
+Strinkor - Game Master
+Jack Rost - Game Master

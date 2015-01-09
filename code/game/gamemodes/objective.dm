@@ -331,7 +331,7 @@ datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	else if(faction == "blue")
 		targetinfo = new/datum/objective_item/unique/docs_red
-	explanation_text = "Заполучите [targetinfo.name] которые наход&#255;тс&#255; у [target.current.real_name], [target.assigned_role]."
+	explanation_text = "Заполучите [targetinfo.name], которые наход&#255;тс&#255; у [target.current.real_name], [target.assigned_role]."
 	steal_target = targetinfo.targetitem
 
 
