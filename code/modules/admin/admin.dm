@@ -29,6 +29,19 @@ var/global/floorIsLava = 0
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		body += "\[<A href='?_src_=holder;editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+	else
+		if (M.lastkey)
+			body +="(last played by <b>[M.lastkey]</b>) "
+
+	if(M.mind)
+		body += "<br>"
+		body += "Role: <b>[M.mind.assigned_role? "[M.mind.assigned_role]":"None"]</b>"
+		body += "<br>"
+		body += "Special Role: <b>[M.mind.special_role? "[M.mind.special_role]":"None"]</b>"
+
+	if(istype(M,/mob/living/silicon/robot) || istype(M,/mob/living/silicon/ai))
+		body += "<br>"
+		body += "<A href='?src=\ref[src];showlaws=\ref[M]'>Check Laws</font></a>"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
