@@ -229,20 +229,29 @@ Please contact me on #coderbus IRC. ~Carnie x
 	if(underwear)
 		var/datum/sprite_accessory/underwear/U = underwear_all[underwear]
 		if(U)
-			standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
+			if(gender == FEMALE)
+				standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s_f", "layer"=-BODY_LAYER)
+			else
+				standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
 
 
 	if(undershirt)
 		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 		if(U2)
-			standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
+			if(gender == FEMALE)
+				standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s_f", "layer"=-BODY_LAYER)
+			else
+				standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
 
 
 	if(socks)
 		if(get_num_limbs_of_state(LEG_RIGHT,ORGAN_FINE) >= 2)
 			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
-				standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
+				if(gender == FEMALE)
+					standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s_f", "layer"=-BODY_LAYER)
+				else
+					standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(standing.len)
 		overlays_standing[BODY_LAYER]	= standing
@@ -353,10 +362,15 @@ Please contact me on #coderbus IRC. ~Carnie x
 		var/t_color = w_uniform.item_color
 		if(!t_color)		t_color = icon_state
 
-		var/image/standing	= U.get_onmob_icon("uniform", -UNIFORM_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		var/image/standing = ""
+		if(G == "f")
+			standing	= U.get_onmob_f_icon("uniform", -UNIFORM_LAYER)
+		else
+			standing	= U.get_onmob_icon("uniform", -UNIFORM_LAYER)
 		overlays_standing[UNIFORM_LAYER]	= standing
 
-		var/G = (gender == FEMALE) ? "f" : "m"
+
 		if(G == "f" && U.fitted == 1 && !U.item_state_icon)
 			var/index = "[t_color]_s"
 			var/icon/female_uniform_icon = female_uniform_icons[index]
@@ -407,7 +421,12 @@ Please contact me on #coderbus IRC. ~Carnie x
 			client.screen += gloves					//Either way, add the item to the HUD
 
 		if(get_num_limbs_of_state(ARM_RIGHT,ORGAN_FINE) >= 2)//if it's less than 2, don't bother rendering
-			var/image/standing = gloves.get_onmob_icon("hands", -GLOVES_LAYER)
+			var/G = (gender == FEMALE) ? "f" : "m"
+			var/image/standing = ""
+			if (G == "f")
+				standing = gloves.get_onmob_f_icon("hands", -GLOVES_LAYER)
+			else
+				standing = gloves.get_onmob_icon("hands", -GLOVES_LAYER)
 			overlays_standing[GLOVES_LAYER]	= standing
 
 			if(gloves.blood_DNA)
@@ -433,7 +452,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 			client.screen += glasses				//Either way, add the item to the HUD
 
-		overlays_standing[GLASSES_LAYER]	= glasses.get_onmob_icon("eyes", -GLASSES_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		if (G == "f")
+			overlays_standing[GLASSES_LAYER]	= glasses.get_onmob_f_icon("eyes", -GLASSES_LAYER)
+		else
+			overlays_standing[GLASSES_LAYER]	= glasses.get_onmob_icon("eyes", -GLASSES_LAYER)
 
 	apply_overlay(GLASSES_LAYER)
 
@@ -447,7 +470,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 				ears.screen_loc = ui_ears			//...draw the item in the inventory screen
 			client.screen += ears					//Either way, add the item to the HUD
 
-		overlays_standing[EARS_LAYER] = ears.get_onmob_icon("ears", -EARS_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		if (G == "f")
+			overlays_standing[EARS_LAYER] = ears.get_onmob_f_icon("ears", -EARS_LAYER)
+		else
+			overlays_standing[EARS_LAYER] = ears.get_onmob_icon("ears", -EARS_LAYER)
 
 	apply_overlay(EARS_LAYER)
 
@@ -462,7 +489,12 @@ Please contact me on #coderbus IRC. ~Carnie x
 			client.screen += shoes					//Either way, add the item to the HUD
 
 		if(get_num_limbs_of_state(LEG_RIGHT,ORGAN_FINE) == 2)
-			var/image/standing = shoes.get_onmob_icon("shoes", -SHOES_LAYER)
+			var/G = (gender == FEMALE) ? "f" : "m"
+			var/image/standing = ""
+			if (G == "f")
+				standing = shoes.get_onmob_f_icon("shoes", -SHOES_LAYER)
+			else
+				standing = shoes.get_onmob_icon("shoes", -SHOES_LAYER)
 			overlays_standing[SHOES_LAYER] = standing
 
 			if(shoes.blood_DNA)
@@ -481,7 +513,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 			s_store.screen_loc = ui_sstore1		//TODO
 			client.screen += s_store
 
-		overlays_standing[SUIT_STORE_LAYER]	= s_store.get_onmob_icon("s_store", -SUIT_STORE_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		if (G == "f")
+			overlays_standing[SUIT_STORE_LAYER]	= s_store.get_onmob_f_icon("s_store", -SUIT_STORE_LAYER)
+		else
+			overlays_standing[SUIT_STORE_LAYER]	= s_store.get_onmob_icon("s_store", -SUIT_STORE_LAYER)
 
 	apply_overlay(SUIT_STORE_LAYER)
 
@@ -496,7 +532,12 @@ Please contact me on #coderbus IRC. ~Carnie x
 				head.screen_loc = ui_head		//TODO	//...draw the item in the inventory screen
 			client.screen += head						//Either way, add the item to the HUD
 
-		var/image/standing = head.get_onmob_icon("head", -HEAD_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		var/image/standing = ""
+		if (G == "f")
+			standing = head.get_onmob_f_icon("head", -HEAD_LAYER)
+		else
+			standing = head.get_onmob_icon("head", -HEAD_LAYER)
 		overlays_standing[HEAD_LAYER] = standing
 
 		if(head.blood_DNA)
@@ -513,7 +554,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 			belt.screen_loc = ui_belt
 			client.screen += belt
 
-		overlays_standing[BELT_LAYER]	= belt.get_onmob_icon("belt", -BELT_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		if (G == "f")
+			overlays_standing[BELT_LAYER]	= belt.get_onmob_f_icon("belt", -BELT_LAYER)
+		else
+			overlays_standing[BELT_LAYER]	= belt.get_onmob_icon("belt", -BELT_LAYER)
 
 	apply_overlay(BELT_LAYER)
 
@@ -533,7 +578,12 @@ Please contact me on #coderbus IRC. ~Carnie x
 				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD
 
-		var/image/standing = wear_suit.get_onmob_icon("suit", -SUIT_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		var/image/standing = ""
+		if (G == "f")
+			standing = wear_suit.get_onmob_f_icon("suit", -SUIT_LAYER)
+		else
+			standing = wear_suit.get_onmob_icon("suit", -SUIT_LAYER)
 		overlays_standing[SUIT_LAYER] = standing
 
 		if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
@@ -569,7 +619,12 @@ Please contact me on #coderbus IRC. ~Carnie x
 				wear_mask.screen_loc = ui_mask	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_mask					//Either way, add the item to the HUD
 
-		var/image/standing = wear_mask.get_onmob_icon("mask", -FACEMASK_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		var/image/standing = ""
+		if (G == "f")
+			standing = wear_mask.get_onmob_f_icon("mask", -FACEMASK_LAYER)
+		else
+			standing = wear_mask.get_onmob_icon("mask", -FACEMASK_LAYER)
 		overlays_standing[FACEMASK_LAYER] = standing
 
 		if(wear_mask.blood_DNA && !istype(wear_mask, /obj/item/clothing/mask/cigarette))
@@ -593,7 +648,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 			back.screen_loc = ui_back	//TODO
 			client.screen += back
 
-		overlays_standing[BACK_LAYER]	= back.get_onmob_icon("back", -BACK_LAYER)
+		var/G = (gender == FEMALE) ? "f" : "m"
+		if (G == "f")
+			overlays_standing[BACK_LAYER]	= back.get_onmob_f_icon("back", -BACK_LAYER)
+		else
+			overlays_standing[BACK_LAYER]	= back.get_onmob_icon("back", -BACK_LAYER)
 
 	apply_overlay(BACK_LAYER)
 
@@ -821,7 +880,10 @@ var/global/list/human_icon_cache = list()
 				else
 					I						= image("icon"=human_parts,"icon_state"="[mutant_type]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
 			else if(mutant_type == "normal")
-				I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
+				if(gender == FEMALE)
+					I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_f_s", "layer"=-BODYPARTS_LAYER)
+				else
+					I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
 		else if(affecting.status == ORGAN_ROBOTIC)
 			I								= image("icon"=augment_parts,"icon_state"="[limb_name]_s","layer"=-BODYPARTS_LAYER)
 
