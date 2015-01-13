@@ -130,11 +130,16 @@ obj/machinery/gateway/centerstation/process()
 		M.dir = SOUTH
 		return
 	else
-		var/obj/effect/landmark/dest = pick(awaydestinations)
-		if(dest)
-			M.loc = dest.loc
-			M.dir = SOUTH
-			use_power(5000)
+		if (awaydestinations.len > 0)
+			var/obj/effect/landmark/dest = pick(awaydestinations)
+			if(dest)
+				M.loc = dest.loc
+				M.dir = SOUTH
+				use_power(5000)
+		else
+			if(ismob(M))
+				var/mob/MOB = M
+				MOB << "<span class='warning'>Something wrong with this gate. It don't want to teleport you.</span>"
 		return
 
 

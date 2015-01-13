@@ -173,6 +173,8 @@
 					assailant.changeNext_move(10)
 					affecting.losebreath += 1
 				else
+					if(!assailant)
+						return
 					assailant.visible_message("<span class='warning'>[assailant] was unable to tighten \his grip on [affecting]'s neck!</span>")
 					hud.icon_state = "disarm/kill"
 					state = GRAB_NECK
