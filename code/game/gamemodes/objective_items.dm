@@ -45,9 +45,21 @@ datum/objective_item/steal/corgimeat
 	difficulty = 5
 	excludefromjob = list("Head of Personnel") //>hurting your little buddy ever
 
-datum/objective_item/steal/capmedal
-	name = "медаль \"Лучшему Капитану\""
+datum/objective_item/steal/capmedalgold
+	name = "золотую медаль капитана"
 	targetitem = /obj/item/clothing/tie/medal/gold/captain
+	difficulty = 5
+	excludefromjob = list("Captain")
+
+datum/objective_item/steal/capmedalsiver
+	name = "медаль \"За отвагу\""
+	targetitem = /obj/item/clothing/tie/medal/silver/valor
+	difficulty = 5
+	excludefromjob = list("Captain")
+
+datum/objective_item/steal/capmedalbronze
+	name = "медаль \"Бронзовое сердце\""
+	targetitem = /obj/item/clothing/tie/medal/bronze_heart
 	difficulty = 5
 	excludefromjob = list("Captain")
 
@@ -82,7 +94,7 @@ datum/objective_item/steal/documents
 
 //Items with special checks!
 datum/objective_item/steal/plasma
-	name = "28 молей газообразной плазмы (полный бак)"
+	name = "28 моль газообразной плазмы (полный бак)"
 	targetitem = /obj/item/weapon/tank
 	difficulty = 3
 	excludefromjob = list("Chief Engineer","Research Director","Station Engineer","Scientist","Atmospheric Technician")
