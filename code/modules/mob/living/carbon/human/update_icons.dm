@@ -879,11 +879,10 @@ var/global/list/human_icon_cache = list()
 						I					= image("icon"=human_parts,"icon_state"="[mutant_type]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
 				else
 					I						= image("icon"=human_parts,"icon_state"="[mutant_type]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
+			else if(mutant_type == "normal" || icon_gender == "f")
+				I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_[icon_gender]_s", "layer"=-BODYPARTS_LAYER)
 			else if(mutant_type == "normal")
-				if(gender == FEMALE)
-					I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_f_s", "layer"=-BODYPARTS_LAYER)
-				else
-					I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
+				I							= image("icon"=human_parts,"icon_state"="[skin_tone]_[limb_name]_s", "layer"=-BODYPARTS_LAYER)
 		else if(affecting.status == ORGAN_ROBOTIC)
 			I								= image("icon"=augment_parts,"icon_state"="[limb_name]_s","layer"=-BODYPARTS_LAYER)
 

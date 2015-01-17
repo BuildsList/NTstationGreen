@@ -134,13 +134,13 @@
 				break
 
 
-		banreason = "(MANUAL BAN) "+banreason
+		banreason = +banreason
 
 		if(!playermob)
 			if(banip)
-				banreason = "[banreason] (CUSTOM IP)"
+				banreason = "[banreason]"
 			if(bancid)
-				banreason = "[banreason] (CUSTOM CID)"
+				banreason = "[banreason]"
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom ip and computer id fields replaced with the ip and computer id from the located mob")
 
