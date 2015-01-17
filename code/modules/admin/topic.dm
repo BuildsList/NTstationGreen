@@ -133,9 +133,6 @@
 				playermob = M
 				break
 
-
-		banreason = +banreason
-
 		if(!playermob)
 			if(banip)
 				banreason = "[banreason]"
