@@ -136,7 +136,7 @@ obj/item/clothing/mask/bandana/green
 
 /obj/item/clothing/mask/heist/smiley
 	name = "white smiley mask"
-	desc = "It's a white plastic smiley mask."
+	desc = "It's a white plastic smiley mask.\nCheck your corners..."
 	icon_state = "w_smiley"
 	item_state = "w_smiley"
 	flags_inv = HIDEFACE
@@ -144,12 +144,12 @@ obj/item/clothing/mask/bandana/green
 
 /obj/item/clothing/mask/heist/smiley/yellow
 	name = "yellow smiley mask"
-	desc = "It's a red plastic smiley mask."
+	desc = "It's a yellow plastic smiley mask.\nTime to find some thermal drill..."
 	icon_state = "y_smiley"
 	item_state = "y_smiley"
 
 /obj/item/clothing/mask/heist/smiley/red
 	name = "red smiley mask"
-	desc = "It's a red plastic smiley mask."
+	desc = "It's a red plastic smiley mask.\nPayday time!"
 	icon_state = "r_smiley"
 	item_state = "r_smiley"
