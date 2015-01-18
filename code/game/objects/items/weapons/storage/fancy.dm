@@ -86,9 +86,9 @@
 	name = "candle pack"
 	desc = "A pack of red candles."
 	icon = 'icons/obj/candle.dmi'
-	icon_state = "candlebox5"
+	icon_state = "candlebox"
 	icon_type = "candle"
-	item_state = "candlebox5"
+	item_state = "candlebox"
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = SLOT_BELT

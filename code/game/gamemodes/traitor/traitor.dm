@@ -99,6 +99,7 @@
 
 /datum/game_mode/traitor/proc/add_latejoin_traitor(var/datum/mind/character)
 	character.make_Traitor()
+	log_game("[character.key] (ckey) has been selected as a [traitor_name] (latejoin)")
 
 
 /datum/game_mode/proc/forge_traitor_objectives(var/datum/mind/traitor)
