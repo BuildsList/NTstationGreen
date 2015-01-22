@@ -215,7 +215,7 @@
 
 
 /////AUGMENTATION SURGERIES//////
-
+/*
 
 //SURGERY STEPS
 
@@ -256,7 +256,7 @@
 
 
 //SURGERY STEP SUCCESSES
-/*
+
 /datum/surgery_step/add_limb/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(L)
 		if(ishuman(target))
