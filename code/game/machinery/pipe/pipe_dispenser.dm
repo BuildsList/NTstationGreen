@@ -19,8 +19,6 @@
 <A href='?src=\ref[src];make=5;dir=1'>Manifold</A><BR>
 <A href='?src=\ref[src];make=8;dir=1'>Manual Valve</A><BR>
 <A href='?src=\ref[src];make=18;dir=1'>Digital Valve</A><BR>
-<A href='?src=\ref[src];make=21;dir=1'>upward Pipe</A><BR>
-<A href='?src=\ref[src];make=22;dir=1'>downward Pipe</A><BR>
 <b>Devices:</b><BR>
 <A href='?src=\ref[src];make=4;dir=1'>Connector</A><BR>
 <A href='?src=\ref[src];make=7;dir=1'>Vent</A><BR>

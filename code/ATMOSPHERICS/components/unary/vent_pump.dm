@@ -324,7 +324,7 @@
 	Alt-click to ventcrawl
 */
 /obj/machinery/atmospherics/unary/vent_pump/AltClick(var/mob/living/L)
-	if(!L.ventcrawler || !isliving(L) || !Adjacent(L))
+	if(!isliving(L) || !L.ventcrawler || !Adjacent(L))
 		return
 	if(L.stat)
 		L << "You must be conscious to do this!"
