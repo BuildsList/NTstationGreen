@@ -25,7 +25,7 @@ var/global/floorIsLava = 0
 		return
 
 	var/body = "<html><head><title>Options for [M.key]</title></head>"
-	body += "<body>Options panel for <b>[M]</b>"
+	body += "<body>Options panel for <b><A href='?_src_=vars;rename=\ref[M]'>[M]</A></b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		body += "\[<A href='?_src_=holder;editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"

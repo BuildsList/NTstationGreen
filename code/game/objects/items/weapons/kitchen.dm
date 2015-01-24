@@ -73,6 +73,7 @@
 		return eyestab(M,user)
 
 /obj/item/weapon/kitchen/utensil/fork/afterattack(atom/target, mob/user as mob, proximity)
+	if(istype(target,/obj/item/weapon/reagent_containers/food/snacks))	return // fork is not only for cleanning
 	if(!proximity) return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn

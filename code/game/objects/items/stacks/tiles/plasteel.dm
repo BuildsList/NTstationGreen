@@ -4,9 +4,9 @@
 	desc = "Those could work as a pretty decent throwing weapon"
 	icon_state = "tile"
 	w_class = 3.0
-	force = 6.0
 	m_amt = 937.5
-	throwforce = 10.0
+	force = 5
+	throwforce = 7
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT

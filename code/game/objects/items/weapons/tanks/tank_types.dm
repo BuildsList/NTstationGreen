@@ -89,7 +89,7 @@
 	w_class = 3.0
 	throw_speed = 2
 	throw_range = 7
-	force = 15
+	force = 20
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 
 	examine()
@@ -161,7 +161,7 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	throwforce = 10
 	w_class = 2.0
-	force = 10
+	force = 15
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed", "balloned")
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)

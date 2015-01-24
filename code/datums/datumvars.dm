@@ -454,29 +454,29 @@ client
 			return
 		M.regenerate_icons()
 
+
+	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
+
+	else if(href_list["rename"])
+		if(!check_rights(0))	return
+
+		var/mob/M = locate(href_list["rename"])
+		if(!istype(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+
+		var/new_name = copytext(sanitize(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null),1,MAX_NAME_LEN)
+		if( !new_name || !M )	return
+
+		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
+		M.fully_replace_character_name(M.real_name,new_name)
+		href_list["datumrefresh"] = href_list["rename"]
+
 //Needs +VAREDIT past this point
 
 	else if(check_rights(R_VAREDIT))
 
-
-	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
-
-		if(href_list["rename"])
-			if(!check_rights(0))	return
-
-			var/mob/M = locate(href_list["rename"])
-			if(!istype(M))
-				usr << "This can only be used on instances of type /mob"
-				return
-
-			var/new_name = copytext(sanitize(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null),1,MAX_NAME_LEN)
-			if( !new_name || !M )	return
-
-			message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
-			M.fully_replace_character_name(M.real_name,new_name)
-			href_list["datumrefresh"] = href_list["rename"]
-
-		else if(href_list["varnameedit"] && href_list["datumedit"])
+		if(href_list["varnameedit"] && href_list["datumedit"])
 			if(!check_rights(0))	return
 
 			var/D = locate(href_list["datumedit"])

@@ -44,7 +44,7 @@
 	var/ndir = get_dir(usr,on_wall)
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	if (A.name == "Space" || A.name == "null")
+	if (A.type == "/area")
 		usr << "\red This area cannot have an APC."
 		return
 	if (A.get_apc())
