@@ -40,7 +40,8 @@
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)
-		assailant.client.screen -= hud
+		if(assailant.client)
+			assailant.client.screen -= hud
 		assailant = null
 	qdel(hud)
 	..()
