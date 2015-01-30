@@ -41,7 +41,7 @@
 "aO" = (/obj/structure/alien/weeds,/mob/living/simple_animal/hostile/alien/drone,/turf/simulated/floor/plating/asteroid{carbon_dioxide = 48.7; heat_capacity = 1e+006; nitrogen = 13.2; oxygen = 32.4; temperature = 251},/area/mine/explored)
 "aP" = (/obj/machinery/light{dir = 8},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "dark"},/area/awaycontent/a4{name = "Syndicate Outpost"})
 "aQ" = (/obj/machinery/gateway{dir = 8},/turf/simulated/floor{dir = 8; heat_capacity = 1e+006; icon_state = "vault"},/area/awaycontent/a4{name = "Syndicate Outpost"})
-"aR" = (/obj/machinery/gateway/centeraway{calibrated = 0},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "dark"},/area/awaycontent/a4{name = "Syndicate Outpost"})
+"aR" = (/obj/machinery/gateway/centeraway{calibrated = 1},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "dark"},/area/awaycontent/a4{name = "Syndicate Outpost"})
 "aS" = (/obj/machinery/gateway{dir = 4},/turf/simulated/floor{dir = 8; heat_capacity = 1e+006; icon_state = "vault"},/area/awaycontent/a4{name = "Syndicate Outpost"})
 "aT" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "dark"},/area/awaycontent/a4{name = "Syndicate Outpost"})
 "aU" = (/obj/item/weapon/ore/iron{pixel_x = 7; pixel_y = -6},/turf/simulated/floor/plating/asteroid{carbon_dioxide = 48.7; heat_capacity = 1e+006; nitrogen = 13.2; oxygen = 32.4; temperature = 251},/area/mine/explored)
