@@ -265,8 +265,8 @@ BLIND     // can't see anything
 		usr << "\A [hastie] is attached to it."
 
 atom/proc/generate_uniform(index,t_color)
-	var/icon/female_uniform_icon	= icon("icon"='icons/mob/uniform.dmi', "icon_state"="[t_color]_s")
-	var/icon/female_s				= icon("icon"='icons/mob/uniform.dmi', "icon_state"="female_s")
+	var/icon/female_uniform_icon	= icon("icon"='icons/mob/uniform_f.dmi', "icon_state"="[t_color]_s")
+	var/icon/female_s				= icon("icon"='icons/mob/uniform_f.dmi', "icon_state"="female_s")
 	female_uniform_icon.Blend(female_s, ICON_MULTIPLY)
 	female_uniform_icon 			= fcopy_rsc(female_uniform_icon)
 	female_uniform_icons[index] = female_uniform_icon

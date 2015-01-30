@@ -133,14 +133,11 @@
 				playermob = M
 				break
 
-
-		banreason = "(MANUAL BAN) "+banreason
-
 		if(!playermob)
 			if(banip)
-				banreason = "[banreason] (CUSTOM IP)"
+				banreason = "[banreason]"
 			if(bancid)
-				banreason = "[banreason] (CUSTOM CID)"
+				banreason = "[banreason]"
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom ip and computer id fields replaced with the ip and computer id from the located mob")
 
@@ -765,7 +762,7 @@
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
 						return
-					var/reason = input(usr,"Reason?","Please State Reason","") as text|null
+					var/reason = sanitize(input(usr,"Reason?","Please State Reason","") as text|null)
 					if(!reason)
 						return
 
@@ -787,7 +784,7 @@
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
 				if("No")
-					var/reason = input(usr,"Reason?","Please State Reason","") as text|null
+					var/reason = sanitize(input(usr,"Reason?","Please State Reason","") as text|null)
 					if(reason)
 						var/msg
 						for(var/job in notbannedlist)

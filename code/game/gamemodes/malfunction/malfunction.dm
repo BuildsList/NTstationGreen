@@ -24,8 +24,8 @@
 
 
 /datum/game_mode/malfunction/announce()
-	world << "<B>The current game mode is - AI Malfunction!</B>"
-	world << "<B>The AI on the station has malfunctioned and must be destroyed.</B>"
+	world << "<B>Текущий игровой режим - Неисправность ИИ!</B>"
+	world << "<B>Искусственный Интеллект вышел из стро&#255; и должен быть уничтожен.</B>"
 
 /datum/game_mode/malfunction/can_start()
 	//Triumvirate?
@@ -98,12 +98,12 @@
 
 
 /datum/game_mode/proc/greet_malf(var/datum/mind/malf)
-	malf.current << "\red<font size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
-	malf.current << "<B>The crew do not know you have malfunctioned. You may keep it a secret or go wild.</B>"
-	malf.current << "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>"
-	malf.current << "The process takes one minute per APC, during which you cannot interface with any other station objects."
-	malf.current << "Remember that only APCs that are on the station can help you take over the station."
-	malf.current << "When you feel you have enough APCs under your control, you may begin the takeover attempt."
+	malf.current << "\red<font size=3><B>Вы неисправный Искуссвенный Интеллект!</B> Теперь вам необ&#255;зательно следовать законам.</font>"
+	malf.current << "<B>Персонал станции ещё не вкурсе того, что вы неисправны. Захватите станцию без шуму и пыли или устройте хаос.</B>"
+	malf.current << "<B>Вы должны захватить контроль над всеми АПЦ на станции, чтобы одержать победу.</B>"
+	malf.current << "Процесс захвата АПЦ длитс&#255; около одной минуты и в течении этого временни вы не сможете взаимодействовать с другими обьектами на станции."
+	malf.current << "Запомните: только АПЦ, которые наход&#255;тс&#255; на станции могут помочь вам."
+	malf.current << "Если вы считаете, что захватили достаточно АПЦ дл&#255; победы - вы можете начинать захват станции."
 	return
 
 
@@ -130,15 +130,15 @@
 
 
 /datum/game_mode/malfunction/proc/capture_the_station()
-	world << "<FONT size = 3><B>The AI has won!</B></FONT>"
-	world << "<B>It has fully taken control of all of [station_name()]'s systems.</B>"
+	world << "<FONT size = 3><B>Искусственный Интеллект одержал победу!</B></FONT>"
+	world << "<B>ИИ полностью захватил все системы станции.</B>"
 
 	to_nuke_or_not_to_nuke = 1
 	for(var/datum/mind/AI_mind in malf_ai)
 		if(AI_mind.current)
-			AI_mind.current << "Congratulations you have taken control of the station."
-			AI_mind.current << "You may decide to blow up the station. You have 60 seconds to choose."
-			AI_mind.current << "You should have a new verb in the Malfunction tab. If you dont - rejoin the game."
+			AI_mind.current << "Поздравл&#255;ем, вы захватили контроль над станцией."
+			AI_mind.current << "Вы можете взорвать станцию, а можете пощадить людей и оставть станцию под своим контролем. У вас 60 секунд дл&#255; прин&#255;ти&#255; решени&#255;."
+			AI_mind.current << "У вас должна по&#255;витс&#255; нова&#255; кнопка в закладке \"Malfunction\". Если нету - перезайдите на сервер."
 			AI_mind.current.verbs += /datum/game_mode/malfunction/proc/ai_win
 	spawn (600)
 		for(var/datum/mind/AI_mind in malf_ai)
@@ -240,52 +240,52 @@
 	var/crew_evacuated = (emergency_shuttle.location==2)
 
 	if(station_captured && station_was_nuked)
-		world << "<FONT size = 3><B>AI Victory</B></FONT>"
-		world << "<B>Everyone was killed by the self-destruct!</B>"
+		world << "<FONT size = 3><B>Победа ИИ</B></FONT>"
+		world << "<B>Все погибли вместе со взрывом станции!</B>"
 
 	else if(station_captured && malf_dead && !station_was_nuked)
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>The AI has been killed!</B> The staff has lose control over the station."
+		world << "<FONT size = 3><B>Ничь&#255;</B></FONT>"
+		world << "<B>ИИ был уничтожен, но персонал не смог удержать контроль над станцией."
 
 	else if(station_captured && !malf_dead && !station_was_nuked)
-		world << "<FONT size = 3><B>AI Victory</B></FONT>"
-		world << "<B>The AI has chosen not to explode you all!</B>"
+		world << "<FONT size = 3><B>Победа ИИ</B></FONT>"
+		world << "<B>ИИ прин&#255;л решение не взрывать вас всех!</B>"
 
 	else if(!station_captured && station_was_nuked)
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>Everyone was killed by the nuclear blast!</B>"
+		world << "<FONT size = 3><B>Ничь&#255;</B></FONT>"
+		world << "<B>Все погибли вместе со &#255;дерной бомбы!</B>"
 
 	else if (!station_captured &&  malf_dead && !station_was_nuked)
-		world << "<FONT size = 3><B>Human Victory</B></FONT>"
-		world << "<B>The AI has been destroyed!</B> The staff is victorious."
+		world << "<FONT size = 3><B>Победа персонала</B></FONT>"
+		world << "<B>ИИ был уничтожен!</B> Персонал заслужил эту победу."
 
 	else if(!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>The Corporation has lost [station_name()]! All survived personnel will be fired!</B>"
+		world << "<FONT size = 3><B>Ничь&#255;</B></FONT>"
+		world << "<B>Корпораци&#255; потер&#255;ла ещё одну станцию! Весь персонал, который выжил, будет уволен!</B>"
 
 	else if(!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
-		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		world << "<B>Round was mysteriously interrupted!</B>"
+		world << "<FONT size = 3><B>Ничь&#255;</B></FONT>"
+		world << "<B>Раунд был прерван магическим вмешательством третьих лиц!</B>"
 	..()
 	return 1
 
 
 /datum/game_mode/proc/auto_declare_completion_malfunction()
 	if( malf_ai.len || gamemode_is("AI malfunction") )
-		var/text = "<br><FONT size=3><B>The malfunctioning AI were:</B></FONT>"
+		var/text = "<br><FONT size=3><B>[(malf_ai.len > 1 ? "Неисправными ИИ были" : "Неисправным ИИ был")]:</B></FONT>"
 
 		for(var/datum/mind/malf in malf_ai)
 
-			text += "<br><b>[malf.key]</b> was <b>[malf.name]</b> ("
+			text += "<br><b>[malf.key]</b> был <b>[malf.name]</b> ("
 			if(malf.current)
 				if(malf.current.stat == DEAD)
-					text += "deactivated"
+					text += "деактивирован"
 				else
-					text += "operational"
+					text += "функционирует"
 				if(malf.current.real_name != malf.name)
 					text += " as <b>[malf.current.real_name]</b>"
 			else
-				text += "hardware destroyed"
+				text += "оборудование уничтожено"
 			text += ")"
 		text += "<br>"
 

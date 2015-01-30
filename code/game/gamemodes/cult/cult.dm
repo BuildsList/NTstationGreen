@@ -47,8 +47,8 @@
 
 
 /datum/game_mode/cult/announce()
-	world << "<B>The current game mode is - Cult!</B>"
-	world << "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever Centcom-allowed faith they had.</B>"
+	world << "<B>Текущий игровой режим -  Культ!</B>"
+	world << "<B>Часть персонала пытаетс&#255; возродить древний культ. Не дайте им выполнить предначертанное!</B>"
 
 
 /datum/game_mode/cult/pre_setup()
@@ -107,7 +107,7 @@
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		cult_mind.current << "\blue You are a member of the cult!"
+		cult_mind.current << "\blue Вы член Культа!"
 		memorize_cult_objectives(cult_mind)
 		cult_mind.special_role = "Cultist"
 
@@ -121,18 +121,18 @@
 		var/explanation
 		switch(cult_objectives[obj_count])
 			if("survive")
-				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
+				explanation = "Наше учение должно жить. Сделайте так, чтобы [acolytes_needed] членов экипажа успешно эвакуировались со станции."
 			if("sacrifice")
 				if(sacrifice_target)
-					explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (Hell blood join) and three acolytes to do so."
+					explanation = "Принесите в жертву [sacrifice_target.name], the [sacrifice_target.assigned_role]. Вам понадобитьс&#255; жервенна&#255; руна (Hell blood join) и три культиста."
 				else
-					explanation = "Free objective."
+					explanation = "Свободное задание."
 			if("eldergod")
-				explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
-		cult_mind.current << "<B>Objective #[obj_count]</B>: [explanation]"
-		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
-	cult_mind.current << "The Geometer of Blood grants you the knowledge to sacrifice non-believers. (Hell Blood Join)"
-	cult_mind.memory += "The Geometer of Blood grants you the knowledge to sacrifice non-believers. (Hell Blood Join)<BR>"
+				explanation = "Призовите Нар-Си использу&#255; специальную руну призыва (Hell join self). Это сработает в случае, если дев&#255;ть членов культа будут сто&#255;ть вокруг."
+		cult_mind.current << "<B>Задание #[obj_count]</B>: [explanation]"
+		cult_mind.memory += "<B>Задание #[obj_count]</B>: [explanation]<BR>"
+	cult_mind.current << "Геометр Крови дарует вам знание, которое поможет вам жертвовать неверующими. (Hell Blood Join)"
+	cult_mind.memory += "Геометр Крови дарует вам знание, которое поможет вам жертвовать неверующими. (Hell Blood Join)<BR>"
 	for(var/startingword in startwords)
 		grant_runeword(cult_mind.current,startingword)
 
@@ -142,8 +142,11 @@
 
 	if (mob.mind)
 		if (mob.mind.assigned_role == "Clown")
-			mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
+			mob << "Медитаци&#255; позволила вам отбросить вашу клоунскую натуру. Теперь вы можете использовать оружие без вреда себе."
 			mob.remove_organic_effect(/datum/organic_effect/clumsy)
+		if (mob.mind.assigned_role ==  "Mime")
+			mob << "Геометр Крови даровал вам голос в обмен на служение, и теперь вы можете разговаривать."
+			mob.mind.miming = !mob.mind.miming
 
 
 	var/obj/item/weapon/paper/talisman/supply/T = new(mob)
@@ -156,9 +159,9 @@
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if (!where)
-		mob << "Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately."
+		mob << "К сожалению вы не можете получить ваш талисман. Это очень плохо, вы должны обратитьс&#255; к администрации, чтобы получить его."
 	else
-		mob << "You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others."
+		mob << "Ваш талисман находитс&#255; в [where], он поможет распространить культ по всей станции. Используйте его разумно."
 		mob.update_icons()
 		return 1
 
@@ -190,10 +193,10 @@
 		if("hide")
 			wordexp = "[wordhide] is hide..."
 	cult_mob << "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You catch a brief glimmer of the otherside")]... [wordexp]"
-	cult_mob.mind.store_memory("<B>You remember that</B> [wordexp]", 0, 0)
+	cult_mob.mind.store_memory("<B>Вы помните, что...</B> [wordexp]", 0, 0)
 	cult_mob.mind.cult_words += word
 	if(cult_mob.mind.cult_words.len == allwords.len)
-		cult_mob << "\green You feel enlightened, as if you have gained all the secrets of the other side."
+		cult_mob << "\green Вы чувствуете прикосновение Нар-Си, и теперь вам доступны все секреты его мира."
 
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
@@ -217,14 +220,14 @@
 	if(cult_mind in cult)
 		cult -= cult_mind
 		cult_mind.current.verbs -= /mob/living/proc/cult_innate_comm
-		cult_mind.current << "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>"
+		cult_mind.current << "\red <FONT size = 3><B>&#255;рка&#255; бела&#255; вспышка проскользнула в глазах, забира&#255; с собой все воспоминани&#255; о служении тёмному богу и его приспешников.</B></FONT>"
 		cult_mind.memory = ""
 		cult_mind.cult_words = initial(cult_mind.cult_words)
 		update_cult_icons_removed(cult_mind)
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has renounced the cult!</font>"
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
-				M << "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>"
+				M << "<FONT size = 3>[cult_mind.current] потер&#255;л свою веру в культ. Теперь он не один из нас.</FONT>"
 
 /datum/game_mode/proc/update_all_cult_icons()
 	spawn(0)
@@ -310,36 +313,36 @@
 /datum/game_mode/cult/declare_completion()
 
 	if(!check_cult_victory())
-		world << "\red <FONT size = 3><B> The cult wins! It has succeeded in serving its dark masters!</B></FONT>"
+		world << "\red <FONT size = 3><B> Победа культистов! Они смогли выполнить все поручени&#255; тёмного господина.</B></FONT>"
 	else
-		world << "\red <FONT size = 3><B> The staff managed to stop the cult!</B></FONT>"
+		world << "\red <FONT size = 3><B> Персонал станции остановил культ! </B></FONT>"
 
-	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"
+	var/text = "<b>Культистов выжило:</b> [acolytes_survived]"
 
 	if(cult_objectives.len)
-		text += "<br><b>The cultists' objectives were:</b>"
+		text += "<br><b>Задани&#255; культистов:</b>"
 		for(var/obj_count=1, obj_count <= cult_objectives.len, obj_count++)
 			var/explanation
 			switch(cult_objectives[obj_count])
 				if("survive")
 					if(!check_survive())
-						explanation = "Make sure at least [acolytes_needed] acolytes escape on the shuttle. <font color='green'><B>Success!</B></font>"
+						explanation = "Сделайте так, чтобы [acolytes_needed] членов экипажа успешно эвакуировались со станции. <font color='green'><B>Успех!</B></font>"
 					else
-						explanation = "Make sure at least [acolytes_needed] acolytes escape on the shuttle. <font color='red'>Fail.</font>"
+						explanation = "Сделайте так, чтобы [acolytes_needed] членов экипажа успешно эвакуировались со станции. <font color='red'>Провал.</font>"
 				if("sacrifice")
 					if(sacrifice_target)
 						if(sacrifice_target in sacrificed)
-							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='green'><B>Success!</B></font>"
+							explanation = "Принесите в жертву [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='green'><B>Успех!</B></font>"
 						else if(sacrifice_target && sacrifice_target.current)
-							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='red'>Fail.</font>"
+							explanation = "Принесите в жертву [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='red'>Провал.</font>"
 						else
-							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='red'>Fail (Gibbed).</font>"
+							explanation = "Принесите в жертву [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='red'>Провал (Тело было уничтожено).</font>"
 				if("eldergod")
 					if(!eldergod)
-						explanation = "Summon Nar-Sie. <font color='green'><B>Success!</B></font>"
+						explanation = "Призвать Нар-Си. <font color='green'><B>Успех!</B></font>"
 					else
-						explanation = "Summon Nar-Sie. <font color='red'>Fail.</font>"
-			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
+						explanation = "Призвать Нар-Си. <font color='red'>Провал.</font>"
+			text += "<br><B>Задание #[obj_count]</B>: [explanation]"
 
 	world << text
 	..()
@@ -348,19 +351,19 @@
 
 /datum/game_mode/proc/auto_declare_completion_cult()
 	if( cult.len || (ticker && istype(ticker.mode,/datum/game_mode/cult)) )
-		var/text = "<br><font size=3><b>The cultists were:</b></font>"
+		var/text = "<br><font size=3><b>Культистами были:</b></font>"
 		for(var/datum/mind/cultist in cult)
 
-			text += "<br><b>[cultist.key]</b> was <b>[cultist.name]</b> ("
+			text += "<br><b>[cultist.key]</b> был <b>[cultist.name]</b> ("
 			if(cultist.current)
 				if(cultist.current.stat == DEAD)
-					text += "died"
+					text += "мёртв"
 				else
-					text += "survived"
+					text += "выжил"
 				if(cultist.current.real_name != cultist.name)
-					text += " as <b>[cultist.current.real_name]</b>"
+					text += " как <b>[cultist.current.real_name]</b>"
 			else
-				text += "body destroyed"
+				text += "тело уничтожено"
 			text += ")"
 		text += "<br>"
 

@@ -9,7 +9,7 @@ Head of Shitcurity
 */
 /datum/job/hos
 	title = "Head of Security"
-	r_title = "Начальник Службы Безопасности"
+	r_title = "начальник Службы Безопасности"
 	flag = HOS
 	department_head = list("Captain")
 	department_flag = ENGSEC
@@ -63,7 +63,7 @@ Warden
 */
 /datum/job/warden
 	title = "Warden"
-	r_title = "Смотритель"
+	r_title = "смотритель"
 	flag = WARDEN
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
@@ -71,7 +71,7 @@ Warden
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of security"
-	r_supervisors = "начальнику службы безопасности"
+	r_supervisors = "начальнику Службы Безопасности"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 
@@ -113,7 +113,7 @@ Detective
 */
 /datum/job/detective
 	title = "Detective"
-	r_title = "Детектив"
+	r_title = "детектив"
 	flag = DETECTIVE
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
@@ -121,7 +121,7 @@ Detective
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of security"
-	r_supervisors = "начальнику службы безопасности"
+	r_supervisors = "начальнику Службы Безопасности и самому себе"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 
@@ -163,7 +163,7 @@ Security Officer
 */
 /datum/job/officer
 	title = "Security Officer"
-	r_title = "Офицер Службы Безопасности"
+	r_title = "офицер Службы Безопасности"
 	flag = OFFICER
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
@@ -171,7 +171,7 @@ Security Officer
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
-	r_supervisors = "начальнику службы безопасности и главе отдела назначени&#255; (при возможности)"
+	r_supervisors = "начальнику Службы Безопасности и главе отдела назначени&#255; (при возможности)"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	var/list/dep_access = null
@@ -215,7 +215,7 @@ Security Officer
 	dep_access = null;
 	return L
 
-var/list/sec_departments = list("инженерный отсек", "отсек снабжени&#255;", "медотсек", "научный отсек")
+var/list/sec_departments = list("инженерный отсек", "отсек снабжени&#255;", "медицинский отсек", "научный отсек")
 
 /datum/job/officer/proc/assign_sec_to_department(var/mob/living/carbon/human/H)
 	if(!sec_departments.len)
@@ -235,7 +235,7 @@ var/list/sec_departments = list("инженерный отсек", "отсек снабжени&#255;", "мед
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/engi
 				dep_access = list(access_construction, access_engine)
 				destination = /area/security/checkpoint/engineering
-			if("медотсек")
+			if("медицинский отсек")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/med(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/med
 				dep_access = list(access_medical)

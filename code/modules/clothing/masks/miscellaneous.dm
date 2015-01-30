@@ -58,6 +58,29 @@
 	w_class = 2
 	var/voicechange = 0
 
+/obj/item/clothing/mask/horsehead/black
+	name = "black horse head mask"
+	desc = "A mask made of soft vinyl and latex, representing the head of a black horse."
+	icon_state = "horsehead_b"
+	item_state = "horsehead_b"
+
+/obj/item/clothing/mask/crocodile
+	name = "crocodile head mask"
+	desc = "A replica of old foggoten animal - crocodile, made of soft lizard skin and latex."
+	icon_state = "crocodile"
+	item_state = "crocodile"
+	flags = BLOCKHAIR
+	w_class = 2
+
+/obj/item/clothing/mask/unicornhead
+	name = "unicorn head mask"
+	desc = "A mask made of soft furr and latex, representing the head of a unicorn."
+	icon_state = "unicorn"
+	item_state = "unicorn"
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE
+	w_class = 2
+
 /obj/item/clothing/mask/horsehead/speechModification(message)
 	if(voicechange)
 		if(!(copytext(message, 1, 2) == "*" || (usr.mind && usr.mind.changeling && (copytext(message, 1, 3) == ":g" || copytext(message, 1, 3) == ":G" || copytext(message, 1, 3) == ":ï"))))
@@ -110,3 +133,23 @@ obj/item/clothing/mask/bandana/green
 	name = "black bandana"
 	desc = "It's a black bandana."
 	icon_state = "bandblack"
+
+/obj/item/clothing/mask/heist/smiley
+	name = "white smiley mask"
+	desc = "It's a white plastic smiley mask.\nCheck your corners..."
+	icon_state = "w_smiley"
+	item_state = "w_smiley"
+	flags_inv = HIDEFACE
+	w_class = 1
+
+/obj/item/clothing/mask/heist/smiley/yellow
+	name = "yellow smiley mask"
+	desc = "It's a yellow plastic smiley mask.\nTime to find some thermal drill..."
+	icon_state = "y_smiley"
+	item_state = "y_smiley"
+
+/obj/item/clothing/mask/heist/smiley/red
+	name = "red smiley mask"
+	desc = "It's a red plastic smiley mask.\nPayday time!"
+	icon_state = "r_smiley"
+	item_state = "r_smiley"

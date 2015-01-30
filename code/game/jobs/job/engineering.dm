@@ -3,7 +3,7 @@ Chief Engineer
 */
 /datum/job/chief_engineer
 	title = "Chief Engineer"
-	r_title = "Главный Инженер"
+	r_title = "главный инженер"
 	flag = CHIEF
 	department_head = list("Captain")
 	department_flag = ENGSEC
@@ -52,7 +52,7 @@ Station Engineer
 */
 /datum/job/engineer
 	title = "Station Engineer"
-	r_title = "Станционный Инженер"
+	r_title = "инженер"
 	flag = ENGINEER
 	department_head = list("Chief Engineer")
 	department_flag = ENGSEC
@@ -92,7 +92,7 @@ Atmospheric Technician
 */
 /datum/job/atmos
 	title = "Atmospheric Technician"
-	r_title = "Атмосферный Техник"
+	r_title = "атмосферный Техник"
 	flag = ATMOSTECH
 	department_head = list("Chief Engineer")
 	department_flag = ENGSEC

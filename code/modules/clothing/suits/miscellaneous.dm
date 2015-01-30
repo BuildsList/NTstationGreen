@@ -193,6 +193,14 @@
 	item_state = "ponchoshame"
 	flags = NODROP
 
+/obj/item/clothing/suit/rabbitsuit
+	name = "rabbit suit"
+	desc = "A suit made long ago by the ancient empire of easter bunnies."
+	icon_state = "rabbit_l"
+	item_state = "rabbit_l"
+	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
+
 /*
  * Misc
  */

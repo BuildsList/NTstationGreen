@@ -11,6 +11,7 @@
 	var/obj/item/weapon/storage/bag/trash/mybag	= null
 	var/obj/item/weapon/mop/mymop = null
 	var/obj/item/weapon/reagent_containers/spray/cleaner/myspray = null
+	var/obj/item/weapon/holosign_creator/myhsign = null
 	var/obj/item/device/lightreplacer/myreplacer = null
 	var/signs = 0
 	var/const/max_signs = 4
@@ -68,6 +69,13 @@
 			update_icon()
 		else
 			user << fail_msg
+	else if(istype(I, /obj/item/weapon/holosign_creator))
+		if(!myhsign)
+			put_in_cart(I, user)
+			myhsign=I
+			update_icon()
+		else
+			user << fail_msg
 	else if(istype(I, /obj/item/device/lightreplacer))
 		if(!myreplacer)
 			var/obj/item/device/lightreplacer/l=I
@@ -93,6 +101,8 @@
 		dat += "<a href='?src=\ref[src];mop=1'>[mymop.name]</a><br>"
 	if(myspray)
 		dat += "<a href='?src=\ref[src];spray=1'>[myspray.name]</a><br>"
+	if(myhsign)
+		dat += "<a href='?src=\ref[src];hsign=1'>[myhsign.name]</a><br>"
 	if(myreplacer)
 		dat += "<a href='?src=\ref[src];replacer=1'>[myreplacer.name]</a><br>"
 	if(signs)
@@ -123,6 +133,11 @@
 			user.put_in_hands(myspray)
 			user << "<span class='notice'>You take [myspray] from [src].</span>"
 			myspray = null
+	if(href_list["myhsign"])
+		if(myhsign)
+			user.put_in_hands(myhsign)
+			user << "<span class='notice'>You take [myhsign] from [src].</span>"
+			myhsign = null
 	if(href_list["replacer"])
 		if(myreplacer)
 			user.put_in_hands(myreplacer)
@@ -151,10 +166,13 @@
 		overlays += "cart_mop"
 	if(myspray)
 		overlays += "cart_spray"
+	if(myhsign)
+		overlays += "cart_hsign"
 	if(myreplacer)
 		overlays += "cart_replacer"
 	if(signs)
 		overlays += "cart_sign[signs]"
+
 
 
 //old style retardo-cart

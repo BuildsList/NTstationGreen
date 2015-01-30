@@ -30,6 +30,8 @@
 
 /datum/paint_info/proc/validate(var/turf/simulated/floor/test)
 	//This is used to give the user a hint that he's a massive retard for using a floor painter on the carpet
+	if (!istype(test))
+		return 0
 	switch(ftype)
 		if(PAINT_FLOOR) //why is it named plasteel anyway?
 			if(!(istype(test.floor_tile,/obj/item/stack/tile/plasteel)))

@@ -7,7 +7,7 @@
 		usr << "\red Speech is currently admin-disabled."
 		return
 
-	message = trim(copytext(message, 1, MAX_MESSAGE_LEN))
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 	if (!message || silent)
 		return
@@ -50,8 +50,8 @@
 		var/health_diff = round(-config.health_threshold_dead + health)
 		// If we cut our message short, abruptly end it with a-..
 		var/message_len = length(message)
-		message = copytext(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
-		message = Ellipsis(message, 10, 1)
+		message = sanitize(copytext(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]")
+		message = sanitize(Ellipsis(message, 10, 1))
 		whispers = "прошептал на последнем дыхании"
 
 	var/italics = 1

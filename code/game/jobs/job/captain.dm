@@ -3,7 +3,7 @@ Captain
 */
 /datum/job/captain
 	title = "Captain"
-	r_title = "Капитан"
+	r_title = "капитан"
 	flag = CAPTAIN
 	department_head = list("Centcom")
 	department_flag = ENGSEC
@@ -11,7 +11,7 @@ Captain
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
-	r_supervisors = "Представител&#255;м Нанотрасен и Космозакону"
+	r_supervisors = "представител&#255;м Нанотрейзен и Космозакону"
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	minimal_player_age = 14
@@ -48,7 +48,7 @@ Captain
 	L.imp_in = H
 	L.implanted = 1
 
-	world << "<b>[H.real_name] is the captain!</b>"
+	world << "<b>Капитан станции - [H.real_name]!</b>"
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -58,7 +58,7 @@ Head of Personnel
 */
 /datum/job/hop
 	title = "Head of Personnel"
-	r_title = "Начальник Персонала"
+	r_title = "глава персонала"
 	flag = HOP
 	department_head = list("Captain")
 	department_flag = CIVILIAN

@@ -40,8 +40,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/const/changeling_amount = 4 //hard limit on changelings if scaling is turned off
 
 /datum/game_mode/changeling/announce()
-	world << "<b>The current game mode is - Changeling!</b>"
-	world << "<b>There are alien changelings on the station. Do not let the changelings succeed!</b>"
+	world << "<b>Текущий игровой режим - Генокрад!</b>"
+	world << "<b>Инопланетные организмы, генокрады, проникли на станцию. Не дайте им выполнить их миссию!</b>"
 
 /datum/game_mode/changeling/pre_setup()
 
@@ -125,21 +125,21 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
 	if (you_are)
-		changeling.current << "<b>\red You are a changeling! You have absorbed and taken the form of a human.</b>"
-	changeling.current << "<b>\red Use say \":g message\" to communicate with your fellow changelings.</b>"
+		changeling.current << "<b>\red Вы - генокрад! Поглотив одного из членов экипажа и прин&#255;в его форму вы проникли на станцию.</b>"
+	changeling.current << "<b>\red Наберите в поле \":g сообщение \", чтобы общатьс&#255; с другими генокрадами.</b>"
 	changeling.current << "<b>You must complete the following tasks:</b>"
 
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
-			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
+			changeling.current << "Вы смогли обуздать свою клоунскую натуру и теперь можете использовать оружие без вреда дл&#255; себ&#255;."
 			changeling.current.remove_organic_effect(/datum/organic_effect/clumsy)
 		if (changeling.current.mind.assigned_role == "Mime")
-			changeling.current << "You have evolved beyond your mime nature, allowing you to speak."
+			changeling.current << "Ваши голосовые св&#255;зки регенерировали и теперь вы можете разговаривать."
 			changeling.current.mind.miming = !changeling.current.mind.miming
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
-		changeling.current << "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
+		changeling.current << "<b>Задание #[obj_count]</b>: [objective.explanation_text]"
 		obj_count++
 	return
 
@@ -167,41 +167,41 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(changelings.len)
-		var/text = "<br><font size=3><b>The changelings were:</b></font>"
+		var/text = "<br><font size=3><b>Генокрадами были:</b></font>"
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = 1
 
-			text += "<br><b>[changeling.key]</b> was <b>[changeling.name]</b> ("
+			text += "<br><b>[changeling.key]</b> был <b>[changeling.name]</b> ("
 			if(changeling.current)
 				if(changeling.current.stat == DEAD)
-					text += "died"
+					text += "мёртв"
 				else
-					text += "survived"
+					text += "выжил"
 				if(changeling.current.real_name != changeling.name)
-					text += " as <b>[changeling.current.real_name]</b>"
+					text += " как <b>[changeling.current.real_name]</b>"
 			else
-				text += "body destroyed"
+				text += "тело уничтожено"
 				changelingwin = 0
 			text += ")"
 
 			//Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
-			text += "<br><b>Changeling ID:</b> [changeling.changeling.changelingID]."
-			text += "<br><b>Genomes Extracted:</b> [changeling.changeling.absorbedcount]"
+			text += "<br><b>ID Генокрада:</b> [changeling.changeling.changelingID]."
+			text += "<br><b>Геномов высосано:</b> [changeling.changeling.absorbedcount]"
 
 			if(changeling.objectives.len)
 				var/count = 1
 				for(var/datum/objective/objective in changeling.objectives)
 					if(objective.check_completion())
-						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
+						text += "<br><b>Задание #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					else
-						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						text += "<br><b>Задание #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 						changelingwin = 0
 					count++
 
 			if(changelingwin)
-				text += "<br><font color='green'><b>The changeling was successful!</b></font>"
+				text += "<br><font color='green'><b>Генокрад успешно выполнил все свои цели!</b></font>"
 			else
-				text += "<br><font color='red'><b>The changeling has failed.</b></font>"
+				text += "<br><font color='red'><b>Генокрад провали одно или несколько из своих целей.</b></font>"
 			text += "<br>"
 
 		world << text

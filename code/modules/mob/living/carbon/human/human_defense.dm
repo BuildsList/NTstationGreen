@@ -59,7 +59,9 @@ emp_act
 
 	var/obj/item/organ/limb/affecting = get_organ(check_zone(def_zone))
 
-	if(check_shields(P.damage, "the [P.name]"))
+	var/obj/item/S = check_shields(P.damage, "the [P.name]")
+	if(S)
+		S.shield_block_event(P)
 		if(affecting.state != ORGAN_REMOVED)
 			affecting.dismember(null, GUN_DISMEMBERMENT, 0)
 			P.on_hit(src, 100, def_zone)
@@ -96,13 +98,13 @@ emp_act
 		if(I.IsShield() && (prob(50 - round(damage / 3))))
 			visible_message("<span class='danger'>[src] blocks [attack_text] with [l_hand]!</span>", \
 							"<span class='userdanger'>[src] blocks [attack_text] with [l_hand]!</span>")
-			return 1
+			return I
 	if(r_hand && istype(r_hand, /obj/item/weapon))
 		var/obj/item/weapon/I = r_hand
 		if(I.IsShield() && (prob(50 - round(damage / 3))))
 			visible_message("<span class='danger'>[src] blocks [attack_text] with [r_hand]!</span>", \
 							"<span class='userdanger'>[src] blocks [attack_text] with [r_hand]!</span>")
-			return 1
+			return I
 	if(wear_suit && istype(wear_suit, /obj/item/))
 		var/obj/item/I = wear_suit
 		if(I.IsShield() && (prob(35)))
@@ -121,7 +123,7 @@ emp_act
 			if(buckled)
 				buckled.unbuckle()
 			src.loc = picked
-			return 1
+			return I
 	return 0
 
 
@@ -130,19 +132,19 @@ emp_act
 
 	var/obj/item/organ/limb/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 
-	if(affecting.state == ORGAN_REMOVED)
-		if(istype(I, /obj/item/augment))
-			var/obj/item/organ/limb/affecting_accurate = get_organ(check_zone(user.zone_sel.selecting)) //so augmenting doesn't "miss"
-			var/obj/item/augment/AUG = I
-			augmentation(affecting_accurate,user, AUG)
-
-		return 0//No limb/Augmentation time
-
+	if(istype(I, /obj/item/organ/limb/augment))
+		var/obj/item/organ/limb/affecting_accurate = get_organ(check_zone(user.zone_sel.selecting)) //so augmenting doesn't "miss"
+		var/obj/item/organ/limb/augment/AUG = I
+		augmentation(affecting_accurate,user, AUG)
+	if(affecting.state == ORGAN_REMOVED)	return 0//No limb/Augmentation time
 
 	var/hit_area = parse_zone(affecting.name)
 
-	if((user != src) && check_shields(I.force, "the [I.name]"))
-		return 0
+	if(user != src)
+		var/obj/item/S = check_shields(I.force, "the [I.name]")
+		if (S)
+			S.shield_block_event(I)
+			return 0
 
 	if(I.attack_verb && I.attack_verb.len)
 		visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I] by [user]!</span>", \
@@ -197,7 +199,7 @@ emp_act
 
 		switch(hit_area)
 			if("head")	//Harder to score a stun but if you do it lasts a bit longer
-				if(stat == CONSCIOUS && prob(I.force))
+				if(stat == CONSCIOUS && prob(I.force + affecting.brute_dam + affecting.burn_dam))
 					if(Iforce >= 5)
 						visible_message("<span class='danger'>[src] has been knocked unconscious!</span>", \
 										"<span class='userdanger'>[src] has been knocked unconscious!</span>")

@@ -132,6 +132,7 @@
 				for (var/mob/C in viewers(src))
 					C.show_message("\red [GM.name] has been placed in \the [src] by [user].", 3)
 				qdel(G)
+				add_logs(usr,GM, "placed", 1, null, "in a disposals unit at [src.x],[src.y],[src.z]")
 		return
 
 	if(!I)	return

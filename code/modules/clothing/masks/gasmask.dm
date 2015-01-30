@@ -53,6 +53,7 @@
 	can_flip = null
 	var/cooldown = 0
 	var/aggressiveness = 2
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/sechailer/warden
 	icon_state = "wardenmask"

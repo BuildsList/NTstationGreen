@@ -4,8 +4,8 @@
 	desc = "A floor tile, made out of glass. It produces light."
 	icon_state = "tile_e"
 	w_class = 3.0
-	force = 3.0
-	throwforce = 5.0
+	force = 5
+	throwforce = 7
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT

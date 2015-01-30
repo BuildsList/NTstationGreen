@@ -2,6 +2,8 @@
 	name = "energy"
 	icon_state = "spark"
 	damage = 0
+	force = 0
+	throwforce = 0
 	damage_type = BURN
 	flag = "energy"
 	trace_residue = "Minor electrical discolouration."

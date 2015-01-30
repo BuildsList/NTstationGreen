@@ -25,10 +25,23 @@ var/global/floorIsLava = 0
 		return
 
 	var/body = "<html><head><title>Options for [M.key]</title></head>"
-	body += "<body>Options panel for <b>[M]</b>"
+	body += "<body>Options panel for <b><A href='?_src_=vars;rename=\ref[M]'>[M]</A></b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		body += "\[<A href='?_src_=holder;editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+	else
+		if (M.lastkey)
+			body +="(last played by <b>[M.lastkey]</b>) "
+
+	if(M.mind)
+		body += "<br>"
+		body += "Role: <b>[M.mind.assigned_role? "[M.mind.assigned_role]":"None"]</b>"
+		body += "<br>"
+		body += "Special Role: <b>[M.mind.special_role? "[M.mind.special_role]":"None"]</b>"
+
+	if(istype(M,/mob/living/silicon/robot) || istype(M,/mob/living/silicon/ai))
+		body += "<br>"
+		body += "<A href='?src=\ref[src];showlaws=\ref[M]'>Check Laws</font></a>"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "

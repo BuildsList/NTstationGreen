@@ -10,8 +10,8 @@
 	var/const/waittime_h = 1800
 
 /datum/game_mode/announce()
-	world << "<B>The current game mode is - Extended Role-Playing!</B>"
-	world << "<B>Just have fun and role-play!</B>"
+	world << "<B>“екущий игровой режим - Ёкстендед!</B>"
+	world << "<B>¬ данном игровом режиме нет цели, развлекайтесь.</B>"
 
 /datum/game_mode/extended/pre_setup()
 	return 1

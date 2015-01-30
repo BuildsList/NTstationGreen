@@ -10,6 +10,8 @@
 	var/on = 0
 	item_color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
 	action_button_name = "Toggle Helmet Light"
+	flags = HEADCOVERSEYES|HEADCOVERSMOUTH|BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
 	attack_self(mob/user)
 		if(!isturf(user.loc))
@@ -43,6 +45,7 @@
 	slowdown = 2
 	armor = list(melee = 15, bullet = 10, laser = 15,energy = 10, bomb = 10, bio = 100, rad = 90)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 //Atmospherics
 /obj/item/clothing/head/helmet/space/rig/atmos

@@ -17,6 +17,8 @@
 	if (stat)
 		return
 
+	message = trim(message)
+
 	if (length(message) >= 2)
 		if ((copytext(message, 1, 3) == ":b") || (copytext(message, 1, 3) == ":B") || \
 			(copytext(message, 1, 3) == "#b") || (copytext(message, 1, 3) == "#B") || \
@@ -24,7 +26,7 @@
 			if(istype(src, /mob/living/silicon/pai))
 				return ..(message, "R")
 			message = copytext(message, 3)
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+			message = copytext(sanitize(message), 1, MAX_MESSAGE_LEN)
 			robot_talk(message)
 		else if ((copytext(message, 1, 3) == ":h") || (copytext(message, 1, 3) == ":H") || \
 				(copytext(message, 1, 3) == "#h") || (copytext(message, 1, 3) == "#H") || \
@@ -32,7 +34,7 @@
 			if(isAI(src)&&client)//For patching directly into AI holopads.
 				var/mob/living/silicon/ai/U = src
 				message = copytext(message, 3)
-				message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+				message = copytext(sanitize(message), 1, MAX_MESSAGE_LEN)
 				U.holopad_talk(message)
 			else//Will not allow anyone by an active AI to use this function.
 				src << "This function is not available to you."
@@ -45,12 +47,12 @@
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(var/message)
 
+	if (!message)
+		return
+
 	log_say("[key_name(src)] : [message]")
 
 	message = trim(message)
-
-	if (!message)
-		return
 
 	var/obj/machinery/hologram/holopad/T = src.current
 	if(istype(T) && T.hologram && T.master == src)//If there is a hologram and its master is the user.
@@ -86,12 +88,13 @@
 
 /mob/living/proc/robot_talk(var/message)
 
+	if (!message)
+		return
+
 	log_say("[key_name(src)] : [message]")
 
 	message = trim(message)
 
-	if (!message)
-		return
 	var/desig = "Default Cyborg" //ezmode for taters
 	if(istype(src, /mob/living/silicon))
 		var/mob/living/silicon/S = src

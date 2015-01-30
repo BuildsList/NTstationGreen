@@ -297,6 +297,8 @@
 /obj/item/proc/IsShield()
 	return 0
 
+/obj/item/proc/shield_block_event(var/obj/item/I)
+
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	if(prob(reflect_chance))
 		return 1
@@ -383,7 +385,6 @@
 			if(blood_splatter_icon)
 				overlays -= blood_splatter_icon
 
-
 var/list/onmob_icons = list(
 	"r_hand" = 'icons/mob/items_righthand.dmi',
 	"l_hand" = 'icons/mob/items_lefthand.dmi',
@@ -399,8 +400,52 @@ var/list/onmob_icons = list(
 	"hands" = 'icons/mob/hands.dmi',
 	"uniform" = 'icons/mob/uniform.dmi')
 
+var/list/onmob_f_icons = list(
+	"r_hand" = 'icons/mob/items_righthand.dmi',
+	"l_hand" = 'icons/mob/items_lefthand.dmi',
+	"back" = 'icons/mob/back_f.dmi',
+	"mask" = 'icons/mob/mask.dmi',
+	"suit" = 'icons/mob/suit_f.dmi',
+	"belt" = 'icons/mob/belt_f.dmi',
+	"head" = 'icons/mob/head.dmi',
+	"s_store" = 'icons/mob/belt_mirror.dmi',
+	"shoes" = 'icons/mob/feet_f.dmi',
+	"ears" = 'icons/mob/ears_f.dmi',
+	"eyes" = 'icons/mob/eyes_f.dmi',
+	"hands" = 'icons/mob/hands_f.dmi',
+	"uniform" = 'icons/mob/uniform_f.dmi')
+
+
 /obj/item/proc/get_onmob_icon(var/icon_name, var/layer = 0)
 	var/icon = onmob_icons[icon_name]
+	var/t_state = icon_state
+	var/image/overlay
+
+	if((icon_name in list("r_hand", "l_hand", "belt", "s_store", "hands")) && item_state)
+		t_state = item_state
+
+	if(icon_name == "uniform")
+		if(item_color)
+			t_state = item_color
+		if(!item_state_icon)
+			t_state += "_s"
+
+	if(item_state_icon)
+		icon = item_state_icon
+		t_state += "_" + icon_name
+
+	if(layer)
+		overlay = image(icon = icon, icon_state = t_state, layer = layer)
+	else
+		overlay = image(icon = icon, icon_state = t_state)
+
+	overlay.color = color
+	overlay.alpha = alpha
+
+	return overlay
+
+/obj/item/proc/get_onmob_f_icon(var/icon_name, var/layer = 0) // My shiteater sense is tingling - Loly
+	var/icon = onmob_f_icons[icon_name]
 	var/t_state = icon_state
 	var/image/overlay
 

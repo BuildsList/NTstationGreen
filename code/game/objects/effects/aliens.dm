@@ -411,6 +411,7 @@
 /obj/effect/acid/proc/tick()
 	if(!target)
 		qdel(src)
+		return
 
 	ticks++
 
