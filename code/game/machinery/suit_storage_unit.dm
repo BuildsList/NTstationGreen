@@ -314,7 +314,8 @@
 	STORAGE = null
 
 /obj/machinery/suit_storage_unit/proc/eject(atom/movable/ITEM)
-	ITEM.loc = src.loc
+	if (ITEM)
+		ITEM.loc = src.loc
 
 /obj/machinery/suit_storage_unit/proc/dump_everything()
 	for(var/obj/item/ITEM in src)

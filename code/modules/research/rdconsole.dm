@@ -423,9 +423,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		build(href_list["buildmulti"],text2num(href_list["amount"]))
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
-		var/coeff = linked_imprinter.efficiency_coeff
-		var/g2g = 1
 		if(linked_imprinter)
+			var/coeff = linked_imprinter.efficiency_coeff
+			var/g2g = 1
 			var/datum/design/being_built = null
 			for(var/datum/design/D in files.known_designs)
 				if(D.id == href_list["imprint"])
@@ -473,6 +473,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						linked_imprinter.busy = 0
 						screen = 4.1
 						updateUsrDialog()
+		else
+			usr << "<font color='blue'>You need to link imprinter first!</font>"
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 		linked_imprinter.reagents.del_reagent(href_list["disposeI"])

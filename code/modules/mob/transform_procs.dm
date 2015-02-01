@@ -78,7 +78,7 @@
 	. = O
 	if ( !(tr_flags & TR_KEEPSRC) ) //flag should be used if monkeyize() is called inside another proc of src so that one does not crash
 		qdel(src)
-	return
+	//return
 
 
 

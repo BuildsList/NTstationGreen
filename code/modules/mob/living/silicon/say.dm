@@ -20,17 +20,24 @@
 	message = trim(message)
 
 	if (length(message) >= 2)
-		if ((copytext(message, 1, 3) == ":b") || (copytext(message, 1, 3) == ":B") || \
-			(copytext(message, 1, 3) == "#b") || (copytext(message, 1, 3) == "#B") || \
-			(copytext(message, 1, 3) == ".b") || (copytext(message, 1, 3) == ".B"))
+		var/prefix = copytext(message, 1, 3)
+		if ((prefix == ":b") || (prefix == ":B") || \
+			(prefix == "#b") || (prefix == "#B") || \
+			(prefix == ".b") || (prefix == ".B") || \
+			(prefix == ":è") || (prefix == ":È") || \
+			(prefix == "#è") || (prefix == "#È") || \
+			(prefix == ".è") || (prefix == ".È"))
 			if(istype(src, /mob/living/silicon/pai))
 				return ..(message, "R")
 			message = copytext(message, 3)
 			message = copytext(sanitize(message), 1, MAX_MESSAGE_LEN)
 			robot_talk(message)
-		else if ((copytext(message, 1, 3) == ":h") || (copytext(message, 1, 3) == ":H") || \
-				(copytext(message, 1, 3) == "#h") || (copytext(message, 1, 3) == "#H") || \
-				(copytext(message, 1, 3) == ".h") || (copytext(message, 1, 3) == ".H"))
+		else if ((prefix == ":h") || (prefix == ":H") || \
+				(prefix == "#h") || (prefix == "#H") || \
+				(prefix == ".h") || (prefix == ".H") || \
+				(prefix == ":ð") || (prefix == ":Ð") || \
+				(prefix == "#ð") || (prefix == "#Ð") || \
+				(prefix == ".ð") || (prefix == ".Ð"))
 			if(isAI(src)&&client)//For patching directly into AI holopads.
 				var/mob/living/silicon/ai/U = src
 				message = copytext(message, 3)
@@ -53,6 +60,9 @@
 	log_say("[key_name(src)] : [message]")
 
 	message = trim(message)
+
+	if (!message)
+		return
 
 	var/obj/machinery/hologram/holopad/T = src.current
 	if(istype(T) && T.hologram && T.master == src)//If there is a hologram and its master is the user.
@@ -94,6 +104,9 @@
 	log_say("[key_name(src)] : [message]")
 
 	message = trim(message)
+
+	if (!message)
+		return
 
 	var/desig = "Default Cyborg" //ezmode for taters
 	if(istype(src, /mob/living/silicon))

@@ -155,6 +155,13 @@
 			var/obj/structure/constructshell/T = target
 			var/obj/item/device/soulstone/C = src
 			var/mob/living/simple_animal/shade/A = locate() in C
+
+			if (!T)
+				ERROR("Proc: transfer_soul. T - NULL")
+			else
+				if (!T.loc)
+					ERROR("Proc: transfer_soul. T.loc - NULL")
+
 			if(A)
 				var/construct_class = alert(U, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
 				switch(construct_class)

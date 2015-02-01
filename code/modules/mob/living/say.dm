@@ -49,7 +49,7 @@ var/list/department_radio_keys = list(
 	  ":è" = "binary",		"#è" = "binary",		".è" = "binary",
 	  ":ô" = "alientalk",	"#ô" = "alientalk",		".ô" = "alientalk",
 	  ":å" = "Syndicate",	"#å" = "Syndicate",		".å" = "Syndicate",
-	  ":é" = "Supply",		"#é" = "Supply",		".é" = "Supply",
+	  ":ã" = "Supply",		"#ã" = "Supply",		".ã" = "Supply",
 	  ":ì" = "Service",		"#ì" = "Service",		".ì" = "Service",
 	  ":ï" = "changeling",	"#ï" = "changeling",	".ï" = "changeling",
 
@@ -66,7 +66,7 @@ var/list/department_radio_keys = list(
 	  ":È" = "binary",		"#È" = "binary",		".È" = "binary",
 	  ":Ô" = "alientalk",	"#Ô" = "alientalk",		".Ô" = "alientalk",
 	  ":Å" = "Syndicate",	"#Å" = "Syndicate",		".Å" = "Syndicate",
-	  ":É" = "Supply",		"#É" = "Supply",		".É" = "Supply",
+	  ":Ã" = "Supply",		"#Ã" = "Supply",		".Ã" = "Supply",
 	  ":Ì" = "Service",		"#Ì" = "Service",		".Ì" = "Service",
 	  ":Ï" = "changeling",	"#Ï" = "changeling",	".Ï" = "changeling"
 )
@@ -146,15 +146,23 @@ var/list/department_radio_keys = list(
 
 	else if (length(message) >= 2)
 		var/channel_prefix = copytext(message, 1, 3)
+		message_mode = null
 
-		message_mode = department_radio_keys[channel_prefix]
-		//world << "channel_prefix=[channel_prefix]; message_mode=[message_mode]"
-		if (message_mode)
-			message = trim(copytext(message, 3))
-			if (!(ishuman(src) || istype(src, /mob/living/simple_animal/parrot) || isrobot(src) && (message_mode=="department") || (message_mode in radiochannels)))
-				message_mode = null //only humans can use headsets
-			// Check changed so that parrots can use headsets. Other simple animals do not have ears and will cause runtimes.
-			// And borgs -Sieve
+		// Check changed so that parrots can use headsets. Other simple animals do not have ears and will cause runtimes.
+		// And borgs -Sieve
+		if (ishuman(src) || istype(src, /mob/living/simple_animal/parrot))
+			message_mode = department_radio_keys[channel_prefix]
+			if (message_mode)
+				message = trim(copytext(message, 3))
+		if (isrobot(src) || isAI(src))
+			message_mode = department_radio_keys[channel_prefix]
+			if (message_mode)
+				if (message_mode == "department") //only humans and parrots can use headsets
+					message_mode = null
+				else
+					message = trim(copytext(message, 3))
+
+
 
 	if (!message)
 		return
@@ -264,6 +272,7 @@ var/list/department_radio_keys = list(
 		else
 			//world << "SPECIAL HEADSETS"
 			if (message_mode in radiochannels)
+				//world << "MODE - [message_mode]"
 				if(isrobot(src))//Seperates robots to prevent runtimes from the ear stuff
 					var/mob/living/silicon/robot/R = src
 					if(R.radio)//Sanityyyy

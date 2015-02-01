@@ -44,12 +44,21 @@
 
 	for(var/obj/O in src)
 		O.loc = src.loc
+		for(var/mob/M in O)
+			if(M.client)
+				M.client.eye = M.client.mob
+				M.client.perspective = MOB_PERSPECTIVE
 
 	for(var/mob/M in src)
 		M.loc = src.loc
 		if(M.client)
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
+		/*
+		if(istype(src, /mob/living))
+			if(src:cameraFollow)
+				src:cameraFollow = null
+		*/
 
 /obj/structure/closet/proc/take_contents()
 
