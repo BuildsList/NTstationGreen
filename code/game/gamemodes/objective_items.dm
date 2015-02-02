@@ -69,6 +69,11 @@ datum/objective_item/steal/hypo
 	difficulty = 5
 	excludefromjob = list("Chief Medical Officer")
 
+datum/objective_item/steal/hypo/check_special_completion(var/obj/O)
+	if(istype(O, /obj/item/weapon/reagent_containers/hypospray/medipen))
+		return 0
+	return 1
+
 datum/objective_item/steal/nukedisc
 	name = "диск &#255;дерной аутентификации"
 	targetitem = /obj/item/weapon/disk/nuclear

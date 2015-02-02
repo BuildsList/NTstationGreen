@@ -57,10 +57,15 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char)
 	return t
 
-proc/sanitize_russian(var/msg) //?????????? ??? ?????, ??? ?? ????? ??????? ???????? ????? ? ??????.
+proc/sanitize_russian(var/msg, var/html = 0) //?????????? ??? ?????, ??? ?? ????? ??????? ???????? ????? ? ??????.
+	var/rep
+	if(html)
+		rep = "&#x44F;"
+	else
+		rep = "&#255;"
 	var/index = findtext(msg, "ÿ")
 	while(index)
-		msg = copytext(msg, 1, index) + "&#255;" + copytext(msg, index + 1)
+		msg = copytext(msg, 1, index) + rep + copytext(msg, index + 1)
 		index = findtext(msg, "ÿ")
 	return msg
 
@@ -588,32 +593,43 @@ proc/NewStutter(phrase/*,stunned*/)
 		. += copytext(into, start, end)
 
 
-/proc/rhtml_encode(var/msg)
-        var/list/c = text2list(msg, "ÿ")
-        if(c.len == 1)
-                c = text2list(msg, "&#255;")
-                if(c.len == 1)
-                        return html_encode(msg)
-        var/out = ""
-        var/first = 1
-        for(var/text in c)
-                if(!first)
-                        out += "&#255;"
-                first = 0
-                out += html_encode(text)
-        return out
+/proc/rhtml_encode(var/msg, var/html = 0)
+	var/rep
+	if(html)
+		rep = "&#x44F;"
+	else
+		rep = "&#255;"
+	var/list/c = text2list(msg, "ÿ")
+	if(c.len == 1)
+		c = text2list(msg, rep)
+		if(c.len == 1)
+			return html_encode(msg)
+	var/out = ""
+	var/first = 1
+	for(var/text in c)
+		if(!first)
+			out += rep
+		first = 0
+		out += html_encode(text)
+	return out
 
-/proc/rhtml_decode(var/msg)
-        var/list/c = text2list(msg, "ÿ")
-        if(c.len == 1)
-                c = text2list(msg, "&#255;")
-                if(c.len == 1)
-                        return html_decode(msg)
-        var/out = ""
-        var/first = 1
-        for(var/text in c)
-                if(!first)
-                        out += "&#255;"
-                first = 0
-                out += html_decode(text)
-        return out
+/proc/rhtml_decode(var/msg, var/html = 0)
+	var/rep
+	if(html)
+		rep = "&#x44F;"
+	else
+		rep = "&#255;"
+	var/list/c = text2list(msg, "ÿ")
+	if(c.len == 1)
+		c = text2list(msg, "&#255;")
+		if(c.len == 1)
+			c = text2list(msg, "&#x4FF")
+			if(c.len == 1)
+				return html_decode(msg)
+	var/out = ""
+	var/first = 1
+	for(var/text in c)
+		if(!first)
+			out += rep
+			first = 0
+		out += html_decode(text)
