@@ -556,7 +556,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if ("Edit")
 				var/n = input(U, "Please enter message", name, notehtml) as message
 				if (in_range(src, U) && loc == U)
-					n = copytext(adminscrub(n), 1, MAX_MESSAGE_LEN)
+					n = sanitize(copytext(adminscrub(n), 1, MAX_MESSAGE_LEN))
 					if (mode == 1)
 						note = replacetext(n, "\n", "<BR>")
 						notehtml = n
@@ -712,7 +712,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P)
 
 	var/t = input(U, "Please enter message", name, null) as text
-	t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+	t = copytext(sanitize_PDA(t), 1, MAX_MESSAGE_LEN)
 	if (!t || !istype(P))
 		return
 	if (!in_range(src, U) && loc != U)

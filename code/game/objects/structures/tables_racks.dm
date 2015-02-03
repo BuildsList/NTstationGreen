@@ -456,11 +456,16 @@
 
 /obj/structure/table/blob_act()
 	if(prob(75))
-		if(istype(src, /obj/structure/table/woodentable))
-			new /obj/item/weapon/table_parts/wood( src.loc )
-			qdel(src)
-			return
-		new /obj/item/weapon/table_parts( src.loc )
+		if(istype(src, /obj/structure/table/reinforced))
+			new /obj/item/weapon/table_parts/reinforced(loc)
+		else if(istype(src, /obj/structure/table/woodentable))
+			new/obj/item/weapon/table_parts/wood(loc)
+		else if(istype(src, /obj/structure/table/glasstable))
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/stack/rods(loc)
+		else
+			new /obj/item/weapon/table_parts(loc)
 		qdel(src)
 		return
 
@@ -472,6 +477,10 @@
 			new /obj/item/weapon/table_parts/reinforced(loc)
 		else if(istype(src, /obj/structure/table/woodentable))
 			new/obj/item/weapon/table_parts/wood(loc)
+		else if(istype(src, /obj/structure/table/glasstable))
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/stack/rods(loc)
 		else
 			new /obj/item/weapon/table_parts(loc)
 		density = 0
@@ -484,6 +493,10 @@
 		new /obj/item/weapon/table_parts/reinforced(loc)
 	else if(istype(src, /obj/structure/table/woodentable))
 		new/obj/item/weapon/table_parts/wood(loc)
+	else if(istype(src, /obj/structure/table/glasstable))
+		new/obj/item/weapon/shard(loc)
+		new/obj/item/weapon/shard(loc)
+		new/obj/item/stack/rods(loc)
 	else
 		new /obj/item/weapon/table_parts(loc)
 	density = 0
@@ -497,6 +510,10 @@
 			new /obj/item/weapon/table_parts/reinforced(loc)
 		else if(istype(src, /obj/structure/table/woodentable))
 			new/obj/item/weapon/table_parts/wood(loc)
+		else if(istype(src, /obj/structure/table/glasstable))
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/stack/rods(loc)
 		else
 			new /obj/item/weapon/table_parts(loc)
 		density = 0
@@ -513,6 +530,10 @@
 			new /obj/item/weapon/table_parts/reinforced(loc)
 		else if(istype(src, /obj/structure/table/woodentable))
 			new/obj/item/weapon/table_parts/wood(loc)
+		else if(istype(src, /obj/structure/table/glasstable))
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/weapon/shard(loc)
+			new/obj/item/stack/rods(loc)
 		else
 			new /obj/item/weapon/table_parts(loc)
 		density = 0

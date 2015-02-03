@@ -9,7 +9,7 @@
 	desc = "It's very smart and in a ladies-size!"
 	icon_state = "black"
 	item_state = "bl_suit"
-	item_color = "blackf"
+	item_color = "black"
 	fitted = 0
 
 /obj/item/clothing/under/color/blue

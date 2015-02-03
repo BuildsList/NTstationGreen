@@ -43,6 +43,14 @@
 	icon_state = "hasturhood"
 	flags = HEADCOVERSEYES|BLOCKHAIR
 
+/obj/item/clothing/head/crocodile
+	name = "crocodile head mask"
+	desc = "A replica of old foggoten animal - crocodile, made of soft lizard skin and latex."
+	icon_state = "crocodile"
+	item_state = "crocodile"
+	flags = BLOCKHAIR
+	w_class = 2
+
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
