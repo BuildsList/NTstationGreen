@@ -49,6 +49,17 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char, index+1)
 	return t
 
+proc/sanitize_PDA(var/msg)
+	var/index = findtext(msg, "ÿ")
+	while(index)
+		msg = copytext(msg, 1, index) + "&#1103;" + copytext(msg, index+1)
+		index = findtext(msg, "ÿ")
+	index = findtext(msg, "&#255;")
+	while(index)
+		msg = copytext(msg, 1, index) + "&#1103;" + copytext(msg, index+1)
+		index = findtext(msg, "&#255;")
+	return msg
+
 /proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ÿ"="&#255;","<"="(","&lt;"=")"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
@@ -102,7 +113,7 @@ proc/sanitize_russian(var/msg, var/html = 0) //?????????? ??? ?????, ??? ?? ????
 
 // Used to get a sanitized input.
 /proc/stripped_input(var/mob/user, var/message = "", var/title = "", var/default = "", var/max_length=MAX_MESSAGE_LEN)
-	var/name = input(user, message, title, default)
+	var/name = sanitize(input(user, message, title, default))
 	return strip_html_simple(name, max_length)
 
 //Filters out undesirable characters from names

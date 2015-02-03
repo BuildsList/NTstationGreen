@@ -22,7 +22,7 @@
 //Don't set this very much higher then 1024 unless you like inviting people in to dos your server with message spam
 #define MAX_MESSAGE_LEN			256
 #define MAX_NAME_LEN			26
-#define MAX_BROADCAST_LEN		124
+#define MAX_BROADCAST_LEN		256
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				17	//youngest a character can be
