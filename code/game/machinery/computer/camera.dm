@@ -15,7 +15,7 @@
 		if((istype(user,/mob/living/silicon/robot)) && (!(viewing.Find(user))))
 			return null
 		user.reset_view(current)
-		attack_hand(user)
+		//attack_hand(user) SOOQA NO WE HAVE CALL OF ATTACK_HAND IN ATTACK_HAND BEATCH
 		return 1
 
 
