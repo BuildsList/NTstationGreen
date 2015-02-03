@@ -457,9 +457,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			force = 0
 			attack_verb = null //human_defense.dm takes care of it
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
-				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
+				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.</span>")
 			else
-				user.visible_message("<span class='notice'>[user] quietly shuts off [src].")
+				user.visible_message("<span class='notice'>[user] quietly shuts off [src].</span>")
 
 			user.AddLuminosity(-1)
 			processing_objects.Remove(src)
