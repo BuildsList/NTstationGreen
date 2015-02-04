@@ -23,6 +23,7 @@
 			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread
 			sparks.set_up(1, 1, src)
 			sparks.start()
+			return 0 //No-no-no guys. It's fully blocked, remember?
 		..()
 
 /obj/item/projectile/energy/declone

@@ -199,7 +199,7 @@
 	icon_state = "rig0-sec"
 	item_state = "sec_helm"
 	item_color = "sec"
-	armor = list(melee = 55, bullet = 25, laser = 45,energy = 15, bomb = 25, bio = 100, rad = 50)
+	armor = list(melee = 35, bullet = 45, laser = 75, energy = 35, bomb = 25, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/rig/security
 	icon_state = "rig-sec"
@@ -207,7 +207,7 @@
 	desc = "A heavily-armored space suit that protects against hazardous, low pressure environments. Equipped with a multitude of ballistic and energy weapon shieldings."
 	item_state = "sec_hardsuit"
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank, /obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
-	armor = list(melee = 55, bullet = 45, laser = 75,energy = 20, bomb = 25, bio = 100, rad = 50)
+	armor = list(melee = 35, bullet = 45, laser = 75, energy = 35, bomb = 25, bio = 100, rad = 50) //lol no
 
 //Ancient hardsuit - Found on away missions/in space.
 /obj/item/clothing/head/helmet/space/rig/ancient

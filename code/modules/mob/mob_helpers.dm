@@ -158,14 +158,14 @@ proc/isdrone(A)
 	if(prob(probability))
 		return zone
 
-	var/t = rand(1, 17) // randomly pick a different zone, or maybe the same one
+	var/t = rand(1, 20) // randomly pick a different zone, or maybe the same one
 	switch(t)
-		if(1)		 return "head"
-		if(2)		 return "chest"
-		if(3 to 6)	 return "l_arm"
-		if(7 to 10)	 return "r_arm"
-		if(10 to 13) return "l_leg"
-		if(14 to 17) return "r_leg"
+		if(1 to 5)	 return "head"
+		if(6 to 12)	 return "chest"
+		if(13 to 14) return "l_arm"
+		if(15 to 16) return "r_arm"
+		if(17 to 18) return "l_leg"
+		if(19 to 20) return "r_leg"
 
 	return zone
 
