@@ -45,10 +45,10 @@
 	scripts[name] = file
 
 /datum/browser/proc/set_content(ncontent)
-	content = ncontent
+	content = sanitize_to_html(ncontent) 		//Íåíàâèæó ñåáÿ çà ýòî ~intercross21
 
 /datum/browser/proc/add_content(ncontent)
-	content += ncontent
+	content += sanitize_to_html(ncontent)
 
 /datum/browser/proc/get_header()
 	var/key
@@ -69,7 +69,7 @@
 
 	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 	<head>
 		[head_content]
 	</head>

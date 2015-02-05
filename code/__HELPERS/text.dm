@@ -49,6 +49,15 @@ var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4
 			index = findtext(t, char, index+1)
 	return t
 
+/proc/sanitize_proper(var/t, var/list/repl_strings = list())
+	for(var/str in repl_strings)
+		var/len = length(str)
+		var/index = findtext(t, str)
+		while(index)
+			t = copytext(t, 1, index) + repl_strings[str] + copytext(t, index + len)
+			index = findtext(t, str, index + 1)
+	return t
+
 proc/sanitize_PDA(var/msg)
 	var/index = findtext(msg, "€")
 	while(index)
@@ -60,15 +69,7 @@ proc/sanitize_PDA(var/msg)
 		index = findtext(msg, "&#255;")
 	return msg
 
-/proc/sanitize_simple_uni(var/t,var/list/repl_chars = list("\n"="#","\t"="#","€"="&#255;","<"="(","&lt;"=")"))
-	for(var/char in repl_chars)
-		var/index = findtext(t, char)
-		while(index)
-			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+1)
-			index = findtext(t, char)
-	return t
-
-proc/sanitize_russian(var/msg, var/html = 0) //?????????? ??? ?????, ??? ?? ????? ??????? ???????? ????? ? ??????.
+proc/sanitize_russian(var/msg, var/html = 0) //«аменить это как можно быстрее методами ниже
 	var/rep
 	if(html)
 		rep = "&#x44F;"
@@ -80,12 +81,18 @@ proc/sanitize_russian(var/msg, var/html = 0) //?????????? ??? ?????, ??? ?? ????
 		index = findtext(msg, "€")
 	return msg
 
+/proc/sanitize_to_default(var/msg)
+	return sanitize_proper(msg, YA_DEFAULT)
+
+/proc/sanitize_to_text(var/msg)
+	return sanitize_proper(msg, YA_TEXT)
+
+/proc/sanitize_to_html(var/msg)
+	return sanitize_proper(msg, YA_HTML)
+
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
 	return sanitize_simple(t,repl_chars)
-
-/proc/sanitize_uni(var/t,var/list/repl_chars = null)
-	return sanitize_simple_uni(t,repl_chars)
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
@@ -105,7 +112,7 @@ proc/sanitize_russian(var/msg, var/html = 0) //?????????? ??? ?????, ??? ?? ????
 	for(var/i=1, i<=length(text), i++)
 		switch(text2ascii(text,i))
 			if(62,60,92,47)	return			//rejects the text if it contains these bad characters: <, >, \ or /
-			if(127 to 255)	return			//rejects weird letters like ?
+			//if(127 to 255)	return		//WE LOVE RUSSIAN LETTERS! DO NOT REMOVE THEM!
 			if(0 to 31)		return			//more weird stuff
 			if(32)			continue		//whitespace
 			else			non_whitespace = 1
