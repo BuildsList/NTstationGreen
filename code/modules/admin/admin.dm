@@ -559,7 +559,7 @@ var/global/floorIsLava = 0
 	if(!check_rights(0))	return
 
 	var/new_admin_notice = input(src,"Set a public notice for this round. Everyone who joins the server will see it.\n(Leaving it blank will delete the current notice):","Set Notice",admin_notice) as message|null
-	new_admin_notice = sanitize(new_admin_notice)
+	new_admin_notice = sanitize_russian(new_admin_notice)
 	if(new_admin_notice == null)
 		return
 	if(new_admin_notice == admin_notice)
