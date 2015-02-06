@@ -68,7 +68,7 @@ var/next_mob_id = 0
 	if(stat == UNCONSCIOUS || sleeping > 0)
 		src << "<I>... You can almost hear someone talking ...</I>"
 	else
-		src << msg
+		src << sanitize_to_text(msg)
 	return
 
 // Show a message to all mobs in sight of this one

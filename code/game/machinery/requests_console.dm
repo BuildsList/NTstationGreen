@@ -250,7 +250,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(reject_bad_text(href_list["write"]))
 		dpt = ckey(href_list["write"]) //write contains the string of the receiving department's name
 
-		var/new_message = copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN)
+		var/new_message = sanitize_to_html(copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN))
 		if(new_message)
 			message = new_message
 			screen = 9
@@ -266,7 +266,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			priority = -1
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN)
+		var/new_message = sanitize_to_html(copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN))
 		if(new_message)
 			message = new_message
 			if (text2num(href_list["priority"]) < 2)
@@ -280,9 +280,11 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
+		message = sanitize_to_text(message)
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << "<b><font size = 3><font color = red>[department] announcement:</font color> [message]</font size></b>"
+		message = sanitize_to_html(message)
 		news_network.SubmitArticle(message, department, "Station Announcements", null)
 		announceAuth = 0
 		message = ""
@@ -371,7 +373,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	updateUsrDialog()
 	return
-	
+
 /obj/machinery/requests_console/proc/createmessage(source, title, message, priority, paper)
 	var/linkedsender
 	var/unlinkedsender
@@ -403,7 +405,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			if(src.newmessagepriority < 3)
 				src.newmessagepriority = 3
 				src.update_icon()
-			if(1) 
+			if(1)
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 1)
 				for (var/mob/O in hearers(7, src.loc))
 					O.show_message("\icon[src] *The Requests Console yells: '[title]'")

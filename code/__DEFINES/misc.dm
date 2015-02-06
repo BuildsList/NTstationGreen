@@ -30,3 +30,7 @@
 
 #define MINERAL_MATERIAL_AMOUNT 2000
 //The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
+
+#define YA_DEFAULT 	list("&#255;" = "ÿ", "&#1103;" = "ÿ")
+#define YA_TEXT		list("ÿ" = "&#255;", "&#1103;" = "&#255;")
+#define YA_HTML		list("ÿ" = "&#1103;","&#255;" = "&#1103;")
