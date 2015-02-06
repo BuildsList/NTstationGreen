@@ -138,7 +138,7 @@ obj/machinery/atmospherics/binary/passive_gate
 			return
 		src.add_fingerprint(usr)
 		if(!src.allowed(user))
-			user << "\red Access denied."
+			user << "<span class=\'warning\'>Access denied.</span>"
 			return
 		usr.set_machine(src)
 		interact(user)
@@ -166,6 +166,6 @@ obj/machinery/atmospherics/binary/passive_gate
 		if (!istype(W, /obj/item/weapon/wrench))
 			return ..()
 		if (on)
-			user << "\red You cannot unwrench this [src], turn it off first."
+			user << "<span class=\'warning\'>You cannot unwrench this [src], turn it off first.</span>"
 			return 1
 		return ..()

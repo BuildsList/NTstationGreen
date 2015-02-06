@@ -131,7 +131,7 @@ MASS SPECTROMETER
 
 	// Damage descriptions
 
-	user.show_message(text("<span class='notice'>[] | [] | [] | []</span>", oxy_loss > 50 ? "\red Severe oxygen deprivation detected\blue" : "Subject bloodstream oxygen level normal", tox_loss > 50 ? "\red Dangerous amount of toxins detected\blue" : "Subject bloodstream toxin level minimal", fire_loss > 50 ? "\red Severe burn damage detected\blue" : "Subject burn injury status O.K", brute_loss > 50 ? "\red Severe anatomical damage detected\blue" : "Subject brute-force injury status O.K"), 1)
+	user.show_message(text("<span class='notice'>[] | [] | [] | []</span>", oxy_loss > 50 ? "<span class=\'warning\'>Severe oxygen deprivation detected\blue</span>" : "Subject bloodstream oxygen level normal", tox_loss > 50 ? "<span class=\'warning\'>Dangerous amount of toxins detected\blue</span>" : "Subject bloodstream toxin level minimal", fire_loss > 50 ? "<span class=\'warning\'>Severe burn damage detected\blue</span>" : "Subject burn injury status O.K", brute_loss > 50 ? "<span class=\'warning\'>Severe anatomical damage detected\blue</span>" : "Subject brute-force injury status O.K"), 1)
 
 	if(M.getStaminaLoss())
 		user.show_message(text("<span class='info'>Subject appears to be suffering from fatigue.</span>"), 1)
@@ -197,7 +197,7 @@ MASS SPECTROMETER
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		user.show_message("\blue Pressure: [round(pressure,0.1)] kPa", 1)
 	else
-		user.show_message("\red Pressure: [round(pressure,0.1)] kPa", 1)
+		user.show_message("<span class=\'warning\'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
 	if(total_moles)
 		var/o2_concentration = environment.oxygen/total_moles
 		var/n2_concentration = environment.nitrogen/total_moles
@@ -208,23 +208,23 @@ MASS SPECTROMETER
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			user.show_message("\blue Nitrogen: [round(n2_concentration*100)]%", 1)
 		else
-			user.show_message("\red Nitrogen: [round(n2_concentration*100)]%", 1)
+			user.show_message("<span class=\'warning\'>Nitrogen: [round(n2_concentration*100)]%</span>", 1)
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
 			user.show_message("\blue Oxygen: [round(o2_concentration*100)]%", 1)
 		else
-			user.show_message("\red Oxygen: [round(o2_concentration*100)]%", 1)
+			user.show_message("<span class=\'warning\'>Oxygen: [round(o2_concentration*100)]%</span>", 1)
 
 		if(co2_concentration > 0.01)
-			user.show_message("\red CO2: [round(co2_concentration*100)]%", 1)
+			user.show_message("<span class=\'warning\'>CO2: [round(co2_concentration*100)]%</span>", 1)
 		else
 			user.show_message("\blue CO2: [round(co2_concentration*100)]%", 1)
 
 		if(plasma_concentration > 0.01)
-			user.show_message("\red Plasma: [round(plasma_concentration*100)]%", 1)
+			user.show_message("<span class=\'warning\'>Plasma: [round(plasma_concentration*100)]%</span>", 1)
 
 		if(unknown_concentration > 0.01)
-			user.show_message("\red Unknown: [round(unknown_concentration*100)]%", 1)
+			user.show_message("<span class=\'warning\'>Unknown: [round(unknown_concentration*100)]%</span>", 1)
 
 		user.show_message("\blue Temperature: [round(environment.temperature-T0C)]&deg;C", 1)
 
@@ -262,17 +262,17 @@ MASS SPECTROMETER
 	if (user.stat)
 		return
 	if (crit_fail)
-		user << "\red This device has critically failed and is no longer functional!"
+		user << "<span class=\'warning\'>This device has critically failed and is no longer functional!</span>"
 		return
 	if (!user.IsAdvancedToolUser())
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class=\'warning\'>You don't have the dexterity to do this!</span>"
 		return
 	if(reagents.total_volume)
 		var/list/blood_traces = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
 				reagents.clear_reagents()
-				user << "\red The sample was contaminated! Please insert another sample"
+				user << "<span class=\'warning\'>The sample was contaminated! Please insert another sample</span>"
 				return
 			else
 				blood_traces = params2list(R.data["trace_chem"])

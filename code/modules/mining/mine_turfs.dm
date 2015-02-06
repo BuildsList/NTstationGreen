@@ -382,7 +382,7 @@
 /turf/simulated/mineral/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (!user.IsAdvancedToolUser())
-		usr << "\red You don't have the dexterity to do this!"
+		usr << "<span class=\'warning\'>You don't have the dexterity to do this!</span>"
 		return
 
 	if (istype(W, /obj/item/weapon/pickaxe))
@@ -399,7 +399,7 @@
 		if(last_act+W:digspeed > world.time)//prevents message spam
 			return
 		last_act = world.time
-		user << "\red You start picking."
+		user << "<span class=\'warning\'>You start picking.</span>"
 		playsound(user, 'sound/weapons/Genhit.ogg', 20, 1)
 
 		if(do_after(user,W:digspeed))
@@ -521,10 +521,10 @@
 			return
 
 		if (dug)
-			user << "\red This area has already been dug"
+			user << "<span class=\'warning\'>This area has already been dug</span>"
 			return
 
-		user << "\red You start digging."
+		user << "<span class=\'warning\'>You start digging.</span>"
 		playsound(src, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
 
 		sleep(40)
@@ -539,10 +539,10 @@
 			return
 
 		if (dug)
-			user << "\red This area has already been dug"
+			user << "<span class=\'warning\'>This area has already been dug</span>"
 			return
 
-		user << "\red You start digging."
+		user << "<span class=\'warning\'>You start digging.</span>"
 		playsound(src, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
 
 		sleep(30)
@@ -556,10 +556,10 @@
 			return
 
 		if (dug)
-			user << "\red This area has already been dug"
+			user << "<span class=\'warning\'>This area has already been dug</span>"
 			return
 
-		user << "\red You start digging."
+		user << "<span class=\'warning\'>You start digging.</span>"
 		playsound(src, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
 
 		sleep(0)

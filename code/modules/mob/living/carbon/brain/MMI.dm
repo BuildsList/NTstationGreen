@@ -26,10 +26,10 @@
 	if(istype(O,/obj/item/organ/brain)) //Time to stick a brain in it --NEO
 		var/obj/item/organ/brain/newbrain = O
 		if(brain)
-			user << "\red There's already a brain in the MMI!"
+			user << "<span class=\'warning\'>There's already a brain in the MMI!</span>"
 			return
 		if(!newbrain.brainmob)
-			user << "\red You aren't sure where this brain came from, but you're pretty sure it's a useless brain."
+			user << "<span class=\'warning\'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>"
 			return
 		visible_message("\blue [user] sticks \a [newbrain] into \the [src]")
 
@@ -59,7 +59,7 @@
 			locked = !locked
 			user << "\blue You [locked ? "lock" : "unlock"] the brain holder."
 		else
-			user << "\red Access denied."
+			user << "<span class=\'warning\'>Access denied.</span>"
 		return
 	if(brainmob)
 		O.attack(brainmob, user) //Oh noooeeeee
@@ -68,9 +68,9 @@
 
 /obj/item/device/mmi/attack_self(mob/user as mob)
 	if(!brain)
-		user << "\red You upend the MMI, but there's nothing in it."
+		user << "<span class=\'warning\'>You upend the MMI, but there's nothing in it.</span>"
 	else if(locked)
-		user << "\red You upend the MMI, but the brain is clamped into place."
+		user << "<span class=\'warning\'>You upend the MMI, but the brain is clamped into place.</span>"
 	else
 		user << "\blue You upend the MMI, spilling the brain onto the floor."
 

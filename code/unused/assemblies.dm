@@ -292,7 +292,7 @@
 		return
 	if (( istype(W, /obj/item/weapon/screwdriver) ))
 		if (!src.status && (!part1||!part2||!part3))
-			user << "\red You cannot finish the assembly, not all components are in place!"
+			user << "<span class=\'warning\'>You cannot finish the assembly, not all components are in place!</span>"
 			return
 		src.status = !( src.status )
 		if (src.status)

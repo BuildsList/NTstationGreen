@@ -118,7 +118,7 @@
 /datum/game_mode/proc/greet_revolutionary(var/datum/mind/rev_mind, var/you_are=1)
 	var/obj_count = 1
 	if (you_are)
-		rev_mind.current << "\red <FONT size = 3><B>Вы &#255;вл&#255;етесь одним из глав революционного движени&#255;!</B></FONT>"
+		rev_mind.current << "<span class=\'warning\'><FONT size = 3><B>Вы &#255;вл&#255;етесь одним из глав революционного движени&#255;!</B></FONT></span>"
 	for(var/datum/objective/objective in rev_mind.objectives)
 		rev_mind.current << "<B>Задание #[obj_count]</B>: [objective.explanation_text]"
 		rev_mind.special_role = "Head Revolutionary"
@@ -190,7 +190,7 @@
 	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
 		return 0
 	revolutionaries += rev_mind
-	rev_mind.current << "\red <FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут отмечены синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT>"
+	rev_mind.current << "<span class=\'warning\'><FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут отмечены синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT></span>"
 	rev_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has been converted to the revolution!</font>"
 	rev_mind.special_role = "Revolutionary"
 	update_rev_icons_added(rev_mind)
@@ -205,10 +205,10 @@
 		rev_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has renounced the revolution!</font>"
 
 		if(beingborged)
-			rev_mind.current << "\red <FONT size = 3><B>Программное обеспечение уничтожило последстви&#255; нейронного перепрограммировани&#255; и вы забыли всё, чтобыло после вспышки.</B></FONT>"
+			rev_mind.current << "<span class=\'warning\'><FONT size = 3><B>Программное обеспечение уничтожило последстви&#255; нейронного перепрограммировани&#255; и вы забыли всё, чтобыло после вспышки.</B></FONT></span>"
 
 		else
-			rev_mind.current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции! Вы забыли всё, чтобыло после вспышки... в голове только им&#255; того, кто ослепил вас...</B></FONT>"
+			rev_mind.current << "<span class=\'warning\'><FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции! Вы забыли всё, чтобыло после вспышки... в голове только им&#255; того, кто ослепил вас...</B></FONT></span>"
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))
@@ -344,9 +344,9 @@
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
 	if(finished == 1)
-		world << "\red <FONT size = 3><B> Ло&#255;листы были убиты или покинули станцию. Победа революции!</B></FONT>"
+		world << "<span class=\'warning\'><FONT size = 3><B> Ло&#255;листы были убиты или покинули станцию. Победа революции!</B></FONT></span>"
 	else if(finished == 2)
-		world << "\red <FONT size = 3><B> Ло&#255;листы смогли остановить революцию!</B></FONT>"
+		world << "<span class=\'warning\'><FONT size = 3><B> Ло&#255;листы смогли остановить революцию!</B></FONT></span>"
 	..()
 	return 1
 

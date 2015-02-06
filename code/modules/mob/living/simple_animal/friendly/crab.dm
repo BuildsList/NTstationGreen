@@ -44,7 +44,7 @@
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/wirecutters))
 		if(prob(50))
-			user << "\red \b This kills the crab."
+			user << "<span class=\'warning\'>\b This kills the crab.</span>"
 			health -= 20
 			Die()
 		else
@@ -69,12 +69,12 @@
 			health -= O.force
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
-					M.show_message("\red \b [src] has been attacked with [O] by [user]. ")
+					M.show_message("<span class=\'warning\'>\b [src] has been attacked with [O] by [user]. </span>")
 		else
-			usr << "\red This weapon is ineffective, it does no damage."
+			usr << "<span class=\'warning\'>This weapon is ineffective, it does no damage.</span>"
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
-					M.show_message("\red [user] gently taps [src] with [O]. ")
+					M.show_message("<span class=\'warning\'>[user] gently taps [src] with [O]. </span>")
 
 /mob/living/simple_animal/crab/GetMad()
 	name = "MEGAMADCRAB"

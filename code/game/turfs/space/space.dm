@@ -37,7 +37,7 @@
 			S.use(1)
 			return
 		else
-			user << "\red The plating is going to need some support."
+			user << "<span class=\'warning\'>The plating is going to need some support.</span>"
 	return
 
 
@@ -45,7 +45,7 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	if(movement_disabled)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
+		usr << "<span class=\'warning\'>Movement is admin-disabled.</span>" //This is to identify lag problems
 		return
 	..()
 	if ((!(A) || src != A.loc))	return

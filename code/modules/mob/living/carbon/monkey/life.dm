@@ -82,7 +82,7 @@
 
 		if (disabilities & EPILEPSY)
 			if ((prob(1) && paralysis < 10))
-				src << "\red You have a seizure!"
+				src << "<span class=\'warning\'>You have a seizure!</span>"
 				Paralyse(10)
 		if (disabilities & COUGHING)
 			if ((prob(5) && paralysis <= 1))
@@ -112,7 +112,7 @@
 
 		if (has_organic_effect(/datum/organic_effect/hulk) && health <= 25)
 			remove_organic_effect(/datum/organic_effect/hulk)
-			src << "\red You suddenly feel very weak."
+			src << "<span class=\'warning\'>You suddenly feel very weak.</span>"
 			Weaken(3)
 			emote("collapse")
 
@@ -120,7 +120,7 @@
 			if (radiation > 100)
 				radiation = 100
 				Weaken(10)
-				src << "\red You feel weak."
+				src << "<span class=\'warning\'>You feel weak.</span>"
 				emote("collapse")
 
 			switch(radiation)
@@ -136,7 +136,7 @@
 					if(prob(5))
 						radiation -= 5
 						Weaken(3)
-						src << "\red You feel weak."
+						src << "<span class=\'warning\'>You feel weak.</span>"
 						emote("collapse")
 					updatehealth()
 
@@ -144,7 +144,7 @@
 					radiation -= 3
 					adjustToxLoss(3)
 					if(prob(1))
-						src << "\red You mutate!"
+						src << "<span class=\'warning\'>You mutate!</span>"
 						randmutb(src)
 						domutcheck(src,null)
 						emote("gasp")
@@ -315,7 +315,7 @@
 
 		if(breath.temperature > (T0C+66)) // Hot air hurts :(
 			if(prob(20))
-				src << "\red You feel a searing heat in your lungs!"
+				src << "<span class=\'warning\'>You feel a searing heat in your lungs!</span>"
 			fire_alert = max(fire_alert, 2)
 		else
 			fire_alert = 0

@@ -29,7 +29,7 @@
 				user << "\blue You put the grenade in the grenade launcher."
 				user << "\blue [grenades.len] / [max_grenades] Grenades."
 			else
-				usr << "\red The grenade launcher cannot hold more grenades."
+				usr << "<span class=\'warning\'>The grenade launcher cannot hold more grenades.</span>"
 
 	afterattack(obj/target, mob/user , flag)
 
@@ -45,13 +45,13 @@
 		if(grenades.len)
 			spawn(0) fire_grenade(target,user)
 		else
-			usr << "\red The grenade launcher is empty."
+			usr << "<span class=\'warning\'>The grenade launcher is empty.</span>"
 
 	proc
 		fire_grenade(atom/target, mob/user)
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("\red [] fired a grenade!", user), 1)
-			user << "\red You fire the grenade launcher!"
+				O.show_message(text("<span class=\'warning\'>[] fired a grenade!</span>", user), 1)
+			user << "<span class=\'warning\'>You fire the grenade launcher!</span>"
 			var/obj/item/weapon/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
 			grenades -= F
 			F.loc = user.loc

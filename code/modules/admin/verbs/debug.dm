@@ -318,28 +318,28 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return
 		else
 			if(alert("Spawn that person a tome?",,"Yes","No")=="Yes")
-				M << "\red You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie. A tome, a message from your new master, appears on the ground."
+				M << "<span class=\'warning\'>You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie. A tome, a message from your new master, appears on the ground.</span>"
 				new /obj/item/weapon/tome(M.loc)
 			else
-				M << "\red You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie."
+				M << "<span class=\'warning\'>You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie.</span>"
 			var/glimpse=pick("1","2","3","4","5","6","7","8")
 			switch(glimpse)
 				if("1")
-					M << "\red You remembered one thing from the glimpse... [wordtravel] is travel..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordtravel] is travel...</span>"
 				if("2")
-					M << "\red You remembered one thing from the glimpse... [wordblood] is blood..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordblood] is blood...</span>"
 				if("3")
-					M << "\red You remembered one thing from the glimpse... [wordjoin] is join..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordjoin] is join...</span>"
 				if("4")
-					M << "\red You remembered one thing from the glimpse... [wordhell] is Hell..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordhell] is Hell...</span>"
 				if("5")
-					M << "\red You remembered one thing from the glimpse... [worddestr] is destroy..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [worddestr] is destroy...</span>"
 				if("6")
-					M << "\red You remembered one thing from the glimpse... [wordtech] is technology..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordtech] is technology...</span>"
 				if("7")
-					M << "\red You remembered one thing from the glimpse... [wordself] is self..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordself] is self...</span>"
 				if("8")
-					M << "\red You remembered one thing from the glimpse... [wordsee] is see..."
+					M << "<span class=\'warning\'>You remembered one thing from the glimpse... [wordsee] is see...</span>"
 
 			if(M.mind)
 				M.mind.special_role = "Cultist"

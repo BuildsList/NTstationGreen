@@ -171,10 +171,10 @@
 		var/obj/item/device/mmi/M = W
 		if(check_completion())
 			if(!istype(loc,/turf))
-				user << "\red You can't put the MMI in, the frame has to be standing on the ground to be perfectly precise."
+				user << "<span class=\'warning\'>You can't put the MMI in, the frame has to be standing on the ground to be perfectly precise.</span>"
 				return
 			if(!M.brainmob)
-				user << "\red Sticking an empty MMI into the frame would sort of defeat the purpose."
+				user << "<span class=\'warning\'>Sticking an empty MMI into the frame would sort of defeat the purpose.</span>"
 				return
 			if(!M.brainmob.key)
 				var/ghost_can_reenter = 0
@@ -188,15 +188,15 @@
 					return
 
 			if(M.brainmob.stat == DEAD)
-				user << "\red Sticking a dead brain into the frame would sort of defeat the purpose."
+				user << "<span class=\'warning\'>Sticking a dead brain into the frame would sort of defeat the purpose.</span>"
 				return
 
 			if(M.brainmob.mind in ticker.mode.head_revolutionaries)
-				user << "\red The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the MMI."
+				user << "<span class=\'warning\'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the MMI.</span>"
 				return
 
 			if(jobban_isbanned(M.brainmob, "Cyborg"))
-				user << "\red This MMI does not seem to fit."
+				user << "<span class=\'warning\'>This MMI does not seem to fit.</span>"
 				return
 
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc))
@@ -220,7 +220,7 @@
 				O.lawupdate = 0
 				O.make_laws()
 				if(ticker.mode.config_tag == "malfunction") //Don't let humans get a cyborg on their side during malf, for balance reasons.
-					O.set_zeroth_law("\red ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*�&110010")
+					O.set_zeroth_law("<span class=\'warning\'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*�&110010</span>")
 
 			M.brainmob.mind.transfer_to(O)
 

@@ -121,7 +121,7 @@
 		return
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "\red You don't have the dexterity to do this!"
+		usr << "<span class=\'warning\'>You don't have the dexterity to do this!</span>"
 		return
 
 	if (istype(W, /obj/item/stack/sheet/metal))

@@ -20,20 +20,20 @@
 /obj/item/weapon/storage/lockbox/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (W.GetID())
 		if(src.broken)
-			user << "\red It appears to be broken."
+			user << "<span class=\'warning\'>It appears to be broken.</span>"
 			return
 		if(src.allowed(user))
 			src.locked = !( src.locked )
 			if(src.locked)
 				src.icon_state = src.icon_locked
-				user << "\red You lock the [src.name]!"
+				user << "<span class=\'warning\'>You lock the [src.name]!</span>"
 				return
 			else
 				src.icon_state = src.icon_closed
-				user << "\red You unlock the [src.name]!"
+				user << "<span class=\'warning\'>You unlock the [src.name]!</span>"
 				return
 		else
-			user << "\red Access Denied."
+			user << "<span class=\'warning\'>Access Denied.</span>"
 			return
 	else if((istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && !src.broken)
 		broken = 1
@@ -47,7 +47,7 @@
 			playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 			playsound(src.loc, "sparks", 50, 1)
 			for(var/mob/O in viewers(user, 3))
-				O.show_message(text("\blue \The [src] has been sliced open by [] with an energy blade!", user), 1, text("\red You hear metal being sliced and sparks flying."), 2)
+				O.show_message(text("\blue \The [src] has been sliced open by [] with an energy blade!", user), 1, text("<span class=\'warning\'>You hear metal being sliced and sparks flying.</span>"), 2)
 			return
 		else
 			for(var/mob/O in viewers(user, 3))
@@ -56,12 +56,12 @@
 	if(!locked)
 		..()
 	else
-		user << "\red It's locked!"
+		user << "<span class=\'warning\'>It's locked!</span>"
 	return
 
 /obj/item/weapon/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
-		user << "\red It's locked!"
+		user << "<span class=\'warning\'>It's locked!</span>"
 	else
 		..()
 	return

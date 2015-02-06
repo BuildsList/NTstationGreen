@@ -232,19 +232,19 @@
 		status = !( src.status )
 		if (!(src.status))
 			if(user)
-				visible_message("\red [user] deactivates [src]!")
+				visible_message("<span class=\'warning\'>[user] deactivates [src]!</span>")
 				add_hiddenprint(user)
 			else
-				visible_message("\red \The [src] deactivates!")
+				visible_message("<span class=\'warning\'>\The [src] deactivates!</span>")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = "[initial(icon_state)]1"
 
 		else
 			if(user)
-				visible_message("\red [user] reactivates [src]!")
+				visible_message("<span class=\'warning\'>[user] reactivates [src]!</span>")
 				add_hiddenprint(user)
 			else
-				visible_message("\red \The [src] reactivates!")
+				visible_message("<span class=\'warning\'>\The [src] reactivates!</span>")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = initial(icon_state)
 

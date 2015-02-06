@@ -24,7 +24,7 @@
 			W:use(4)
 			qdel(src)
 		else if (W:amount < 4)
-			user << "\red You need at least four rods to do this."
+			user << "<span class=\'warning\'>You need at least four rods to do this.</span>"
 
 /obj/item/weapon/table_parts/attack_self(mob/user as mob)
 	new /obj/structure/table( user.loc )

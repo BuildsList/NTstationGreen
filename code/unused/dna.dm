@@ -857,7 +857,7 @@
 						H.real_name = randomname
 						i++
 				reg_dna[H.primary.uni_identity] = H.real_name
-			H << text("\red <B>Your name is now [].</B>", H.real_name)
+			H << text("<span class=\'warning\'><B>Your name is now [].</B></span>", H.real_name)
 	return
 
 /obj/machinery/restruct/verb/move_inside()

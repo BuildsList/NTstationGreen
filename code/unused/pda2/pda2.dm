@@ -190,7 +190,7 @@
 		scan_dat = src.scan_program.scan_atom(A)
 
 	if(scan_dat)
-		A.visible_message("\red [user] has scanned [A]!")
+		A.visible_message("<span class=\'warning\'>[user] has scanned [A]!</span>")
 		user.show_message(scan_dat, 1)
 
 	return

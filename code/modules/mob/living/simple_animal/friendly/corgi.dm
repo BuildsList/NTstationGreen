@@ -74,13 +74,13 @@
 		//helmet and armor = 100% protection
 		if( istype(inventory_head,/obj/item/clothing/head/helmet) && istype(inventory_back,/obj/item/clothing/suit/armor) )
 			if( O.force )
-				usr << "\red [src] is wearing too much armor. You can't cause \him any damage."
+				usr << "<span class=\'warning\'>[src] is wearing too much armor. You can't cause \him any damage.</span>"
 				for (var/mob/M in viewers(src, null))
-					M.show_message("\red \b [user] hits [src] with [O], however [src] is too armored.")
+					M.show_message("<span class=\'warning\'>\b [user] hits [src] with [O], however [src] is too armored.</span>")
 			else
-				usr << "\red [src] is wearing too much armor. You can't reach \his skin."
+				usr << "<span class=\'warning\'>[src] is wearing too much armor. You can't reach \his skin.</span>"
 				for (var/mob/M in viewers(src, null))
-					M.show_message("\red [user] gently taps [src] with [O]. ")
+					M.show_message("<span class=\'warning\'>[user] gently taps [src] with [O]. </span>")
 			if(health>0 && prob(15))
 				emote("looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression")
 			return
@@ -109,7 +109,7 @@
 					inventory_head = null
 					regenerate_icons()
 				else
-					usr << "\red There is nothing to remove from its [remove_from]."
+					usr << "<span class=\'warning\'>There is nothing to remove from its [remove_from].</span>"
 					return
 			if("back")
 				if(inventory_back)
@@ -117,7 +117,7 @@
 					inventory_back = null
 					regenerate_icons()
 				else
-					usr << "\red There is nothing to remove from its [remove_from]."
+					usr << "<span class=\'warning\'>There is nothing to remove from its [remove_from].</span>"
 					return
 
 		show_inv(usr)
@@ -135,7 +135,7 @@
 
 			if("back")
 				if(inventory_back)
-					usr << "\red It's already wearing something."
+					usr << "<span class=\'warning\'>It's already wearing something.</span>"
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_hand()
@@ -190,7 +190,7 @@
 		return
 
 	if(inventory_head)
-		if(usr)	usr << "\red You can't put more than one hat on [src]!"
+		if(usr)	usr << "<span class=\'warning\'>You can't put more than one hat on [src]!</span>"
 		return
 	if(!item_to_add)
 		usr.visible_message("\blue [usr] pets [src]","\blue You rest your hand on [src]'s head for a moment.")
@@ -505,7 +505,7 @@
 //puppies cannot wear anything.
 /mob/living/simple_animal/corgi/puppy/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		usr << "\red You can't fit this on [src]"
+		usr << "<span class=\'warning\'>You can't fit this on [src]</span>"
 		return
 	..()
 
@@ -529,7 +529,7 @@
 //Lisa already has a cute bow!
 /mob/living/simple_animal/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		usr << "\red [src] already has a cute bow!"
+		usr << "<span class=\'warning\'>[src] already has a cute bow!</span>"
 		return
 	..()
 

@@ -48,7 +48,7 @@
 
 	if(M.can_inject(user, 1))
 		user << "<span class='warning'>You stab [M] with the pen.</span>"
-		M << "\red You feel a tiny prick!"
+		M << "<span class=\'warning\'>You feel a tiny prick!</span>"
 		. = 1
 
 	add_logs(user, M, "stabbed", object="[name]")

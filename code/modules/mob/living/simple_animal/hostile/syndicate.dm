@@ -68,8 +68,8 @@
 		else
 			visible_message("<span class='danger'>[src] blocks [O] with its shield!</span>")
 	else
-		usr << "\red This weapon is ineffective, it does no damage."
-		visible_message("\red [user] gently taps [src] with [O]. ")
+		usr << "<span class=\'warning\'>This weapon is ineffective, it does no damage.</span>"
+		visible_message("<span class=\'warning\'>[user] gently taps [src] with [O]. </span>")
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
@@ -77,7 +77,7 @@
 	if(prob(65))
 		..(Proj)
 	else
-		visible_message("\red <B>[src] blocks [Proj] with its shield!</B>")
+		visible_message("<span class=\'warning\'><B>[src] blocks [Proj] with its shield!</B></span>")
 	return 0
 
 
@@ -159,6 +159,6 @@
 
 /mob/living/simple_animal/hostile/viscerator/Die()
 	..()
-	visible_message("\red <b>[src]</b> is smashed into pieces!")
+	visible_message("<span class=\'warning\'><b>[src]</b> is smashed into pieces!</span>")
 	qdel(src)
 	return

@@ -393,7 +393,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	M.revive()
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
-	message_admins("\red Admin [key_name_admin(usr)] healed / revived [key_name_admin(M)]!", 1)
+	message_admins("<span class=\'warning\'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(M)]!</span>", 1)
 
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Special Verbs"
@@ -564,9 +564,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			return
 		if(M)
 			AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
-			M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
-			M << "\red This is a temporary ban, it will be removed in [mins] minutes."
-			M << "\red To try to resolve this matter head to http://ss13.donglabs.com/forum/"
+			M << "<span class=\'warning\'>BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>"
+			M << "<span class=\'warning\'>This is a temporary ban, it will be removed in [mins] minutes.</span>"
+			M << "<span class=\'warning\'>To try to resolve this matter head to http://ss13.donglabs.com/forum/</span>"
 			log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 			message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 			world.Export("http://216.38.134.132/adminlog.php?type=ban&key=[usr.client.key]&key2=[M.key]&msg=[html_decode(reason)]&time=[mins]&server=[replacetext(config.server_name, "#", "")]")
@@ -579,9 +579,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(!reason)
 			return
 		AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0)
-		M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
-		M << "\red This is a permanent ban."
-		M << "\red To try to resolve this matter head to http://ss13.donglabs.com/forum/"
+		M << "<span class=\'warning\'>BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>"
+		M << "<span class=\'warning\'>This is a permanent ban.</span>"
+		M << "<span class=\'warning\'>To try to resolve this matter head to http://ss13.donglabs.com/forum/</span>"
 		log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 		message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 		world.Export("http://216.38.134.132/adminlog.php?type=ban&key=[usr.client.key]&key2=[M.key]&msg=[html_decode(reason)]&time=perma&server=[replacetext(config.server_name, "#", "")]")
@@ -660,7 +660,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(!check_rights(R_ADMIN))	return
 
-	usr << text("\red <b>Attack Log for []</b>", mob)
+	usr << text("<span class=\'warning\'><b>Attack Log for []</b></span>", mob)
 	for(var/t in M.attack_log)
 		usr << t
 

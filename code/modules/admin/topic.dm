@@ -13,37 +13,37 @@
 				message_admins("[key_name_admin(usr)] created traitors.")
 				log_admin("[key_name(usr)] created traitors.")
 				if(!src.makeTraitors())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("2")
 				message_admins("[key_name(usr)] created changelings.")
 				log_admin("[key_name(usr)] created changelings.")
 				if(!src.makeChanglings())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("3")
 				message_admins("[key_name(usr)] started a revolution.")
 				log_admin("[key_name(usr)] started a revolution.")
 				if(!src.makeRevs())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("4")
 				message_admins("[key_name(usr)] created cultists.")
 				log_admin("[key_name(usr)] created cultists.")
 				if(!src.makeCult())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("5")
 				message_admins("[key_name(usr)] caused an AI to malfunction.")
 				log_admin("[key_name(usr)] caused an AI to malfunction.")
 				if(!src.makeMalfAImode())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("6")
 				message_admins("[key_name(usr)] created a wizard.")
 				log_admin("[key_name(usr)] created a wizard.")
 				if(!src.makeWizard())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("7")
 				message_admins("[key_name(usr)] created a nuke team.")
 				log_admin("[key_name(usr)] created a nuke team.")
 				if(!src.makeNukeTeam())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 			if("8")
 				message_admins("[key_name(usr)] spawned a ninja.")
 				log_admin("[key_name(usr)] spawned a ninja.")
@@ -57,7 +57,7 @@
 				message_admins("[key_name(usr)] created a death squad.")
 				log_admin("[key_name(usr)] created a death squad.")
 				if(!src.makeDeathsquad())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "<span class=\'warning\'>Unfortunatly there were no candidates available</span>"
 */
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -415,7 +415,7 @@
 					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
 					appearance_unban(M)
 					message_admins("\blue [key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban", 1)
-					M << "\red<BIG><B>[usr.client.ckey] has removed your appearance ban.</B></BIG>"
+					M << "<span class=\'warning\'>BIG><B>[usr.client.ckey] has removed your appearance ban.</B></BIG></span>"
 
 		else switch(alert("Appearance ban [M.ckey]?",,"Yes","No", "Cancel"))
 			if("Yes")
@@ -428,13 +428,13 @@
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 				notes_add(M.ckey, "Appearance banned - [reason]")
 				message_admins("\blue [key_name_admin(usr)] appearance banned [key_name_admin(M)]", 1)
-				M << "\red<BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG>"
-				M << "\red <B>The reason is: [reason]</B>"
-				M << "\red Appearance ban can be lifted only upon request."
+				M << "<span class=\'warning\'>BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG></span>"
+				M << "<span class=\'warning\'><B>The reason is: [reason]</B></span>"
+				M << "<span class=\'warning\'>Appearance ban can be lifted only upon request.</span>"
 				if(config.banappeals)
-					M << "\red To try to resolve this matter head to [config.banappeals]"
+					M << "<span class=\'warning\'>To try to resolve this matter head to [config.banappeals]</span>"
 				else
-					M << "\red No ban appeals URL has been set."
+					M << "<span class=\'warning\'>No ban appeals URL has been set.</span>"
 			if("No")
 				return
 
@@ -757,7 +757,7 @@
 			switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
 				if("Yes")
 					if(config.ban_legacy_system)
-						usr << "\red Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban."
+						usr << "<span class=\'warning\'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>"
 						return
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
@@ -778,9 +778,9 @@
 							msg += ", [job]"
 					notes_add(M.ckey, "Banned  from [msg] - [reason]")
 					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
-					M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
-					M << "\red <B>The reason is: [reason]</B>"
-					M << "\red This jobban will be lifted in [mins] minutes."
+					M << "<span class=\'warning\'>BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>"
+					M << "<span class=\'warning\'><B>The reason is: [reason]</B></span>"
+					M << "<span class=\'warning\'>This jobban will be lifted in [mins] minutes.</span>"
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
 				if("No")
@@ -796,9 +796,9 @@
 							else		msg += ", [job]"
 						notes_add(M.ckey, "Banned  from [msg] - [reason]")
 						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
-						M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
-						M << "\red <B>The reason is: [reason]</B>"
-						M << "\red Jobban can be lifted only upon request."
+						M << "<span class=\'warning\'>BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>"
+						M << "<span class=\'warning\'><B>The reason is: [reason]</B></span>"
+						M << "<span class=\'warning\'>Jobban can be lifted only upon request.</span>"
 						href_list["jobban2"] = 1 // lets it fall through and refresh
 						return 1
 				if("Cancel")
@@ -827,7 +827,7 @@
 						continue
 			if(msg)
 				message_admins("\blue [key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]", 1)
-				M << "\red<BIG><B>You have been un-jobbanned by [usr.client.ckey] from [msg].</B></BIG>"
+				M << "<span class=\'warning\'>BIG><B>You have been un-jobbanned by [usr.client.ckey] from [msg].</B></BIG></span>"
 				href_list["jobban2"] = 1 // lets it fall through and refresh
 			return 1
 		return 0 //we didn't do anything!
@@ -837,7 +837,7 @@
 		if (ismob(M))
 			if(!check_if_greater_rights_than(M.client))
 				return
-			M << "\red You have been kicked from the server"
+			M << "<span class=\'warning\'>You have been kicked from the server</span>"
 			log_admin("[key_name(usr)] booted [key_name(M)].")
 			message_admins("\blue [key_name_admin(usr)] booted [key_name_admin(M)].", 1)
 			//M.client = null
@@ -905,13 +905,13 @@
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
-				M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
-				M << "\red This is a temporary ban, it will be removed in [mins] minutes."
+				M << "<span class=\'warning\'>BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>"
+				M << "<span class=\'warning\'>This is a temporary ban, it will be removed in [mins] minutes.</span>"
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				if(config.banappeals)
-					M << "\red To try to resolve this matter head to [config.banappeals]"
+					M << "<span class=\'warning\'>To try to resolve this matter head to [config.banappeals]</span>"
 				else
-					M << "\red No ban appeals URL has been set."
+					M << "<span class=\'warning\'>No ban appeals URL has been set.</span>"
 				log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 
@@ -927,12 +927,12 @@
 						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 					if("No")
 						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0)
-				M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
-				M << "\red This is a permanent ban."
+				M << "<span class=\'warning\'>BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>"
+				M << "<span class=\'warning\'>This is a permanent ban.</span>"
 				if(config.banappeals)
-					M << "\red To try to resolve this matter head to [config.banappeals]"
+					M << "<span class=\'warning\'>To try to resolve this matter head to [config.banappeals]</span>"
 				else
-					M << "\red No ban appeals URL has been set."
+					M << "<span class=\'warning\'>No ban appeals URL has been set.</span>"
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This is a permanent ban.")
 				log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 				message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
@@ -1244,7 +1244,7 @@
 			return
 
 		L.revive()
-		message_admins("\red Admin [key_name_admin(usr)] healed / revived [key_name_admin(L)]!", 1)
+		message_admins("<span class=\'warning\'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(L)]!</span>", 1)
 		log_admin("[key_name(usr)] healed / Revived [key_name(L)]")
 
 	else if(href_list["makeai"])
@@ -1255,7 +1255,7 @@
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
 			return
 
-		message_admins("\red Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!", 1)
+		message_admins("<span class=\'warning\'>Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!</span>", 1)
 		log_admin("[key_name(usr)] AIized [key_name(H)]")
 		H.AIize()
 
@@ -1769,7 +1769,7 @@
 						MAX_EX_LIGHT_RANGE = 14
 						MAX_EX_HEAVY_RANGE = 7
 						MAX_EX_DEVESTATION_RANGE = 3
-				message_admins("\red <b> [key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</b>", 1)
+				message_admins("<span class=\'warning\'><b> [key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</b></span>", 1)
 				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
 
 			if("wave")
@@ -1902,7 +1902,7 @@
 						DO.virus_type = virus
 			if("retardify")
 				for(var/mob/living/carbon/human/H in player_list)
-					H << "\red <B>You suddenly feel stupid.</B>"
+					H << "<span class=\'warning\'><B>You suddenly feel stupid.</B></span>"
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody retarded")
 			if("eagles")//SCRAW
@@ -1996,7 +1996,7 @@
 					if(alert("Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby??","Message","Yes","Cancel") != "Yes")
 						usr << "Kick clients from lobby aborted"
 						return
-					var/list/listkicked = kick_clients_in_lobby("\red The admin [usr.ckey] issued a 'kick all clients from lobby' command.", afkonly)
+					var/list/listkicked = kick_clients_in_lobby("<span class=\'warning\'>The admin [usr.ckey] issued a 'kick all clients from lobby' command.</span>", afkonly)
 					var/strkicked = ""
 					for(var/name in listkicked)
 						strkicked += "[name], "

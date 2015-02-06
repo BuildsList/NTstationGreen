@@ -24,7 +24,7 @@
 		if(istype(grabbed, /mob/living/carbon/monkey))
 			var/mob/living/carbon/monkey/target = grabbed
 			if(target.stat == 0)
-				user << "\red The monkey is struggling far too much to put it in the recycler."
+				user << "<span class=\'warning\'>The monkey is struggling far too much to put it in the recycler.</span>"
 			else
 				user.drop_item()
 				qdel(target)
@@ -35,7 +35,7 @@
 				user << "\blue The machine now has [grinded] monkey\s worth of material stored."
 
 		else
-			user << "\red The machine only accepts monkeys!"
+			user << "<span class=\'warning\'>The machine only accepts monkeys!</span>"
 	return
 
 /obj/machinery/monkey_recycler/attack_hand(var/mob/user as mob)
@@ -48,5 +48,5 @@
 		new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped(src.loc)
 		user << "\blue The machine's display flashes that it has [grinded] monkeys worth of material left."
 	else
-		user << "\red The machine needs at least 5 monkeys worth of material to produce a monkey cube. It only has [grinded]."
+		user << "<span class=\'warning\'>The machine needs at least 5 monkeys worth of material to produce a monkey cube. It only has [grinded].</span>"
 	return

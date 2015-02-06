@@ -444,10 +444,10 @@ var/global/list/uneatable = list(
 				if(istype(H.glasses,/obj/item/clothing/glasses/meson))
 					H << "\blue You look directly into The [src.name], good thing you had your protective eyewear on!"
 					return
-		M << "\red You look directly into The [src.name] and feel weak."
+		M << "<span class=\'warning\'>You look directly into The [src.name] and feel weak.</span>"
 		M.apply_effect(3, STUN)
 		for(var/mob/O in viewers(M, null))
-			O.show_message(text("\red <B>[] stares blankly at The []!</B>", M, src), 1)
+			O.show_message(text("<span class=\'warning\'><B>[] stares blankly at The []!</B></span>", M, src), 1)
 	return
 
 
@@ -541,7 +541,7 @@ var/global/list/uneatable = list(
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
-				M << "\red You feel your sanity crumble away in an instant as you gaze upon [src.name]..."
+				M << "<span class=\'warning\'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>"
 				M.apply_effect(3, STUN)
 
 
@@ -608,9 +608,9 @@ var/global/list/uneatable = list(
 	target << "\blue <b>NAR-SIE HAS LOST INTEREST IN YOU</b>"
 	target = food
 	if(ishuman(target))
-		target << "\red <b>NAR-SIE HUNGERS FOR YOUR SOUL</b>"
+		target << "<span class=\'warning\'><b>NAR-SIE HUNGERS FOR YOUR SOUL</b></span>"
 	else
-		target << "\red <b>NAR-SIE HAS CHOSEN YOU TO LEAD THEM TO THEIR NEXT MEAL</b>"
+		target << "<span class=\'warning\'><b>NAR-SIE HAS CHOSEN YOU TO LEAD THEM TO THEIR NEXT MEAL</b></span>"
 
 //Wizard narsie
 

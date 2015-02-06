@@ -98,7 +98,7 @@
 				src.flags = OPENCONTAINER
 				return 0 //to use some fuel
 		else
-			user << "\red It's broken!"
+			user << "<span class=\'warning\'>It's broken!</span>"
 			return 1
 	else if(istype(O, /obj/item/weapon/reagent_containers/spray/))
 		var/obj/item/weapon/reagent_containers/spray/clean_spray = O
@@ -116,7 +116,7 @@
 			src.updateUsrDialog()
 			return 1 // Disables the after-attack so we don't spray the floor/user.
 		else
-			user << "\red You need more space cleaner!"
+			user << "<span class=\'warning\'>You need more space cleaner!</span>"
 			return 1
 
 	else if(istype(O, /obj/item/weapon/soap/)) // If they're trying to clean it then let them
@@ -134,11 +134,11 @@
 			src.icon_state = "mw"
 			src.flags = OPENCONTAINER
 	else if(src.dirty==100) // The microwave is all dirty so can't be used!
-		user << "\red It's dirty!"
+		user << "<span class=\'warning\'>It's dirty!</span>"
 		return 1
 	else if(is_type_in_list(O,acceptable_items))
 		if (contents.len>=max_n_of_items)
-			user << "\red This [src] is full of ingredients, you cannot put more."
+			user << "<span class=\'warning\'>This [src] is full of ingredients, you cannot put more.</span>"
 			return 1
 		if (istype(O,/obj/item/stack) && O:amount>1)
 			new O.type (src)
@@ -163,15 +163,15 @@
 			return 1
 		for (var/datum/reagent/R in O.reagents.reagent_list)
 			if (!(R.id in acceptable_reagents))
-				user << "\red Your [O] contains components unsuitable for cookery."
+				user << "<span class=\'warning\'>Your [O] contains components unsuitable for cookery.</span>"
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
 	else if(istype(O,/obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = O
-		user << "\red This is ridiculous. You can not fit \the [G.affecting] in this [src]."
+		user << "<span class=\'warning\'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>"
 		return 1
 	else
-		user << "\red You have no idea what you can cook with this [O]."
+		user << "<span class=\'warning\'>You have no idea what you can cook with this [O].</span>"
 		return 1
 	src.updateUsrDialog()
 
@@ -364,7 +364,7 @@
 
 /obj/machinery/microwave/proc/muck_finish()
 	playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-	src.visible_message("\red The microwave gets covered in muck!")
+	src.visible_message("<span class=\'warning\'>The microwave gets covered in muck!</span>")
 	src.dirty = 100 // Make it dirty so it can't be used util cleaned
 	src.flags = null //So you can't add condiments
 	src.icon_state = "mwbloody" // Make it look dirty too
@@ -376,7 +376,7 @@
 	s.set_up(2, 1, src)
 	s.start()
 	src.icon_state = "mwb" // Make it look all busted up and shit
-	src.visible_message("\red The microwave breaks!") //Let them know they're stupid
+	src.visible_message("<span class=\'warning\'>The microwave breaks!</span>") //Let them know they're stupid
 	src.broken = 2 // Make it broken so it can't be used util fixed
 	src.flags = null //So you can't add condiments
 	src.operating = 0 // Turn it off again aferwards

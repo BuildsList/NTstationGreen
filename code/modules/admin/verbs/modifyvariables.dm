@@ -270,11 +270,11 @@ var/list/var_kinds = list("text","num","type","text2type","reference","mob refer
 
 	for(var/p in forbidden_varedit_object_types)
 		if( istype(O,p) )
-			usr << "\red It is forbidden to edit this object's variables."
+			usr << "<span class=\'warning\'>It is forbidden to edit this object's variables.</span>"
 			return
 
 	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key"))
-		usr << "\red You cannot edit ckeys on client objects."
+		usr << "<span class=\'warning\'>You cannot edit ckeys on client objects.</span>"
 		return
 
 	var/class

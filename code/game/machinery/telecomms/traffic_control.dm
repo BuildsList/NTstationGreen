@@ -190,7 +190,7 @@
 		return
 
 	if(!auth && !issilicon(usr) && !emagged)
-		usr << "\red ACCESS DENIED."
+		usr << "<span class=\'warning\'>ACCESS DENIED.</span>"
 		return
 
 	if(href_list["viewserver"])

@@ -962,7 +962,7 @@ steam.start() -- spawns the effect
 			user << "\blue You smash through the metal foam wall."
 			for(var/mob/O in oviewers(user))
 				if ((O.client && !( O.blinded )))
-					O << "\red [user] smashes through the foamed metal."
+					O << "<span class=\'warning\'>[user] smashes through the foamed metal.</span>"
 
 			qdel(src)
 		else
@@ -977,7 +977,7 @@ steam.start() -- spawns the effect
 			G.affecting.loc = src.loc
 			for(var/mob/O in viewers(src))
 				if (O.client)
-					O << "\red [G.assailant] smashes [G.affecting] through the foamed metal wall."
+					O << "<span class=\'warning\'>[G.assailant] smashes [G.affecting] through the foamed metal wall.</span>"
 			qdel(I)
 			qdel(src)
 			return
@@ -986,7 +986,7 @@ steam.start() -- spawns the effect
 			user << "\blue You smash through the foamed metal with \the [I]."
 			for(var/mob/O in oviewers(user))
 				if ((O.client && !( O.blinded )))
-					O << "\red [user] smashes through the foamed metal."
+					O << "<span class=\'warning\'>[user] smashes through the foamed metal.</span>"
 			qdel(src)
 		else
 			user << "\blue You hit the metal foam to no effect."
@@ -1022,10 +1022,10 @@ steam.start() -- spawns the effect
 			s.start()
 
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution violently explodes."
+				M << "<span class=\'warning\'>The solution violently explodes.</span>"
 			for(var/mob/M in viewers(1, location))
 				if (prob (50 * amount))
-					M << "\red The explosion knocks you down."
+					M << "<span class=\'warning\'>The explosion knocks you down.</span>"
 					M.Weaken(rand(1,5))
 			return
 		else
@@ -1048,6 +1048,6 @@ steam.start() -- spawns the effect
 				flash += (round(amount/4) * flashing_factor)
 
 			for(var/mob/M in viewers(8, location))
-				M << "\red The solution violently explodes."
+				M << "<span class=\'warning\'>The solution violently explodes.</span>"
 
 			explosion(location, devastation, heavy, light, flash)

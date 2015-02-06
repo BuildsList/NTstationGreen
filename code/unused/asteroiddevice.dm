@@ -31,13 +31,13 @@
 						break
 
 				if(!beacon)
-					usr << "\red Unable to detect beacon signal."
+					usr << "<span class=\'warning\'>Unable to detect beacon signal.</span>"
 					active = 0
 					icon_state = "pinonnull"
 					return
 
 			if(!istype(src.loc, /turf) && !istype(src.loc, /mob))
-				usr << "\red Too much interference. Please hold the device in hand or place it on belt."
+				usr << "<span class=\'warning\'>Too much interference. Please hold the device in hand or place it on belt.</span>"
 				active = 0
 				icon_state = "pinonnull"
 				return

@@ -1347,7 +1347,7 @@ var/list/WALLITEMS = list(
 
 /obj/proc/atmosanalyzer_scan(var/datum/gas_mixture/air_contents, mob/user, var/obj/target = src)
 	var/obj/icon = target
-	user.visible_message("\red [user] has used the analyzer on \icon[icon] [target].</span>")
+	user.visible_message("<span class=\'warning\'>[user] has used the analyzer on \icon[icon] [target].</span></span>")
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
@@ -1366,7 +1366,7 @@ var/list/WALLITEMS = list(
 		user << "\blue CO2: [round(co2_concentration*100)]%"
 		user << "\blue Plasma: [round(plasma_concentration*100)]%"
 		if(unknown_concentration>0.01)
-			user << "\red Unknown: [round(unknown_concentration*100)]%"
+			user << "<span class=\'warning\'>Unknown: [round(unknown_concentration*100)]%</span>"
 		user << "\blue Temperature: [round(air_contents.temperature-T0C)]&deg;C"
 	else
 		user << "\blue [target] is empty!"

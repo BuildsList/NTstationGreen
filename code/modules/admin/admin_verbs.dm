@@ -285,7 +285,7 @@ var/list/admin_verbs_hideable = list(
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
-			mob << "\red <b>Invisimin off. Invisibility reset.</b>"
+			mob << "<span class=\'warning\'><b>Invisimin off. Invisibility reset.</b></span>"
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
@@ -440,7 +440,7 @@ var/list/admin_verbs_hideable = list(
 		T.mind.spell_list += new S
 	else
 		T.mob_spell_list += new S
-		message_admins("\red Spells given to mindless mobs will not be transferred in mindswap or cloning!", 1)
+		message_admins("<span class=\'warning\'>Spells given to mindless mobs will not be transferred in mindswap or cloning!</span>", 1)
 
 
 /client/proc/give_disease(mob/T as mob in mob_list)
