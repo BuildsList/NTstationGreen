@@ -37,7 +37,7 @@
 		var/obj/item/weapon/weldingtool/W = C
 		if(W.remove_fuel(0, user))
 			blocked = !blocked
-			user << text("<span class=\'warning\'>You [blocked?</span>"welded":"unwelded"] the [src]")
+			user << text("\red You [blocked?"welded":"unwelded"] the [src]")
 			update_icon()
 			return
 

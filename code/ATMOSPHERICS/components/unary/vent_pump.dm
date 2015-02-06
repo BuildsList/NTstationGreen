@@ -276,7 +276,7 @@
 
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/weapon/wrench)&& !(stat & NOPOWER) && on)
-			user << "<span class=\'warning\'>You cannot unwrench this [src], turn it off first.</span>"
+			user << "\red You cannot unwrench this [src], turn it off first."
 			return 1
 		if(istype(W, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W

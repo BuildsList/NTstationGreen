@@ -45,7 +45,7 @@ var/global/list/rad_collectors = list()
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [user.key]. [P?"Fuel: [round(P.air_contents.toxins/0.29)]%":"<font color='red'>It is empty</font>"].","singulo")
 			return
 		else
-			user << "<span class=\'warning\'>The controls are locked!</span>"
+			user << "\red The controls are locked!"
 			return
 ..()
 
@@ -58,10 +58,10 @@ var/global/list/rad_collectors = list()
 		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/weapon/tank/plasma))
 		if(!src.anchored)
-			user << "<span class=\'warning\'>The [src] needs to be secured to the floor first.</span>"
+			user << "\red The [src] needs to be secured to the floor first."
 			return 1
 		if(src.P)
-			user << "<span class=\'warning\'>There's already a plasma tank loaded.</span>"
+			user << "\red There's already a plasma tank loaded."
 			return 1
 		user.drop_item()
 		src.P = W
@@ -96,9 +96,9 @@ var/global/list/rad_collectors = list()
 				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
 			else
 				src.locked = 0 //just in case it somehow gets locked
-				user << "<span class=\'warning\'>The controls can only be locked when the [src] is active</span>"
+				user << "\red The controls can only be locked when the [src] is active"
 		else
-			user << "<span class=\'warning\'>Access denied!</span>"
+			user << "\red Access denied!"
 			return 1
 	else
 		..()

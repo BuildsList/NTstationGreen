@@ -441,18 +441,18 @@
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
 		for(var/mob/M in viewers(src))
-			M.show_message("<span class=\'warning\'>[user.name] smashed the light!</span>", 3, "You hear a tinkle of breaking glass", 2)
+			M.show_message("\red [user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 		broken()
 	return
 
 /obj/machinery/light/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage_upper == 0)	return
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		M << "<span class=\'warning\'>That object is useless to you.</span>"
+		M << "\red That object is useless to you."
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
 		for(var/mob/O in viewers(src))
-			O.show_message("<span class=\'warning\'>[M.name] smashed the light!</span>", 3, "You hear a tinkle of breaking glass", 2)
+			O.show_message("\red [M.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 		broken()
 	return
 // attack with hand - remove tube/bulb
@@ -706,7 +706,7 @@
 
 /obj/item/weapon/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		src.visible_message("<span class=\'warning\'>[name] shatters.</span>","<span class=\'warning\'>You hear a small glass object shatter.</span>")
+		src.visible_message("\red [name] shatters.","\red You hear a small glass object shatter.")
 		status = LIGHT_BROKEN
 		force = 5
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)

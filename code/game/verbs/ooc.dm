@@ -3,7 +3,7 @@
 	set category = "OOC"
 
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class=\'warning\'>Speech is currently admin-disabled.</span>"
+		usr << "\red Speech is currently admin-disabled."
 		return
 
 	if(!mob)	return
@@ -15,18 +15,18 @@
 	if(!msg)	return
 
 	if(!(prefs.toggles & CHAT_OOC))
-		src << "<span class=\'warning\'>You have OOC muted.</span>"
+		src << "\red You have OOC muted."
 		return
 
 	if(!holder)
 		if(!ooc_allowed)
-			src << "<span class=\'warning\'>OOC is globally muted</span>"
+			src << "\red OOC is globally muted"
 			return
 		if(!dooc_allowed && (mob.stat == DEAD))
-			usr << "<span class=\'warning\'>OOC for dead mobs has been turned off.</span>"
+			usr << "\red OOC for dead mobs has been turned off."
 			return
 		if(prefs.muted & MUTE_OOC)
-			src << "<span class=\'warning\'>You cannot use OOC (muted).</span>"
+			src << "\red You cannot use OOC (muted)."
 			return
 		if(handle_spam_prevention(msg,MUTE_OOC))
 			return

@@ -18,7 +18,7 @@
 
 /obj/item/device/flash/proc/clown_check(mob/user)
 	if(user && user.has_organic_effect(/datum/organic_effect/clumsy) && prob(50))
-		user << "<span class=\'warning\'>[src] slips out of your hand.</span>"
+		user << "\red [src] slips out of your hand."
 		user.drop_item()
 		return 0
 	return 1

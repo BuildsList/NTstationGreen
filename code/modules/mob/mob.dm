@@ -33,7 +33,7 @@ var/next_mob_id = 0
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	var/t = "\blue Coordinates: [x],[y] \n"
-	t+= "<span class=\'warning\'>Temperature: [environment.temperature] \n</span>"
+	t+= "\red Temperature: [environment.temperature] \n"
 	t+= "\blue Nitrogen: [environment.nitrogen] \n"
 	t+= "\blue Oxygen: [environment.oxygen] \n"
 	t+= "\blue Plasma : [environment.toxins] \n"
@@ -178,7 +178,7 @@ var/next_mob_id = 0
 			qdel(W)
 		else
 			if(!disable_warning)
-				src << "<span class=\'warning\'>You are unable to equip that.</span>" //Only print if qdel_on_fail is false
+				src << "\red You are unable to equip that." //Only print if qdel_on_fail is false
 		return 0
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
 	return 1

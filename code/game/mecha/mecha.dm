@@ -439,8 +439,8 @@
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		user << "<span class=\'warning\'>You slash at the armored suit!</span>"
-		visible_message("<span class=\'warning\'>The [user] slashes at [src.name]'s armor!</span>")
+		user << "\red You slash at the armored suit!"
+		visible_message("\red The [user] slashes at [src.name]'s armor!")
 	else
 		src.log_append_to_last("Armor saved.")
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
@@ -459,7 +459,7 @@
 			var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 			src.take_damage(damage)
 			src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-			visible_message("<span class=\'warning\'><B>[user]</B> [user.attacktext] [src]!</span>")
+			visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
 			add_logs(user, src, "attacked", admin=0)
 		else
 			src.log_append_to_last("Armor saved.")
@@ -596,10 +596,10 @@
 		src.take_damage(6)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
-		user << "<span class=\'warning\'>You smash at the armored suit!</span>"
+		user << "\red You smash at the armored suit!"
 		for (var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
-				V.show_message("<span class=\'warning\'>The [user] smashes against [src.name]'s armor!</span>", 1)
+				V.show_message("\red The [user] smashes against [src.name]'s armor!", 1)
 	else
 		src.log_append_to_last("Armor saved.")
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
@@ -633,7 +633,7 @@
 /obj/mecha/proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.log_message("Attacked by [W]. Attacker - [user]")
 	if(prob(src.deflect_chance))
-		user << "<span class=\'warning\'>The [W] bounces off [src.name] armor.</span>"
+		user << "\red The [W] bounces off [src.name] armor."
 		src.log_append_to_last("Armor saved.")
 /*
 		for (var/mob/V in viewers(src))
@@ -682,9 +682,9 @@
 				output_maintenance_dialog(id_card, user)
 				return
 			else
-				user << "<span class=\'warning\'>Invalid ID: Access denied.</span>"
+				user << "\red Invalid ID: Access denied."
 		else
-			user << "<span class=\'warning\'>Maintenance protocols disabled by operator.</span>"
+			user << "\red Maintenance protocols disabled by operator."
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(state==1)
 			state = 2
@@ -773,7 +773,7 @@
 /*
 		src.log_message("Attacked by [W]. Attacker - [user]")
 		if(prob(src.deflect_chance))
-			user << "<span class=\'warning\'>The [W] bounces off [src.name] armor.</span>"
+			user << "\red The [W] bounces off [src.name] armor."
 			src.log_append_to_last("Armor saved.")
 /*
 			for (var/mob/V in viewers(src))
@@ -885,7 +885,7 @@
 			src.verbs -= /obj/mecha/verb/connect_to_port
 			return
 		else
-			src.occupant_message("<span class=\'warning\'>[name] failed to connect to the port.</span>")
+			src.occupant_message("\red [name] failed to connect to the port.")
 			return
 	else
 		src.occupant_message("Nothing happens")
@@ -905,7 +905,7 @@
 		src.verbs -= /obj/mecha/verb/disconnect_from_port
 		src.verbs += /obj/mecha/verb/connect_to_port
 	else
-		src.occupant_message("<span class=\'warning\'>[name] is not connected to the port at the moment.</span>")
+		src.occupant_message("\red [name] is not connected to the port at the moment.")
 
 /obj/mecha/verb/toggle_lights()
 	set name = "Toggle Lights"
@@ -965,7 +965,7 @@
 	else if(src.operation_allowed(usr))
 		passed = 1
 	if(!passed)
-		usr << "<span class=\'warning\'>Access denied</span>"
+		usr << "\red Access denied"
 		src.log_append_to_last("Permission denied.")
 		return
 	for(var/mob/living/carbon/slime/M in range(1,usr))

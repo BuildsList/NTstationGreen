@@ -531,7 +531,7 @@ var/global/floorIsLava = 0
 	if(confirm == "Cancel")
 		return
 	if(confirm == "Yes")
-		world << "<span class=\'warning\'><b>Restarting world!</b> \blue Initiated by [usr.client.holder.fakekey ? </span>"Admin" : usr.key]!"
+		world << "\red <b>Restarting world!</b> \blue Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!"
 		log_admin("[key_name(usr)] initiated a reboot.")
 
 		sleep(50)
@@ -666,7 +666,7 @@ var/global/floorIsLava = 0
 	if(!usr.client.holder)	return
 	if( alert("Reboot server?",,"Yes","No") == "No")
 		return
-	world << "<span class=\'warning\'><b>Rebooting world!</b> \blue Initiated by [usr.client.holder.fakekey ? </span>"Admin" : usr.key]!"
+	world << "\red <b>Rebooting world!</b> \blue Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!"
 	log_admin("[key_name(usr)] initiated an immediate reboot.")
 
 	world.Reboot()

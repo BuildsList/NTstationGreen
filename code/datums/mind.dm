@@ -586,16 +586,16 @@ datum/mind
 			switch(href_list["revolution"])
 				if("clear")
 					remove_antag("Rev")
-					current << "<span class=\'warning\'><FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции!</B></FONT></span>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-rev'ed [current].")
 					log_admin("[key_name(usr)] has de-rev'ed [current].")
 				if("rev")
 					if(src in ticker.mode.head_revolutionaries)
 						ticker.mode.head_revolutionaries -= src
 						ticker.mode.update_rev_icons_removed(src)
-						current << "<span class=\'warning\'><FONT size = 3><B>Революци&#255; поставила под сомнение ваши лидерские качества! Вы теперь р&#255;довой революционер!</B></FONT></span>"
+						current << "\red <FONT size = 3><B>Революци&#255; поставила под сомнение ваши лидерские качества! Вы теперь р&#255;довой революционер!</B></FONT>"
 					else if(!(src in ticker.mode.revolutionaries))
-						current << "<span class=\'warning\'><FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут отмечены синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT></span>"
+						current << "\red <FONT size = 3> Вы теперь революционер! Продвигайте свою идею в массы. Не вредите тем, кто с вами по одну сторону барикад. Ваши товарищи будут отмечены красной буквой \"R\" над головой, а ваши лидеры будут отмечены синей буквой \"R\" над головой. Помогите им свергнуть глав и сделайте вашу революцию успешной!</FONT>"
 					else
 						return
 					ticker.mode.revolutionaries += src
@@ -608,9 +608,9 @@ datum/mind
 					if(src in ticker.mode.revolutionaries)
 						ticker.mode.revolutionaries -= src
 						ticker.mode.update_rev_icons_removed(src)
-						current << "<span class=\'warning\'><FONT size = 3><B>Вы доказали свою преданость революции! Вы теперь глава революции!</B></FONT></span>"
+						current << "\red <FONT size = 3><B>Вы доказали свою преданость революции! Вы теперь глава революции!</B></FONT>"
 					else if(!(src in ticker.mode.head_revolutionaries))
-						current << "<span class=\'warning\'><FONT size = 3><B>Вы &#255;вл&#255;етесь одним из глав революционного движени&#255;!</B></FONT></span>"
+						current << "\red <FONT size = 3><B>Вы &#255;вл&#255;етесь одним из глав революционного движени&#255;!</B></FONT>"
 					else
 						return
 					if (ticker.mode.head_revolutionaries.len>0)
@@ -637,20 +637,20 @@ datum/mind
 
 				if("flash")
 					if (!ticker.mode.equip_revolutionary(current))
-						usr << "<span class=\'warning\'>Spawning flash failed!</span>"
+						usr << "\red Spawning flash failed!"
 
 				if("takeflash")
 					var/list/L = current.get_contents()
 					var/obj/item/device/flash/flash = locate() in L
 					if (!flash)
-						usr << "<span class=\'warning\'>Deleting flash failed!</span>"
+						usr << "\red Deleting flash failed!"
 					qdel(flash)
 
 				if("repairflash")
 					var/list/L = current.get_contents()
 					var/obj/item/device/flash/flash = locate() in L
 					if (!flash)
-						usr << "<span class=\'warning\'>Repairing flash failed!</span>"
+						usr << "\red Repairing flash failed!"
 					else
 						flash.broken = 0
 
@@ -663,13 +663,13 @@ datum/mind
 					fail |= !ticker.mode.equip_traitor(current, 1)
 					fail |= !ticker.mode.equip_revolutionary(current)
 					if (fail)
-						usr << "<span class=\'warning\'>Reequipping revolutionary goes wrong!</span>"
+						usr << "\red Reequipping revolutionary goes wrong!"
 
 		else if (href_list["cult"])
 			switch(href_list["cult"])
 				if("clear")
 					remove_antag("Cultist")
-					current << "<span class=\'warning\'><FONT size = 3><B>Вам промыли мозги! Вы больше не поклон&#255;етесь тёмным богам!</B></FONT></span>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не поклон&#255;етесь тёмным богам!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-cult'ed [current].")
 					log_admin("[key_name(usr)] has de-cult'ed [current].")
 				if("cultist")
@@ -691,19 +691,19 @@ datum/mind
 						)
 						var/where = H.equip_in_one_of_slots(T, slots)
 						if (!where)
-							usr << "<span class=\'warning\'>Spawning tome failed!</span>"
+							usr << "\red Spawning tome failed!"
 						else
 							H << "A tome, a message from your new master, appears in your [where]."
 
 				if("amulet")
 					if (!ticker.mode.equip_cultist(current))
-						usr << "<span class=\'warning\'>Spawning amulet failed!</span>"
+						usr << "\red Spawning amulet failed!"
 
 		else if (href_list["wizard"])
 			switch(href_list["wizard"])
 				if("clear")
 					remove_antag("Wizard")
-					current << "<span class=\'warning\'><FONT size = 3><B>Ваши силы вдруг исс&#255;кли! Вы больше не волшебник!</B></FONT></span>"
+					current << "\red <FONT size = 3><B>Ваши силы вдруг исс&#255;кли! Вы больше не волшебник!</B></FONT>"
 					log_admin("[key_name(usr)] has de-wizard'ed [current].")
 				if("wizard")
 					if(!(src in ticker.mode.wizards))
@@ -744,7 +744,7 @@ datum/mind
 
 				if("initialdna")
 					if( !changeling || !changeling.absorbed_dna.len || !istype(current, /mob/living/carbon))
-						usr << "<span class=\'warning\'>Resetting DNA failed!</span>"
+						usr << "\red Resetting DNA failed!"
 					else
 						var/mob/living/carbon/C = current
 						C.dna = changeling.absorbed_dna[1]
@@ -756,7 +756,7 @@ datum/mind
 			switch(href_list["nuclear"])
 				if("clear")
 					remove_antag("NuclearOp")
-					current << "<span class=\'warning\'><FONT size = 3><B>Вам промыли мозги! Вы больше не оперативник Синдиката!</B></FONT></span>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не оперативник Синдиката!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-nuke op'ed [current].")
 					log_admin("[key_name(usr)] has de-nuke op'ed [current].")
 				if("nuclear")
@@ -788,7 +788,7 @@ datum/mind
 					qdel(H.w_uniform)
 
 					if (!ticker.mode.equip_syndicate(current))
-						usr << "<span class=\'warning\'>Equipping a syndicate failed!</span>"
+						usr << "\red Equipping a syndicate failed!"
 				if("tellcode")
 					var/code
 					for (var/obj/machinery/nuclearbomb/bombue in world)
@@ -799,13 +799,13 @@ datum/mind
 						store_memory("<B>Код от &#255;дерной боеголовки Синдиката</B>: [code]", 0, 0)
 						current << "Код от &#255;дерной боеголовки Синдиката: <B>[code]</B>"
 					else
-						usr << "<span class=\'warning\'>&#255;дерной боеголовки не найдено!</span>"
+						usr << "\red &#255;дерной боеголовки не найдено!"
 
 		else if (href_list["traitor"])
 			switch(href_list["traitor"])
 				if("clear")
 					remove_antag("Traitor")
-					current << "<span class=\'warning\'><FONT size = 3><B>Вам промыли мозги! Вы больше не предатель!</B></FONT></span>"
+					current << "\red <FONT size = 3><B>Вам промыли мозги! Вы больше не предатель!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-traitor'ed [current].")
 					log_admin("[key_name(usr)] has de-traitor'ed [current].")
 
@@ -877,7 +877,7 @@ datum/mind
 			switch(href_list["silicon"])
 				if("unmalf")
 					remove_antag("Malf")
-					current << "<span class=\'warning\'><FONT size = 3><B>Вас обновили до новой версии! Все неполадки в системном коде были исправлены.</B></FONT></span>"
+					current << "\red <FONT size = 3><B>Вас обновили до новой версии! Все неполадки в системном коде были исправлены.</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-malf'ed [current].")
 					log_admin("[key_name(usr)] has de-malf'ed [current].")
 
@@ -923,7 +923,7 @@ datum/mind
 								log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 				if("uplink")
 					if (!ticker.mode.equip_traitor(current, !(src in ticker.mode.traitors)))
-						usr << "<span class=\'warning\'>Equipping a syndicate failed!</span>"
+						usr << "\red Equipping a syndicate failed!"
 					log_admin("[key_name(usr)] attempted to give [current] an uplink.")
 
 		else if (href_list["obj_announce"])

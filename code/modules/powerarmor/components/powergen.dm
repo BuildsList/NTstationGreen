@@ -64,7 +64,7 @@
 			fuel += 25
 			S.use(1)
 		else
-			user << "<span class=\'warning\'>The generator already has plenty of plasma.</span>"
+			user << "\red The generator already has plenty of plasma."
 			return 1
 
 	if(istype(item, /obj/item/weapon/ore/plasma))
@@ -74,7 +74,7 @@
 			//raw plasma has impurities, so it doesn't provide as much fuel. --NEO
 			del(item)
 		else
-			user << "<span class=\'warning\'>The generator already has plenty of plasma.</span>"
+			user << "\red The generator already has plenty of plasma."
 			return 1
 	return 0
 
@@ -105,18 +105,18 @@
 		if(prob(reliability)) //Only a minor failure, enjoy your radiation.
 			for (var/mob/living/M in range(0,src.parent))
 				if (src.parent in M.contents)
-					M << "<span class=\'warning\'>Your armor feels pleasantly warm for a moment.</span>"
+					M << "\red Your armor feels pleasantly warm for a moment."
 					M.radiation += rand(1,20)
 				else
-					M << "<span class=\'warning\'>You feel a warm sensation.</span>"
+					M << "\red You feel a warm sensation."
 				M.apply_effect(rand(1,15),IRRADIATE,0)
 			if(!prob(reliability))
 				reliability -= 5
 		else //Big failure, TIME FOR RADIATION BITCHES
 			for (var/mob/living/M in range(2,src.parent))
 				if (src.parent in M.contents)
-					M << "<span class=\'warning\'>Your armor's reactor overloads!</span>"
+					M << "\red Your armor's reactor overloads!"
 					M.radiation += 60
-				M << "<span class=\'warning\'>You feel a wave of heat wash over you.</span>"
+				M << "\red You feel a wave of heat wash over you."
 				M.apply_effect(40,IRRADIATE,0)
 			crit_fail = 1 //broken~

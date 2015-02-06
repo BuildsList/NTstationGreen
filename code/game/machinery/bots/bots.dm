@@ -137,7 +137,7 @@
 /obj/machinery/bot/attack_alien(var/mob/living/carbon/alien/user as mob)
 	user.changeNext_move(8)
 	src.health -= rand(15,30)*brute_dam_coeff
-	src.visible_message("<span class=\'warning\'><B>[user] has slashed [src]!</B></span>")
+	src.visible_message("\red <B>[user] has slashed [src]!</B>")
 	playsound(src.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/oil(src.loc)
@@ -149,7 +149,7 @@
 		return
 	M.changeNext_move(8)
 	src.health -= M.melee_damage_upper
-	src.visible_message("<span class=\'warning\'><B>[M] has [M.attacktext] [src]!</B></span>")
+	src.visible_message("\red <B>[M] has [M.attacktext] [src]!</B>")
 	add_logs(M, src, "attacked", admin=0)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/oil(src.loc)
@@ -208,7 +208,7 @@
 		if(health < maxhealth)
 			if(open)
 				health = min(maxhealth, health+10)
-				user.visible_message("<span class=\'warning\'>[user] repairs [src]!</span>","\blue You repair [src]!")
+				user.visible_message("\red [user] repairs [src]!","\blue You repair [src]!")
 			else
 				user << "<span class='notice'>Unable to repair with the maintenance panel closed.</span>"
 		else

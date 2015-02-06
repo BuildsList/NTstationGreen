@@ -292,7 +292,7 @@
 	if (istype(usr,/mob/living/simple_animal/constructbehemoth))
 
 		if(usr.energy<300)
-			usr << "<span class=\'warning\'>You do not have enough power stored!</span>"
+			usr << "\red You do not have enough power stored!"
 			return
 
 		if(usr.stat)

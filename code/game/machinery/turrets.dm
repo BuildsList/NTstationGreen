@@ -340,7 +340,7 @@
 		return src.attack_hand(user)
 
 	if (istype(W, /obj/item/weapon/card/emag) && !emagged)
-		user << "<span class=\'warning\'>You short out the turret controls' access analysis module.</span>"
+		user << "\red You short out the turret controls' access analysis module."
 		emagged = 1
 		locked = 0
 		if(user.machine==src)
@@ -410,14 +410,14 @@
 	M.changeNext_move(8)
 	if(M.melee_damage_upper == 0)	return
 	if(!(stat & BROKEN))
-		visible_message("<span class=\'warning\'><B>[M] [M.attacktext] [src]!</B></span>")
+		visible_message("\red <B>[M] [M.attacktext] [src]!</B>")
 		add_logs(M, src, "attacked", admin=0)
 		//src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		src.health -= M.melee_damage_upper
 		if (src.health <= 0)
 			src.die()
 	else
-		M << "<span class=\'warning\'>That object is useless to you.</span>"
+		M << "\red That object is useless to you."
 	return
 
 
@@ -427,7 +427,7 @@
 	M.changeNext_move(8)
 	if(!(stat & BROKEN))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-		visible_message("<span class=\'warning\'><B>[] has slashed at []!</B></span>", M, src)
+		visible_message("\red <B>[] has slashed at []!</B>", M, src)
 		src.health -= 15
 		if (src.health <= 0)
 			src.die()

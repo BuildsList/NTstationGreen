@@ -26,7 +26,7 @@
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
 	else
-		usr << "<span class=\'warning\'>This mob type cannot throw items.</span>"
+		usr << "\red This mob type cannot throw items."
 	return
 
 

@@ -182,7 +182,7 @@
 		if(href_list["delete"])
 
 			if(!src.allowed(usr) && !emagged)
-				usr << "<span class=\'warning\'>ACCESS DENIED.</span>"
+				usr << "\red ACCESS DENIED."
 				return
 
 			if(SelectedServer)

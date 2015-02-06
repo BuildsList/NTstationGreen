@@ -78,7 +78,7 @@
 		usr << text("\blue You kick the lab cage.")
 		for(var/mob/O in oviewers())
 			if ((O.client && !( O.blinded )))
-				O << text("<span class=\'warning\'>[] kicks the lab cage.</span>", usr)
+				O << text("\red [] kicks the lab cage.", usr)
 		src.health -= 2
 		healthcheck()
 		return

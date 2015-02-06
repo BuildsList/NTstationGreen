@@ -29,7 +29,7 @@
 		return
 
 	if(handcuffed || legcuffed)
-		src << "<span class=\'warning\'>You cannot evolve when you are cuffed.</span>"
+		src << "\red You cannot evolve when you are cuffed."
 
 	if(amount_grown >= max_grown)	//TODO ~Carn
 		//green is impossible to read, so i made these blue and changed the formatting slightly
@@ -52,5 +52,5 @@
 		qdel(src)
 		return
 	else
-		src << "<span class=\'warning\'>You are not fully grown.</span>"
+		src << "\red You are not fully grown."
 		return

@@ -69,7 +69,7 @@
 	if(active)					return
 
 	if(!get_power())
-		user << "<span class=\'warning\'>Power source missing or depleted.</span>"
+		user << "\red Power source missing or depleted."
 		return
 
 	powerup()
@@ -77,15 +77,15 @@
 /obj/item/clothing/suit/powered/proc/powerup() // separated for powerarmor-wearing corpses
 	var/mob/living/carbon/human/user = src.loc
 	if(helmrequired && !istype(user.head, /obj/item/clothing/head/powered))
-		user << "<span class=\'warning\'>Helmet missing, unable to initiate power-on procedure.</span>"
+		user << "\red Helmet missing, unable to initiate power-on procedure."
 		return
 
 	if(!istype(user.gloves, /obj/item/clothing/gloves/powered))
-		user << "<span class=\'warning\'>Gloves missing, unable to initiate power-on procedure.</span>"
+		user << "\red Gloves missing, unable to initiate power-on procedure."
 		return
 
 	if(shoesrequired && !istype(user.shoes, /obj/item/clothing/shoes/powered))
-		user << "<span class=\'warning\'>Shoes missing, unable to initiate power-on procedure.</span>"
+		user << "\red Shoes missing, unable to initiate power-on procedure."
 		return
 
 	verbs -= /obj/item/clothing/suit/powered/proc/poweron

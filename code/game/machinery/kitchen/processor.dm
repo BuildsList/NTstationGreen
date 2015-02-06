@@ -107,10 +107,10 @@
 
 /obj/machinery/processor/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(src.processing)
-		user << "<span class=\'warning\'>The processor is in the process of processing.</span>"
+		user << "\red The processor is in the process of processing."
 		return 1
 	if(src.contents.len > 0) //TODO: several items at once? several different items?
-		user << "<span class=\'warning\'>Something is already in the processing chamber.</span>"
+		user << "\red Something is already in the processing chamber."
 		return 1
 	if(default_unfasten_wrench(user, O))
 		return
@@ -121,7 +121,7 @@
 
 	var/datum/food_processor_process/P = select_recipe(what)
 	if (!P)
-		user << "<span class=\'warning\'>That probably won't blend.</span>"
+		user << "\red That probably won't blend."
 		return 1
 	user.visible_message("[user] put [what] into [src].", \
 		"You put the [what] into [src].")
@@ -133,10 +133,10 @@
 	if (src.stat != 0) //NOPOWER etc
 		return
 	if(src.processing)
-		user << "<span class=\'warning\'>The processor is in the process of processing.</span>"
+		user << "\red The processor is in the process of processing."
 		return 1
 	if(src.contents.len == 0)
-		user << "<span class=\'warning\'>The processor is empty.</span>"
+		user << "\red The processor is empty."
 		return 1
 	for(var/O in src.contents)
 		var/datum/food_processor_process/P = select_recipe(O)

@@ -56,7 +56,7 @@
 	establish_db_connection()
 
 	if(!dbcon.IsConnected())
-		usr << "<span class=\'warning\'>Failed to establish database connection</span>"
+		usr << "\red Failed to establish database connection"
 		return
 
 	if(!adm_ckey || !new_rank)
@@ -97,7 +97,7 @@
 
 	establish_db_connection()
 	if(!dbcon.IsConnected())
-		usr << "<span class=\'warning\'>Failed to establish database connection</span>"
+		usr << "\red Failed to establish database connection"
 		return
 
 	if(!adm_ckey || !istext(adm_ckey) || !isnum(new_permission))

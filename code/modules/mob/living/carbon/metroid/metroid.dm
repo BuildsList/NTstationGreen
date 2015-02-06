@@ -539,7 +539,7 @@
 			visible_message("\blue [L] rubs it's head against [src]")
 		else
 			var/damage = rand(5, 10)
-			visible_message("<span class=\'warning\'><B>[L] bites [src]!</B></span>")
+			visible_message("\red <B>[L] bites [src]!</B>")
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			adjustBruteLoss(damage)
 
@@ -547,7 +547,7 @@
 	if(W.force > 0)
 		attacked += 10
 		if(prob(25))
-			user << "<span class=\'warning\'>[W] passes right through [src]!</span>"
+			user << "\red [W] passes right through [src]!"
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0

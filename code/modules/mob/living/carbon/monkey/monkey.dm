@@ -145,7 +145,7 @@
 
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				for(var/mob/O in viewers(src, null))
-					O.show_message(text("<span class=\'warning\'>[] has grabbed [name] passively!</span>", M), 1)
+					O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
 			else
 				if (!( paralysis ))
 					if (prob(25))
@@ -213,7 +213,7 @@
 
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class=\'warning\'>[] has grabbed [name] passively!</span>", M), 1)
+				O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
 
 		if ("disarm")
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
@@ -238,7 +238,7 @@
 			visible_message("\blue [L] rubs it's head against [src]")
 		else
 			var/damage = rand(5, 10)
-			visible_message("<span class=\'warning\'><B>[L] bites [src]!</B></span>")
+			visible_message("\red <B>[L] bites [src]!</B>")
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			adjustBruteLoss(damage)
 

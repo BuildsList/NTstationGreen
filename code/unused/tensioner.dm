@@ -235,7 +235,7 @@ var/global/datum/tension/tension_master
 			return //This shouldnt happen
 
 		if(!usr.client.holder)
-			message_admins("<span class=\'warning\'>[key_name(usr)] tried to use the tensioner without authorization.</span>")
+			message_admins("\red [key_name(usr)] tried to use the tensioner without authorization.")
 			log_admin("[key_name(usr)] tried to use the tensioner without authorization.")
 			return
 

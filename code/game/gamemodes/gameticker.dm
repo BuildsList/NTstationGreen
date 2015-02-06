@@ -294,7 +294,7 @@ var/round_start_time = 0
 
 				if(!delay_end)
 					sleep(restart_timeout)
-					kick_clients_in_lobby("<span class=\'warning\'>Прекрати мастурбировать, или &#255; расскажу твоей матери.</span>", 1) //second parameter ensures only afk clients are kicked
+					kick_clients_in_lobby("\red Прекрати мастурбировать, или &#255; расскажу твоей матери.", 1) //second parameter ensures only afk clients are kicked
 					world.Reboot()
 				else
 					world << "\blue <B>Администратор отложил конец раунда.</B>"
@@ -319,7 +319,7 @@ var/round_start_time = 0
 
 		if (aiPlayer.connected_robots.len)
 			var/robolist = "<b>Ло&#255;льными миньонами [aiPlayer.real_name] были:</b> "
-			var/vsrobolist = "<span class=\'warning\'><b>Самосто&#255;тельными миньонами [aiPlayer.real_name] были:</b> \black</span>"
+			var/vsrobolist = "\red <b>Самосто&#255;тельными миньонами [aiPlayer.real_name] были:</b> \black"
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				if (is_special_character(robo) && robo.mind)
 					vsrobolist += "[robo.name][robo.stat?" (Деактивирован) (Игрок: [robo.mind.key]), ":" (Игрок: [robo.mind.key]), "]"

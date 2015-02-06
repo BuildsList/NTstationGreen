@@ -41,10 +41,10 @@
 		else if( istype(M, /mob/living/carbon/human) )
 
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("<span class=\'warning\'>[user] attempts to feed [M] [src].</span>", 1)
+				O.show_message("\red [user] attempts to feed [M] [src].", 1)
 			if(!do_mob(user, M)) return
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("<span class=\'warning\'>[user] feeds [M] [src].</span>", 1)
+				O.show_message("\red [user] feeds [M] [src].", 1)
 			add_logs(user, M, "fed", object="[reagentlist(src)]")
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
@@ -69,11 +69,11 @@
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 			if(!target.reagents.total_volume)
-				user << "<span class=\'warning\'>[target] is empty.</span>"
+				user << "\red [target] is empty."
 				return
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				user << "<span class=\'warning\'>[src] is full.</span>"
+				user << "\red [src] is full."
 				return
 
 			var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
@@ -81,11 +81,11 @@
 
 		else if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
 			if(!reagents.total_volume)
-				user << "<span class=\'warning\'>[src] is empty.</span>"
+				user << "\red [src] is empty."
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				user << "<span class=\'warning\'>[target] is full.</span>"
+				user << "\red [target] is full."
 				return
 
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)

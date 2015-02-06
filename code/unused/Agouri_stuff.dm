@@ -773,7 +773,7 @@
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "<span class=\'warning\'>You don't have the dexterity to do this!</span>"
+		usr << "\red You don't have the dexterity to do this!"
 		return
 
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding)
@@ -793,7 +793,7 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class=\'warning\'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
@@ -829,7 +829,7 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class=\'warning\'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
@@ -843,7 +843,7 @@
 					user << "\blue You disassembled the outer wall plating."
 					dismantle_wall()
 					for(var/mob/O in viewers(user, 5))
-						O.show_message(text("\blue The wall was sliced apart by []!", user), 1, text("<span class=\'warning\'>You hear metal being sliced apart.</span>"), 2)
+						O.show_message(text("\blue The wall was sliced apart by []!", user), 1, text("\red You hear metal being sliced apart."), 2)
 		return
 
 	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
@@ -854,7 +854,7 @@
 			if ((user.loc == T && user.equipped() == W))
 				dismantle_wall(1)
 				for(var/mob/O in viewers(user, 5))
-					O.show_message(text("\blue The wall was drilled apart by []!", user), 1, text("<span class=\'warning\'>You hear metal being drilled appart.</span>"), 2)
+					O.show_message(text("\blue The wall was drilled apart by []!", user), 1, text("\red You hear metal being drilled appart."), 2)
 		return
 
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))
@@ -870,7 +870,7 @@
 				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 				dismantle_wall(1)
 				for(var/mob/O in viewers(user, 5))
-					O.show_message(text("\blue The wall was sliced apart by []!", user), 1, text("<span class=\'warning\'>You hear metal being sliced and sparks flying.</span>"), 2)
+					O.show_message(text("\blue The wall was sliced apart by []!", user), 1, text("\red You hear metal being sliced and sparks flying."), 2)
 		return
 
 	else if(istype(W,/obj/item/apc_frame))
@@ -920,7 +920,7 @@
 /turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob)
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "<span class=\'warning\'>You don't have the dexterity to do this!</span>"
+		usr << "\red You don't have the dexterity to do this!"
 		return
 
 	if(!istype(src, /turf/simulated/wall/r_wall))
@@ -945,7 +945,7 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class=\'warning\'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
@@ -988,7 +988,7 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class=\'warning\'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
@@ -1580,9 +1580,9 @@ turf/simulated/floor/return_siding_icon_state()
 
 	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())))
 		if(broken || burnt)
-			user << "<span class=\'warning\'>You remove the broken plating.</span>"
+			user << "\red You remove the broken plating."
 		else
-			user << "<span class=\'warning\'>You remove the [floor_tile.name].</span>"
+			user << "\red You remove the [floor_tile.name]."
 			new floor_tile.type(src)
 
 		make_plating()
@@ -1601,9 +1601,9 @@ turf/simulated/floor/return_siding_icon_state()
 					R.use(2)
 					return
 			else
-				user << "<span class=\'warning\'>You need more rods.</span>"
+				user << "\red You need more rods."
 		else
-			user << "<span class=\'warning\'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 		return
 
 	if(istype(C, /obj/item/stack/tile))
@@ -1635,7 +1635,7 @@ turf/simulated/floor/return_siding_icon_state()
 			var/obj/item/stack/cable_coil/coil = C
 			coil.turf_place(src, user)
 		else
-			user << "<span class=\'warning\'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 
 	if(istype(C, /obj/item/weapon/shovel))
 		if(is_grass_floor())
@@ -1644,14 +1644,14 @@ turf/simulated/floor/return_siding_icon_state()
 			user << "\blue You shovel the grass."
 			make_plating()
 		else
-			user << "<span class=\'warning\'>You cannot shovel this.</span>"
+			user << "\red You cannot shovel this."
 
 	if(istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/welder = C
 		if(welder.welding && (is_plating()))
 			if(broken || burnt)
 				if(welder.remove_fuel(0,user))
-					user << "<span class=\'warning\'>You fix some dents on the broken plating.</span>"
+					user << "\red You fix some dents on the broken plating."
 					playsound(src.loc, 'sound/items/Welder.ogg', 80, 1)
 					icon_state = "plating"
 					burnt = 0
@@ -1724,7 +1724,7 @@ turf/simulated/floor/return_siding_icon_state()
 			S.use(1)
 			return
 		else
-			user << "<span class=\'warning\'>The plating is going to need some support.</span>"
+			user << "\red The plating is going to need some support."
 	return
 
 
@@ -1757,7 +1757,7 @@ turf/simulated/floor/return_siding_icon_state()
 					if(istype(A, /mob/living))
 						var/mob/living/MM = A
 						if(MM.client)
-							MM << "<span class=\'warning\'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
+							MM << "\red Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is."
 					return
 
 

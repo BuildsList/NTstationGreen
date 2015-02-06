@@ -3,7 +3,7 @@
 	set name = "Pray"
 
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class=\'warning\'>Speech is currently admin-disabled.</span>"
+		usr << "\red Speech is currently admin-disabled."
 		return
 
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
@@ -11,7 +11,7 @@
 	log_prayer("[src.key]/([src.name]): [msg]")
 	if(usr.client)
 		if(usr.client.prefs.muted & MUTE_PRAY)
-			usr << "<span class=\'warning\'>You cannot pray (muted).</span>"
+			usr << "\red You cannot pray (muted)."
 			return
 		if(src.client.handle_spam_prevention(msg,MUTE_PRAY))
 			return

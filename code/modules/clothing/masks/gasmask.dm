@@ -77,10 +77,10 @@
 				user << "\blue You set the restrictor to the first position."
 				aggressiveness = 1
 			if(4)
-				user << "<span class=\'warning\'>You adjust the restrictor but nothing happens, probably because its broken.</span>"
+				user << "\red You adjust the restrictor but nothing happens, probably because its broken."
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(aggressiveness != 4)
-			user << "<span class=\'warning\'>You broke it!</span>"
+			user << "\red You broke it!"
 			aggressiveness = 4
 	else
 		..()

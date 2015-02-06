@@ -23,14 +23,14 @@
 	attackby(obj/item/clothing/under/U as obj, mob/user as mob)
 		..()
 		if(istype(U, /obj/item/clothing/under/chameleon))
-			user << "<span class=\'warning\'>Nothing happens.</span>"
+			user << "\red Nothing happens."
 			return
 		if(istype(U, /obj/item/clothing/under))
 			if(src.clothing_choices.Find(U))
-				user << "<span class=\'warning\'>Pattern is already recognised by the suit.</span>"
+				user << "\red Pattern is already recognised by the suit."
 				return
 			src.clothing_choices += U
-			user << "<span class=\'warning\'>Pattern absorbed by the suit.</span>"
+			user << "\red Pattern absorbed by the suit."
 
 
 	emp_act(severity)
@@ -69,7 +69,7 @@
 			return
 
 		if(icon_state == "psyche")
-			usr << "<span class=\'warning\'>Your suit is malfunctioning</span>"
+			usr << "\red Your suit is malfunctioning"
 			return
 
 		desc = null

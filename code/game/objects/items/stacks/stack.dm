@@ -104,15 +104,15 @@
 		if (!multiplier) multiplier = 1
 		if (src.amount < R.req_amount*multiplier)
 			if (R.req_amount*multiplier>1)
-				usr << "<span class=\'warning\'>You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!</span>"
+				usr << "\red You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!"
 			else
-				usr << "<span class=\'warning\'>You haven't got enough [src] to build \the [R.title]!</span>"
+				usr << "\red You haven't got enough [src] to build \the [R.title]!"
 			return
 		if (R.one_per_turf && (locate(R.result_type) in usr.loc))
-			usr << "<span class=\'warning\'>There is another [R.title] here!</span>"
+			usr << "\red There is another [R.title] here!"
 			return
 		if (R.on_floor && !istype(usr.loc, /turf/simulated/floor))
-			usr << "<span class=\'warning\'>\The [R.title] must be constructed on the floor!</span>"
+			usr << "\red \The [R.title] must be constructed on the floor!"
 			return
 		if (R.time)
 			usr << "\blue Building [R.title] ..."

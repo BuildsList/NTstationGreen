@@ -123,7 +123,7 @@ var/global/mulebot_count = 0
 		if (health < maxhealth)
 			health = min(maxhealth, health+25)
 			user.visible_message(
-				"<span class=\'warning\'>[user] repairs [src]!</span>",
+				"\red [user] repairs [src]!",
 				"\blue You repair [src]!"
 			)
 		else
@@ -134,7 +134,7 @@ var/global/mulebot_count = 0
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1+I.force * 2))
 			unload(0)
-			user.visible_message("<span class=\'warning\'>[user] knocks [load] off [src] with \the [I]!</span>", "<span class=\'warning\'>You knock [load] off [src] with \the [I]!</span>")
+			user.visible_message("\red [user] knocks [load] off [src] with \the [I]!", "\red You knock [load] off [src] with \the [I]!")
 		else
 			user << "You hit [src] with \the [I] but to no effect."
 	else
@@ -157,7 +157,7 @@ var/global/mulebot_count = 0
 	if(prob(50) && !isnull(load))
 		unload(0)
 	if(prob(25))
-		visible_message("<span class=\'warning\'>Something shorts out inside [src]!</span>")
+		visible_message("\red Something shorts out inside [src]!")
 		wires.RandomCut()
 	..()
 
@@ -267,7 +267,7 @@ var/global/mulebot_count = 0
 					turn_off()
 				else if (cell && !open)
 					if (!turn_on())
-						usr << "<span class=\'warning\'>You can't switch on [src].</span>"
+						usr << "\red You can't switch on [src]."
 						return
 				else
 					return
@@ -374,7 +374,7 @@ var/global/mulebot_count = 0
 		updateDialog()
 		return 1
 	else
-		user << "<span class=\'warning\'>Access denied.</span>"
+		user << "\red Access denied."
 		return 0
 
 // mousedrop a crate to load the bot
@@ -906,7 +906,7 @@ var/global/mulebot_count = 0
 
 
 /obj/machinery/bot/mulebot/explode()
-	visible_message("<span class=\'warning\'><B>[src] blows apart!</B></span>", 1)
+	visible_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/device/assembly/prox_sensor(Tsec)

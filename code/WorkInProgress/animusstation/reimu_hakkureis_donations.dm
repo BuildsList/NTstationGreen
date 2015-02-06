@@ -108,15 +108,15 @@ var/list/datum/donator/donators = list()
 		)
 
 		if(cost > money)
-			usr << "<span class=\'warning\'>You don't have enough funds.</span>"
+			usr << "\red You don't have enough funds."
 			return 0
 
 		if(!allowed_num_items)
-			usr << "<span class=\'warning\'>You have reached maximum amount of spawned items.</span>"
+			usr << "\red You have reached maximum amount of spawned items."
 			return 0
 
 		if(!user)
-			user << "<span class=\'warning\'>You must be a human to use this.</span>"
+			user << "\red You must be a human to use this."
 			return 0
 
 		if(!ispath(path))

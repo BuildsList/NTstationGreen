@@ -249,11 +249,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/memory()
 	set hidden = 1
-	src << "<span class=\'warning\'>You are dead! You have no mind to store memory!</span>"
+	src << "\red You are dead! You have no mind to store memory!"
 
 /mob/dead/observer/add_memory()
 	set hidden = 1
-	src << "<span class=\'warning\'>You are dead! You have no mind to store memory!</span>"
+	src << "\red You are dead! You have no mind to store memory!"
 
 /mob/dead/observer/verb/toggle_darkness()
 	set name = "Toggle Darkness"

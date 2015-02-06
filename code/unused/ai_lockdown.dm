@@ -1,4 +1,4 @@
-/*	world << "<span class=\'warning\'>Lockdown initiated by [usr.name]!</span>"
+/*	world << "\red Lockdown initiated by [usr.name]!"
 
 	for(var/obj/machinery/firealarm/FA in world) //activate firealarms
 		spawn( 0 )
@@ -18,7 +18,7 @@
 
 /*	src.verbs -= /mob/living/silicon/ai/proc/lockdown
 	src.verbs += /mob/living/silicon/ai/proc/disablelockdown
-	usr << "<span class=\'warning\'>Disable lockdown command enabled!</span>"
+	usr << "\red Disable lockdown command enabled!"
 	winshow(usr,"rpane",1)
 */
 
@@ -30,7 +30,7 @@
 		usr <<"You cannot disable lockdown because you are dead!"
 		return
 
-	world << "<span class=\'warning\'>Lockdown cancelled by [usr.name]!</span>"
+	world << "\red Lockdown cancelled by [usr.name]!"
 
 	for(var/obj/machinery/firealarm/FA in world) //deactivate firealarms
 		spawn( 0 )
@@ -45,6 +45,6 @@
 
 /*	src.verbs -= /mob/living/silicon/ai/proc/disablelockdown
 	src.verbs += /mob/living/silicon/ai/proc/lockdown
-	usr << "<span class=\'warning\'>Disable lockdown command removed until lockdown initiated again!</span>"
+	usr << "\red Disable lockdown command removed until lockdown initiated again!"
 	winshow(usr,"rpane",1)
 */

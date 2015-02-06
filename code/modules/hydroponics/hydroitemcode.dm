@@ -11,7 +11,7 @@
 /obj/item/weapon/grown/novaflower/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(!..()) return
 	if(istype(M, /mob/living))
-		M << "<span class=\'warning\'>You are heated by the warmth of the of the [name]!</span>"
+		M << "\red You are heated by the warmth of the of the [name]!"
 		M.bodytemperature += potency/2 * TEMPERATURE_DAMAGE_COEFFICIENT
 
 /obj/item/weapon/grown/novaflower/afterattack(atom/A as mob|obj, mob/user as mob,proximity)
@@ -25,13 +25,13 @@
 
 /obj/item/weapon/grown/novaflower/pickup(mob/living/carbon/human/user as mob)
 	if(!user.gloves)
-		user << "<span class=\'warning\'>The [name] burns your bare hand!</span>"
+		user << "\red The [name] burns your bare hand!"
 		user.adjustFireLoss(rand(1,5))
 
 //Nettle
 /obj/item/weapon/grown/nettle/pickup(mob/living/carbon/human/user as mob)
 	if(!user.gloves)
-		user << "<span class=\'warning\'>The nettle burns your bare hand!</span>"
+		user << "\red The nettle burns your bare hand!"
 		if(istype(user, /mob/living/carbon/human))
 			var/organ = ((user.hand ? "l_":"r_") + "arm")
 			var/obj/item/organ/limb/affecting = user.get_organ(organ)
@@ -65,12 +65,12 @@
 			user.take_organ_damage(0,force)
 		if(prob(50))
 			user.Paralyse(5)
-			user << "<span class=\'warning\'>You are stunned by the Deathnettle when you try picking it up!</span>"
+			user << "\red You are stunned by the Deathnettle when you try picking it up!"
 
 /obj/item/weapon/grown/deathnettle/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(!..()) return
 	if(istype(M, /mob/living))
-		M << "<span class=\'warning\'>You are stunned by the powerful acid of the Deathnettle!</span>"
+		M << "\red You are stunned by the powerful acid of the Deathnettle!"
 		add_logs(user, M, "attacked", object="[src.name]")
 
 		M.eye_blurry += force/7

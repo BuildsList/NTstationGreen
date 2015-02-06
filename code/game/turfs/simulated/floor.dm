@@ -434,12 +434,12 @@ turf/simulated/floor/proc/update_icon()
 
 	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())))
 		if(broken || burnt)
-			user << "<span class=\'warning\'>You remove the broken plating.</span>"
+			user << "\red You remove the broken plating."
 		else
 			if(is_wood_floor())
-				user << "<span class=\'warning\'>You forcefully pry off the planks, destroying them in the process.</span>"
+				user << "\red You forcefully pry off the planks, destroying them in the process."
 			else
-				user << "<span class=\'warning\'>You remove the [floor_tile.name].</span>"
+				user << "\red You remove the [floor_tile.name]."
 				new floor_tile.type(src)
 
 		make_plating()
@@ -452,7 +452,7 @@ turf/simulated/floor/proc/update_icon()
 			return
 		else
 			if(is_wood_floor())
-				user << "<span class=\'warning\'>You unscrew the planks.</span>"
+				user << "\red You unscrew the planks."
 				new floor_tile.type(src)
 
 		make_plating()
@@ -471,9 +471,9 @@ turf/simulated/floor/proc/update_icon()
 					R.use(2)
 					return
 			else
-				user << "<span class=\'warning\'>You need more rods.</span>"
+				user << "\red You need more rods."
 		else
-			user << "<span class=\'warning\'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 		return
 
 	if(istype(C, /obj/item/stack/tile))
@@ -514,7 +514,7 @@ turf/simulated/floor/proc/update_icon()
 					return
 			coil.turf_place(src, user)
 		else
-			user << "<span class=\'warning\'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 
 	if(istype(C, /obj/item/weapon/shovel))
 		if(is_grass_floor())
@@ -523,14 +523,14 @@ turf/simulated/floor/proc/update_icon()
 			user << "\blue You shovel the grass."
 			make_plating()
 		else
-			user << "<span class=\'warning\'>You cannot shovel this.</span>"
+			user << "\red You cannot shovel this."
 
 	if(istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/welder = C
 		if(welder.isOn() && (is_plating()))
 			if(broken || burnt)
 				if(welder.remove_fuel(0,user))
-					user << "<span class=\'warning\'>You fix some dents on the broken plating.</span>"
+					user << "\red You fix some dents on the broken plating."
 					playsound(src, 'sound/items/Welder.ogg', 80, 1)
 					icon_state = icon_plating
 					burnt = 0

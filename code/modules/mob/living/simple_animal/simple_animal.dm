@@ -256,7 +256,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("<span class=\'warning\'><B>\The [M]</B> [M.attacktext] [src]!</span>", 1)
+			O.show_message("\red <B>\The [M]</B> [M.attacktext] [src]!", 1)
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
@@ -305,13 +305,13 @@
 
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class=\'warning\'>[] has grabbed [] passively!</span>", M, src), 1)
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if("harm", "disarm")
 			adjustBruteLoss(harm_intent_damage)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message("<span class=\'warning\'>[M] [response_harm] [src]!</span>")
+					O.show_message("\red [M] [response_harm] [src]!")
 
 	return
 
@@ -340,11 +340,11 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class=\'warning\'>[] has grabbed [] passively!</span>", M, src), 1)
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if("harm", "disarm")
 			var/damage = rand(15, 30)
-			visible_message("<span class=\'warning\'><B>[M] has slashed at [src]!</B></span>")
+			visible_message("\red <B>[M] has slashed at [src]!</B>")
 			adjustBruteLoss(damage)
 
 	return
@@ -359,7 +359,7 @@
 		else
 
 			var/damage = rand(5, 10)
-			visible_message("<span class=\'warning\'><B>[L] bites [src]!</B></span>")
+			visible_message("\red <B>[L] bites [src]!</B>")
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
@@ -373,7 +373,7 @@
 
 	if(M.Victim) return // can't attack while eating!
 
-	visible_message("<span class=\'warning\'><B>[M.name] glomps [src]!</B></span>")
+	visible_message("\red <B>[M.name] glomps [src]!</B>")
 
 	var/damage = rand(1, 3)
 
@@ -429,7 +429,7 @@
 				visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
 								"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
 		else
-			user << "<span class=\'warning\'>This weapon is ineffective, it does no damage.</span>"
+			user << "\red This weapon is ineffective, it does no damage."
 			user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 							"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 

@@ -119,7 +119,7 @@ Doesn't work on other aliens/AI.*/
 
 	if(powerc(50))
 		adjustToxLoss(-50)
-		src.visible_message("<span class=\'warning\'>[src] spits neurotoxin!</span>", "\green You spit neurotoxin.")
+		src.visible_message("\red [src] spits neurotoxin!", "\green You spit neurotoxin.")
 
 		var/turf/T = loc
 		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
@@ -144,7 +144,7 @@ Doesn't work on other aliens/AI.*/
 		adjustToxLoss(-75)
 		src << "\green You shape a [choice]."
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class=\'warning\'><B>[src] vomits up a thick purple substance and begins to shape it!</B></span>"), 1)
+			O.show_message(text("\red <B>[src] vomits up a thick purple substance and begins to shape it!</B>"), 1)
 		switch(choice)
 			if("resin door")
 				new /obj/structure/mineral_door/resin(loc)

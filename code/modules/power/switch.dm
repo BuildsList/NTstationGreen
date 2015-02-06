@@ -29,25 +29,25 @@
 		usr << "The switch is in the off position"
 
 /obj/structure/powerswitch/attack_ai(mob/user)
-	user << "<span class=\'warning\'>You're an AI. This is a manual switch. It's not going to work.</span>"
+	user << "\red You're an AI. This is a manual switch. It's not going to work."
 	return
 
 /obj/structure/powerswitch/attack_hand(mob/user)
 
 	if(busy)
-		user << "<span class=\'warning\'>This switch is already being toggled.</span>"
+		user << "\red This switch is already being toggled."
 		return
 
 	..()
 
 	busy = 1
 	for(var/mob/O in viewers(user))
-		O.show_message(text("<span class=\'warning\'>[user] started pulling the [src].</span>"), 1)
+		O.show_message(text("\red [user] started pulling the [src]."), 1)
 
 	if(do_after(user, 50))
 		set_state(!on)
 		for(var/mob/O in viewers(user))
-			O.show_message(text("<span class=\'warning\'>[user] flipped the [src] into the [on ? </span>"on": "off"] position."), 1)
+			O.show_message(text("\red [user] flipped the [src] into the [on ? "on": "off"] position."), 1)
 	busy = 0
 
 /obj/structure/powerswitch/proc/set_state(var/state)

@@ -647,9 +647,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 								difficulty += 2
 
 							if(prob(difficulty * 12) || (P.hidden_uplink))
-								U.show_message("<span class=\'warning\'>An error flashes on your [src].</span>", 1)
+								U.show_message("\red An error flashes on your [src].", 1)
 							else if (prob(difficulty * 3))
-								U.show_message("<span class=\'warning\'>Energy feeds back into your [src]!</span>", 1)
+								U.show_message("\red Energy feeds back into your [src]!", 1)
 								U << browse(null, "window=pda")
 								explode()
 							else
@@ -902,7 +902,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 			if(4)
 				for (var/mob/O in viewers(C, null))
-					O.show_message("<span class=\'warning\'>[user] has analyzed [C]'s radiation levels!</span>", 1)
+					O.show_message("\red [user] has analyzed [C]'s radiation levels!", 1)
 
 				user.show_message("\blue Analyzing Results for [C]:")
 				if(C.radiation)
@@ -954,7 +954,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	if (ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class=\'warning\'>Your [src] explodes!</span>", 1)
+		M.show_message("\red Your [src] explodes!", 1)
 
 	if(T)
 		T.hotspot_expose(700,125)

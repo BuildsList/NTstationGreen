@@ -128,7 +128,7 @@
 				src.loc.visible_message("\blue \icon[src] Device error: User intervention required")
 			return
 		else
-			src.loc.visible_message("<span class=\'warning\'>\icon[src] [timer] seconds until detonation, please clear the area.</span>")
+			src.loc.visible_message("\red \icon[src] [timer] seconds until detonation, please clear the area.")
 			playsound(loc, 'sound/machines/click.ogg', 30, 1)
 			active = 1
 			update_icon()
@@ -216,7 +216,7 @@
 	var/obj/machinery/syndicatebomb/holder = src.loc
 	if(istype(holder))
 		attempts++
-		holder.loc.visible_message("<span class=\'warning\'>\icon[holder] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...</span>")
+		holder.loc.visible_message("\red \icon[holder] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...")
 		reset()
 	else
 		qdel(src)

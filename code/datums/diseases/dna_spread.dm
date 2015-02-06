@@ -23,11 +23,11 @@
 			if(prob(8))
 				affected_mob.emote("cough")
 			if(prob(1))
-				affected_mob << "<span class=\'warning\'>Your muscles ache.</span>"
+				affected_mob << "\red Your muscles ache."
 				if(prob(20))
 					affected_mob.take_organ_damage(1)
 			if(prob(1))
-				affected_mob << "<span class=\'warning\'>Your stomach hurts.</span>"
+				affected_mob << "\red Your stomach hurts."
 				if(prob(20))
 					affected_mob.adjustToxLoss(2)
 					affected_mob.updatehealth()
@@ -42,7 +42,7 @@
 				src.original_dna["UI"] = affected_mob.dna.uni_identity
 				src.original_dna["SE"] = affected_mob.dna.struc_enzymes
 
-				affected_mob << "<span class=\'warning\'>You don't feel like yourself..</span>"
+				affected_mob << "\red You don't feel like yourself.."
 				affected_mob.dna.uni_identity = strain_data["UI"]
 				updateappearance(affected_mob)
 				affected_mob.dna.struc_enzymes = strain_data["SE"]

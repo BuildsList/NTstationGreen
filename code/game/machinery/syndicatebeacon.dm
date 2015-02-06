@@ -172,14 +172,14 @@
 		if(stat & SCREWED)
 			return active ? Deactivate(user) : Activate(user)
 		else
-			user << "<span class=\'warning\'>You need to screw the beacon to the floor first!</span>"
+			user << "\red You need to screw the beacon to the floor first!"
 			return
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype(W,/obj/item/weapon/screwdriver))
 			if(active)
-				user << "<span class=\'warning\'>You need to deactivate the beacon first!</span>"
+				user << "\red You need to deactivate the beacon first!"
 				return
 
 			if(stat & SCREWED)

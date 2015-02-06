@@ -59,7 +59,7 @@
 				return 0
 			if(!w_uniform)
 				if(!disable_warning)
-					src << "<span class=\'warning\'>You need a jumpsuit before you can attach this [I.name].</span>"
+					src << "\red You need a jumpsuit before you can attach this [I.name]."
 				return 0
 			if( !(I.slot_flags & SLOT_BELT) )
 				return
@@ -95,7 +95,7 @@
 				return 0
 			if(!w_uniform)
 				if(!disable_warning)
-					src << "<span class=\'warning\'>You need a jumpsuit before you can attach this [I.name].</span>"
+					src << "\red You need a jumpsuit before you can attach this [I.name]."
 				return 0
 			if( !(I.slot_flags & SLOT_ID) )
 				return 0
@@ -107,7 +107,7 @@
 				return 0
 			if(!w_uniform)
 				if(!disable_warning)
-					src << "<span class=\'warning\'>You need a jumpsuit before you can attach this [I.name].</span>"
+					src << "\red You need a jumpsuit before you can attach this [I.name]."
 				return 0
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return
@@ -120,7 +120,7 @@
 				return 0
 			if(!w_uniform)
 				if(!disable_warning)
-					src << "<span class=\'warning\'>You need a jumpsuit before you can attach this [I.name].</span>"
+					src << "\red You need a jumpsuit before you can attach this [I.name]."
 				return 0
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return 0
@@ -134,7 +134,7 @@
 				return 0
 			if(!wear_suit)
 				if(!disable_warning)
-					src << "<span class=\'warning\'>You need a suit before you can attach this [I.name].</span>"
+					src << "\red You need a suit before you can attach this [I.name]."
 				return 0
 			if(!wear_suit.allowed)
 				if(!disable_warning)
@@ -201,7 +201,7 @@
 				if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))
 					S.handle_item_insertion(I)
 				else
-					H << "<span class=\'warning\'>You are unable to equip that.</span>"
+					H << "\red You are unable to equip that."
 
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = 1)
@@ -403,7 +403,7 @@
 			I.loc = back
 			return
 		else
-			src << "<span class=\'warning\'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>"
+			src << "\red You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"
 			return
 
 /mob/living/carbon/human/get_equipped_items()

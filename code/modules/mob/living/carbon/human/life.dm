@@ -125,11 +125,11 @@
 	proc/handle_disabilities()
 		if (disabilities & EPILEPSY)
 			if ((prob(1) && paralysis < 1))
-				src << "<span class=\'warning\'>У вас припадок!</span>"
+				src << "\red У вас припадок!"
 				for(var/mob/O in viewers(src, null))
 					if(O == src)
 						continue
-					O.show_message(text("<span class=\'warning\'><B>[src] бьетс&#255; в припадке!</span>"), 1)
+					O.show_message(text("\red <B>[src] бьетс&#255; в припадке!"), 1)
 				Paralyse(10)
 				Jitter(1000)
 		if (disabilities & COUGHING)
@@ -170,7 +170,7 @@
 		if (has_organic_effect(/datum/organic_effect/hulk) && health <= 25)
 			remove_organic_effect(/datum/organic_effect/hulk)
 			update_mutations()		//update our mutation overlays
-			src << "<span class=\'warning\'>You suddenly feel very weak.</span>"
+			src << "\red You suddenly feel very weak."
 			Weaken(3)
 			emote("collapse")
 
@@ -178,7 +178,7 @@
 			if (radiation > 100)
 				radiation = 100
 				Weaken(10)
-				src << "<span class=\'warning\'>You feel weak.</span>"
+				src << "\red You feel weak."
 				emote("collapse")
 
 			if (radiation < 0)
@@ -198,7 +198,7 @@
 						if(prob(5))
 							radiation -= 5
 							Weaken(3)
-							src << "<span class=\'warning\'>You feel weak.</span>"
+							src << "\red You feel weak."
 							emote("collapse")
 						if(prob(15))
 							if(!( hair_style == "Shaved") || !(hair_style == "Bald"))
@@ -213,7 +213,7 @@
 						radiation -= 3
 						adjustToxLoss(3)
 						if(prob(1))
-							src << "<span class=\'warning\'>You mutate!</span>"
+							src << "\red You mutate!"
 							randmutb(src)
 							domutcheck(src,null)
 							emote("gasp")
@@ -412,10 +412,10 @@
 		if( (abs(310.15 - breath.temperature) > 50) && !has_organic_effect(/datum/organic_effect/cold_res)) // Hot air hurts :(
 			if(breath.temperature < 260.15)
 				if(prob(20))
-					src << "<span class=\'warning\'>You feel your face freezing and an icicle forming in your lungs!</span>"
+					src << "\red You feel your face freezing and an icicle forming in your lungs!"
 			else if(breath.temperature > 360.15)
 				if(prob(20))
-					src << "<span class=\'warning\'>You feel your face burning and a searing heat in your lungs!</span>"
+					src << "\red You feel your face burning and a searing heat in your lungs!"
 
 			switch(breath.temperature)
 				if(-INFINITY to 120)
@@ -781,7 +781,7 @@
 				update_inv_wear_suit()
 		else
 			if(overeatduration > 500)
-				src << "<span class=\'warning\'>You suddenly feel blubbery!</span>"
+				src << "\red You suddenly feel blubbery!"
 				add_organic_effect(/datum/organic_effect/fat)
 				update_inv_w_uniform(0)
 				update_inv_wear_suit()

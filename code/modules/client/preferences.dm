@@ -442,7 +442,7 @@ datum/preferences
 			return
 
 		if (!isnum(desiredLvl))
-			user << "<span class=\'warning\'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>"
+			user << "\red UpdateJobPreference - desired level was not a number. Please notify coders!"
 			ShowChoices(user)
 			return
 

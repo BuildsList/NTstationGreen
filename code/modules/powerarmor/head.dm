@@ -66,7 +66,7 @@
 	if(user.head != src)	return
 
 	if(!get_armor())
-		user << "<span class=\'warning\'>This helmet can only couple with powered armor.</span>"
+		user << "\red This helmet can only couple with powered armor."
 		return
 
 	if(!isturf(user.loc))

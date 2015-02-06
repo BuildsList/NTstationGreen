@@ -18,15 +18,15 @@
 			t_him = "him"
 		else if (M.gender == FEMALE)
 			t_him = "her"
-		user << "<span class=\'warning\'>\The [M] is dead, you cannot help [t_him]!</span>"
+		user << "\red \The [M] is dead, you cannot help [t_him]!"
 		return
 
 	if (!istype(M))
-		user << "<span class=\'warning\'>\The [src] cannot be applied to [M]!</span>"
+		user << "\red \The [src] cannot be applied to [M]!"
 		return 1
 
 	if (!user.IsAdvancedToolUser())
-		user << "<span class=\'warning\'>You don't have the dexterity to do this!</span>"
+		user << "\red You don't have the dexterity to do this!"
 		return 1
 
 	if (user)

@@ -75,7 +75,7 @@
 					P.loc = src
 					user << "\blue You add [P] to the frame."
 				else
-					user << "<span class=\'warning\'>There is no more room for peripheral cards.</span>"
+					user << "\red There is no more room for peripheral cards."
 
 			if(istype(P, /obj/item/weapon/crowbar) && src.peripherals.len)
 				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)

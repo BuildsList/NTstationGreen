@@ -10,7 +10,7 @@
 	set name = "Say"
 	set category = "IC"
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class=\'warning\'>Speech is currently admin-disabled.</span>"
+		usr << "\red Speech is currently admin-disabled."
 		return
 	usr.say(message)
 
@@ -19,7 +19,7 @@
 	set category = "IC"
 
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class=\'warning\'>Speech is currently admin-disabled.</span>"
+		usr << "\red Speech is currently admin-disabled."
 		return
 
 	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
@@ -34,7 +34,7 @@
 	var/alt_name = ""
 
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class=\'warning\'>Speech is currently admin-disabled.</span>"
+		usr << "\red Speech is currently admin-disabled."
 		return
 
 	if(mind && mind.name)

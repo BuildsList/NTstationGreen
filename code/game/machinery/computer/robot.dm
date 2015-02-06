@@ -30,7 +30,7 @@
 
 /obj/machinery/computer/robotics/interact(var/mob/user as mob)
 	if (src.z > 6)
-		user << "<span class=\'warning\'><b>Unable to establish a connection</b>: \black You're too far away from the station!</span>"
+		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 	user.set_machine(src)
 	var/dat
@@ -96,7 +96,7 @@
 						log_game("\blue [key_name(usr)] detonated [R.name]!")
 						R.self_destruct()
 		else
-			usr << "<span class=\'warning\'>Access Denied.</span>"
+			usr << "\red Access Denied."
 
 	else if (href_list["stopbot"])
 		if(src.allowed(usr))
@@ -110,7 +110,7 @@
 					R << "[!R.lockcharge ? "<span class='notice'>Your lockdown has been lifted!" : "<span class='alert'>You have been locked down!"]</span>"
 
 		else
-			usr << "<span class=\'warning\'>Access Denied.</span>"
+			usr << "\red Access Denied."
 
 	else if (href_list["magbot"])
 		if(issilicon(usr) && is_special_character(usr))

@@ -117,7 +117,7 @@
 		helm = user.head
 
 		if(!sealed)
-			user << "<span class=\'warning\'>Unable to initialize helmet seal, armor seals not active.</span>"
+			user << "\red Unable to initialize helmet seal, armor seals not active."
 			return
 		if(!helm.parent)
 			user << "\blue Helmet locked."

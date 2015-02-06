@@ -64,7 +64,7 @@
 		return 1
 	else if(istype(mover, /mob/living))
 		if(prob(50))
-			mover << "<span class=\'warning\'>You get stuck in \the [src] for a moment.</span>"
+			mover << "\red You get stuck in \the [src] for a moment."
 			return 0
 	else if(istype(mover, /obj/item/projectile))
 		return prob(30)
@@ -209,7 +209,7 @@
 
 
 /obj/effect/spider/cocoon/Destroy()
-	src.visible_message("<span class=\'warning\'>\The [src] splits open.</span>")
+	src.visible_message("\red \The [src] splits open.")
 	for(var/atom/movable/A in contents)
 		A.loc = src.loc
 	..()

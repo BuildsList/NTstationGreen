@@ -37,7 +37,7 @@
 	if(..())
 		return
 	if (src.z > 6)
-		user << "<span class=\'warning\'><b>Unable to establish a connection</b>: \black You're too far away from the station!</span>"
+		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 	var/dat
 

@@ -147,7 +147,7 @@ display round(lastgen) and plasmatank amount
 /obj/machinery/power/port_gen/pacman/examine()
 	..()
 	usr << "\blue The generator has [sheets] units of [sheet_name] fuel left, producing [power_gen] per cycle."
-	if(crit_fail) usr << "<span class=\'warning\'>The generator seems to have broken down.</span>"
+	if(crit_fail) usr << "\red The generator seems to have broken down."
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	if(sheets >= 1 / (time_per_sheet / power_output) - sheet_left)

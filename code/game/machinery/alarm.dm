@@ -793,7 +793,7 @@ table tr:first-child th:first-child { border: none;}
 						user << "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface."
 						src.updateUsrDialog()
 					else
-						user << "<span class=\'warning\'>Access denied.</span>"
+						user << "\red Access denied."
 				return
 		if(1)
 			if(istype(W, /obj/item/weapon/crowbar) && wires.wires_status == (2 ** wires.wire_count) - 1)

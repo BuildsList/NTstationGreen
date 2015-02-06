@@ -8,7 +8,7 @@ client
 
 
 		if(!usr.client || !usr.client.holder)
-			usr << "<span class=\'warning\'>You need to be an administrator to access this.</span>"
+			usr << "\red You need to be an administrator to access this."
 			return
 
 

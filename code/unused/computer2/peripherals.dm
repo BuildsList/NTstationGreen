@@ -138,7 +138,7 @@
 			src.vend_prize()
 			src.last_vend = world.time
 		else
-			user << "<span class=\'warning\'>[src] isn't ready to dispense a prize yet.</span>"
+			user << "\red [src] isn't ready to dispense a prize yet."
 
 		return
 

@@ -89,10 +89,10 @@ the blender or the processor: Processor items are solid objects and Blender resu
 	if (src.stat != 0) //NOPOWER etc
 		return
 	if(src.processing)
-		usr << "<span class=\'warning\'>The blender is in the process of blending.</span>"
+		usr << "\red The blender is in the process of blending."
 		return
 	if(!src.container)
-		usr << "<span class=\'warning\'>The blender doesn't have an attached container!</span>"
+		usr << "\red The blender doesn't have an attached container!"
 		return
 	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
 	src.processing = 1

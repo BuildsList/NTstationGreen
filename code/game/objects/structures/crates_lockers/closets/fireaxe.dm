@@ -153,7 +153,7 @@
 
 		if (isrobot(usr) || src.locked || src.smashed)
 			if(src.locked)
-				usr << "<span class=\'warning\'>The cabinet won't budge!</span>"
+				usr << "\red The cabinet won't budge!"
 			else if(src.smashed)
 				usr << "\blue The protective glass is broken!"
 			return
