@@ -48,7 +48,7 @@
 /client/proc/beta_tester_auth()
 	set name = "Tester?"
 	/*if(istester(src))
-		src << "\blue <B>Key accepted as beta tester</B>"
+		src << "<span class='info'><B>Key accepted as beta tester</B></span>"
 	else
 		src << "\red<B>Key not accepted as beta tester. You may only observe the rounds. */
 

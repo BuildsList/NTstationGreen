@@ -60,21 +60,21 @@
 	if(istype(item, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/S = item
 		if(fuel < maxfuel)
-			user << "\blue You feed some plasma into the armor's generator."
+			user << "<span class='info'>You feed some plasma into the armor's generator.</span>"
 			fuel += 25
 			S.use(1)
 		else
-			user << "\red The generator already has plenty of plasma."
+			user << "<span class='warning'>The generator already has plenty of plasma.</span>"
 			return 1
 
 	if(istype(item, /obj/item/weapon/ore/plasma))
 		if(fuel < maxfuel)
-			user << "\blue You feed plasma ore into the armor's generator."
+			user << "<span class='info'>You feed plasma ore into the armor's generator.</span>"
 			fuel += 15
 			//raw plasma has impurities, so it doesn't provide as much fuel. --NEO
 			del(item)
 		else
-			user << "\red The generator already has plenty of plasma."
+			user << "<span class='warning'>The generator already has plenty of plasma.</span>"
 			return 1
 	return 0
 
@@ -105,18 +105,18 @@
 		if(prob(reliability)) //Only a minor failure, enjoy your radiation.
 			for (var/mob/living/M in range(0,src.parent))
 				if (src.parent in M.contents)
-					M << "\red Your armor feels pleasantly warm for a moment."
+					M << "<span class='warning'>Your armor feels pleasantly warm for a moment.</span>"
 					M.radiation += rand(1,20)
 				else
-					M << "\red You feel a warm sensation."
+					M << "<span class='warning'>You feel a warm sensation.</span>"
 				M.apply_effect(rand(1,15),IRRADIATE,0)
 			if(!prob(reliability))
 				reliability -= 5
 		else //Big failure, TIME FOR RADIATION BITCHES
 			for (var/mob/living/M in range(2,src.parent))
 				if (src.parent in M.contents)
-					M << "\red Your armor's reactor overloads!"
+					M << "<span class='warning'>Your armor's reactor overloads!</span>"
 					M.radiation += 60
-				M << "\red You feel a wave of heat wash over you."
+				M << "<span class='warning'>You feel a wave of heat wash over you.</span>"
 				M.apply_effect(40,IRRADIATE,0)
 			crit_fail = 1 //broken~

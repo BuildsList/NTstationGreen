@@ -3,7 +3,7 @@
 	set category = "OOC"
 
 	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "\red Speech is currently admin-disabled."
+		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
 		return
 
 	if(!mob)	return
@@ -15,18 +15,18 @@
 	if(!msg)	return
 
 	if(!(prefs.toggles & CHAT_OOC))
-		src << "\red You have OOC muted."
+		src << "<span class='warning'>You have OOC muted.</span>"
 		return
 
 	if(!holder)
 		if(!ooc_allowed)
-			src << "\red OOC is globally muted"
+			src << "<span class='warning'>OOC is globally muted</span>"
 			return
 		if(!dooc_allowed && (mob.stat == DEAD))
-			usr << "\red OOC for dead mobs has been turned off."
+			usr << "<span class='warning'>OOC for dead mobs has been turned off.</span>"
 			return
 		if(prefs.muted & MUTE_OOC)
-			src << "\red You cannot use OOC (muted)."
+			src << "<span class='warning'>You cannot use OOC (muted).</span>"
 			return
 		if(handle_spam_prevention(msg,MUTE_OOC))
 			return
@@ -92,9 +92,9 @@ var/global/normal_ooc_colour = "#002eb8"
 	set desc ="Check the admin notice if it has been set"
 
 	if(admin_notice)
-		src << "\blue <b>Admin Notice:</b>\n \t [admin_notice]"
+		src << "<span class='info'><b>Admin Notice:</b>\n \t [admin_notice]</span>"
 	else
-		src << "\blue There are no admin notices at the moment."
+		src << "<span class='info'>There are no admin notices at the moment.</span>"
 
 /client/verb/motd()
 	set name = "MOTD"
@@ -104,4 +104,4 @@ var/global/normal_ooc_colour = "#002eb8"
 	if(join_motd)
 		src << "<div class=\"motd\">[join_motd]</div>"
 	else
-		src << "\blue The Message of the Day has not been set."
+		src << "<span class='info'>The Message of the Day has not been set.</span>"

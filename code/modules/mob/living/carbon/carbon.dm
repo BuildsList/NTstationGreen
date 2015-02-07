@@ -25,7 +25,7 @@
 		if(prob(40))
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
+					M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)
@@ -41,7 +41,7 @@
 					src.take_organ_damage(d)
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
+						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(src.getBruteLoss() - 50))
@@ -117,9 +117,9 @@
 	//src.adjustFireLoss(shock_damage) //burn_skin will do this for us
 	//src.updatehealth()
 	src.visible_message(
-		"\red [src] was shocked by the [source]!", \
-		"\red <B>You feel a powerful shock course through your body!</B>", \
-		"\red You hear a heavy electrical crack." \
+		"<span class='warning'>[src] was shocked by the [source]!</span>", \
+		"<span class='warning'><B>You feel a powerful shock course through your body!</B></span>", \
+		"<span class='warning'>You hear a heavy electrical crack.</span>" \
 	)
 //	if(src.stunned < shock_damage)	src.stunned = shock_damage
 	Stun(10)//This should work for now, more is really silly and makes you lay there forever
@@ -308,7 +308,7 @@
 	//actually throw it!
 	if(item)
 		item.layer = initial(item.layer)
-		src.visible_message("\red [src] has thrown [item].")
+		src.visible_message("<span class='warning'>[src] has thrown [item].</span>")
 
 		if(!src.lastarea)
 			src.lastarea = get_area(src.loc)
@@ -534,7 +534,7 @@ var/const/GALOSHES_DONT_HELP = 8
 			index = "[T.loc.name]\[[i]\]"
 		vents[index] = temp_vent
 	if(!vents.len)
-		src << "\red There are no available vents to travel to, they could be welded."
+		src << "<span class='warning'>There are no available vents to travel to, they could be welded.</span>"
 		return
 
 	var/obj/selection = input("Select a destination.", "Duct System") as null|anything in sortAssoc(vents)
@@ -546,12 +546,12 @@ var/const/GALOSHES_DONT_HELP = 8
 
 	for(var/obj/item/carried_item in contents)//If the monkey got on objects.
 		if( !istype(carried_item, /obj/item/weapon/implant) && !istype(carried_item, /obj/item/clothing/mask/facehugger) )//If it's not an implant or a facehugger
-			src << "\red You can't be carrying items or have items equipped when vent crawling!"
+			src << "<span class='warning'>You can't be carrying items or have items equipped when vent crawling!</span>"
 			return
 	if(isslime(src))
 		var/mob/living/carbon/slime/S = src
 		if(S.Victim)
-			src << "\red You'll have to let [S.Victim] go or finish eating \him first."
+			src << "<span class='warning'>You'll have to let [S.Victim] go or finish eating \him first.</span>"
 			return
 
 	var/obj/machinery/atmospherics/unary/vent_pump/target_vent = vents[selection]
@@ -575,7 +575,7 @@ var/const/GALOSHES_DONT_HELP = 8
 		if(!target_vent)	return
 		if(target_vent.welded)			//the vent can be welded while alien scrolled through the list or travelled.
 			target_vent = vent_found 	//travel back. No additional time required.
-			src << "\red The vent you were heading to appears to be welded."
+			src << "<span class='warning'>The vent you were heading to appears to be welded.</span>"
 		loc = target_vent.loc
 		var/area/new_area = get_area(loc)
 		if(new_area)

@@ -1347,11 +1347,11 @@ var/list/WALLITEMS = list(
 
 /obj/proc/atmosanalyzer_scan(var/datum/gas_mixture/air_contents, mob/user, var/obj/target = src)
 	var/obj/icon = target
-	user.visible_message("\red [user] has used the analyzer on \icon[icon] [target].</span>")
+	user.visible_message("<span class='warning'>[user] has used the analyzer on \icon[icon] [target].</span></span>")
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
-	user << "\blue Results of analysis of \icon[icon] [target]."
+	user << "<span class='info'>Results of analysis of \icon[icon] [target].</span>"
 	if(total_moles>0)
 		var/o2_concentration = air_contents.oxygen/total_moles
 		var/n2_concentration = air_contents.nitrogen/total_moles
@@ -1360,16 +1360,16 @@ var/list/WALLITEMS = list(
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
-		user << "\blue Pressure: [round(pressure,0.1)] kPa"
-		user << "\blue Nitrogen: [round(n2_concentration*100)]%"
-		user << "\blue Oxygen: [round(o2_concentration*100)]%"
-		user << "\blue CO2: [round(co2_concentration*100)]%"
-		user << "\blue Plasma: [round(plasma_concentration*100)]%"
+		user << "<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>"
+		user << "<span class='info'>Nitrogen: [round(n2_concentration*100)]%</span>"
+		user << "<span class='info'>Oxygen: [round(o2_concentration*100)]%</span>"
+		user << "<span class='info'>CO2: [round(co2_concentration*100)]%</span>"
+		user << "<span class='info'>Plasma: [round(plasma_concentration*100)]%</span>"
 		if(unknown_concentration>0.01)
-			user << "\red Unknown: [round(unknown_concentration*100)]%"
-		user << "\blue Temperature: [round(air_contents.temperature-T0C)]&deg;C"
+			user << "<span class='warning'>Unknown: [round(unknown_concentration*100)]%</span>"
+		user << "<span class='info'>Temperature: [round(air_contents.temperature-T0C)]&deg;C</span>"
 	else
-		user << "\blue [target] is empty!"
+		user << "<span class='info'>[target] is empty!</span>"
 	return
 
 proc/check_target_facings(mob/living/initator, mob/living/target)

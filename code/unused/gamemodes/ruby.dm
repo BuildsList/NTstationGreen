@@ -145,7 +145,7 @@
 		var/datum/game_mode/ruby/rmode = ticker.mode
 		rmode.killed.Add(H)
 		ticker.mode:respawns += 1
-	var/fluffmessage = pick("\red <B>[usr] rips the flesh from [H]'s corpse and plucks their eyes from their sockets!</B>", "\red <B>[usr] does unspeakable things to [H]'s corpse!</B>", "\red <B>[usr] binds [H]'s corpse with their own entrails!</B>")
+	var/fluffmessage = pick("<span class='warning'><B>[usr] rips the flesh from [H]'s corpse and plucks their eyes from their sockets!</B></span>", "<span class='warning'><B>[usr] does unspeakable things to [H]'s corpse!</B></span>", "<span class='warning'><B>[usr] binds [H]'s corpse with their own entrails!</B></span>")
 	usr.visible_message(fluffmessage)
 	// play sound
 
@@ -190,7 +190,7 @@
 		//if(!H.client) continue
 		candidates.Add(H)
 
-	usr.visible_message(text("\red <B>[usr]'s flesh ripples and parts, revealing dozens of eyes poking from its surface. They all glance wildly around for a few moments before receding again.</B>"))
+	usr.visible_message(text("<span class='warning'><B>[usr]'s flesh ripples and parts, revealing dozens of eyes poking from its surface. They all glance wildly around for a few moments before receding again.</B></span>"))
 
 	var/mob/living/carbon/human/H = pick(candidates)
 
@@ -248,7 +248,7 @@
 	set category = "Abomination"
 	set desc = ""
 
-	usr.visible_message(text("\red <B>[usr]'s form warbles and distorts before settling back into its grotesque shape once more.</B>"))
+	usr.visible_message(text("<span class='warning'><B>[usr]'s form warbles and distorts before settling back into its grotesque shape once more.</B></span>"))
 	// Play a random spooky sound - maybe cause some visual, non-mechanical effects to appear at random for a few seconds.
 
 	src.verbs -= /client/proc/howl

@@ -790,10 +790,10 @@ table tr:first-child th:first-child { border: none;}
 				else
 					if(src.allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
 						locked = !locked
-						user << "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface."
+						user << "<span class='info'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>"
 						src.updateUsrDialog()
 					else
-						user << "\red Access denied."
+						user << "<span class='warning'>Access denied.</span>"
 				return
 		if(1)
 			if(istype(W, /obj/item/weapon/crowbar) && wires.wires_status == (2 ** wires.wire_count) - 1)
