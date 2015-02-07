@@ -65,7 +65,7 @@
 
 		else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
-			if(!target.reagents.total_volume && target.reagents)
+			if(target.reagents && !target.reagents.total_volume)
 				user << "<span class='notice'>[target] is empty.</span>"
 				return
 
@@ -92,7 +92,7 @@
 		else if(istype(target, /obj/item/clothing/suit/space/space_ninja))
 			return
 
-		else if(reagents.total_volume)
+		else if(reagents && reagents.total_volume)
 			user << "<span class='notice'>You splash the solution onto [target].</span>"
 			reagents.reaction(target, TOUCH)
 			spawn(5)
