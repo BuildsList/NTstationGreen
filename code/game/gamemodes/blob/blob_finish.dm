@@ -30,7 +30,7 @@
 		var/percent = round( 100.0 *  start_state.score(end_state), 0.1)
 		world << "<B>Станци&#255; была захвачена на [percent]%</B>"
 		log_game("Blob mode was won with station [percent]% intact.")
-		world << "<span class='info'>Перезагрузка через 30 секунд</span>"
+		world << "\blue Перезагрузка через 30 секунд"
 	..()
 	return 1
 

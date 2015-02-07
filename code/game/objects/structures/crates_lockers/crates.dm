@@ -322,53 +322,53 @@
 	else if(istype(W, /obj/item/device/multitool) && !src.broken)
 		var/obj/item/device/multitool/multi = W
 		if(multi.is_used)
-			user << "<span class='info'>This multitool is already in use!</span>"
+			user << "\red This multitool is already in use!"
 			return
 		multi.is_used = 1
-		user << "<span class='info'>Resetting circuitry(0/6)...</span>"
+		user << "\red Resetting circuitry(0/6)..."
 		var/obj/structure/closet/crate/secure/crat = src
 		src = null
 		if(do_mob(user, crat, 200))
-			user << "<span class='info'>Resetting circuitry(1/6)...</span>"
+			user << "\red Resetting circuitry(1/6)..."
 			for(var/mob/O in viewers(world.view, user))
 				if(O != user)
-					O.show_message(text("<span class='info'><B>[] picks in wires of the [] with a multitool.</B></span>", user, crat), 1)
+					O.show_message(text("\red <B>[] picks in wires of the [] with a multitool.</B>", user, crat), 1)
 			if(do_mob(user, crat, 200))
-				user << "<span class='info'>Resetting circuitry(2/6)...</span>"
+				user << "\red Resetting circuitry(2/6)..."
 				for(var/mob/O in viewers(world.view, user))
 					if(O != user)
-						O.show_message(text("<span class='info'><B>[] picks in wires of the [] with a multitool.</B></span>", user, crat), 1)
+						O.show_message(text("\red <B>[] picks in wires of the [] with a multitool.</B>", user, crat), 1)
 				if(do_mob(user, crat, 200))
-					user << "<span class='info'>Resetting circuitry(3/6)...</span>"
+					user << "\red Resetting circuitry(3/6)..."
 					for(var/mob/O in viewers(world.view, user))
 						if(O != user)
-							O.show_message(text("<span class='info'><B>[] picks in wires of the [] with a multitool.</B></span>", user, crat), 1)
+							O.show_message(text("\red <B>[] picks in wires of the [] with a multitool.</B>", user, crat), 1)
 					if(do_mob(user, crat, 200))
-						user << "<span class='info'>Resetting circuitry(4/6)...</span>"
+						user << "\red Resetting circuitry(4/6)..."
 						for(var/mob/O in viewers(world.view, user))
 							if(O != user)
-								O.show_message(text("<span class='info'><B>[] picks in wires of the [] with a multitool.</B></span>", user, crat), 1)
+								O.show_message(text("\red <B>[] picks in wires of the [] with a multitool.</B>", user, crat), 1)
 						if(do_mob(user, crat, 200))
-							user << "<span class='info'>Resetting circuitry(5/6)...</span>"
+							user << "\red Resetting circuitry(5/6)..."
 							for(var/mob/O in viewers(world.view, user))
 								if(O != user)
-									O.show_message(text("<span class='info'><B>[] picks in wires of the [] with a multitool.</B></span>", user, crat), 1)
+									O.show_message(text("\red <B>[] picks in wires of the [] with a multitool.</B>", user, crat), 1)
 							if(do_mob(user, crat, 200))
 								crat.locked = !crat.locked
 								if(crat.locked)
 									crat.overlays = null
 									crat.overlays += crat.redlight
-									user << "<span class='info'>You enable the locking modules.</span>"
+									user << "\blue You enable the locking modules."
 									for(var/mob/O in viewers(world.view, user))
 										if(O != user)
-											O.show_message(text("<span class='info'><B>[] locks [] with a multitool.</B></span>", user, crat), 1)
+											O.show_message(text("\red <B>[] locks [] with a multitool.</B>", user, crat), 1)
 								else
 									crat.overlays = null
 									crat.overlays += crat.greenlight
-									user << "<span class='info'>You disable the locking modules.</span>"
+									user << "\blue You disable the locking modules."
 									for(var/mob/O in viewers(world.view, user))
 										if(O != user)
-											O.show_message(text("<span class='info'><B>[] unlocks [] with a multitool.</B></span>", user, crat), 1)
+											O.show_message(text("\red <B>[] unlocks [] with a multitool.</B>", user, crat), 1)
 		multi.is_used = 0
 		return
 	if(!opened)

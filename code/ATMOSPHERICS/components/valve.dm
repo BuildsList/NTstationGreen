@@ -270,7 +270,7 @@ obj/machinery/atmospherics/valve
 
 		attack_hand(mob/user as mob)
 			if(!src.allowed(user))
-				user << "<span class='info'>Access denied.</span>"
+				user << "\red Access denied."
 				return
 			..()
 

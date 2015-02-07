@@ -74,13 +74,13 @@
 		//helmet and armor = 100% protection
 		if( istype(inventory_head,/obj/item/clothing/head/helmet) && istype(inventory_back,/obj/item/clothing/suit/armor) )
 			if( O.force )
-				usr << "<span class='info'>[src] is wearing too much armor. You can't cause \him any damage.</span>"
+				usr << "\red [src] is wearing too much armor. You can't cause \him any damage."
 				for (var/mob/M in viewers(src, null))
-					M.show_message("<span class='info'>\b [user] hits [src] with [O], however [src] is too armored.</span>")
+					M.show_message("\red \b [user] hits [src] with [O], however [src] is too armored.")
 			else
-				usr << "<span class='info'>[src] is wearing too much armor. You can't reach \his skin.</span>"
+				usr << "\red [src] is wearing too much armor. You can't reach \his skin."
 				for (var/mob/M in viewers(src, null))
-					M.show_message("<span class='info'>[user] gently taps [src] with [O]. </span>")
+					M.show_message("\red [user] gently taps [src] with [O]. ")
 			if(health>0 && prob(15))
 				emote("looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression")
 			return
@@ -109,7 +109,7 @@
 					inventory_head = null
 					regenerate_icons()
 				else
-					usr << "<span class='info'>There is nothing to remove from its [remove_from].</span>"
+					usr << "\red There is nothing to remove from its [remove_from]."
 					return
 			if("back")
 				if(inventory_back)
@@ -117,7 +117,7 @@
 					inventory_back = null
 					regenerate_icons()
 				else
-					usr << "<span class='info'>There is nothing to remove from its [remove_from].</span>"
+					usr << "\red There is nothing to remove from its [remove_from]."
 					return
 
 		show_inv(usr)
@@ -135,13 +135,13 @@
 
 			if("back")
 				if(inventory_back)
-					usr << "<span class='info'>It's already wearing something.</span>"
+					usr << "\red It's already wearing something."
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_hand()
 
 					if(!item_to_add)
-						usr.visible_message("<span class='info'>[usr] pets [src]</span>","<span class='info'>You rest your hand on [src]'s back for a moment.</span>")
+						usr.visible_message("\blue [usr] pets [src]","\blue You rest your hand on [src]'s back for a moment.")
 						return
 					if(istype(item_to_add,/obj/item/weapon/plastique)) // last thing he ever wears, I guess
 						item_to_add.afterattack(src,usr,1)
@@ -190,10 +190,10 @@
 		return
 
 	if(inventory_head)
-		if(usr)	usr << "<span class='info'>You can't put more than one hat on [src]!</span>"
+		if(usr)	usr << "\red You can't put more than one hat on [src]!"
 		return
 	if(!item_to_add)
-		usr.visible_message("<span class='info'>[usr] pets [src]</span>","<span class='info'>You rest your hand on [src]'s head for a moment.</span>")
+		usr.visible_message("\blue [usr] pets [src]","\blue You rest your hand on [src]'s head for a moment.")
 		return
 
 
@@ -453,7 +453,7 @@
 /mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
 	if(istype(O, /obj/item/weapon/newspaper))
 		if(!stat)
-			user.visible_message("<span class='info'>[user] baps [name] on the nose with the rolled up [O]</span>")
+			user.visible_message("\blue [user] baps [name] on the nose with the rolled up [O]")
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2))
 					dir = i
@@ -505,7 +505,7 @@
 //puppies cannot wear anything.
 /mob/living/simple_animal/corgi/puppy/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		usr << "<span class='info'>You can't fit this on [src]</span>"
+		usr << "\red You can't fit this on [src]"
 		return
 	..()
 
@@ -529,7 +529,7 @@
 //Lisa already has a cute bow!
 /mob/living/simple_animal/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		usr << "<span class='info'>[src] already has a cute bow!</span>"
+		usr << "\red [src] already has a cute bow!"
 		return
 	..()
 

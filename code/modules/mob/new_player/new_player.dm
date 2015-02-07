@@ -92,7 +92,7 @@
 				observer.started_as_observer = 1
 				close_spawn_windows()
 				var/obj/O = locate("landmark*Observer-Start")
-				src << "<span class='info'>Now teleporting.</span>"
+				src << "\blue Now teleporting."
 				observer.loc = O.loc
 				if(client.prefs.be_random_name)
 					client.prefs.real_name = random_name(gender)
@@ -105,7 +105,7 @@
 
 		if(href_list["late_join"])
 			if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
-				usr << "<span class='info'>The round is either not ready, or has already finished...</span>"
+				usr << "\red The round is either not ready, or has already finished..."
 				return
 			LateChoices()
 
@@ -115,7 +115,7 @@
 		if(href_list["SelectedJob"])
 
 			if(!enter_allowed)
-				usr << "<span class='info'>There is an administrative lock on entering the game!</span>"
+				usr << "\blue There is an administrative lock on entering the game!"
 				return
 
 			AttemptLateSpawn(href_list["SelectedJob"])

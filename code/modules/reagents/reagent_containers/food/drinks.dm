@@ -41,10 +41,10 @@
 		else if( istype(M, /mob/living/carbon/human) )
 
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("<span class='info'>[user] attempts to feed [M] [src].</span>", 1)
+				O.show_message("\red [user] attempts to feed [M] [src].", 1)
 			if(!do_mob(user, M)) return
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("<span class='info'>[user] feeds [M] [src].</span>", 1)
+				O.show_message("\red [user] feeds [M] [src].", 1)
 			add_logs(user, M, "fed", object="[reagentlist(src)]")
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
@@ -69,27 +69,27 @@
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 			if(!target.reagents.total_volume)
-				user << "<span class='info'>[target] is empty.</span>"
+				user << "\red [target] is empty."
 				return
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				user << "<span class='info'>[src] is full.</span>"
+				user << "\red [src] is full."
 				return
 
 			var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-			user << "<span class='info'>You fill [src] with [trans] units of the contents of [target].</span>"
+			user << "\blue You fill [src] with [trans] units of the contents of [target]."
 
 		else if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
 			if(!reagents.total_volume)
-				user << "<span class='info'>[src] is empty.</span>"
+				user << "\red [src] is empty."
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				user << "<span class='info'>[target] is full.</span>"
+				user << "\red [target] is full."
 				return
 
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-			user << "<span class='info'>You transfer [trans] units of the solution to [target].</span>"
+			user << "\blue You transfer [trans] units of the solution to [target]."
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				var/mob/living/silicon/robot/bro = user
@@ -105,15 +105,15 @@
 		..()
 		if (!(usr in range(0)) && usr!=src.loc) return
 		if(!reagents || reagents.total_volume==0)
-			usr << "<span class='info'>\The [src] is empty!</span>"
+			usr << "\blue \The [src] is empty!"
 		else if (reagents.total_volume<=src.volume/4)
-			usr << "<span class='info'>\The [src] is almost empty!</span>"
+			usr << "\blue \The [src] is almost empty!"
 		else if (reagents.total_volume<=src.volume*0.66)
-			usr << "<span class='info'>\The [src] is half full!</span>"
+			usr << "\blue \The [src] is half full!"
 		else if (reagents.total_volume<=src.volume*0.90)
-			usr << "<span class='info'>\The [src] is almost full!</span>"
+			usr << "\blue \The [src] is almost full!"
 		else
-			usr << "<span class='info'>\The [src] is full!</span>"
+			usr << "\blue \The [src] is full!"
 
 
 ////////////////////////////////////////////////////////////////////////////////

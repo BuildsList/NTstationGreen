@@ -16,11 +16,11 @@
 		if(!active)
 			active = 1
 			work()
-			usr << "<span class='info'>You activate the GPS</span>"
+			usr << "\blue You activate the GPS"
 		else
 			active = 0
 			icon_state = "pinoff"
-			usr << "<span class='info'>You deactivate the GPS</span>"
+			usr << "\blue You deactivate the GPS"
 
 	proc/work()
 		while(active)
@@ -31,13 +31,13 @@
 						break
 
 				if(!beacon)
-					usr << "<span class='info'>Unable to detect beacon signal.</span>"
+					usr << "\red Unable to detect beacon signal."
 					active = 0
 					icon_state = "pinonnull"
 					return
 
 			if(!istype(src.loc, /turf) && !istype(src.loc, /mob))
-				usr << "<span class='info'>Too much interference. Please hold the device in hand or place it on belt.</span>"
+				usr << "\red Too much interference. Please hold the device in hand or place it on belt."
 				active = 0
 				icon_state = "pinonnull"
 				return

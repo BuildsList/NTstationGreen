@@ -153,9 +153,9 @@
 
 		if (isrobot(usr) || src.locked || src.smashed)
 			if(src.locked)
-				usr << "<span class='info'>The cabinet won't budge!</span>"
+				usr << "\red The cabinet won't budge!"
 			else if(src.smashed)
-				usr << "<span class='info'>The protective glass is broken!</span>"
+				usr << "\blue The protective glass is broken!"
 			return
 
 		localopened = !localopened
@@ -172,11 +172,11 @@
 			if(fireaxe)
 				usr.put_in_hands(fireaxe)
 				fireaxe = null
-				usr << "<span class='info'>You take the Fire axe from the [name].</span>"
+				usr << "\blue You take the Fire axe from the [name]."
 			else
-				usr << "<span class='info'>The [src.name] is empty.</span>"
+				usr << "\blue The [src.name] is empty."
 		else
-			usr << "<span class='info'>The [src.name] is closed.</span>"
+			usr << "\blue The [src.name] is closed."
 		update_icon()
 
 	attack_paw(mob/user as mob)

@@ -56,7 +56,7 @@
 	establish_db_connection()
 
 	if(!dbcon.IsConnected())
-		usr << "<span class='info'>Failed to establish database connection</span>"
+		usr << "\red Failed to establish database connection"
 		return
 
 	if(!adm_ckey || !new_rank)
@@ -82,12 +82,12 @@
 	if(new_admin)
 		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO `erro_admin` (`id`, `ckey`, `rank`, `level`, `flags`) VALUES (null, '[adm_ckey]', '[new_rank]', -1, 0)")
 		insert_query.Execute()
-		usr << "<span class='info'>New admin added.</span>"
+		usr << "\blue New admin added."
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
 			var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin` SET rank = '[new_rank]' WHERE id = [admin_id]")
 			insert_query.Execute()
-			usr << "<span class='info'>Admin rank changed.</span>"
+			usr << "\blue Admin rank changed."
 
 
 /datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
@@ -97,7 +97,7 @@
 
 	establish_db_connection()
 	if(!dbcon.IsConnected())
-		usr << "<span class='info'>Failed to establish database connection</span>"
+		usr << "\red Failed to establish database connection"
 		return
 
 	if(!adm_ckey || !istext(adm_ckey) || !isnum(new_permission))
@@ -118,8 +118,8 @@
 	if(admin_rights & new_permission) //This admin already has this permission, so we are removing it.
 		var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin` SET flags = [admin_rights & ~new_permission] WHERE id = [admin_id]")
 		insert_query.Execute()
-		usr << "<span class='info'>Permission removed.</span>"
+		usr << "\blue Permission removed."
 	else //This admin doesn't have this permission, so we are adding it.
 		var/DBQuery/insert_query = dbcon.NewQuery("UPDATE `erro_admin` SET flags = '[admin_rights | new_permission]' WHERE id = [admin_id]")
 		insert_query.Execute()
-		usr << "<span class='info'>Permission added.</span>"
+		usr << "\blue Permission added."

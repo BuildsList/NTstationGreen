@@ -143,7 +143,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob)
 		return
 
 	if(!src.allowed(user))
-		user << "<span class='info'>Access denied.</span>"
+		user << "\red Access denied."
 		return
 
 	var/dat

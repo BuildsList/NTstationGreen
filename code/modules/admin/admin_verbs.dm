@@ -285,10 +285,10 @@ var/list/admin_verbs_hideable = list(
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
-			mob << "<span class='info'><b>Invisimin off. Invisibility reset.</b></span>"
+			mob << "\red <b>Invisimin off. Invisibility reset.</b>"
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
-			mob << "<span class='info'><b>Invisimin on. You are now as invisible as a ghost.</b></span>"
+			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
 
 
 /client/proc/player_panel()
@@ -424,7 +424,7 @@ var/list/admin_verbs_hideable = list(
 			var/light_impact_range = input("Light impact range (in tiles):") as num
 			var/flash_range = input("Flash range (in tiles):") as num
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
-	message_admins("<span class='info'>[ckey] creating an admin explosion at [epicenter.loc].</span>")
+	message_admins("\blue [ckey] creating an admin explosion at [epicenter.loc].")
 
 /client/proc/give_spell(mob/T as mob in mob_list)
 	set category = "Fun"
@@ -434,13 +434,13 @@ var/list/admin_verbs_hideable = list(
 	if(!S)
 		return
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
-	message_admins("<span class='info'>[key_name_admin(usr)] gave [key_name(T)] the spell [S].</span>", 1)
+	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
 	if(T.mind)
 		T.mind.spell_list += new S
 	else
 		T.mob_spell_list += new S
-		message_admins("<span class='info'>Spells given to mindless mobs will not be transferred in mindswap or cloning!</span>", 1)
+		message_admins("\red Spells given to mindless mobs will not be transferred in mindswap or cloning!", 1)
 
 
 /client/proc/give_disease(mob/T as mob in mob_list)
@@ -451,7 +451,7 @@ var/list/admin_verbs_hideable = list(
 	if(!D) return
 	T.contract_disease(new D, 1)
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='info'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>", 1)
+	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the disease [D].", 1)
 
 /client/proc/make_sound(var/obj/O in world)
 	set category = "Special Verbs"
@@ -464,7 +464,7 @@ var/list/admin_verbs_hideable = list(
 		for (var/mob/V in hearers(O))
 			V.show_message(message, 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound")
-		message_admins("<span class='info'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound</span>", 1)
+		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound", 1)
 
 
 /client/proc/togglebuildmodeself()
@@ -494,7 +494,7 @@ var/list/admin_verbs_hideable = list(
 		kill_air = 1
 		usr << "<b>Disabled air processing.</b>"
 	log_admin("[key_name(usr)] used 'kill air'.")
-	message_admins("<span class='info'>[key_name_admin(usr)] used 'kill air'.</span>", 1)
+	message_admins("\blue [key_name_admin(usr)] used 'kill air'.", 1)
 
 /client/proc/deadmin_self()
 	set name = "UNPEDAL MEH!"

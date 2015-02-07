@@ -72,29 +72,29 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(operating)
-		user << "<span class='info'>It's locked and running</span>"
+		user << "\red It's locked and running"
 		return
 	else
 		src.startgibbing(user)
 
 /obj/machinery/gibber/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
 	if(src.occupant)
-		user << "<span class='info'>The gibber is full, empty it first!</span>"
+		user << "\red The gibber is full, empty it first!"
 		return
 	if(default_unfasten_wrench(user, G))
 		return
 
 	if (!( istype(G, /obj/item/weapon/grab)) || !(istype(G.affecting, /mob/living/carbon/human)))
-		user << "<span class='info'>This item is not suitable for the gibber!</span>"
+		user << "\red This item is not suitable for the gibber!"
 		return
 	if(G.affecting.abiotic(1))
-		user << "<span class='info'>Subject may not have abiotic items on.</span>"
+		user << "\red Subject may not have abiotic items on."
 		return
 
-	user.visible_message("<span class='info'>[user] starts to put [G.affecting] into the gibber!</span>")
+	user.visible_message("\red [user] starts to put [G.affecting] into the gibber!")
 	src.add_fingerprint(user)
 	if(do_after(user, 30) && G && G.affecting && !occupant)
-		user.visible_message("<span class='info'>[user] stuffs [G.affecting] into the gibber!</span>")
+		user.visible_message("\red [user] stuffs [G.affecting] into the gibber!")
 		var/mob/M = G.affecting
 		if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
@@ -134,10 +134,10 @@
 	if(src.operating)
 		return
 	if(!src.occupant)
-		visible_message("<span class='info'>You hear a loud metallic grinding sound.</span>")
+		visible_message("\red You hear a loud metallic grinding sound.")
 		return
 	use_power(1000)
-	visible_message("<span class='info'>You hear a loud squelchy grinding sound.</span>")
+	visible_message("\red You hear a loud squelchy grinding sound.")
 	src.operating = 1
 	update_icon()
 	var/sourcename = src.occupant.real_name

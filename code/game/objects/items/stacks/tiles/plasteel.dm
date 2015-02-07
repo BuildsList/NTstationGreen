@@ -29,14 +29,14 @@
 		var/obj/item/weapon/weldingtool/WT = W
 
 		if(amount < 4)
-			user << "<span class='info'>You need at least four tiles to do this.</span>"
+			user << "\red You need at least four tiles to do this."
 			return
 
 		if(WT.remove_fuel(0,user))
 			var/obj/item/stack/sheet/metal/new_item = new(usr.loc)
 			new_item.add_to_stacks(usr)
 			for (var/mob/M in viewers(src))
-				M.show_message("<span class='info'>[src] is shaped into metal by [user.name] with the weldingtool.</span>", 3, "<span class='info'>You hear welding.</span>", 2)
+				M.show_message("\red [src] is shaped into metal by [user.name] with the weldingtool.", 3, "\red You hear welding.", 2)
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_hand()==R)
@@ -52,10 +52,10 @@
 		return
 	var/T = user.loc
 	if (!( istype(T, /turf) ))
-		user << "<span class='info'>You must be on the ground!</span>"
+		user << "\red You must be on the ground!"
 		return
 	if (!( istype(T, /turf/space) ))
-		user << "<span class='info'>You cannot build on or repair this turf!</span>"
+		user << "\red You cannot build on or repair this turf!"
 		return
 	src.build(T)
 	src.add_fingerprint(user)

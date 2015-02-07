@@ -78,7 +78,7 @@
 
 	interact(mob/user as mob)//TODO: Change this to the wires thingy
 		if(!secured)
-			user.show_message("<span class='info'>The [name] is unsecured!</span>")
+			user.show_message("\red The [name] is unsecured!")
 			return 0
 		var/dat = text("<TT><B>Health Sensor</B> <A href='?src=\ref[src];scanning=1'>[scanning?"On":"Off"]</A>")
 		if(scanning && health_scan)

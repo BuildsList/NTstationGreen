@@ -96,7 +96,7 @@
 		if(hp <= 0)
 			for(var/mob/O in oviewers())
 				if ((O.client && !( O.blinded )))
-					O << "<span class='info'>[src] breaks into tiny pieces and collapses!</span>"
+					O << "\red [src] breaks into tiny pieces and collapses!"
 			qdel(src)
 
 		// Create a temporary object to represent the damage

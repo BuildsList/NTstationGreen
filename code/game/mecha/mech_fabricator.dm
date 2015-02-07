@@ -794,7 +794,7 @@
 			default_deconstruction_crowbar(W)
 			return 1
 		else
-			user << "<span class='info'>You can't load \the [src.name] while it's opened.</span>"
+			user << "\red You can't load \the [src.name] while it's opened."
 			return 1
 
 	if(istype(W, /obj/item/weapon/card/emag))

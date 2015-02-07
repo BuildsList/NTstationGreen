@@ -227,17 +227,17 @@
 	if(istype(W,/obj/item/stack/cable_coil) )
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
-			user << "<span class='info'>There already is a string attached to this coin.</span>"
+			user << "\blue There already is a string attached to this coin."
 			return
 
 		if(CC.amount <= 0)
-			user << "<span class='info'>This cable coil appears to be empty.</span>"
+			user << "\blue This cable coil appears to be empty."
 			qdel(CC)
 			return
 
 		overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
 		string_attached = 1
-		user << "<span class='info'>You attach a string to the coin.</span>"
+		user << "\blue You attach a string to the coin."
 		CC.use(1)
 	else if(istype(W,/obj/item/weapon/wirecutters))
 		if(!string_attached)
@@ -249,7 +249,7 @@
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		user << "<span class='info'>You detach the string from the coin.</span>"
+		user << "\blue You detach the string from the coin."
 	else ..()
 
 /obj/item/weapon/coin/attack_self(mob/user as mob)

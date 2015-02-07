@@ -44,7 +44,7 @@
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/wirecutters))
 		if(prob(50))
-			user << "<span class='info'>\b This kills the crab.</span>"
+			user << "\red \b This kills the crab."
 			health -= 20
 			Die()
 		else
@@ -61,20 +61,20 @@
 						qdel(MED)
 					for(var/mob/M in viewers(src, null))
 						if ((M.client && !( M.blinded )))
-							M.show_message("<span class='info'>[user] applies [MED] on [src]</span>")
+							M.show_message("\blue [user] applies [MED] on [src]")
 		else
-			user << "<span class='info'>this crab is dead, medical items won't bring it back to life.</span>"
+			user << "\blue this crab is dead, medical items won't bring it back to life."
 	else
 		if(O.force)
 			health -= O.force
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
-					M.show_message("<span class='info'>\b [src] has been attacked with [O] by [user]. </span>")
+					M.show_message("\red \b [src] has been attacked with [O] by [user]. ")
 		else
-			usr << "<span class='info'>This weapon is ineffective, it does no damage.</span>"
+			usr << "\red This weapon is ineffective, it does no damage."
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
-					M.show_message("<span class='info'>[user] gently taps [src] with [O]. </span>")
+					M.show_message("\red [user] gently taps [src] with [O]. ")
 
 /mob/living/simple_animal/crab/GetMad()
 	name = "MEGAMADCRAB"

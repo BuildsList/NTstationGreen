@@ -155,14 +155,14 @@
 	if (istype(C, /obj/item/weapon/disk/data/cartridge) && isnull(src.cartridge))
 		user.drop_item()
 		C.loc = src
-		user << "<span class='info'>You insert [C] into [src].</span>"
+		user << "\blue You insert [C] into [src]."
 		src.cartridge = C
 		src.updateSelfDialog()
 
 	else if (istype(C, /obj/item/weapon/card/id) && !src.owner && C:registered_name)
 		src.owner = C:registered_name
 		src.name = "PDA-[src.owner]"
-		user << "<span class='info'>Card scanned.</span>"
+		user << "\blue Card scanned."
 		src.updateSelfDialog()
 
 /obj/item/device/pda2/receive_signal(datum/signal/signal)
@@ -190,7 +190,7 @@
 		scan_dat = src.scan_program.scan_atom(A)
 
 	if(scan_dat)
-		A.visible_message("<span class='info'>[user] has scanned [A]!</span>")
+		A.visible_message("\red [user] has scanned [A]!")
 		user.show_message(scan_dat, 1)
 
 	return

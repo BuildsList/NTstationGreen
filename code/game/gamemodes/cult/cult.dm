@@ -107,7 +107,7 @@
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
 		update_cult_icons_added(cult_mind)
-		cult_mind.current << "<span class='info'>Вы член Культа!</span>"
+		cult_mind.current << "\blue Вы член Культа!"
 		memorize_cult_objectives(cult_mind)
 		cult_mind.special_role = "Cultist"
 
@@ -192,7 +192,7 @@
 			wordexp = "[wordother] is other..."
 		if("hide")
 			wordexp = "[wordhide] is hide..."
-	cult_mob << "<span class='info'>[pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You catch a brief glimmer of the otherside")]... [wordexp]</span>"
+	cult_mob << "\red [pick("You remember something from the dark teachings of your master","You hear a dark voice on the wind","Black blood oozes into your vision and forms into symbols","You catch a brief glimmer of the otherside")]... [wordexp]"
 	cult_mob.mind.store_memory("<B>Вы помните, что...</B> [wordexp]", 0, 0)
 	cult_mob.mind.cult_words += word
 	if(cult_mob.mind.cult_words.len == allwords.len)
@@ -220,7 +220,7 @@
 	if(cult_mind in cult)
 		cult -= cult_mind
 		cult_mind.current.verbs -= /mob/living/proc/cult_innate_comm
-		cult_mind.current << "<span class='info'><FONT size = 3><B>&#255;рка&#255; бела&#255; вспышка проскользнула в глазах, забира&#255; с собой все воспоминани&#255; о служении тёмному богу и его приспешников.</B></FONT></span>"
+		cult_mind.current << "\red <FONT size = 3><B>&#255;рка&#255; бела&#255; вспышка проскользнула в глазах, забира&#255; с собой все воспоминани&#255; о служении тёмному богу и его приспешников.</B></FONT>"
 		cult_mind.memory = ""
 		cult_mind.cult_words = initial(cult_mind.cult_words)
 		update_cult_icons_removed(cult_mind)
@@ -313,9 +313,9 @@
 /datum/game_mode/cult/declare_completion()
 
 	if(!check_cult_victory())
-		world << "<span class='info'><FONT size = 3><B> Победа культистов! Они смогли выполнить все поручени&#255; тёмного господина.</B></FONT></span>"
+		world << "\red <FONT size = 3><B> Победа культистов! Они смогли выполнить все поручени&#255; тёмного господина.</B></FONT>"
 	else
-		world << "<span class='info'><FONT size = 3><B> Персонал станции остановил культ! </B></FONT></span>"
+		world << "\red <FONT size = 3><B> Персонал станции остановил культ! </B></FONT>"
 
 	var/text = "<b>Культистов выжило:</b> [acolytes_survived]"
 

@@ -41,7 +41,7 @@
 			S.origin = src
 			src.loc = S
 			H.put_in_hands(S)
-			H.visible_message("<span class='info'>[H] grabs [src] from the floor!</span>", "<span class='info'>You grab [src] from the floor!</span>")
+			H.visible_message("\red [H] grabs [src] from the floor!", "\red You grab [src] from the floor!")
 
 /obj/item/weapon/stool
 	name = "stool"
@@ -56,12 +56,12 @@
 /obj/item/weapon/stool/attack_self(mob/user as mob)
 	..()
 	origin.loc = get_turf(src)
-	user.visible_message("<span class='info'>[user] puts [src] down.</span>", "<span class='info'>You put [src] down.</span>")
+	user.visible_message("\blue [user] puts [src] down.", "\blue You put [src] down.")
 	del(src)
 
 /obj/item/weapon/stool/attack(mob/M as mob, mob/user as mob)
 	if (prob(5) && istype(M,/mob/living))
-		user.visible_message("<span class='info'>[user] breaks [src] over [M]'s back!.</span>")
+		user.visible_message("\red [user] breaks [src] over [M]'s back!.")
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		del(src)

@@ -596,7 +596,7 @@
 					if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M:shoes.flags&NOSLIP))
 						M.stop_pulling()
 						step(M, M.dir)
-						M << "<span class='info'>You slipped on the wet floor!</span>"
+						M << "\blue You slipped on the wet floor!"
 						playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 						M.Stun(8)
 						M.Weaken(5)
@@ -607,7 +607,7 @@
 					if (M.m_intent == "run")
 						M.stop_pulling()
 						step(M, M.dir)
-						M << "<span class='info'>You slipped on the wet floor!</span>"
+						M << "\blue You slipped on the wet floor!"
 						playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 						M.Stun(8)
 						M.Weaken(5)
@@ -624,7 +624,7 @@
 					spawn(3) step(M, M.dir)
 					spawn(4) step(M, M.dir)
 					M.take_organ_damage(2)
-					M << "<span class='info'>You slipped on the floor!</span>"
+					M << "\blue You slipped on the floor!"
 					playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 					M.Weaken(10)
 
@@ -728,11 +728,11 @@
 /turf/simulated/wall/attack_paw(mob/user as mob)
 	if ((user.mutations & HULK))
 		if (prob(40))
-			usr << text("<span class='info'>You smash through the wall.</span>")
+			usr << text("\blue You smash through the wall.")
 			dismantle_wall(1)
 			return
 		else
-			usr << text("<span class='info'>You punch the wall.</span>")
+			usr << text("\blue You punch the wall.")
 			return
 
 	return src.attack_hand(user)
@@ -741,31 +741,31 @@
 /turf/simulated/wall/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.wall_smash)
 		if (istype(src, /turf/simulated/wall/r_wall))
-			M << text("<span class='info'>This wall is far too strong for you to destroy.</span>")
+			M << text("\blue This wall is far too strong for you to destroy.")
 			return
 		else
 			if (prob(40))
-				M << text("<span class='info'>You smash through the wall.</span>")
+				M << text("\blue You smash through the wall.")
 				dismantle_wall(1)
 				return
 			else
-				M << text("<span class='info'>You smash against the wall.</span>")
+				M << text("\blue You smash against the wall.")
 				return
 
-	M << "<span class='info'>You push the wall but nothing happens!</span>"
+	M << "\blue You push the wall but nothing happens!"
 	return
 
 /turf/simulated/wall/attack_hand(mob/user as mob)
 	if ((user.mutations & HULK))
 		if (prob(40))
-			usr << text("<span class='info'>You smash through the wall.</span>")
+			usr << text("\blue You smash through the wall.")
 			dismantle_wall(1)
 			return
 		else
-			usr << text("<span class='info'>You punch the wall.</span>")
+			usr << text("\blue You punch the wall.")
 			return
 
-	user << "<span class='info'>You push the wall but nothing happens!</span>"
+	user << "\blue You push the wall but nothing happens!"
 	playsound(src.loc, 'sound/weapons/Genhit.ogg', 25, 1)
 	src.add_fingerprint(user)
 	return
@@ -773,7 +773,7 @@
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "<span class='info'>You don't have the dexterity to do this!</span>"
+		usr << "\red You don't have the dexterity to do this!"
 		return
 
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding)
@@ -793,23 +793,23 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class='info'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
 
 		if (W:remove_fuel(0,user))
 			W:welding = 2
-			user << "<span class='info'>Now disassembling the outer wall plating.</span>"
+			user << "\blue Now disassembling the outer wall plating."
 			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 			sleep(100)
 			if (W && istype(src, /turf/simulated/wall))
 				if ((get_turf(user) == T && user.equipped() == W))
-					user << "<span class='info'>You disassembled the outer wall plating.</span>"
+					user << "\blue You disassembled the outer wall plating."
 					dismantle_wall()
 				W:welding = 1
 		else
-			user << "<span class='info'>You need more welding fuel to complete this task.</span>"
+			user << "\blue You need more welding fuel to complete this task."
 			return
 
 	else if (istype(W, /obj/item/weapon/pickaxe/plasmacutter))
@@ -829,37 +829,37 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class='info'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
 
 		else
-			user << "<span class='info'>Now disassembling the outer wall plating.</span>"
+			user << "\blue Now disassembling the outer wall plating."
 			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 			sleep(60)
 			if (W && istype(src, /turf/simulated/wall))
 				if ((get_turf(user) == T && user.equipped() == W))
-					user << "<span class='info'>You disassembled the outer wall plating.</span>"
+					user << "\blue You disassembled the outer wall plating."
 					dismantle_wall()
 					for(var/mob/O in viewers(user, 5))
-						O.show_message(text("<span class='info'>The wall was sliced apart by []!</span>", user), 1, text("<span class='info'>You hear metal being sliced apart.</span>"), 2)
+						O.show_message(text("\blue The wall was sliced apart by []!", user), 1, text("\red You hear metal being sliced apart."), 2)
 		return
 
 	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
 		var/turf/T = user.loc
-		user << "<span class='info'>Now drilling through wall.</span>"
+		user << "\blue Now drilling through wall."
 		sleep(60)
 		if (W && istype(src, /turf/simulated/wall))
 			if ((user.loc == T && user.equipped() == W))
 				dismantle_wall(1)
 				for(var/mob/O in viewers(user, 5))
-					O.show_message(text("<span class='info'>The wall was drilled apart by []!</span>", user), 1, text("<span class='info'>You hear metal being drilled appart.</span>"), 2)
+					O.show_message(text("\blue The wall was drilled apart by []!", user), 1, text("\red You hear metal being drilled appart."), 2)
 		return
 
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))
 		var/turf/T = user.loc
-		user << "<span class='info'>Now slicing through wall.</span>"
+		user << "\blue Now slicing through wall."
 		W:spark_system.start()
 		playsound(src.loc, "sparks", 50, 1)
 		sleep(70)
@@ -870,7 +870,7 @@
 				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 				dismantle_wall(1)
 				for(var/mob/O in viewers(user, 5))
-					O.show_message(text("<span class='info'>The wall was sliced apart by []!</span>", user), 1, text("<span class='info'>You hear metal being sliced and sparks flying.</span>"), 2)
+					O.show_message(text("\blue The wall was sliced apart by []!", user), 1, text("\red You hear metal being sliced and sparks flying."), 2)
 		return
 
 	else if(istype(W,/obj/item/apc_frame))
@@ -920,7 +920,7 @@
 /turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob)
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "<span class='info'>You don't have the dexterity to do this!</span>"
+		usr << "\red You don't have the dexterity to do this!"
 		return
 
 	if(!istype(src, /turf/simulated/wall/r_wall))
@@ -945,30 +945,30 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class='info'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
 
 		if (src.d_state == 2)
 			W:welding = 2
-			user << "<span class='info'>Slicing metal cover.</span>"
+			user << "\blue Slicing metal cover."
 			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 			sleep(60)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 3
-				user << "<span class='info'>You removed the metal cover.</span>"
+				user << "\blue You removed the metal cover."
 			W:welding = 1
 
 		else if (src.d_state == 5)
 			W:welding = 2
-			user << "<span class='info'>Removing support rods.</span>"
+			user << "\blue Removing support rods."
 			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 			sleep(100)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 6
 				new /obj/item/stack/rods( src )
-				user << "<span class='info'>You removed the support rods.</span>"
+				user << "\blue You removed the support rods."
 			W:welding = 1
 
 	else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
@@ -988,41 +988,41 @@
 			var/turf/simulated/floor/F = ReplaceWithPlating()
 			F.burn_tile()
 			F.icon_state = "wall_thermite"
-			user << "<span class='info'>The thermite melts the wall.</span>"
+			user << "\red The thermite melts the wall."
 			spawn(100) del(O)
 			F.sd_LumReset()
 			return
 
 		if (src.d_state == 2)
-			user << "<span class='info'>Slicing metal cover.</span>"
+			user << "\blue Slicing metal cover."
 			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 			sleep(40)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 3
-				user << "<span class='info'>You removed the metal cover.</span>"
+				user << "\blue You removed the metal cover."
 
 		else if (src.d_state == 5)
-			user << "<span class='info'>Removing support rods.</span>"
+			user << "\blue Removing support rods."
 			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 			sleep(70)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 6
 				new /obj/item/stack/rods( src )
-				user << "<span class='info'>You removed the support rods.</span>"
+				user << "\blue You removed the support rods."
 
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))
-		user << "<span class='info'>This wall is too thick to slice through. You will need to find a different path.</span>"
+		user << "\blue This wall is too thick to slice through. You will need to find a different path."
 		return
 
 	else if (istype(W, /obj/item/weapon/wrench))
 		if (src.d_state == 4)
 			var/turf/T = user.loc
-			user << "<span class='info'>Detaching support rods.</span>"
+			user << "\blue Detaching support rods."
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 			sleep(40)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 5
-				user << "<span class='info'>You detach the support rods.</span>"
+				user << "\blue You detach the support rods."
 
 	else if (istype(W, /obj/item/weapon/wirecutters))
 		if (src.d_state == 0)
@@ -1034,52 +1034,52 @@
 		if (src.d_state == 1)
 			var/turf/T = user.loc
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-			user << "<span class='info'>Removing support lines.</span>"
+			user << "\blue Removing support lines."
 			sleep(40)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 2
-				user << "<span class='info'>You removed the support lines.</span>"
+				user << "\blue You removed the support lines."
 
 	else if (istype(W, /obj/item/weapon/crowbar))
 
 		if (src.d_state == 3)
 			var/turf/T = user.loc
-			user << "<span class='info'>Prying cover off.</span>"
+			user << "\blue Prying cover off."
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			sleep(100)
 			if ((user.loc == T && user.equipped() == W))
 				src.d_state = 4
-				user << "<span class='info'>You removed the cover.</span>"
+				user << "\blue You removed the cover."
 
 		else if (src.d_state == 6)
 			var/turf/T = user.loc
-			user << "<span class='info'>Prying outer sheath off.</span>"
+			user << "\blue Prying outer sheath off."
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			sleep(100)
 			if(src)
 				if ((user.loc == T && user.equipped() == W))
-					user << "<span class='info'>You removed the outer sheath.</span>"
+					user << "\blue You removed the outer sheath."
 					dismantle_wall()
 					return
 
 	else if (istype(W, /obj/item/weapon/pickaxe/diamonddrill))
 		var/turf/T = user.loc
-		user << "<span class='info'>You begin to drill though, this will take some time.</span>"
+		user << "\blue You begin to drill though, this will take some time."
 		sleep(200)
 		if(src)
 			if ((user.loc == T && user.equipped() == W))
-				user << "<span class='info'>Your drill tears though the reinforced plating.</span>"
+				user << "\blue Your drill tears though the reinforced plating."
 				dismantle_wall()
 				return
 
 	else if ((istype(W, /obj/item/stack/sheet/metal)) && (src.d_state))
 		var/turf/T = user.loc
-		user << "<span class='info'>Repairing wall.</span>"
+		user << "\blue Repairing wall."
 		sleep(100)
 		if ((user.loc == T && user.equipped() == W))
 			src.d_state = 0
 			src.icon_state = initial(src.icon_state)
-			user << "<span class='info'>You repaired the wall.</span>"
+			user << "\blue You repaired the wall."
 			if (W:amount > 1)
 				W:amount--
 			else
@@ -1400,7 +1400,7 @@ turf/simulated/floor/return_siding_icon_state()
 	if(!user)
 		return
 	if(istype(C, /obj/item/weapon/wrench))
-		user << "<span class='info'>Removing rods...</span>"
+		user << "\blue Removing rods..."
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 80, 1)
 		if(do_after(user, 30))
 			new /obj/item/stack/rods(src, 2)
@@ -1574,15 +1574,15 @@ turf/simulated/floor/return_siding_icon_state()
 				del(C)
 				T.state = C //fixing it by bashing it with a light bulb, fun eh?
 				update_icon()
-				user << "<span class='info'>You replace the light bulb.</span>"
+				user << "\blue You replace the light bulb."
 			else
-				user << "<span class='info'>The lightbulb seems fine, no need to replace it.</span>"
+				user << "\blue The lightbulb seems fine, no need to replace it."
 
 	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())))
 		if(broken || burnt)
-			user << "<span class='info'>You remove the broken plating.</span>"
+			user << "\red You remove the broken plating."
 		else
-			user << "<span class='info'>You remove the [floor_tile.name].</span>"
+			user << "\red You remove the [floor_tile.name]."
 			new floor_tile.type(src)
 
 		make_plating()
@@ -1594,16 +1594,16 @@ turf/simulated/floor/return_siding_icon_state()
 		var/obj/item/stack/rods/R = C
 		if (is_plating())
 			if (R.amount >= 2)
-				user << "<span class='info'>Reinforcing the floor...</span>"
+				user << "\blue Reinforcing the floor..."
 				if(do_after(user, 30) && R && R.amount >= 2 && is_plating())
 					ReplaceWithEngineFloor()
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 80, 1)
 					R.use(2)
 					return
 			else
-				user << "<span class='info'>You need more rods.</span>"
+				user << "\red You need more rods."
 		else
-			user << "<span class='info'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 		return
 
 	if(istype(C, /obj/item/stack/tile))
@@ -1627,7 +1627,7 @@ turf/simulated/floor/return_siding_icon_state()
 				levelupdate()
 				playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1)
 			else
-				user << "<span class='info'>This section is too damaged to support a tile. Use a welder to fix the damage.</span>"
+				user << "\blue This section is too damaged to support a tile. Use a welder to fix the damage."
 
 
 	if(istype(C, /obj/item/stack/cable_coil))
@@ -1635,29 +1635,29 @@ turf/simulated/floor/return_siding_icon_state()
 			var/obj/item/stack/cable_coil/coil = C
 			coil.turf_place(src, user)
 		else
-			user << "<span class='info'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 
 	if(istype(C, /obj/item/weapon/shovel))
 		if(is_grass_floor())
 			new /obj/item/weapon/ore/glass(src)
 			new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
-			user << "<span class='info'>You shovel the grass.</span>"
+			user << "\blue You shovel the grass."
 			make_plating()
 		else
-			user << "<span class='info'>You cannot shovel this.</span>"
+			user << "\red You cannot shovel this."
 
 	if(istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/welder = C
 		if(welder.welding && (is_plating()))
 			if(broken || burnt)
 				if(welder.remove_fuel(0,user))
-					user << "<span class='info'>You fix some dents on the broken plating.</span>"
+					user << "\red You fix some dents on the broken plating."
 					playsound(src.loc, 'sound/items/Welder.ogg', 80, 1)
 					icon_state = "plating"
 					burnt = 0
 					broken = 0
 				else
-					user << "<span class='info'>You need more welding fuel to complete this task.</span>"
+					user << "\blue You need more welding fuel to complete this task."
 
 /turf/unsimulated/floor/attack_paw(user as mob)
 	return src.attack_hand(user)
@@ -1708,7 +1708,7 @@ turf/simulated/floor/return_siding_icon_state()
 		if(L)
 			return
 		var/obj/item/stack/rods/R = C
-		user << "<span class='info'>Constructing support lattice ...</span>"
+		user << "\blue Constructing support lattice ..."
 		playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1)
 		ReplaceWithLattice()
 		R.use(1)
@@ -1724,7 +1724,7 @@ turf/simulated/floor/return_siding_icon_state()
 			S.use(1)
 			return
 		else
-			user << "<span class='info'>The plating is going to need some support.</span>"
+			user << "\red The plating is going to need some support."
 	return
 
 
@@ -1757,7 +1757,7 @@ turf/simulated/floor/return_siding_icon_state()
 					if(istype(A, /mob/living))
 						var/mob/living/MM = A
 						if(MM.client)
-							MM << "<span class='info'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
+							MM << "\red Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is."
 					return
 
 

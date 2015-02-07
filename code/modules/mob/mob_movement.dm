@@ -26,7 +26,7 @@
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
 	else
-		usr << "<span class='info'>This mob type cannot throw items.</span>"
+		usr << "\red This mob type cannot throw items."
 	return
 
 
@@ -41,7 +41,7 @@
 	set hidden = 1
 
 	if(!usr.pulling)
-		usr << "<span class='info'>You are not pulling anything.</span>"
+		usr << "\blue You are not pulling anything."
 		return
 	usr.stop_pulling()
 
@@ -179,7 +179,7 @@
 			for(var/mob/M in range(mob, 1))
 				if(M.pulling == mob)
 					if(!M.restrained() && M.stat == 0 && M.canmove && mob.Adjacent(M))
-						src << "<span class='info'>You're restrained! You can't move!</span>"
+						src << "\blue You're restrained! You can't move!"
 						return 0
 					else
 						M.stop_pulling()
@@ -376,7 +376,7 @@
 
 	//Check to see if we slipped
 	if(prob(Process_Spaceslipping(5)))
-		src << "<span class='info'><B>You slipped!</B></span>"
+		src << "\blue <B>You slipped!</B>"
 		src.inertia_dir = src.last_move
 		step(src, src.inertia_dir)
 		return 0

@@ -10,9 +10,9 @@
 	switch(parent.active)
 		if(1)
 			if(!sudden)
-				usr << "<span class='info'>Reactive armor systems disengaged.</span>"
+				usr << "\blue Reactive armor systems disengaged."
 		if(0)
-			usr << "<span class='info'>Reactive armor systems engaged.</span>"
+			usr << "\blue Reactive armor systems engaged."
 	var/list/switchover = list()
 	for (var/armorvar in parent.armor)
 		if(armorvar == "bio")

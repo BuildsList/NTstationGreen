@@ -382,7 +382,7 @@
 /turf/simulated/mineral/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (!user.IsAdvancedToolUser())
-		usr << "<span class='info'>You don't have the dexterity to do this!</span>"
+		usr << "\red You don't have the dexterity to do this!"
 		return
 
 	if (istype(W, /obj/item/weapon/pickaxe))
@@ -399,11 +399,11 @@
 		if(last_act+W:digspeed > world.time)//prevents message spam
 			return
 		last_act = world.time
-		user << "<span class='info'>You start picking.</span>"
+		user << "\red You start picking."
 		playsound(user, 'sound/weapons/Genhit.ogg', 20, 1)
 
 		if(do_after(user,W:digspeed))
-			user << "<span class='info'>You finish cutting into the rock.</span>"
+			user << "\blue You finish cutting into the rock."
 			gets_drilled()
 	else
 		return attack_hand(user)
@@ -521,15 +521,15 @@
 			return
 
 		if (dug)
-			user << "<span class='info'>This area has already been dug</span>"
+			user << "\red This area has already been dug"
 			return
 
-		user << "<span class='info'>You start digging.</span>"
+		user << "\red You start digging."
 		playsound(src, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
 
 		sleep(40)
 		if ((user.loc == T && user.get_active_hand() == W))
-			user << "<span class='info'>You dug a hole.</span>"
+			user << "\blue You dug a hole."
 			gets_dug()
 			return
 
@@ -539,15 +539,15 @@
 			return
 
 		if (dug)
-			user << "<span class='info'>This area has already been dug</span>"
+			user << "\red This area has already been dug"
 			return
 
-		user << "<span class='info'>You start digging.</span>"
+		user << "\red You start digging."
 		playsound(src, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
 
 		sleep(30)
 		if ((user.loc == T && user.get_active_hand() == W))
-			user << "<span class='info'>You dug a hole.</span>"
+			user << "\blue You dug a hole."
 			gets_dug()
 
 	if ((istype(W,/obj/item/weapon/pickaxe/diamonddrill)) || (istype(W,/obj/item/weapon/pickaxe/borgdrill)))
@@ -556,15 +556,15 @@
 			return
 
 		if (dug)
-			user << "<span class='info'>This area has already been dug</span>"
+			user << "\red This area has already been dug"
 			return
 
-		user << "<span class='info'>You start digging.</span>"
+		user << "\red You start digging."
 		playsound(src, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
 
 		sleep(0)
 		if ((user.loc == T && user.get_active_hand() == W))
-			user << "<span class='info'>You dug a hole.</span>"
+			user << "\blue You dug a hole."
 			gets_dug()
 
 	if(istype(W,/obj/item/weapon/storage/bag/ore))

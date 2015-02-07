@@ -8,7 +8,7 @@
 			return
 		src << link(config.wikiurl)
 	else
-		src << "<span class='info'>The wiki URL is not set in the server configuration.</span>"
+		src << "\red The wiki URL is not set in the server configuration."
 	return
 
 /client/verb/forum()
@@ -20,7 +20,7 @@
 			return
 		src << link(config.forumurl)
 	else
-		src << "<span class='info'>The forum URL is not set in the server configuration.</span>"
+		src << "\red The forum URL is not set in the server configuration."
 	return
 
 #define RULES_FILE "config/rules.html"

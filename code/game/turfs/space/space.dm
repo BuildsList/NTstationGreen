@@ -21,7 +21,7 @@
 		if(L)
 			return
 		var/obj/item/stack/rods/R = C
-		user << "<span class='info'>Constructing support lattice ...</span>"
+		user << "\blue Constructing support lattice ..."
 		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 		ReplaceWithLattice()
 		R.use(1)
@@ -37,7 +37,7 @@
 			S.use(1)
 			return
 		else
-			user << "<span class='info'>The plating is going to need some support.</span>"
+			user << "\red The plating is going to need some support."
 	return
 
 
@@ -45,7 +45,7 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	if(movement_disabled)
-		usr << "<span class='info'>Movement is admin-disabled.</span>" //This is to identify lag problems
+		usr << "\red Movement is admin-disabled." //This is to identify lag problems
 		return
 	..()
 	if ((!(A) || src != A.loc))	return

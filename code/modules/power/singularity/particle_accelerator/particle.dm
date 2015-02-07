@@ -65,7 +65,7 @@
 			radiation = round(radiation/2,1)*/
 	M.apply_effect((energy*6),IRRADIATE,0)
 	M.updatehealth()
-	//M << "<span class='info'>You feel odd.</span>"
+	//M << "\red You feel odd."
 	return
 
 

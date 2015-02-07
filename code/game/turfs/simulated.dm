@@ -35,7 +35,7 @@
 /turf/simulated/Entered(atom/A, atom/OL)
 	var/footstepsound
 	if(movement_disabled && usr.ckey != movement_disabled_exception)
-		usr << "<span class='info'>Movement is admin-disabled.</span>" //This is to identify lag problems
+		usr << "\red Movement is admin-disabled." //This is to identify lag problems
 		return
 
 	if (istype(A,/mob/living/carbon))

@@ -91,12 +91,12 @@ var/global/mulebot_count = 0
 /obj/machinery/bot/mulebot/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I,/obj/item/weapon/card/emag))
 		locked = !locked
-		user << "<span class='info'>You [locked ? "lock" : "unlock"] the mulebot's controls!</span>"
+		user << "\blue You [locked ? "lock" : "unlock"] the mulebot's controls!"
 		flick("mulebot-emagged", src)
 		playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 	else if(istype(I, /obj/item/weapon/card/id))
 		if(toggle_lock(user))
-			user << "<span class='info'>Controls [(locked ? "locked" : "unlocked")].</span>"
+			user << "\blue Controls [(locked ? "locked" : "unlocked")]."
 
 	else if(istype(I,/obj/item/weapon/stock_parts/cell) && open && !cell)
 		var/obj/item/weapon/stock_parts/cell/C = I
@@ -106,16 +106,16 @@ var/global/mulebot_count = 0
 		updateDialog()
 	else if(istype(I,/obj/item/weapon/screwdriver))
 		if(locked)
-			user << "<span class='info'>The maintenance hatch cannot be opened or closed while the controls are locked.</span>"
+			user << "\blue The maintenance hatch cannot be opened or closed while the controls are locked."
 			return
 
 		open = !open
 		if(open)
-			visible_message("[user] opens the maintenance hatch of [src]", "<span class='info'>You open [src]'s maintenance hatch.</span>")
+			visible_message("[user] opens the maintenance hatch of [src]", "\blue You open [src]'s maintenance hatch.")
 			on = 0
 			icon_state="mulebot-hatch"
 		else
-			visible_message("[user] closes the maintenance hatch of [src]", "<span class='info'>You close [src]'s maintenance hatch.</span>")
+			visible_message("[user] closes the maintenance hatch of [src]", "\blue You close [src]'s maintenance hatch.")
 			icon_state = "mulebot0"
 
 		updateDialog()
@@ -123,18 +123,18 @@ var/global/mulebot_count = 0
 		if (health < maxhealth)
 			health = min(maxhealth, health+25)
 			user.visible_message(
-				"<span class='info'>[user] repairs [src]!</span>",
-				"<span class='info'>You repair [src]!</span>"
+				"\red [user] repairs [src]!",
+				"\blue You repair [src]!"
 			)
 		else
-			user << "<span class='info'>[src] does not need a repair!</span>"
+			user << "\blue [src] does not need a repair!"
 	else if(istype(I, /obj/item/device/multitool) || istype(I, /obj/item/weapon/wirecutters))
 		if(open)
 			attack_hand(usr)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1+I.force * 2))
 			unload(0)
-			user.visible_message("<span class='info'>[user] knocks [load] off [src] with \the [I]!</span>", "<span class='info'>You knock [load] off [src] with \the [I]!</span>")
+			user.visible_message("\red [user] knocks [load] off [src] with \the [I]!", "\red You knock [load] off [src] with \the [I]!")
 		else
 			user << "You hit [src] with \the [I] but to no effect."
 	else
@@ -157,7 +157,7 @@ var/global/mulebot_count = 0
 	if(prob(50) && !isnull(load))
 		unload(0)
 	if(prob(25))
-		visible_message("<span class='info'>Something shorts out inside [src]!</span>")
+		visible_message("\red Something shorts out inside [src]!")
 		wires.RandomCut()
 	..()
 
@@ -267,7 +267,7 @@ var/global/mulebot_count = 0
 					turn_off()
 				else if (cell && !open)
 					if (!turn_on())
-						usr << "<span class='info'>You can't switch on [src].</span>"
+						usr << "\red You can't switch on [src]."
 						return
 				else
 					return
@@ -282,7 +282,7 @@ var/global/mulebot_count = 0
 					cell.add_fingerprint(usr)
 					cell = null
 
-					usr.visible_message("<span class='info'>[usr] removes the power cell from [src].</span>", "<span class='info'>You remove the power cell from [src].</span>")
+					usr.visible_message("\blue [usr] removes the power cell from [src].", "\blue You remove the power cell from [src].")
 					updateDialog()
 
 			if("cellinsert")
@@ -294,7 +294,7 @@ var/global/mulebot_count = 0
 						C.loc = src
 						C.add_fingerprint(usr)
 
-						usr.visible_message("<span class='info'>[usr] inserts a power cell into [src].</span>", "<span class='info'>You insert the power cell into [src].</span>")
+						usr.visible_message("\blue [usr] inserts a power cell into [src].", "\blue You insert the power cell into [src].")
 						updateDialog()
 
 
@@ -374,7 +374,7 @@ var/global/mulebot_count = 0
 		updateDialog()
 		return 1
 	else
-		user << "<span class='info'>Access denied.</span>"
+		user << "\red Access denied."
 		return 0
 
 // mousedrop a crate to load the bot
@@ -906,7 +906,7 @@ var/global/mulebot_count = 0
 
 
 /obj/machinery/bot/mulebot/explode()
-	visible_message("<span class='info'><B>[src] blows apart!</B></span>", 1)
+	visible_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/device/assembly/prox_sensor(Tsec)

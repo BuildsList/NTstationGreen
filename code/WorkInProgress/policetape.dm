@@ -46,13 +46,13 @@
 /obj/item/taperoll/attack_self(mob/user as mob)
 	if(icon_state == "[icon_base]_start")
 		start = get_turf(src)
-		usr << "<span class='info'>You place the first end of the [src].</span>"
+		usr << "\blue You place the first end of the [src]."
 		icon_state = "[icon_base]_stop"
 	else
 		icon_state = "[icon_base]_start"
 		end = get_turf(src)
 		if(start.y != end.y && start.x != end.x || start.z != end.z)
-			usr << "<span class='info'>[src] can only be laid horizontally or vertically.</span>"
+			usr << "\blue [src] can only be laid horizontally or vertically."
 			return
 
 		var/turf/cur = start
@@ -81,7 +81,7 @@
 						break
 			cur = get_step_towards(cur,end)
 		if (!can_place)
-			usr << "<span class='info'>You can't run \the [src] through that!</span>"
+			usr << "\blue You can't run \the [src] through that!"
 			return
 
 		cur = start
@@ -95,7 +95,7 @@
 				P.icon_state = "[P.icon_base]_[dir]"
 			cur = get_step_towards(cur,end)
 	//is_blocked_turf(var/turf/T)
-		usr << "<span class='info'>You finish placing the [src].</span>"	//Git Test
+		usr << "\blue You finish placing the [src]."	//Git Test
 
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob)
 	if (istype(A, /obj/machinery/door/airlock))
@@ -104,7 +104,7 @@
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
-		user << "<span class='info'>You finish placing the [src].</span>"
+		user << "\blue You finish placing the [src]."
 
 /obj/item/tape/Bumped(M as mob)
 	if(src.allowed(M))
@@ -125,7 +125,7 @@
 
 /obj/item/tape/attack_hand(mob/user as mob)
 	if (user.a_intent == "help" && src.allowed(user))
-		user.show_viewers("<span class='info'>[user] lifts [src], allowing passage.</span>")
+		user.show_viewers("\blue [user] lifts [src], allowing passage.")
 		src.density = 0
 		spawn(200)
 			src.density = 1
@@ -139,7 +139,7 @@
 	if(user.a_intent == "help" && ((!is_sharp(W) && src.allowed(user))))
 		user << "You can't break the [src] with that!"
 		return
-	user.show_viewers("<span class='info'>[user] breaks the [src]!</span>")
+	user.show_viewers("\blue [user] breaks the [src]!")
 
 	var/dir[2]
 	var/icon_dir = src.icon_state

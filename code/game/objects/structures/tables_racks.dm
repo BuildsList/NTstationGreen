@@ -709,18 +709,18 @@ Destroy type values:
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			if(src.status == 2)
-				user << "<span class='info'>Now weakening the reinforced table</span>"
+				user << "\blue Now weakening the reinforced table"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 				if (do_after(user, 50))
 					if(!src || !WT.isOn()) return
-					user << "<span class='info'>Table weakened</span>"
+					user << "\blue Table weakened"
 					src.status = 1
 			else
-				user << "<span class='info'>Now strengthening the reinforced table</span>"
+				user << "\blue Now strengthening the reinforced table"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 				if (do_after(user, 50))
 					if(!src || !WT.isOn()) return
-					user << "<span class='info'>Table strengthened</span>"
+					user << "\blue Table strengthened"
 					src.status = 2
 			return
 	..()

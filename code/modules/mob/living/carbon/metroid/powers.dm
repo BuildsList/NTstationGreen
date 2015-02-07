@@ -27,8 +27,8 @@
 							if(met.Victim == M && met != src)
 								src << "<i>The [met.name] is already feeding on this subject...</i>"
 								return
-						src << "<span class='info'><i>I have latched onto the subject and begun feeding...</i></span>"
-						M << "<span class='info'><b>The [src.name] has latched onto your head!</b></span>"
+						src << "\blue <i>I have latched onto the subject and begun feeding...</i>"
+						M << "\red <b>The [src.name] has latched onto your head!</b>"
 						Feedon(M)
 
 					else
@@ -48,7 +48,7 @@
 	canmove = 0
 	anchored = 1
 	var/lastnut = nutrition
-	//if(M.client) M << "<span class='info'>You legs become paralyzed!</span>"
+	//if(M.client) M << "\red You legs become paralyzed!"
 	if(is_adult)
 		icon_state = "[colour] adult slime eat"
 	else
@@ -62,13 +62,13 @@
 			loc = M.loc
 
 			if(prob(15) && M.client && istype(M, /mob/living/carbon))
-				M << "<span class='info'>[pick("You can feel your body becoming weak!", \
+				M << "\red [pick("You can feel your body becoming weak!", \
 				"You feel like you're about to die!", \
 				"You feel every part of your body screaming in agony!", \
 				"A low, rolling pain passes through your body!", \
 				"Your body feels as if it's falling apart!", \
 				"You feel extremely weak!", \
-				"A sharp, deep pain bathes every inch of your body!")]</span>"
+				"A sharp, deep pain bathes every inch of your body!")]"
 
 			if(istype(M, /mob/living/carbon))
 				Victim.adjustCloneLoss(rand(5,6))
@@ -107,10 +107,10 @@
 
 			else
 				if(prob(25))
-					src << "<span class='info'><i>[pick("This subject is incompatable", \
+					src << "\red <i>[pick("This subject is incompatable", \
 					"This subject does not have a life energy", "This subject is empty", \
 					"I am not satisified", "I can not feed from this subject", \
-					"I do not feel nourished", "This subject is not food")]...</i></span>"
+					"I do not feel nourished", "This subject is not food")]...</i>"
 
 			sleep(rand(15,45))
 

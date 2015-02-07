@@ -460,7 +460,7 @@ var/list/ai_list = list()
 		if ("help")
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='info'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
+					O.show_message(text("\blue [M] caresses [src]'s plating with its scythe like arm."), 1)
 
 		else //harm
 			var/damage = rand(10, 20)
@@ -468,7 +468,7 @@ var/list/ai_list = list()
 				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("<span class='info'><B>[] has slashed at []!</B></span>", M, src), 1)
+						O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
 				if(prob(8))
 					flick("noise", flash)
 				adjustBruteLoss(damage)
@@ -477,16 +477,16 @@ var/list/ai_list = list()
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("<span class='info'><B>[] took a swipe at []!</B></span>", M, src), 1)
+						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 	return
 
 /mob/living/silicon/robot/attack_larva(mob/living/carbon/alien/larva/L as mob)
 	switch(L.a_intent)
 		if("help")
-			visible_message("<span class='info'>[L] rubs it's head against [src]</span>")
+			visible_message("\blue [L] rubs it's head against [src]")
 		else
 			var/damage = rand(5, 10)
-			visible_message("<span class='info'><B>[L] bites [src]!</B></span>")
+			visible_message("\red <B>[L] bites [src]!</B>")
 			adjustBruteLoss(damage)
 
 /mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M as mob)
@@ -496,7 +496,7 @@ var/list/ai_list = list()
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("<span class='info'><B>[M]</B> [M.attacktext] [src]!</span>", 1)
+			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
@@ -697,7 +697,7 @@ var/list/ai_list = list()
 			if(network in C.network)
 				U.eyeobj.setLoc(get_turf(C))
 				break
-	src << "<span class='info'>Switched to [network] camera network.</span>"
+	src << "\blue Switched to [network] camera network."
 //End of code by Mord_Sith
 
 
@@ -777,7 +777,7 @@ var/list/ai_list = list()
 
 	var/obj/machinery/power/apc/apc = src.loc
 	if(!istype(apc))
-		src << "<span class='info'>You are already in your Main Core.</span>"
+		src << "\blue You are already in your Main Core."
 		return
 	apc.malfvacate()*/
 

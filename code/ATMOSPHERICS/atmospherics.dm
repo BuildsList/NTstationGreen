@@ -63,21 +63,21 @@ obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user a
 	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
 		var/turf/T = src.loc
 		if (level==1 && isturf(T) && T.intact)
-			user << "<span class='info'>You must remove the plating first.</span>"
+			user << "\red You must remove the plating first."
 			return 1
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
 		if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-			user << "<span class='info'>You cannot unwrench this [src], it too exerted due to internal pressure.</span>"
+			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
 			add_fingerprint(user)
 			return 1
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "<span class='info'>You begin to unfasten \the [src]...</span>"
+		user << "\blue You begin to unfasten \the [src]..."
 		add_fingerprint(user)
 		if (do_after(user, 40))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
-				"<span class='info'>You have unfastened \the [src].</span>", \
+				"\blue You have unfastened \the [src].", \
 				"You hear ratchet.")
 			var/obj/item/pipe/newpipe = new(loc, make_from=src)
 			transfer_fingerprints_to(newpipe)

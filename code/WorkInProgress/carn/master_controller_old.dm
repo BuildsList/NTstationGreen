@@ -39,7 +39,7 @@ datum/controller/game_controller
 		if(!job_master)
 			job_master = new /datum/controller/occupations()
 			if(job_master.SetupOccupations())
-				world << "<span class='info'>\b Job setup complete</span>"
+				world << "\red \b Job setup complete"
 				job_master.LoadJobs("config/jobs.txt")
 
 		world.tick_lag = config.Ticklag
@@ -68,26 +68,26 @@ datum/controller/game_controller
 			ticker.pregame()
 
 	proc/setup_objects()
-		world << "<span class='info'>\b Initializing objects</span>"
+		world << "\red \b Initializing objects"
 		sleep(-1)
 
 		for(var/obj/object in world)
 			object.initialize()
 
-		world << "<span class='info'>\b Initializing pipe networks</span>"
+		world << "\red \b Initializing pipe networks"
 		sleep(-1)
 
 		for(var/obj/machinery/atmospherics/machine in world)
 			machine.build_network()
 
-		world << "<span class='info'>\b Initializing atmos machinery.</span>"
+		world << "\red \b Initializing atmos machinery."
 		sleep(-1)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/T in world)
 			T.broadcast_status()
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/T in world)
 			T.broadcast_status()
 
-		world << "<span class='info'>\b Initializations complete.</span>"
+		world << "\red \b Initializations complete."
 
 
 	proc/process()

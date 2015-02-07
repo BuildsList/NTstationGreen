@@ -145,7 +145,7 @@
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
-				B << text("<span class='info'>[] stuffs [] into []!</span>", user, O, src)
+				B << text("\red [] stuffs [] into []!", user, O, src)
 	return
 
 
@@ -201,7 +201,7 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if (cremating || locked)
-		user << "<span class='info'>It's locked.</span>"
+		user << "\red It's locked."
 		return
 	if (!connected)
 		user << "That doesn't appear to have a tray."
@@ -236,7 +236,7 @@
 
 	if(contents.len <= 1)
 		for (var/mob/M in viewers(src))
-			M.show_message("<span class='info'>You hear a hollow crackle.</span>", 1)
+			M.show_message("\red You hear a hollow crackle.", 1)
 			return
 
 	else
@@ -245,7 +245,7 @@
 			return
 
 		for (var/mob/M in viewers(src))
-			M.show_message("<span class='info'>You hear a roar as the crematorium activates.</span>", 1)
+			M.show_message("\red You hear a roar as the crematorium activates.", 1)
 
 		cremating = 1
 		locked = 1
@@ -329,7 +329,7 @@
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
-				B << text("<span class='info'>[] stuffs [] into []!</span>", user, O, src)
+				B << text("\red [] stuffs [] into []!", user, O, src)
 			//Foreach goto(99)
 	return
 
@@ -340,6 +340,6 @@
 				if (!C.cremating)
 					C.cremate(user)
 	else
-		usr << "<span class='info'>Access denied.</span>"
+		usr << "\red Access denied."
 	return
 

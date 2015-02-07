@@ -69,7 +69,7 @@
 	if(active)					return
 
 	if(!get_power())
-		user << "<span class='info'>Power source missing or depleted.</span>"
+		user << "\red Power source missing or depleted."
 		return
 
 	powerup()
@@ -77,19 +77,19 @@
 /obj/item/clothing/suit/powered/proc/powerup() // separated for powerarmor-wearing corpses
 	var/mob/living/carbon/human/user = src.loc
 	if(helmrequired && !istype(user.head, /obj/item/clothing/head/powered))
-		user << "<span class='info'>Helmet missing, unable to initiate power-on procedure.</span>"
+		user << "\red Helmet missing, unable to initiate power-on procedure."
 		return
 
 	if(!istype(user.gloves, /obj/item/clothing/gloves/powered))
-		user << "<span class='info'>Gloves missing, unable to initiate power-on procedure.</span>"
+		user << "\red Gloves missing, unable to initiate power-on procedure."
 		return
 
 	if(shoesrequired && !istype(user.shoes, /obj/item/clothing/shoes/powered))
-		user << "<span class='info'>Shoes missing, unable to initiate power-on procedure.</span>"
+		user << "\red Shoes missing, unable to initiate power-on procedure."
 		return
 
 	verbs -= /obj/item/clothing/suit/powered/proc/poweron
-	user << "<span class='info'>Suit interlocks engaged.</span>"
+	user << "\blue Suit interlocks engaged."
 	if(helmrequired)
 		helm = user.head
 		helm.flags |= NODROP
@@ -110,12 +110,12 @@
 		sleep(40)
 
 	if(subsystems.len)
-		user << "<span class='info'>Engaging subsystems...</span>"
+		user << "\blue Engaging subsystems..."
 		for(var/obj/item/weapon/powerarmor/I in subsystems)
 			sleep(20)
 			I.toggle()
 
-	user << "<span class='info'>All systems online.</span>"
+	user << "\blue All systems online."
 	active = 1
 	processing_objects.Add(src)
 
@@ -135,7 +135,7 @@
 
 	if(subsystems.len)
 		if(!sudden)
-			user << "<span class='info'>Disengaging subsystems...</span>"
+			user << "\blue Disengaging subsystems..."
 		for(var/obj/item/weapon/powerarmor/I in subsystems)
 			sleep(delay/2)
 			I.toggle(sudden)
@@ -146,7 +146,7 @@
 		user.SetLuminosity(user.luminosity - helm.brightness_on)
 
 	if(!sudden)
-		usr << "<span class='info'>Suit interlocks disengaged.</span>"
+		usr << "\blue Suit interlocks disengaged."
 		if(helm)
 			helm.flags &= ~NODROP
 			helm = null
@@ -165,7 +165,7 @@
 		"<span class='warning'>Your armor loses power!</span>",
 		"<span class='notice'>You hear a click!</span>")
 	else
-		user << "<span class='info'>All systems disengaged.</span>"
+		user << "\blue All systems disengaged."
 
 	active = 0
 
@@ -225,7 +225,7 @@
 			return
 
 	else if(istype(W, /obj/item/weapon/stock_parts/cell))
-		user << "<span class='info'>You insert power cell into [src].</span>"
+		user << "\blue You insert power cell into [src]."
 		user.unEquip(W)
 		powercell = W
 		powercell.loc = src

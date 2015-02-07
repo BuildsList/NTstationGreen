@@ -638,12 +638,12 @@ datum/chemical_reaction/methamphetamine
 
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M in viewers(5, location))
-		M << "<span class='info'>The solution violently bubbles!</span>"
+		M << "\red The solution violently bubbles!"
 
 	location = get_turf(holder.my_atom)
 
 	for(var/mob/M in viewers(5, location))
-		M << "<span class='info'>The solution spews out foam!</span>"
+		M << "\red The solution spews out foam!"
 
 	//world << "Holder volume is [holder.total_volume]"
 	//for(var/datum/reagent/R in holder.reagent_list)
@@ -668,7 +668,7 @@ datum/chemical_reaction/methamphetamine
 	var/location = get_turf(holder.my_atom)
 
 	for(var/mob/M in viewers(5, location))
-		M << "<span class='info'>The solution spews out a metalic foam!</span>"
+		M << "\red The solution spews out a metalic foam!"
 
 	var/datum/effect/effect/system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, 1)
@@ -688,7 +688,7 @@ datum/chemical_reaction/methamphetamine
 	var/location = get_turf(holder.my_atom)
 
 	for(var/mob/M in viewers(5, location))
-		M << "<span class='info'>The solution spews out a metalic foam!</span>"
+		M << "\red The solution spews out a metalic foam!"
 
 	var/datum/effect/effect/system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, 2)
@@ -1013,12 +1013,12 @@ datum/chemical_reaction/pestkiller
 
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M in viewers(5, location))
-		M << "<span class='info'>The solution violently bubbles!</span>"
+		M << "\red The solution violently bubbles!"
 
 	location = get_turf(holder.my_atom)
 
 	for(var/mob/M in viewers(5, location))
-		M << "<span class='info'>The solution spews out foam!</span>"
+		M << "\red The solution spews out foam!"
 
 	//world << "Holder volume is [holder.total_volume]"
 	//for(var/datum/reagent/R in holder.reagent_list)
@@ -1043,7 +1043,7 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimespawn/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>"), 1)
+		O.show_message(text("\red Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!"), 1)
 	var/mob/living/carbon/slime/S = new /mob/living/carbon/slime
 	S.loc = get_turf(holder.my_atom)
 
@@ -1099,7 +1099,7 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimecrit/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>The slime extract begins to vibrate violently !</span>"), 1)
+		O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 	spawn(50)
 
 		if(holder && holder.my_atom)
@@ -1167,7 +1167,7 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimecritlesser/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>The slime extract begins to vibrate violently !</span>"), 1)
+		O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 	spawn(50)
 
 		if(holder && holder.my_atom)
@@ -1285,13 +1285,13 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimefreeze/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>The slime extract begins to vibrate violently !</span>"), 1)
+		O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 	spawn(50)
 		if(holder && holder.my_atom)
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 			for(var/mob/living/M in range (get_turf(holder.my_atom), 7))
 				M.bodytemperature -= 240
-				M << "<span class='info'>You feel a chill!</span>"
+				M << "\blue You feel a chill!"
 
 //Orange
 /datum/chemical_reaction/slimecasp
@@ -1313,7 +1313,7 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimefire/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>The slime extract begins to vibrate violently !</span>"), 1)
+		O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 	spawn(50)
 		if(holder && holder.my_atom)
 			var/turf/simulated/T = get_turf(holder.my_atom)
@@ -1355,7 +1355,7 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimeglow/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>The slime begins to emit a soft light. Squeezing it will cause it to grow brightly.</span>"), 1)
+		O.show_message(text("\red The slime begins to emit a soft light. Squeezing it will cause it to grow brightly."), 1)
 	var/obj/item/device/flashlight/slime/F = new /obj/item/device/flashlight/slime
 	F.loc = get_turf(holder.my_atom)
 
@@ -1420,7 +1420,7 @@ datum/chemical_reaction/pestkiller
 	for(var/mob/living/carbon/slime/slime in viewers(get_turf(holder.my_atom), null))
 		slime.rabid = 1
 		for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-			O.show_message(text("<span class='info'>The [slime] is driven into a frenzy!.</span>"), 1)
+			O.show_message(text("\red The [slime] is driven into a frenzy!."), 1)
 
 //Pink
 /datum/chemical_reaction/slimeppotion
@@ -1458,7 +1458,7 @@ datum/chemical_reaction/pestkiller
 	required_other = 1
 /datum/chemical_reaction/slimeexplosion/on_reaction(var/datum/reagents/holder)
 	for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-		O.show_message(text("<span class='info'>The slime extract begins to vibrate violently !</span>"), 1)
+		O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 	spawn(50)
 		if(holder && holder.my_atom)
 			explosion(get_turf(holder.my_atom), 1 ,3, 6)

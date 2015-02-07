@@ -67,7 +67,7 @@
 		return
 
 	if(!allowed(user) && (wires & 1))
-		user << "<span class='info'>Access Denied</span>"
+		user << "\red Access Denied"
 		flick("doorctrl-denied",src)
 		return
 

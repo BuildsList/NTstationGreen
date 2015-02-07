@@ -248,7 +248,7 @@
 		if (!istype(W, /obj/item/weapon/wrench))
 			return ..()
 		if (!(stat & NOPOWER) && on)
-			user << "<span class='info'>You cannot unwrench this [src], turn it off first.</span>"
+			user << "\red You cannot unwrench this [src], turn it off first."
 			return 1
 		return ..()
 

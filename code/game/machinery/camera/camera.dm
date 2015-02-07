@@ -201,14 +201,14 @@
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 	else if (istype(W, /obj/item/device/camera_bug))
 		if (!src.can_use())
-			user << "<span class='info'>Camera non-functional</span>"
+			user << "\blue Camera non-functional"
 			return
 		if(istype(src.bug))
-			user << "<span class='info'>Camera bug removed.</span>"
+			user << "\blue Camera bug removed."
 			src.bug.bugged_cameras -= src.c_tag
 			src.bug = null
 		else
-			user << "<span class='info'>Camera bugged.</span>"
+			user << "\blue Camera bugged."
 			src.bug = W
 			src.bug.bugged_cameras[src.c_tag] = src
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))//Putting it here last since it's a special case. I wonder if there is a better way to do these than type casting.
@@ -218,7 +218,7 @@
 		spark_system.start()
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
 		playsound(loc, "sparks", 50, 1)
-		visible_message("<span class='info'>The camera has been sliced apart by [] with an energy blade!</span>")
+		visible_message("\blue The camera has been sliced apart by [] with an energy blade!")
 		qdel(src)
 	else if(istype(W, /obj/item/device/laser_pointer))
 		var/obj/item/device/laser_pointer/L = W
@@ -232,19 +232,19 @@
 		status = !( src.status )
 		if (!(src.status))
 			if(user)
-				visible_message("<span class='info'>[user] deactivates [src]!</span>")
+				visible_message("\red [user] deactivates [src]!")
 				add_hiddenprint(user)
 			else
-				visible_message("<span class='info'>\The [src] deactivates!</span>")
+				visible_message("\red \The [src] deactivates!")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = "[initial(icon_state)]1"
 
 		else
 			if(user)
-				visible_message("<span class='info'>[user] reactivates [src]!</span>")
+				visible_message("\red [user] reactivates [src]!")
 				add_hiddenprint(user)
 			else
-				visible_message("<span class='info'>\The [src] reactivates!</span>")
+				visible_message("\red \The [src] reactivates!")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = initial(icon_state)
 

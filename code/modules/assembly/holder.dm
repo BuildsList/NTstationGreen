@@ -113,15 +113,15 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(!a_left || !a_right)
-				user << "<span class='info'>BUG:Assembly part missing, please report this!</span>"
+				user << "\red BUG:Assembly part missing, please report this!"
 				return
 			a_left.toggle_secure()
 			a_right.toggle_secure()
 			secured = !secured
 			if(secured)
-				user << "<span class='info'>\The [src] is ready!</span>"
+				user << "\blue \The [src] is ready!"
 			else
-				user << "<span class='info'>\The [src] can now be taken apart!</span>"
+				user << "\blue \The [src] can now be taken apart!"
 			update_icon()
 			return
 		else
@@ -133,7 +133,7 @@
 		src.add_fingerprint(user)
 		if(src.secured)
 			if(!a_left || !a_right)
-				user << "<span class='info'>Assembly part missing!</span>"
+				user << "\red Assembly part missing!"
 				return
 			if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
 				switch(alert("Which side would you like to use?",,"Left","Right"))

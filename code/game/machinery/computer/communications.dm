@@ -53,7 +53,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	if(..())
 		return
 	if (src.z > 1)
-		usr << "<span class='info'><b>Unable to establish a connection</b>: \black You're too far away from the station!</span>"
+		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 	usr.set_machine(src)
 
@@ -317,7 +317,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	if(..())
 		return
 	if (src.z > 6)
-		user << "<span class='info'><b>Unable to establish a connection</b>: \black You're too far away from the station!</span>"
+		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 
 	user.set_machine(src)

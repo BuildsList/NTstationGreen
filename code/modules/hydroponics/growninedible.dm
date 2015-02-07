@@ -82,7 +82,7 @@
 			qdel(src)
 			return
 		else
-			usr << "<span class='info'>You must dry this first.</span>"
+			usr << "\red You must dry this first."
 
 /obj/item/weapon/grown/sunflower // FLOWER POWER!
 	name = "sunflower"

@@ -79,16 +79,16 @@
 				user << "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart."
 				if (!user.has_organic_effect(/datum/organic_effect/laser))
 					user.add_organic_effect(/datum/organic_effect/laser)
-					user << "<span class='info'>You feel pressure building behind your eyes.</span>"
+					user << "\blue You feel pressure building behind your eyes."
 				if (!user.has_organic_effect(/datum/organic_effect/cold_res))
 					user.add_organic_effect(/datum/organic_effect/cold_res)
-					user << "<span class='info'>Your body feels warm.</span>"
+					user << "\blue Your body feels warm."
 				if (!user.has_organic_effect(/datum/organic_effect/xray))
 					user.add_organic_effect(/datum/organic_effect/xray)
 					user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 					user.see_in_dark = 8
 					user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-					user << "<span class='info'>The walls suddenly disappear.</span>"
+					user << "\blue The walls suddenly disappear."
 				user.dna.mutantrace = "shadow"
 				user.update_body()
 			if("Wealth")

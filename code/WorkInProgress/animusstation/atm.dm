@@ -66,7 +66,7 @@ log transactions
 
 	attack_hand(var/mob/user)
 		if(istype(user, /mob/living/silicon))
-			user << "<span class='info'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per NanoTrasen regulation #1005.</span>"
+			user << "\red Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per NanoTrasen regulation #1005."
 			return
 
 		if(!(stat && NOPOWER) && ishuman(user))
@@ -117,7 +117,7 @@ log transactions
 						if(1000)
 							new /obj/item/weapon/spacecash/c1000(loc)
 				else
-					user << "<span class='info'>Error: Insufficient funds.</span>"
+					user << "\red Error: Insufficient funds."
 					return
 
 		scan(var/mob/user)
@@ -172,5 +172,5 @@ log transactions
 	if(p == pin)
 		user << "\green Access granted"
 		return 1
-	user << "<span class='info'>Access denied</span>"
+	user << "\red Access denied"
 	return 0

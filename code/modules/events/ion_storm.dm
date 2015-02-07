@@ -32,7 +32,7 @@
 			if(message)
 				M.add_ion_law(message)
 				M << "<br>"
-				M << "<span class='info'>[message] ...LAWS UPDATED</span>"
+				M << "\red [message] ...LAWS UPDATED"
 				M << "<br>"
 
 	if(botEmagChance)

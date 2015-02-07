@@ -256,7 +256,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("<span class='info'><B>\The [M]</B> [M.attacktext] [src]!</span>", 1)
+			O.show_message("\red <B>\The [M]</B> [M.attacktext] [src]!", 1)
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
@@ -287,7 +287,7 @@
 			if (health > 0)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message("<span class='info'>[M] [response_help] [src].</span>")
+						O.show_message("\blue [M] [response_help] [src].")
 
 		if("grab")
 			if (M == src || anchored)
@@ -305,13 +305,13 @@
 
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='info'>[] has grabbed [] passively!</span>", M, src), 1)
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if("harm", "disarm")
 			adjustBruteLoss(harm_intent_damage)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message("<span class='info'>[M] [response_harm] [src]!</span>")
+					O.show_message("\red [M] [response_harm] [src]!")
 
 	return
 
@@ -323,7 +323,7 @@
 
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='info'>[M] caresses [src] with its scythe like arm.</span>"), 1)
+					O.show_message(text("\blue [M] caresses [src] with its scythe like arm."), 1)
 		if ("grab")
 			if(M == src || anchored)
 				return
@@ -340,11 +340,11 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='info'>[] has grabbed [] passively!</span>", M, src), 1)
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if("harm", "disarm")
 			var/damage = rand(15, 30)
-			visible_message("<span class='info'><B>[M] has slashed at [src]!</B></span>")
+			visible_message("\red <B>[M] has slashed at [src]!</B>")
 			adjustBruteLoss(damage)
 
 	return
@@ -353,13 +353,13 @@
 
 	switch(L.a_intent)
 		if("help")
-			visible_message("<span class='info'>[L] rubs it's head against [src]</span>")
+			visible_message("\blue [L] rubs it's head against [src]")
 
 
 		else
 
 			var/damage = rand(5, 10)
-			visible_message("<span class='info'><B>[L] bites [src]!</B></span>")
+			visible_message("\red <B>[L] bites [src]!</B>")
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
@@ -373,7 +373,7 @@
 
 	if(M.Victim) return // can't attack while eating!
 
-	visible_message("<span class='info'><B>[M.name] glomps [src]!</B></span>")
+	visible_message("\red <B>[M.name] glomps [src]!</B>")
 
 	var/damage = rand(1, 3)
 
@@ -402,16 +402,16 @@
 							qdel(MED)
 						for(var/mob/M in viewers(src, null))
 							if ((M.client && !( M.blinded )))
-								M.show_message("<span class='info'>[user] applies [MED] on [src]</span>")
+								M.show_message("\blue [user] applies [MED] on [src]")
 						return
 					else
-						user << "<span class='info'>[MED] won't help at all.</span>"
+						user << "\blue [MED] won't help at all."
 						return
 			else
-				user << "<span class='info'>[src] is at full health.</span>"
+				user << "\blue [src] is at full health."
 				return
 		else
-			user << "<span class='info'>[src] is dead, medical items won't bring it back to life.</span>"
+			user << "\blue [src] is dead, medical items won't bring it back to life."
 			return
 	else if(meat_type.len && (stat == DEAD))	//if the animal has a meat, and if it is dead.
 		harvest(O)
@@ -429,7 +429,7 @@
 				visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
 								"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
 		else
-			user << "<span class='info'>This weapon is ineffective, it does no damage.</span>"
+			user << "\red This weapon is ineffective, it does no damage."
 			user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 							"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 

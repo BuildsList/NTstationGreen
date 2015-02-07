@@ -453,7 +453,7 @@
 		if ("help")
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='info'>[M] caresses [src] with its scythe like arm.</span>"), 1)
+					O.show_message(text("\blue [M] caresses [src] with its scythe like arm."), 1)
 
 		if ("harm")
 
@@ -536,10 +536,10 @@
 /mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L as mob)
 	switch(L.a_intent)
 		if("help")
-			visible_message("<span class='info'>[L] rubs it's head against [src]</span>")
+			visible_message("\blue [L] rubs it's head against [src]")
 		else
 			var/damage = rand(5, 10)
-			visible_message("<span class='info'><B>[L] bites [src]!</B></span>")
+			visible_message("\red <B>[L] bites [src]!</B>")
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			adjustBruteLoss(damage)
 
@@ -547,7 +547,7 @@
 	if(W.force > 0)
 		attacked += 10
 		if(prob(25))
-			user << "<span class='info'>[W] passes right through [src]!</span>"
+			user << "\red [W] passes right through [src]!"
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0
@@ -1056,9 +1056,9 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /obj/item/weapon/reagent_containers/food/snacks/egg/slime/proc/Hatch()
 	processing_objects.Remove(src)
 	var/turf/T = get_turf(src)
-	src.visible_message("<span class='info'>The [name] pulsates and quivers!</span>")
+	src.visible_message("\blue The [name] pulsates and quivers!")
 	spawn(rand(50,100))
-		src.visible_message("<span class='info'>The [name] bursts open!</span>")
+		src.visible_message("\blue The [name] bursts open!")
 		new/mob/living/carbon/slime(T)
 		qdel(src)
 

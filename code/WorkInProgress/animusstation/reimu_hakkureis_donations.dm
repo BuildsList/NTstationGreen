@@ -108,15 +108,15 @@ var/list/datum/donator/donators = list()
 		)
 
 		if(cost > money)
-			usr << "<span class='info'>You don't have enough funds.</span>"
+			usr << "\red You don't have enough funds."
 			return 0
 
 		if(!allowed_num_items)
-			usr << "<span class='info'>You have reached maximum amount of spawned items.</span>"
+			usr << "\red You have reached maximum amount of spawned items."
 			return 0
 
 		if(!user)
-			user << "<span class='info'>You must be a human to use this.</span>"
+			user << "\red You must be a human to use this."
 			return 0
 
 		if(!ispath(path))
@@ -130,9 +130,9 @@ var/list/datum/donator/donators = list()
 
 		if (!where)
 			spawned.loc = user.loc
-			usr << "<span class='info'>Your [name] has been spawned!</span>"
+			usr << "\blue Your [name] has been spawned!"
 		else
-			usr << "<span class='info'>Your [name] has been spawned in your [where]!</span>"
+			usr << "\blue Your [name] has been spawned in your [where]!"
 
 		money -= cost
 		allowed_num_items--

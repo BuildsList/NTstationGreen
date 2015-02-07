@@ -168,7 +168,7 @@
 
 		if(breath.temperature > (T0C+66) && !has_organic_effect(/datum/organic_effect/cold_res)) // Hot air hurts :(
 			if(prob(20))
-				src << "<span class='info'>You feel a searing heat in your lungs!</span>"
+				src << "\red You feel a searing heat in your lungs!"
 			fire_alert = max(fire_alert, 1)
 		else
 			fire_alert = 0
@@ -184,12 +184,12 @@
 		if(has_organic_effect(/datum/organic_effect/fat))
 			if(nutrition < 100)
 				if(prob(round((50 - nutrition) / 100)))
-					src << "<span class='info'>You feel fit again!</span>"
+					src << "\blue You feel fit again!"
 					remove_organic_effect(/datum/organic_effect/fat, src)
 		else
 			if(nutrition > 500)
 				if(prob(5 + round((nutrition - max_grown) / 2)))
-					src << "<span class='info'>You suddenly feel blubbery!</span>"
+					src << "\red You suddenly feel blubbery!"
 					add_organic_effect(/datum/organic_effect/fat)
 
 		if (nutrition > 0)

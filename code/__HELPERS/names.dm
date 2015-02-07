@@ -237,7 +237,7 @@ var/syndicate_code_response//Code response for traitors.
 	set name = "Generate Code Phrase"
 	set category = "Debug"
 
-	world << "<span class='info'>Code Phrase is: \black [generate_code_phrase()]</span>"
+	world << "\red Code Phrase is: \black [generate_code_phrase()]"
 	return
 
 

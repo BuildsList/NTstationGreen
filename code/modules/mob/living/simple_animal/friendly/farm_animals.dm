@@ -39,7 +39,7 @@
 		if(enemies.len && prob(10))
 			enemies = list()
 			LoseTarget()
-			src.visible_message("<span class='info'>[src] calms down.</span>")
+			src.visible_message("\blue [src] calms down.")
 
 		if(stat == CONSCIOUS)
 			if(udder && prob(5))
@@ -58,7 +58,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	src.visible_message("<span class='info'>[src] gets an evil-looking gleam in \his eye.</span>")
+	src.visible_message("\red [src] gets an evil-looking gleam in \his eye.")
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	..()
@@ -74,9 +74,9 @@
 		var/obj/item/weapon/reagent_containers/glass/G = O
 		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
 		if(G.reagents.total_volume >= G.volume)
-			user << "<span class='info'>[O] is full.</span>"
+			user << "\red [O] is full."
 		if(!transfered)
-			user << "<span class='info'>The udder is dry. Wait a bit longer...</span>"
+			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
 //cow
@@ -113,9 +113,9 @@
 		var/obj/item/weapon/reagent_containers/glass/G = O
 		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
 		if(G.reagents.total_volume >= G.volume)
-			user << "<span class='info'>[O] is full.</span>"
+			user << "\red [O] is full."
 		if(!transfered)
-			user << "<span class='info'>The udder is dry. Wait a bit longer...</span>"
+			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
 
@@ -223,13 +223,13 @@ var/global/chicken_count = 0
 /mob/living/simple_animal/chicken/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown/wheat)) //feedin' dem chickens
 		if(!stat && eggsleft < 8)
-			user.visible_message("<span class='info'>[user] feeds [O] to [name]! It clucks happily.</span>","<span class='info'>You feed [O] to [name]! It clucks happily.</span>")
+			user.visible_message("\blue [user] feeds [O] to [name]! It clucks happily.","\blue You feed [O] to [name]! It clucks happily.")
 			user.drop_item()
 			qdel(O)
 			eggsleft += rand(1, 4)
 			//world << eggsleft
 		else
-			user << "<span class='info'>[name] doesn't seem hungry!</span>"
+			user << "\blue [name] doesn't seem hungry!"
 	else
 		..()
 

@@ -11,14 +11,14 @@
 	if (!(ndir in cardinal))
 		return
 	if (!istype(loc, /turf/simulated/floor))
-		usr << "<span class='info'>[src] cannot be placed on this spot.</span>"
+		usr << "\red [src] cannot be placed on this spot."
 		return
 	var/area/A = loc.loc
 	if (A.requires_power == 0 || istype(A, /area/space))
-		usr << "<span class='info'>[src] cannot be placed in this area.</span>"
+		usr << "\red [src] cannot be placed in this area."
 		return
 	if(gotwallitem(loc, ndir))
-		usr << "<span class='info'>There's already an item on this wall!</span>"
+		usr << "\red There's already an item on this wall!"
 		return
 
 	return 1
@@ -45,14 +45,14 @@
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
 	if (A.name == "Space") // i think this is better
-		usr << "<span class='info'>This area cannot have an APC.</span>"
+		usr << "\red This area cannot have an APC."
 		return
 	if (A.get_apc())
-		usr << "<span class='info'>This area already has APC.</span>"
+		usr << "\red This area already has APC."
 		return //only one APC per area
 	for(var/obj/machinery/power/terminal/T in loc)
 		if (T.master)
-			usr << "<span class='info'>There is another network terminal here.</span>"
+			usr << "\red There is another network terminal here."
 			return
 		else
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(loc)

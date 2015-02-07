@@ -146,8 +146,8 @@ display round(lastgen) and plasmatank amount
 
 /obj/machinery/power/port_gen/pacman/examine()
 	..()
-	usr << "<span class='info'>The generator has [sheets] units of [sheet_name] fuel left, producing [power_gen] per cycle.</span>"
-	if(crit_fail) usr << "<span class='info'>The generator seems to have broken down.</span>"
+	usr << "\blue The generator has [sheets] units of [sheet_name] fuel left, producing [power_gen] per cycle."
+	if(crit_fail) usr << "\red The generator seems to have broken down."
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	if(sheets >= 1 / (time_per_sheet / power_output) - sheet_left)
@@ -209,9 +209,9 @@ display round(lastgen) and plasmatank amount
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			user << "<span class='info'>The [src.name] is full!</span>"
+			user << "\blue The [src.name] is full!"
 			return
-		user << "<span class='info'>You add [amount] sheets to the [src.name].</span>"
+		user << "\blue You add [amount] sheets to the [src.name]."
 		sheets += amount
 		addstack.use(amount)
 		updateUsrDialog()
@@ -228,11 +228,11 @@ display round(lastgen) and plasmatank amount
 
 			if(!anchored && !isinspace())
 				connect_to_network()
-				user << "<span class='info'>You secure the generator to the floor.</span>"
+				user << "\blue You secure the generator to the floor."
 				anchored = 1
 			else if(anchored)
 				disconnect_from_network()
-				user << "<span class='info'>You unsecure the generator from the floor.</span>"
+				user << "\blue You unsecure the generator from the floor."
 				anchored = 0
 
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -241,9 +241,9 @@ display round(lastgen) and plasmatank amount
 			panel_open = !panel_open
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(panel_open)
-				user << "<span class='info'>You open the access panel.</span>"
+				user << "\blue You open the access panel."
 			else
-				user << "<span class='info'>You close the access panel.</span>"
+				user << "\blue You close the access panel."
 		else if(istype(O, /obj/item/weapon/crowbar) && panel_open)
 			default_deconstruction_crowbar(O)
 
