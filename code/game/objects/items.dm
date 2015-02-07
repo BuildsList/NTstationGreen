@@ -281,7 +281,7 @@
 		if(usr.get_active_hand() == null)
 			src.attack_hand(usr)
 		else
-			usr << "\red You already have something in your hand."
+			usr << "<span class='warning'>You already have something in your hand.</span>"
 		*/
 	else
 		usr << "<span class='notice'>This mob type can't use this verb.</span>"
@@ -312,7 +312,7 @@
 			(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 		))
 		// you can't stab someone in the eyes wearing a mask!
-		user << "\red You're going to need to remove that mask/helmet/glasses first."
+		user << "<span class='warning'>You're going to need to remove that mask/helmet/glasses first.</span>"
 		return
 
 	var/mob/living/carbon/monkey/Mo = M
@@ -320,11 +320,11 @@
 			(Mo.wear_mask && Mo.wear_mask.flags & MASKCOVERSEYES) \
 		))
 		// you can't stab someone in the eyes wearing a mask!
-		user << "\red You're going to need to remove that mask/helmet/glasses first."
+		user << "<span class='warning'>You're going to need to remove that mask/helmet/glasses first.</span>"
 		return
 
 	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/carbon/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
-		user << "\red You cannot locate any eyes on this creature!"
+		user << "<span class='warning'>You cannot locate any eyes on this creature!</span>"
 		return
 
 	add_logs(user, M, "attacked", object="[src.name]", addition="(INTENT: [uppertext(user.a_intent)])")
@@ -333,20 +333,20 @@
 	//if((CLUMSY in user.mutations) && prob(50))
 	//	M = user
 		/*
-		M << "\red You stab yourself in the eye."
+		M << "<span class='warning'>You stab yourself in the eye.</span>"
 		M.sdisabilities |= BLIND
 		M.weakened += 4
 		M.adjustBruteLoss(10)
 		*/
 	if(M != user)
 		for(var/mob/O in (viewers(M) - user - M))
-			O.show_message("\red [M] has been stabbed in the eye with [src] by [user].", 1)
-		M << "\red [user] stabs you in the eye with [src]!"
-		user << "\red You stab [M] in the eye with [src]!"
+			O.show_message("<span class='warning'>[M] has been stabbed in the eye with [src] by [user].</span>", 1)
+		M << "<span class='warning'>[user] stabs you in the eye with [src]!</span>"
+		user << "<span class='warning'>You stab [M] in the eye with [src]!</span>"
 	else
 		user.visible_message( \
-			"\red [user] has stabbed themself with [src]!", \
-			"\red You stab yourself in the eyes with [src]!" \
+			"<span class='warning'>[user] has stabbed themself with [src]!</span>", \
+			"<span class='warning'>You stab yourself in the eyes with [src]!</span>" \
 		)
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/U = M
@@ -362,17 +362,17 @@
 		M.eye_blurry += 15+(0.1*M.eye_blurry)
 		M.disabilities |= NEARSIGHTED
 		if(M.stat != 2)
-			M << "\red Your eyes start to bleed profusely!"
+			M << "<span class='warning'>Your eyes start to bleed profusely!</span>"
 		if(prob(50))
 			if(M.stat != 2)
-				M << "\red You drop what you're holding and clutch at your eyes!"
+				M << "<span class='warning'>You drop what you're holding and clutch at your eyes!</span>"
 				M.drop_item()
 			M.eye_blurry += 10
 			M.Paralyse(1)
 			M.Weaken(4)
 		if (prob(M.eye_stat - 10 + 1))
 			if(M.stat != 2)
-				M << "\red You go blind!"
+				M << "<span class='warning'>You go blind!</span>"
 			M.sdisabilities |= BLIND
 	return
 

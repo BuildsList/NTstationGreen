@@ -95,7 +95,7 @@
 	if(shielded)
 		damage /= 4
 
-	show_message("\red The blob attacks!")
+	show_message("<span class='warning'>The blob attacks!</span>")
 	adjustFireLoss(damage)
 	return
 
@@ -140,7 +140,7 @@
 
 		for(var/mob/O in viewers(src, null))
 			if ((O.client && !( O.blinded )))
-				O.show_message(text("\red <B>The [M.name] glomps []!</B>", src), 1)
+				O.show_message(text("<span class='warning'><B>The [M.name] glomps []!</B></span>", src), 1)
 
 		var/damage = rand(1, 3)
 
@@ -170,7 +170,7 @@
 
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>The [M.name] has shocked []!</B>", src), 1)
+						O.show_message(text("<span class='warning'><B>The [M.name] has shocked []!</B></span>", src), 1)
 
 				Weaken(power)
 				if (stuttering < power)
@@ -196,7 +196,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+			O.show_message("<span class='warning'><B>[M]</B> [M.attacktext] [src]!</span>", 1)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -232,7 +232,7 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
+					O.show_message(text("<span class='warning'>[] has grabbed [] passively!</span>", M, src), 1)
 
 		if ("harm")
 			var/damage = rand(1, 9)
@@ -247,19 +247,19 @@
 				playsound(loc, "punch", 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has punched []!</B>", M, src), 1)
+						O.show_message(text("<span class='warning'><B>[] has punched []!</B></span>", M, src), 1)
 				if ((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
 					Weaken(1,5)
 					for(var/mob/O in viewers(M, null))
 						if ((O.client && !( O.blinded )))
-							O.show_message(text("\red <B>[] has weakened []!</B>", M, src), 1, "\red You hear someone fall.", 2)
+							O.show_message(text("<span class='warning'><B>[] has weakened []!</B></span>", M, src), 1, "<span class='warning'>You hear someone fall.</span>", 2)
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has attempted to punch []!</B>", M, src), 1)
+						O.show_message(text("<span class='warning'><B>[] has attempted to punch []!</B></span>", M, src), 1)
 
 		if ("disarm")
 			if (!lying)
@@ -268,19 +268,19 @@
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					for(var/mob/O in viewers(src, null))
 						if ((O.client && !( O.blinded )))
-							O.show_message(text("\red <B>[] has pushed down []!</B>", M, src), 1)
+							O.show_message(text("<span class='warning'><B>[] has pushed down []!</B></span>", M, src), 1)
 				else
 					if (prob(50))
 						drop_item()
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						for(var/mob/O in viewers(src, null))
 							if ((O.client && !( O.blinded )))
-								O.show_message(text("\red <B>[] has disarmed []!</B>", M, src), 1)
+								O.show_message(text("<span class='warning'><B>[] has disarmed []!</B></span>", M, src), 1)
 					else
 						playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 						for(var/mob/O in viewers(src, null))
 							if ((O.client && !( O.blinded )))
-								O.show_message(text("\red <B>[] has attempted to disarm []!</B>", M, src), 1)
+								O.show_message(text("<span class='warning'><B>[] has attempted to disarm []!</B></span>", M, src), 1)
 	return
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
@@ -309,7 +309,7 @@ In all, this is a lot like the monkey code. /N
 			AdjustWeakened(-3)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M.name] nuzzles [] trying to wake it up!", src), 1)
+					O.show_message(text("<span class='info'>[M.name] nuzzles [] trying to wake it up!</span>", src), 1)
 
 		else
 			if (health > 0)
@@ -327,10 +327,10 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/humanoid/attack_larva(mob/living/carbon/alien/larva/L as mob)
 	switch(L.a_intent)
 		if("help")
-			visible_message("\blue [L] rubs it's head against [src]")
+			visible_message("<span class='info'>[L] rubs it's head against [src]</span>")
 		else
 			var/damage = rand(5, 10)
-			visible_message("\red <B>[L] bites [src]!</B>")
+			visible_message("<span class='warning'><B>[L] bites [src]!</B></span>")
 			adjustBruteLoss(damage)
 
 /mob/living/carbon/alien/humanoid/restrained()

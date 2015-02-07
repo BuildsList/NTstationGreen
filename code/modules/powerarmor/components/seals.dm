@@ -19,7 +19,7 @@
 	switch(parent.active)
 		if(1)
 			if(!sudden)
-				usr << "\blue Atmospheric seals disengaged."
+				usr << "<span class='info'>Atmospheric seals disengaged.</span>"
 			parent.gas_transfer_coefficient = 1
 			parent.permeability_coefficient = 1
 			parent.flags &= ~STOPSPRESSUREDMAGE
@@ -50,7 +50,7 @@
 				parent.shoes.armor["bio"] = initial(parent.shoes.armor["bio"])
 
 		if(0)
-			usr << "\blue Atmospheric seals engaged."
+			usr << "<span class='info'>Atmospheric seals engaged.</span>"
 			parent.gas_transfer_coefficient = 0.01
 			parent.permeability_coefficient = 0.02
 			parent.flags |= STOPSPRESSUREDMAGE
@@ -117,10 +117,10 @@
 		helm = user.head
 
 		if(!sealed)
-			user << "\red Unable to initialize helmet seal, armor seals not active."
+			user << "<span class='warning'>Unable to initialize helmet seal, armor seals not active.</span>"
 			return
 		if(!helm.parent)
-			user << "\blue Helmet locked."
+			user << "<span class='info'>Helmet locked.</span>"
 			helm.flags |= NODROP
 			parent.helm = helm
 			helm.parent = parent
@@ -130,7 +130,7 @@
 			parent.helm.max_heat_protection_temperature = helmet_max
 			parent.helm.min_cold_protection_temperature = helmet_min
 			parent.helm.flags |= STOPSPRESSUREDMAGE
-			user << "\blue Helmet atmospheric seals engaged."
+			user << "<span class='info'>Helmet atmospheric seals engaged.</span>"
 			if(manual)
 				for (var/armorvar in helm.armor)
 					helm.armor[armorvar] = parent.armor[armorvar]
@@ -138,7 +138,7 @@
 			return
 		else
 			if(manual)
-				user << "\blue Helmet atmospheric seals disengaged."
+				user << "<span class='info'>Helmet atmospheric seals disengaged.</span>"
 			parent.helm.gas_transfer_coefficient = 1
 			parent.helm.permeability_coefficient = 1
 			parent.helm.max_heat_protection_temperature = null
@@ -155,7 +155,7 @@
 			if(!sudden)
 				if(manual)
 					sleep(20)
-					user << "\blue Helmet unlocked."
+					user << "<span class='info'>Helmet unlocked.</span>"
 				helm.flags &= ~NODROP
 				parent.helm = null
 				helm.parent = null

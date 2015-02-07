@@ -186,7 +186,7 @@
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	if (you_are)
-		syndicate.current << "\blue Вы оперативный агент [syndicate_name()]!"
+		syndicate.current << "<span class='info'>Вы оперативный агент [syndicate_name()]!</span>"
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
 		syndicate.current << "<B>Задание #[obj_count]</B>: [objective.explanation_text]"

@@ -152,7 +152,7 @@ obj/machinery/atmospherics/binary/pump
 			return
 		src.add_fingerprint(usr)
 		if(!src.allowed(user))
-			user << "\red Access denied."
+			user << "<span class='warning'>Access denied.</span>"
 			return
 		usr.set_machine(src)
 		interact(user)
@@ -178,7 +178,7 @@ obj/machinery/atmospherics/binary/pump
 		if (!istype(W, /obj/item/weapon/wrench))
 			return ..()
 		if (!(stat & NOPOWER) && on)
-			user << "\red You cannot unwrench this [src], turn it off first."
+			user << "<span class='warning'>You cannot unwrench this [src], turn it off first.</span>"
 			return 1
 		return ..()
 
