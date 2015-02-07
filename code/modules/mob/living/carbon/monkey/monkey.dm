@@ -145,7 +145,7 @@
 
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				for(var/mob/O in viewers(src, null))
-					O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
+					O.show_message(text("<span class='info'>[] has grabbed [name] passively!</span>", M), 1)
 			else
 				if (!( paralysis ))
 					if (prob(25))
@@ -175,7 +175,7 @@
 		if ("help")
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M] caresses [src] with its scythe like arm."), 1)
+					O.show_message(text("<span class='info'>[M] caresses [src] with its scythe like arm.</span>"), 1)
 
 		if ("harm")
 			if ((prob(95) && health > 0))
@@ -213,7 +213,7 @@
 
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
+				O.show_message(text("<span class='info'>[] has grabbed [name] passively!</span>", M), 1)
 
 		if ("disarm")
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
@@ -235,10 +235,10 @@
 /mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L as mob)
 	switch(L.a_intent)
 		if("help")
-			visible_message("\blue [L] rubs it's head against [src]")
+			visible_message("<span class='info'>[L] rubs it's head against [src]</span>")
 		else
 			var/damage = rand(5, 10)
-			visible_message("\red <B>[L] bites [src]!</B>")
+			visible_message("<span class='info'><B>[L] bites [src]!</B></span>")
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			adjustBruteLoss(damage)
 

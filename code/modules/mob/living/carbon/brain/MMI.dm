@@ -26,12 +26,12 @@
 	if(istype(O,/obj/item/organ/brain)) //Time to stick a brain in it --NEO
 		var/obj/item/organ/brain/newbrain = O
 		if(brain)
-			user << "\red There's already a brain in the MMI!"
+			user << "<span class='info'>There's already a brain in the MMI!</span>"
 			return
 		if(!newbrain.brainmob)
-			user << "\red You aren't sure where this brain came from, but you're pretty sure it's a useless brain."
+			user << "<span class='info'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>"
 			return
-		visible_message("\blue [user] sticks \a [newbrain] into \the [src]")
+		visible_message("<span class='info'>[user] sticks \a [newbrain] into \the [src]</span>")
 
 		brainmob = newbrain.brainmob
 		newbrain.brainmob = null
@@ -57,9 +57,9 @@
 	if((istype(O,/obj/item/weapon/card/id)||istype(O,/obj/item/device/pda)) && brainmob)
 		if(allowed(user))
 			locked = !locked
-			user << "\blue You [locked ? "lock" : "unlock"] the brain holder."
+			user << "<span class='info'>You [locked ? "lock" : "unlock"] the brain holder.</span>"
 		else
-			user << "\red Access denied."
+			user << "<span class='info'>Access denied.</span>"
 		return
 	if(brainmob)
 		O.attack(brainmob, user) //Oh noooeeeee
@@ -68,11 +68,11 @@
 
 /obj/item/device/mmi/attack_self(mob/user as mob)
 	if(!brain)
-		user << "\red You upend the MMI, but there's nothing in it."
+		user << "<span class='info'>You upend the MMI, but there's nothing in it.</span>"
 	else if(locked)
-		user << "\red You upend the MMI, but the brain is clamped into place."
+		user << "<span class='info'>You upend the MMI, but the brain is clamped into place.</span>"
 	else
-		user << "\blue You upend the MMI, spilling the brain onto the floor."
+		user << "<span class='info'>You upend the MMI, spilling the brain onto the floor.</span>"
 
 		brainmob.container = null //Reset brainmob mmi var.
 		brainmob.loc = brain //Throw mob into brain.
@@ -128,7 +128,7 @@
 		brainmob << "Can't do that while incapacitated or dead."
 
 	radio.broadcasting = radio.broadcasting==1 ? 0 : 1
-	brainmob << "\blue Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting."
+	brainmob << "<span class='info'>Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting.</span>"
 
 /obj/item/device/mmi/radio_enabled/verb/Toggle_Listening()
 	set name = "Toggle Listening"
@@ -141,7 +141,7 @@
 		brainmob << "Can't do that while incapacitated or dead."
 
 	radio.listening = radio.listening==1 ? 0 : 1
-	brainmob << "\blue Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast."
+	brainmob << "<span class='info'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>"
 
 /obj/item/device/mmi/emp_act(severity)
 	if(!brainmob)

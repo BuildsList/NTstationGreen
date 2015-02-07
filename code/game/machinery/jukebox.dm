@@ -63,11 +63,11 @@ var/songsText = ""
 		if(src.locked)
 			src.locked = 0
 			locktime = 1
-			user << "\blue The [src.name] is now unlocked."
+			user << "<span class='info'>The [src.name] is now unlocked.</span>"
 			return
 		else
 			src.locked = 1
-			user << "\blue The [src.name] is now locked. The lock will automatically expire after three minutes or whenever you decide to unlock it."
+			user << "<span class='info'>The [src.name] is now locked. The lock will automatically expire after three minutes or whenever you decide to unlock it.</span>"
 			locktime = 180
 			locktimer()
 			return

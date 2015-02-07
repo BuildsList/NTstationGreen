@@ -180,12 +180,12 @@
 	//Begin code phrase.
 	killer << "Синдикат дал вам информацию о том, как св&#255;затс&#255; с другими агентами:"
 	if(prob(80))
-		killer << "\red Кодова&#255; фраза: \black [syndicate_code_phrase]"
+		killer << "<span class='info'>Кодова&#255; фраза: \black [syndicate_code_phrase]</span>"
 		killer.mind.store_memory("<b>Кодова&#255; фраза</b>: [syndicate_code_phrase]")
 	else
 		killer << "К сожалению, Синдикат не предоставил вам кодовую фразу."
 	if(prob(80))
-		killer << "\red Ответ на кодовую фразу: \black [syndicate_code_response]"
+		killer << "<span class='info'>Ответ на кодовую фразу: \black [syndicate_code_response]</span>"
 		killer.mind.store_memory("<b>Ответ на кодовую фразу</b>: [syndicate_code_response]")
 	else
 		killer << "К сожалению, Синдикат не предоставил вам информацию об ответе на кодовую фразу."
@@ -311,12 +311,12 @@
 	if(!safety)//If they are not a rev. Can be added on to.
 		traitor_mob << "Синдикат дал вам информацию о том, как св&#255;затс&#255; с другими агентами:"
 		if(prob(80))
-			traitor_mob << "\red Кодова&#255; фраза: \black [syndicate_code_phrase]"
+			traitor_mob << "<span class='info'>Кодова&#255; фраза: \black [syndicate_code_phrase]</span>"
 			traitor_mob.mind.store_memory("<b>Кодова&#255; фраза</b>: [syndicate_code_phrase]")
 		else
 			traitor_mob << "К сожалению, Синдикат не предоставил вам кодовую фразу."
 		if(prob(80))
-			traitor_mob << "\red Ответ на кодовую фразу: \black [syndicate_code_response]"
+			traitor_mob << "<span class='info'>Ответ на кодовую фразу: \black [syndicate_code_response]</span>"
 			traitor_mob.mind.store_memory("<b>Ответ на кодовую фразу</b>: [syndicate_code_response]")
 		else
 			traitor_mob << "К сожалению, Синдикат не предоставил вам информацию об ответе на кодовую фразу.."

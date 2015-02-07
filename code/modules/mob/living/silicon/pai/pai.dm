@@ -209,7 +209,7 @@
 				cameralist[C.network] = C.network
 
 	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	src << "\blue Switched to [src.network] camera network."
+	src << "<span class='info'>Switched to [src.network] camera network.</span>"
 //End of code by Mord_Sith
 */
 

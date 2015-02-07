@@ -63,7 +63,7 @@ var/round_start_time = 0
 		if((master_mode=="secret") && (secret_force_mode != "secret"))
 			var/datum/game_mode/smode = config.pick_mode(secret_force_mode)
 			if (!smode.can_start())
-				message_admins("\blue Unable to force secret [secret_force_mode]. [smode.required_players] players and [smode.required_enemies] eligible antagonists needed.", 1)
+				message_admins("<span class='info'>Unable to force secret [secret_force_mode]. [smode.required_players] players and [smode.required_enemies] eligible antagonists needed.</span>", 1)
 			else
 				src.mode = smode
 
@@ -287,17 +287,17 @@ var/round_start_time = 0
 				showcredits()
 				if (mode.station_was_nuked)
 					if(!delay_end)
-						world << "\blue <B>Станци&#255; была уничтожена, перезагрузка через [restart_timeout/10] секунд</B>"
+						world << "<span class='info'><B>Станци&#255; была уничтожена, перезагрузка через [restart_timeout/10] секунд</B></span>"
 				else
 					if(!delay_end)
-						world << "\blue <B>Перезагрузка через [restart_timeout/10] секунд</B>"
+						world << "<span class='info'><B>Перезагрузка через [restart_timeout/10] секунд</B></span>"
 
 				if(!delay_end)
 					sleep(restart_timeout)
-					kick_clients_in_lobby("\red Прекрати мастурбировать, или &#255; расскажу твоей матери.", 1) //second parameter ensures only afk clients are kicked
+					kick_clients_in_lobby("<span class='info'>Прекрати мастурбировать, или &#255; расскажу твоей матери.</span>", 1) //second parameter ensures only afk clients are kicked
 					world.Reboot()
 				else
-					world << "\blue <B>Администратор отложил конец раунда.</B>"
+					world << "<span class='info'><B>Администратор отложил конец раунда.</B></span>"
 
 		return 1
 
@@ -319,7 +319,7 @@ var/round_start_time = 0
 
 		if (aiPlayer.connected_robots.len)
 			var/robolist = "<b>Ло&#255;льными миньонами [aiPlayer.real_name] были:</b> "
-			var/vsrobolist = "\red <b>Самосто&#255;тельными миньонами [aiPlayer.real_name] были:</b> \black"
+			var/vsrobolist = "<span class='info'><b>Самосто&#255;тельными миньонами [aiPlayer.real_name] были:</b> \black</span>"
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				if (is_special_character(robo) && robo.mind)
 					vsrobolist += "[robo.name][robo.stat?" (Деактивирован) (Игрок: [robo.mind.key]), ":" (Игрок: [robo.mind.key]), "]"

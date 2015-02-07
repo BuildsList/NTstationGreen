@@ -192,7 +192,7 @@
 
 /datum/game_mode/wizard/declare_completion()
 	if(finished)
-		world << "\red <FONT size = 3><B>[(wizards.len>1)?"Волшебники":"Волшебник"] был убит персоналом! Федераци&#255; Космических Волшебников не скоро забудет этот урок.</B></FONT>"
+		world << "<span class='info'><FONT size = 3><B>[(wizards.len>1)?"Волшебники":"Волшебник"] был убит персоналом! Федераци&#255; Космических Волшебников не скоро забудет этот урок.</B></FONT></span>"
 	..()
 	return 1
 

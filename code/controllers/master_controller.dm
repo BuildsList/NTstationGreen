@@ -61,7 +61,7 @@ datum/controller/game_controller/New()
 		job_master = new /datum/controller/occupations()
 		job_master.SetupOccupations()
 		job_master.LoadJobs("config/jobs.txt")
-		world << "\red \b Job setup complete"
+		world << "<span class='info'>\b Job setup complete</span>"
 
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
@@ -83,17 +83,17 @@ datum/controller/game_controller/proc/setup()
 			ticker.pregame()
 
 datum/controller/game_controller/proc/setup_objects()
-	world << "\red \b Initializing objects..."
+	world << "<span class='info'>\b Initializing objects...</span>"
 	sleep(-1)
 	for(var/atom/movable/object in world)
 		object.initialize()
 
-	world << "\red \b Initializing pipe networks..."
+	world << "<span class='info'>\b Initializing pipe networks...</span>"
 	sleep(-1)
 	for(var/obj/machinery/atmospherics/machine in world)
 		machine.build_network()
 
-	world << "\red \b Initializing atmos machinery..."
+	world << "<span class='info'>\b Initializing atmos machinery...</span>"
 	sleep(-1)
 	for(var/obj/machinery/atmospherics/unary/U in world)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
@@ -103,12 +103,12 @@ datum/controller/game_controller/proc/setup_objects()
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
 
-	world << "\red \b Making a mess..."
+	world << "<span class='info'>\b Making a mess...</span>"
 	sleep(-1)
 	for(var/turf/simulated/floor/F in world)
 		F.MakeDirty()
 
-	world << "\red \b Initializations complete."
+	world << "<span class='info'>\b Initializations complete.</span>"
 	sleep(-1)
 
 
