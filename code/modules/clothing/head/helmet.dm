@@ -4,7 +4,7 @@
 	icon_state = "helmet"
 	flags = HEADCOVERSEYES
 	item_state = "helmet"
-	armor = list(melee = 55, bullet = 25, laser = 65, energy = 40, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 55, bullet = 25, laser = 75,energy = 15, bomb = 25, bio = 0, rad = 0)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
@@ -16,7 +16,7 @@
 	desc = "The hat of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
 	flags = HEADCOVERSEYES
-	armor = list(melee = 85, bullet = 85, laser = 60, energy = 40, bomb = 25, bio = 10, rad = 0)
+	armor = list(melee = 85, bullet = 85, laser = 65,energy = 15, bomb = 25, bio = 10, rad = 0)
 	flags_inv = 0
 	flags_inv = HIDEEARS
 
@@ -29,7 +29,7 @@
 /obj/item/clothing/head/helmet/roman
 	name = "roman helmet"
 	desc = "An ancient helmet made of bronze and leather."
-	armor = list(melee = 30, bullet = 0, laser = 35, energy = 40, bomb = 10, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 0, laser = 35, energy = 15, bomb = 10, bio = 0, rad = 0)
 	icon_state = "roman"
 	item_state = "roman"
 
@@ -51,7 +51,7 @@
 	icon_state = "riot"
 	item_state = "helmet"
 	flags = HEADCOVERSEYES|HEADCOVERSMOUTH
-	armor = list(melee = 85, bullet = 20, laser = 20,energy = 75, bomb = 25, bio = 2, rad = 0)
+	armor = list(melee = 85, bullet = 25, laser = 25,energy = 25, bomb = 25, bio = 2, rad = 0)
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/helmet/swat
@@ -60,7 +60,7 @@
 	icon_state = "swat"
 	flags = HEADCOVERSEYES
 	item_state = "swat"
-	armor = list(melee = 85, bullet = 85, laser = 75,energy = 100, bomb = 50, bio = 10, rad = 0)
+	armor = list(melee = 85, bullet = 85, laser = 75,energy = 45, bomb = 50, bio = 10, rad = 0)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT

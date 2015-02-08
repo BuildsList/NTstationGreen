@@ -23,8 +23,13 @@
 /obj/item/weapon/watertank/examine()
 	set src in usr
 	..()
-	for(var/datum/reagent/R in reagents.reagent_list)
-		usr << "[round(R.volume)] units of [R.name] left."
+	if (reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			usr << "[round(R.volume)] units of [R.name] left."
+	return
+
+/obj/item/weapon/watertank/on_takeoff(mob/user as mob)
+	remove_noz(user)
 	return
 
 /obj/item/weapon/watertank/ui_action_click()
@@ -42,8 +47,7 @@
 	var/mob/living/carbon/human/user = usr
 	if(on)
 		//Detach the nozzle into the user's hands
-		var/list/L = list("left hand" = slot_l_hand,"right hand" = slot_r_hand)
-		if(!user.equip_in_one_of_slots(noz, L))
+		if (!user.put_in_any_hand_if_possible(noz))
 			on = 0
 			user << "<span class='notice'>You need a free hand to hold the mister!</span>"
 			return

@@ -582,7 +582,7 @@ obj/machinery/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 				user << "You can't get any extract out of this plant."		//That. Gives me an idea...
 				return
 
-		if(!reagent_source.reagents.total_volume)
+		if(!reagent_source.reagents || (reagent_source.reagents && (!reagent_source.reagents.total_volume)))
 			user << "<span class='notice'>[reagent_source] is empty.</span>"
 			return 1
 

@@ -26,11 +26,11 @@
 		return
 
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
-		if(!A.reagents.total_volume && A.reagents)
+		if(!A.reagents || (A.reagents && !A.reagents.total_volume))
 			user << "<span class='notice'>\The [A] is empty.</span>"
 			return
 
-		if(reagents.total_volume >= reagents.maximum_volume)
+		if(!reagents || (reagents && (reagents.total_volume >= reagents.maximum_volume)))
 			user << "<span class='notice'>\The [src] is full.</span>"
 			return
 
@@ -38,7 +38,7 @@
 		user << "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [A].</span>"
 		return
 
-	if(reagents.total_volume < amount_per_transfer_from_this)
+	if(!reagents || (reagents && (reagents.total_volume < amount_per_transfer_from_this)))
 		user << "<span class='notice'>\The [src] is empty!</span>"
 		return
 
