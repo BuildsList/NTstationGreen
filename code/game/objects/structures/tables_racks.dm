@@ -538,6 +538,15 @@
 			new /obj/item/weapon/table_parts(loc)
 		density = 0
 		qdel(src)
+	else if(usr.a_intent == "disarm" && get_dist(user, src) <= 1 && !usr.buckled)
+		visible_message("<span class='notice'>[user] trying to clumb on the [src].</span>")
+		if(do_mob(user, get_turf(user), 8))
+			if(prob(70))
+				visible_message("<span class='notice'>[user] climbs on the [src].</span>")
+				usr.loc = src.loc
+			else
+				visible_message("<span class='warning'>[user] slipped off the edge of the [src].</span>")
+				usr.weakened += 3
 	else
 		..()
 
@@ -555,19 +564,7 @@
 		return 0
 
 
-/obj/structure/table/MouseDrop_T(atom/O, mob/user)
-	if(istype(O, /mob/living/carbon/human) && O == user)
-		visible_message("<span class='notice'>[user] trying to clumb on the [src].</span>")
-		if(do_mob(user, get_turf(user), 8))
-			if(check_obstacles(user))
-				if(prob(70))
-					visible_message("<span class='notice'>[user] climbs on the [src].</span>")
-					user.loc = src.loc
-				else
-					visible_message("<span class='warning'>[user] slipped off the edge of the [src].</span>")
-					user.weakened += 3
-			else
-				user << "You cant climb on the [src]. Something blocks you."
+/obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	if ((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
@@ -617,19 +614,6 @@
 	if(!(I.flags & ABSTRACT)) //rip more parems rip in peace ;_;
 		if(user.drop_item())
 			I.Move(loc)
-
-/obj/structure/table/proc/check_obstacles(mob/user as mob)
-	var/turf/T = src.loc
-	if(!istype(T)) 	return 0
-	if(T.density)	return 0
-	for(var/obj/o in T)
-		if(o == src)	continue
-		if(o.density)
-			if(istype(o, /obj/machinery/door/window))
-				if(get_dir(o.loc, user.loc) != o.dir)
-					continue
-			return 0
-	return 1
 
 /obj/structure/table/proc/table_destroy(var/destroy_type, var/mob/user as mob)
 
