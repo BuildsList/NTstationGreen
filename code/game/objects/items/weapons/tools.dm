@@ -211,7 +211,7 @@
 
 
 /obj/item/weapon/weldingtool/afterattack(atom/O, mob/user, proximity)
-	if(!proximity) return
+	if(!proximity || !isnull(gc_destroyed)) return
 	if(istype(O, /obj/structure/reagent_dispensers/fueltank) && in_range(src, O))
 		if(!welding)
 			O.reagents.trans_to(src, max_fuel)
