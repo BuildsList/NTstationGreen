@@ -127,7 +127,7 @@
 
 	//done throwing, either because it hit something or it finished moving
 	src.throwing = 0
-	if(isobj(src)) src.throw_impact(get_turf(src))
+	if(isobj(src) && isnull(src.gc_destroyed)) src.throw_impact(get_turf(src))
 
 
 //Overlays
