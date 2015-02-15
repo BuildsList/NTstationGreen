@@ -69,6 +69,7 @@
 /obj/machinery/bot/medbot/proc/updateicon()
 	if(!on)
 		icon_state = "medibot0"
+		return
 	if(mode == BOT_HEALING)
 		icon_state = "medibots[stationary_mode]"
 		return
@@ -414,6 +415,7 @@
 		patient = null
 		mode = BOT_IDLE
 		last_found = world.time
+		updateicon()
 		return
 
 	if(C.stat == 2)
@@ -423,6 +425,7 @@
 		patient = null
 		mode = BOT_IDLE
 		last_found = world.time
+		updateicon()
 		return
 
 	var/reagent_id = null
@@ -477,6 +480,15 @@
 			"<span class='userdanger'>[src] is trying to inject [patient]!</span>")
 
 		spawn(30)
+			if(!C)
+				var/message = pick("Where are you?","I was ready to heal you!","Patient is missing. No, not dead, just disappear.")
+				speak(message)
+				oldpatient = patient
+				patient = null
+				mode = BOT_IDLE
+				last_found = world.time
+				updateicon()
+				return
 			if ((get_dist(src, patient) <= 1) && (on))
 				if((reagent_id == "internal_beaker") && (reagent_glass) && (reagent_glass.reagents.total_volume))
 					reagent_glass.reagents.trans_to(patient,injection_amount) //Inject from beaker instead.

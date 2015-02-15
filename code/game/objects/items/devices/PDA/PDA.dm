@@ -484,8 +484,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if ("Authenticate")//Checks for ID
 				id_check(U, 1)
 			if("UpdateInfo")
-				ownjob = id.assignment
-				update_label()
+				if (!isnull(id))
+					ownjob = id.assignment
+					update_label()
 			if("Eject")//Ejects the cart, only done from hub.
 				if (!isnull(cartridge))
 					var/turf/T = loc
