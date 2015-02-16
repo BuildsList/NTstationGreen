@@ -578,6 +578,8 @@
 
 /obj/structure/table/attackby(obj/item/I, mob/user)
 	if (istype(I, /obj/item/weapon/grab))
+		if (!isnull(I.gc_destroyed))
+			return
 		if(get_dist(src, user) < 2)
 			var/obj/item/weapon/grab/G = I
 			if(G.affecting.buckled)

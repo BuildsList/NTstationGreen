@@ -410,7 +410,7 @@
 	if(!on)
 		return
 
-	if(!istype(C))
+	if(!C || !istype(C))
 		oldpatient = patient
 		patient = null
 		mode = BOT_IDLE

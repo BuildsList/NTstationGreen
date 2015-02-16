@@ -113,6 +113,8 @@
 	return
 
 /obj/item/weapon/tank/proc/ignite()	//This happens when a bomb is told to explode
+	if (!isnull(src.gc_destroyed))
+		return
 	var/fuel_moles = air_contents.toxins + air_contents.oxygen/6
 	var/strength = 1
 
