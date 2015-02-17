@@ -37,13 +37,13 @@
 					src << "<span class='warning'>Your hands are full.</span>"
 					usr << "<span class='warning'>Their hands are full.</span>"
 					return
-				else
+				else if (ishuman(src))
 					var/obj/item/organ/limb/affecting = getlimb(/obj/item/organ/limb/r_arm)
 
 					if(src.r_hand == null && affecting.state != ORGAN_REMOVED)
 						r_hand = I
 						usr.drop_item()
-					else	
+					else
 						affecting = getlimb(/obj/item/organ/limb/l_arm)
 						if(l_hand == null && affecting.state != ORGAN_REMOVED)
 							l_hand = I

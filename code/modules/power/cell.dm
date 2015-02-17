@@ -14,13 +14,18 @@
 
 	if(charge < 0.01)
 		return
+	if(maxcharge < 0.01)	// Avoid "Division by zero" error
+		return
 	else if(charge/maxcharge >=0.995)
 		overlays += image('icons/obj/power.dmi', "cell-o2")
 	else
 		overlays += image('icons/obj/power.dmi', "cell-o1")
 
 /obj/item/weapon/stock_parts/cell/proc/percent()		// return % charge of cell
-	return 100.0*charge/maxcharge
+	if (maxcharge > 0)	// How this possible? IDK, but let's just avoid "Division by zero" error
+		return 100.0*charge/maxcharge
+	else
+		return 0
 
 // use power from a cell
 /obj/item/weapon/stock_parts/cell/proc/use(var/amount)

@@ -205,6 +205,8 @@
 
 
 /obj/item/weapon/pinpointer/nukeop/proc/worklocation()
+	if (!isnull(src.gc_destroyed))
+		return
 	if(!active)
 		return
 	if(!mode)

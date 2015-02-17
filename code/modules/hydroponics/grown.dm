@@ -580,6 +580,7 @@
 	desc = "I say to-mah-to, you say tom-mae-to."
 	icon_state = "tomato"
 	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/tomato
+	var/crumpled = 0
 	New(var/loc, var/potency = 10)
 		..()
 		if(reagents)
@@ -589,8 +590,18 @@
 	throw_impact(atom/hit_atom)
 		..()
 		new/obj/effect/decal/cleanable/tomato_smudge(src.loc)
-		src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
-		qdel(src)
+		if(src.crumpled)
+			src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+			qdel(src)
+			return
+		else
+			if (prob(50))
+				src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+				qdel(src)
+				return
+			else
+				src.visible_message("<span class='notice'>The [src.name] bounced from the [hit_atom.name].</span>","<span class='moderate'>You hear a smack.</span>")
+				crumpled = 1
 		return
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/killertomato
@@ -618,6 +629,7 @@
 	desc = "So bloody...so...very...bloody....AHHHH!!!!"
 	icon_state = "bloodtomato"
 	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/bloodtomato
+	var/crumpled = 0
 	New(var/loc, var/potency = 10)
 		..()
 		if(reagents)
@@ -629,13 +641,21 @@
 	..()
 	if(potency >= 50)
 		new /obj/effect/gibspawner/generic(src.loc)
-	else
-		new/obj/effect/decal/cleanable/blood/splatter(src.loc)
-	src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
 	src.reagents.reaction(get_turf(hit_atom))
 	for(var/atom/A in get_turf(hit_atom))
 		src.reagents.reaction(A)
-	qdel(src)
+	if(src.crumpled)
+		src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+		qdel(src)
+		return
+	else
+		if (prob(50))
+			src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+			qdel(src)
+			return
+		else
+			src.visible_message("<span class='notice'>The [src.name] bounced from the [hit_atom.name].</span>","<span class='moderate'>You hear a smack.</span>")
+			crumpled = 1
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/bluetomato
@@ -644,6 +664,7 @@
 	desc = "I say blue-mah-to, you say blue-mae-to."
 	icon_state = "bluetomato"
 	dried_type = /obj/item/weapon/reagent_containers/food/snacks/grown/bluetomato
+	var/crumpled = 0
 	New(var/loc, var/potency = 10)
 		..()
 		if(reagents)
@@ -653,12 +674,22 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/bluetomato/throw_impact(atom/hit_atom)
 	..()
-	new/obj/effect/decal/cleanable/oil(src.loc)
-	src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+	new/obj/effect/decal/cleanable/oil(hit_atom)
 	src.reagents.reaction(get_turf(hit_atom))
 	for(var/atom/A in get_turf(hit_atom))
 		src.reagents.reaction(A)
-	qdel(src)
+	if(src.crumpled)
+		src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+		qdel(src)
+		return
+	else
+		if (prob(50))
+			src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
+			qdel(src)
+			return
+		else
+			src.visible_message("<span class='notice'>The [src.name] bounced from the [hit_atom.name].</span>","<span class='moderate'>You hear a smack.</span>")
+			crumpled = 1
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/bluetomato/Crossed(AM as mob|obj)

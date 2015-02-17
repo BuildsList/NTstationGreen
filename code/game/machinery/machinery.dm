@@ -200,6 +200,8 @@ Class Procs:
 
 /obj/machinery/Topic(href, href_list)
 	..()
+	if (!isnull(gc_destroyed))
+		return 1
 	if(!interact_offline && stat & (NOPOWER|BROKEN))
 		return 1
 	if(!usr.canUseTopic(src))

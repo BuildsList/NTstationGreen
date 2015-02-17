@@ -32,6 +32,7 @@
 			dat += "<HR>Chemical Implants<BR>"
 			var/turf/Tr = null
 			for(var/obj/item/weapon/implant/chem/C in world)
+				if (!isnull(C.gc_destroyed)) continue
 				Tr = get_turf(C)
 				if((Tr) && (Tr.z != src.z))	continue//Out of range
 				if(!C.implanted) continue
@@ -42,6 +43,8 @@
 				dat += "********************************<BR>"
 			dat += "<HR>Tracking Implants<BR>"
 			for(var/obj/item/weapon/implant/tracking/T in world)
+				if (!isnull(T.gc_destroyed))
+					continue
 				if(!iscarbon(T.imp_in))
 					continue
 				if(!T.implanted)

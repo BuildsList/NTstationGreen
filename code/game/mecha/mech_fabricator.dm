@@ -388,6 +388,8 @@
 		var/list/part_set = part_sets[set_name]
 		if(islist(part_set))
 			for(var/obj/item/part in part_set)
+				if (!istype(part))
+					error("Incorrect part type in Mech fabricator - [part.type]")
 				add_to_queue(part)
 	return
 
