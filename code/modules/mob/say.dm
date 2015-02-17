@@ -22,7 +22,7 @@
 		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
 		return
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim(strip_html_properly(sanitize(message)))
 
 	if(ishuman(src) || isrobot(src))
 		usr.emote("me",1,message)

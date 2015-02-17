@@ -60,7 +60,6 @@
 		if (has_organic_effect(/datum/organic_effect/hulk) && health >= 25 && length(message))
 			if(copytext(message, 1, 2) != "*")
 				message = "[upperrustext(replacetext(message, ".", "!"))]!!" //because I don't know how to code properly in getting vars from other files -Bro
-		/*
 		if((src:client) && (src:brainloss < 60)) // D2K5 code
 			if(copytext(message, 1, 2) != "*")
 				message = replacetext(message, "=D", "")
@@ -74,6 +73,9 @@
 				message = replacetext(message, ":P", "")
 				message = replacetext(message, ":D", "")
 				message = replacetext(message, ":)", "")
+				message = replacetext(message, "^^", "")
+				message = replacetext(message, ":^)", "")
+				message = replacetext(message, ";)", "")
 				message = replacetext(message, ":3", "")
 				message = replacetext(message, ":(", "")
 				message = replacetext(message, "(", "")
@@ -82,6 +84,7 @@
 				message = replacetext(message, "трейтор", "предатель")
 				message = replacetext(message, "тритор", "предатель")
 				message = replacetext(message, " малф", " сломан")
+				message = replacetext(message, " Малф", " Сломан")
 				message = replacetext(message, " визард", " волшебник")
 				message = replacetext(message, " инжинер", " инженер")
 				message = replacetext(message, " инж ", " инженер ")
@@ -100,9 +103,18 @@
 				message = replacetext(message, "Хармбатон", "Дубинка")
 				message = replacetext(message, "Хармбатон&#255;т", "Бьют дубинкой")
 				message = replacetext(message, "Спс", "Спасибо")
-				message = replacetext(message, "Хз", " Хуй знает")
+				message = replacetext(message, "спс", "спасибо")
+				message = replacetext(message, "СПС", "СПАСИБО")
+				message = replacetext(message, "Хз ", "Хуй знает ")
+				message = replacetext(message, " хз ", " хуй знает ")
+				message = replacetext(message, "ХЗ ", "ХУЙ ЗНАЕТ ")
+				message = replacetext(message, " лол ", " ха-ха ")
+				message = replacetext(message, "Лол ", " Ха-ха ")
+				message = replacetext(message, "ЛОЛ ", " ХА-ХА ")
+				message = replacetext(message, " го ", " пошли ")
+				message = replacetext(message, "Го ", "Идем ")
+				message = replacetext(message, "ГО ", "ПОБЕЖАЛИ ")
 				//message = replacetext(message, "", "")
-		*/
 	..(message)
 
 

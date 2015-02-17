@@ -199,15 +199,7 @@ proc/sanitize_russian(var/msg, var/html = 0) //Заменить это как можно быстрее ме
 		opentag = findtext(input, "<")
 		closetag = findtext(input, ">")
 		if(closetag && opentag)
-			if(closetag < opentag)
-				input = copytext(input, (closetag + 1))
-			else
-				input = copytext(input, 1, opentag) + copytext(input, (closetag + 1))
-		else if(closetag || opentag)
-			if(opentag)
-				input = copytext(input, 1, opentag)
-			else
-				input = copytext(input, (closetag + 1))
+			input = copytext(input, 1, opentag) + copytext(input, (closetag + 1))
 		else
 			break
 	if(max_length)
