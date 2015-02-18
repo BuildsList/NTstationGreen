@@ -28,7 +28,7 @@
 			usr << "[round(R.volume)] units of [R.name] left."
 	return
 
-/obj/item/weapon/watertank/on_takeoff(mob/user as mob)
+/obj/item/weapon/watertank/dropped(mob/user as mob)
 	remove_noz(user)
 	return
 
