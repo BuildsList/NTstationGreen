@@ -158,6 +158,9 @@
 
 
 /obj/item/weapon/grenade/chem_grenade/prime()
+	if(!isnull(gc_destroyed))
+		return
+
 	if(stage != READY)
 		return
 

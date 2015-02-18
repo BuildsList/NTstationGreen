@@ -65,7 +65,7 @@
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 7
-	attack_verb = list("patted", "tapped")
+	var/list/inactive_attack_verb = list("patted", "tapped")
 
 /obj/item/weapon/assembly
 	icon = 'icons/obj/buildingobject.dmi'
@@ -91,6 +91,11 @@
 	desc = "A plasteel grip with screw fittings for a blade."
 	icon_state = "butterfly1"
 
+
+/obj/item/weapon/butterfly/New()
+	..()
+	attack_verb = null
+	attack_verb += inactive_attack_verb
 
 /obj/item/weapon/assembly/butterfly/handle/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/assembly/butterfly/blade))
@@ -121,7 +126,8 @@
 		hitsound = initial(hitsound)
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
-		attack_verb = initial(attack_verb)
+		attack_verb = null
+		attack_verb += inactive_attack_verb	// initial proc don't work with lists
 	add_fingerprint(user)
 
 /obj/item/weapon/nullrod
