@@ -96,6 +96,10 @@
 /obj/mecha/Destroy()
 	src.go_out()
 	mechas_list -= src //global mech list
+	del(pr_int_temp_processor)
+	del(pr_inertial_movement)
+	del(pr_give_air)
+	del(pr_internal_damage)
 	..()
 
 ////////////////////////
@@ -564,6 +568,10 @@
 						E.forceMove(T)
 						E.destroy()
 		spawn(0)
+			pr_int_temp_processor.stop()
+			pr_inertial_movement.stop()
+			pr_give_air.stop()
+			pr_internal_damage.stop()
 			qdel(src)
 	return
 
