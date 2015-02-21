@@ -120,6 +120,8 @@
 	return
 
 /obj/item/device/transfer_valve/process_activation(var/obj/item/device/D)
+	if(!isnull(src.gc_destroyed))
+		return
 	if(toggle)
 		toggle = 0
 		toggle_valve()

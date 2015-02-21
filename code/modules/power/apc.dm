@@ -861,7 +861,7 @@
 			malfai.malfhacking = 1
 			sleep(600)
 			if(src)
-				if (!src.aidisabled)
+				if (!src.aidisabled && isnull(src.gc_destroyed) && malfai && isnull(malfai.gc_destroyed))
 					malfai.malfhack = null
 					malfai.malfhacking = 0
 					locked = 1

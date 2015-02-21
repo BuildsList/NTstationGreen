@@ -82,6 +82,8 @@
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
 
 /obj/structure/constructshell/attackby(obj/item/O as obj, mob/user as mob)
+	if(!isnull(O.gc_destroyed))
+		return
 	if(istype(O, /obj/item/device/soulstone))
 		O.transfer_soul("CONSTRUCT",src,user)
 

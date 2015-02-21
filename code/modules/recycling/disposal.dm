@@ -420,10 +420,14 @@
 		H.tomail = 1
 
 	sleep(10)
+	if (!isnull(src.gc_destroyed))
+		return
 	if(last_sound < world.time + 1)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
+	if (!isnull(src.gc_destroyed))
+		return
 
 	H.init(src)	// copy the contents of disposer to holder
 	air_contents = new()		// new empty gas resv.
@@ -539,6 +543,8 @@
 	// start the movement process
 	// argument is the disposal unit the holder started in
 	proc/start(var/obj/machinery/disposal/D)
+		if (!isnull(src.gc_destroyed))
+			return
 		if(!D.trunk)
 			D.expel(src)	// no trunk connected, so expel immediately
 			return
@@ -555,6 +561,8 @@
 	proc/move()
 		var/obj/structure/disposalpipe/last
 		while(active)
+			if (!isnull(src.gc_destroyed))
+				return
 			var/obj/structure/disposalpipe/curr = loc
 			last = curr
 			curr = curr.transfer(src)
@@ -663,8 +671,7 @@
 				return
 
 			// otherwise, do normal expel from turf
-			if(H)
-				expel(H, T, 0)
+			expel(H, T, 0)
 		..()
 
 	// returns the direction of the next pipe object, given the entrance dir
