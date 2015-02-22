@@ -18,37 +18,37 @@
 	var/cooldown = 0//To prevent spam
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 
-	var/const/WIRE_RECEIVE = 1			//Allows Pulsed(0) to call Activate()
+	var/const/WIRE_RECEIVE = 1				//Allows Pulsed(0) to call Activate()
 	var/const/WIRE_PULSE = 2				//Allows Pulse(0) to act on the holder
 	var/const/WIRE_PULSE_SPECIAL = 4		//Allows Pulse(0) to act on the holders special assembly
 	var/const/WIRE_RADIO_RECEIVE = 8		//Allows Pulsed(1) to call Activate()
-	var/const/WIRE_RADIO_PULSE = 16		//Allows Pulse(1) to send a radio message
+	var/const/WIRE_RADIO_PULSE = 16			//Allows Pulse(1) to send a radio message
 
-	proc/activate()									//What the device does when turned on
+	proc/activate(var/source = "*No Source*", var/usr_name = "*No mob*")				//What the device does when turned on
 		return
 
-	proc/pulsed(var/radio = 0)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
+	proc/pulsed(var/radio = 0, var/source = "*No Source*", var/usr_name = "*No mob*")	//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
 		return
 
-	proc/pulse(var/radio = 0)						//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
+	proc/pulse(var/radio = 0, var/source = "*No Source*", var/usr_name = "*No mob*")	//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 		return
 
-	proc/toggle_secure()								//Code that has to happen when the assembly is un\secured goes here
+	proc/toggle_secure()																//Code that has to happen when the assembly is un\secured goes here
 		return
 
-	proc/attach_assembly(var/obj/A, var/mob/user)	//Called when an assembly is attacked by another
+	proc/attach_assembly(var/obj/A, var/mob/user)										//Called when an assembly is attacked by another
 		return
 
-	proc/process_cooldown()							//Called via spawn(10) to have it count down the cooldown var
+	proc/process_cooldown()																//Called via spawn(10) to have it count down the cooldown var
 		return
 
-	proc/holder_movement()							//Called when the holder is moved
+	proc/holder_movement()																//Called when the holder is moved
 		return
 
-	interact(mob/user as mob)					//Called when attack_self is called
+	interact(mob/user as mob)															//Called when attack_self is called
 		return
 
-	proc/describe()									// Called by grenades to describe the state of the trigger (time left, etc)
+	proc/describe()																		// Called by grenades to describe the state of the trigger (time left, etc)
 		return "The trigger assembly looks broken!"
 
 	process_cooldown()
@@ -59,19 +59,19 @@
 		return 1
 
 
-	pulsed(var/radio = 0)
+	pulsed(var/radio = 0, var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(holder && (wires & WIRE_RECEIVE))
-			activate()
+			activate(source, usr_name)
 		if(radio && (wires & WIRE_RADIO_RECEIVE))
-			activate()
+			activate(source, usr_name)
 		return 1
 
 
-	pulse(var/radio = 0)
+	pulse(var/radio = 0, var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(holder && (wires & WIRE_PULSE))
-			holder.process_activation(src, 1, 0)
+			holder.process_activation(src, 1, 0, source, usr_name)
 		if(holder && (wires & WIRE_PULSE_SPECIAL))
-			holder.process_activation(src, 0, 1)
+			holder.process_activation(src, 0, 1, source, usr_name)
 
 		if(istype(loc,/obj/item/weapon/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 			var/obj/item/weapon/grenade/G = loc
@@ -81,7 +81,7 @@
 		return 1
 
 
-	activate()
+	activate(var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(!secured || (cooldown > 0))	return 0
 		cooldown = 2
 		spawn(10)

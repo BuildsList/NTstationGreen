@@ -524,6 +524,8 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/customizable/examine()
 	..()
-	var/whatsinside = pick(ingredients)
-
-	usr << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+	if (ingredients.len)
+		var/whatsinside = pick(ingredients)
+		usr << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+	else
+		usr << "<span class='notice'> You don't see anything in there.</span>"

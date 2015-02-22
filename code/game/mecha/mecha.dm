@@ -568,10 +568,6 @@
 						E.forceMove(T)
 						E.destroy()
 		spawn(0)
-			pr_int_temp_processor.stop()
-			pr_inertial_movement.stop()
-			pr_give_air.stop()
-			pr_internal_damage.stop()
 			qdel(src)
 	return
 
@@ -1124,7 +1120,7 @@
 
 /obj/mecha/proc/go_out()
 	if(!src.occupant) return
-	if(!isnull(src.occupant.gc_destroyed)) return
+	//if(!isnull(src.occupant.gc_destroyed)) return
 	var/atom/movable/mob_container
 	if(ishuman(occupant))
 		mob_container = src.occupant

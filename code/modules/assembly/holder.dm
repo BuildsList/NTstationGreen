@@ -156,13 +156,13 @@
 		return
 
 
-	process_activation(var/obj/D, var/normal = 1, var/special = 1)
+	process_activation(var/obj/D, var/normal = 1, var/special = 1, var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(!D)	return 0
 		if((normal) && (a_right) && (a_left))
 			if(a_right != D)
-				a_right.pulsed(0)
+				a_right.pulsed(0, source, usr_name)
 			if(a_left != D)
-				a_left.pulsed(0)
+				a_left.pulsed(0, source, usr_name)
 		if(master)
 			master.receive_signal()
 		return 1

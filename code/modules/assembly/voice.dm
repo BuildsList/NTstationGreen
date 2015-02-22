@@ -16,7 +16,12 @@
 			T.visible_message("\icon[src] beeps, \"Activation message is '[recorded]'.\"")
 		else
 			if(findtext(msg, recorded))
-				pulse(0)
+				var/usr_n = M.name
+				if (M.client)
+					usr_n +="([M.key])"
+				else
+					usr_n +="(*No Key*)"
+				pulse(0, src.name, usr_n)
 
 	activate()
 		if(secured)

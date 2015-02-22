@@ -310,6 +310,15 @@
 		item.layer = initial(item.layer)
 		src.visible_message("<span class='warning'>[src] has thrown [item].</span>")
 
+		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+		var/turf/end_T = get_turf(target)
+		if(start_T && end_T)
+			var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
+			var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+
+			usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has thrown [item] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
+			log_attack("<font color='red'>[usr]([usr.key]) has thrown [item] from [start_T_descriptor] with the target [end_T_descriptor]</font>")
+
 		if(!src.lastarea)
 			src.lastarea = get_area(src.loc)
 		if(!has_gravity(src))
