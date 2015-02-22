@@ -104,7 +104,7 @@
 			if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
 				shoot_live_shot(user, 1, target)
 			else
-				shoot_live_shot(user, ftarget=target)
+				shoot_live_shot(user, 0, null, target)
 	else
 		shoot_with_empty_chamber(user)
 	process_chamber()
