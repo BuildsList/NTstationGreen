@@ -1123,7 +1123,8 @@
 
 
 /obj/mecha/proc/go_out()
-	if(!src.occupant && !isnull(src.occupant.gc_destroyed)) return
+	if(!src.occupant) return
+	if(!isnull(src.occupant.gc_destroyed)) return
 	var/atom/movable/mob_container
 	if(ishuman(occupant))
 		mob_container = src.occupant

@@ -143,6 +143,7 @@
 	update_robot_modules_display()
 
 /datum/hud/proc/update_robot_modules_display()
+	if(!isnull(mymob.gc_destroyed)) return
 	if(!isrobot(mymob)) return
 
 	var/mob/living/silicon/robot/r = mymob
@@ -187,6 +188,10 @@
 		else
 			//Modules display is hidden
 			r.client.screen -= r.throw_icon	//"store" icon
+
+			if(!r.module)
+				usr << "<span class='danger'>No module selected</span>"
+				return
 
 			for(var/atom/A in r.module.get_inactive_modules())
 				//Module is not currently active
