@@ -301,7 +301,7 @@
 	var/output = ""
 	var/list/part_set = listgetindex(part_sets, set_name)
 	if(istype(part_set))
-		world.log << "([time_stamp()]) Mechafab (\ref[src]) output set_name - [set_name] ; part_set - \ref[part_set]"
+		world.log << "([time_stamp()]) Mechafab (\ref[src])(output_parts_list) output set_name - [set_name] ; part_set - \ref[part_set]"
 		for(var/obj/item/part in part_set)
 			var/resources_available = check_resources(part)
 			output += "<div class='part'>[output_part_info(part)]<br>\[[resources_available?"<a href='?src=\ref[src];part=\ref[part]'>Build</a> | ":null]<a href='?src=\ref[src];add_to_queue=\ref[part]'>Add to queue</a>\]\[<a href='?src=\ref[src];part_desc=\ref[part]'>?</a>\]</div>"
@@ -395,6 +395,7 @@
 	return
 
 /obj/machinery/mecha_part_fabricator/proc/add_to_queue(part)
+	world.log << "([time_stamp()]) Mechafab (\ref[src])(add_to_queue) part - [part](\ref[part])"
 	if(!istype(queue))
 		queue = list()
 	if(part)
