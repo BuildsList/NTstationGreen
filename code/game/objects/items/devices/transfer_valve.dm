@@ -155,6 +155,8 @@
 /obj/item/device/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
+	if(!isnull(tank_one.gc_destroyed) || !isnull(tank_two.gc_destroyed))
+		return
 	var/ratio1 = tank_one.air_contents.volume/tank_two.air_contents.volume
 	var/datum/gas_mixture/temp
 	temp = tank_two.air_contents.remove_ratio(ratio1)
