@@ -243,6 +243,7 @@
 		target = safepick(view(3,target))
 		if(!target)
 			return
+	if(isarea(target)) return
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
 			selected.action(target)
