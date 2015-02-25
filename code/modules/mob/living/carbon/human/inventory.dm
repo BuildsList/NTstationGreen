@@ -265,7 +265,6 @@
 		if(s_store)
 			unEquip(s_store, 1) //It makes no sense for your suit storage to stay on you if you drop your suit.
 		wear_suit = null
-		I.on_takeoff(src)
 		update_inv_wear_suit(0)
 	else if(I == w_uniform)
 		if(r_store)
@@ -277,37 +276,29 @@
 		if(belt)
 			unEquip(belt)
 		w_uniform = null
-		I.on_takeoff(src)
 		update_inv_w_uniform(0)
 	else if(I == gloves)
 		gloves = null
-		I.on_takeoff(src)
 		update_inv_gloves(0)
 	else if(I == glasses)
 		glasses = null
-		I.on_takeoff(src)
 		update_inv_glasses(0)
 	else if(I == head)
 		head = null
-		I.on_takeoff(src)
 		if(I.flags & BLOCKHAIR)
 			update_hair(0)	//rebuild hair
 		update_inv_head(0)
 	else if(I == ears)
 		ears = null
-		I.on_takeoff(src)
 		update_inv_ears(0)
 	else if(I == shoes)
 		shoes = null
-		I.on_takeoff(src)
 		update_inv_shoes(0)
 	else if(I == belt)
 		belt = null
-		I.on_takeoff(src)
 		update_inv_belt(0)
 	else if(I == wear_mask)
 		wear_mask = null
-		I.on_takeoff(src)
 		if(I.flags & BLOCKHAIR)
 			update_hair(0)	//rebuild hair
 		if(internal)
@@ -317,19 +308,15 @@
 		update_inv_wear_mask(0)
 	else if(I == wear_id)
 		wear_id = null
-		I.on_takeoff(src)
 		update_inv_wear_id(0)
 	else if(I == r_store)
 		r_store = null
-		I.on_takeoff(src)
 		update_inv_pockets(0)
 	else if(I == l_store)
 		l_store = null
-		I.on_takeoff(src)
 		update_inv_pockets(0)
 	else if(I == s_store)
 		s_store = null
-		I.on_takeoff(src)
 		update_inv_s_store(0)
 
 	update_action_buttons()

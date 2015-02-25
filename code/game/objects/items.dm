@@ -232,10 +232,6 @@
 /obj/item/proc/dropped(mob/user as mob)
 	..()
 
-// called when item was taken off from mob
-/obj/item/proc/on_takeoff(mob/user as mob)
-	return
-
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	return

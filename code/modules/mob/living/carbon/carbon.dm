@@ -363,21 +363,17 @@
 
 	if(I == back)
 		back = null
-		I.on_takeoff(src)
 		update_inv_back(0)
 	else if(I == wear_mask)
 		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
-		I.on_takeoff(src)
 		update_inv_wear_mask(0)
 	else if(I == handcuffed)
 		handcuffed = null
-		I.on_takeoff(src)
 		update_inv_handcuffed(0)
 	else if(I == legcuffed)
 		legcuffed = null
-		I.on_takeoff(src)
 		update_inv_legcuffed(0)
 
 
