@@ -70,10 +70,16 @@
 /obj/effect/proc_holder/changeling/sting/transformation/Click()
 	var/mob/user = usr
 	var/datum/changeling/changeling = user.mind.changeling
-	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
-	if(!selected_dna)
+	var/datum/dna/NewDNA = changeling.select_dna("Select the target DNA: ", "Target DNA")
+	if(!NewDNA)
 		return
+	selected_dna = NewDNA
 	..()
+
+/obj/effect/proc_holder/changeling/sting/transformation/unset_sting(var/mob/user)
+	..()
+	selected_dna = null
+
 
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
@@ -81,10 +87,13 @@
 	if(target.has_organic_effect(/datum/organic_effect/husk) || !check_dna_integrity(target))
 		user << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
 		return 0
+	if(!selected_dna)
+		user << "<span class='warning'>We don't select DNA to transform a target.</span>"
+		return 0
 	return 1
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
-	add_logs(user, target, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
+	add_logs(user, target, "stung", object="transformation sting", addition=" (New identity is [selected_dna.real_name])")
 	var/datum/dna/NewDNA = selected_dna
 	if(ismonkey(target))
 		user << "<span class='notice'>We stealthily sting [target.name].</span>"

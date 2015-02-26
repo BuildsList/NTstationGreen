@@ -60,6 +60,8 @@
 		if(winget(src, "mainwindow.hotkey_toggle", "is-checked") == "true")
 			update_hotkey_mode()
 		else
+			if (!client)
+				error("Mob proc: update_normal_mode()  - No client")
 			update_normal_mode()
 
 /mob/proc/update_hotkey_mode()

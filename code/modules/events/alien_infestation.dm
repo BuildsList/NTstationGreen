@@ -28,6 +28,8 @@
 /datum/round_event/alien_infestation/start()
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
+		if(!isnull(temp_vent.gc_destroyed))
+			continue
 		if(temp_vent.loc.z == 1 && !temp_vent.welded && temp_vent.network)
 			if(temp_vent.network.normal_members.len > 20)	//Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent

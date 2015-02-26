@@ -49,7 +49,8 @@
 						if(target.Move(T))
 							break
 			target.canmove = 1
-			target.client.eye = target
+			if (target.client)
+				target.client.eye = target
 			qdel(animation)
 			qdel(holder)
 
