@@ -40,6 +40,8 @@
 		return
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
+		if(!isnull(gc_destroyed))
+			return
 		if(crit_fail)
 			user << "<span class = 'notice'>The Bluespace generator isn't working.</span>"
 			return

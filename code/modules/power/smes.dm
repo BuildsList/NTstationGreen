@@ -109,7 +109,8 @@
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
-		terminal.master = null
+		if(terminal.master)
+			terminal.master = null
 		terminal = null
 
 

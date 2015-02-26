@@ -413,6 +413,10 @@
 		qdel(src)
 		return
 
+	if(!isnull(target.gc_destroyed))
+		qdel(src)
+		return
+
 	ticks++
 
 	if(ticks >= target_strength)
@@ -440,5 +444,5 @@
 			visible_message("<span class='warning'>[target] begins to crumble under the acid!</span>")
 
 	spawn(rand(150, 200))
-		if(src)
+		if(src && isnull(src.gc_destroyed))
 			tick()

@@ -120,6 +120,8 @@
 	return
 
 /obj/item/device/transfer_valve/process_activation(var/obj/item/device/D)
+	if(!isnull(src.gc_destroyed))
+		return
 	if(toggle)
 		toggle = 0
 		toggle_valve()
@@ -152,6 +154,8 @@
 
 /obj/item/device/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
+		return
+	if(!isnull(tank_one.gc_destroyed) || !isnull(tank_two.gc_destroyed))
 		return
 	var/ratio1 = tank_one.air_contents.volume/tank_two.air_contents.volume
 	var/datum/gas_mixture/temp

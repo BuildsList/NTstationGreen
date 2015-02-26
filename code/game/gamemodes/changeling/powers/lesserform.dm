@@ -12,6 +12,7 @@
 
 	var/mob/living/carbon/monkey/O = user.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPSE | TR_KEEPSRC)
 
-	O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
-	.=1
+	if (O)
+		O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
+		.=1
 	qdel(user)

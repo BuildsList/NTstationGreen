@@ -193,19 +193,30 @@ proc/sanitize_russian(var/msg, var/html = 0) //Заменить это как можно быстрее ме
 /proc/strip_html_properly(var/input,var/max_length=MAX_MESSAGE_LEN)
 	if(!input)
 		return
-	var/opentag = 1 //These store the position of < and > respectively.
+	var/opentag = 1
 	var/closetag = 1
 	while(1)
-		opentag = findtext(input, "<")
-		closetag = findtext(input, ">")
-		if(closetag && opentag)
-			input = copytext(input, 1, opentag) + copytext(input, (closetag + 1))
+		opentag = findtext(input, "<", opentag) //These store the position of < and > respectively.
+		if(opentag)
+			closetag = findtext(input, ">", opentag)
+			if(closetag)
+				input = copytext(input, 1, opentag) + copytext(input, closetag + 1)
+			else
+				break
 		else
 			break
 	if(max_length)
 		input = copytext(input,1,max_length)
 	return input
-
+/*
+/mob/verb/test_strip_html_properly()
+	ASSERT(strip_html_properly("I love <html>html. It's so amazing!") == "I love html. It's so amazing!")
+	ASSERT(strip_html_properly(">here is cool text< yo") == ">here is cool text< yo")
+	ASSERT(strip_html_properly("A<F>W<U>E<C>S<K>O<O>M<F>E<F>") == "AWESOME")
+	ASSERT(strip_html_properly("A>B>C>D>E>F>G") =="A>B>C>D>E>F>G")
+	ASSERT(strip_html_properly("G<F<E<D<C<B<A") == "G<F<E<D<C<B<A")
+	world.log << "test finished"
+*/
 /*
  * Text searches
  */

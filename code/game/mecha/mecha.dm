@@ -96,6 +96,10 @@
 /obj/mecha/Destroy()
 	src.go_out()
 	mechas_list -= src //global mech list
+	del(pr_int_temp_processor)
+	del(pr_inertial_movement)
+	del(pr_give_air)
+	del(pr_internal_damage)
 	..()
 
 ////////////////////////
@@ -239,6 +243,7 @@
 		target = safepick(view(3,target))
 		if(!target)
 			return
+	if(isarea(target)) return
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
 			selected.action(target)
@@ -1116,6 +1121,7 @@
 
 /obj/mecha/proc/go_out()
 	if(!src.occupant) return
+	//if(!isnull(src.occupant.gc_destroyed)) return
 	var/atom/movable/mob_container
 	if(ishuman(occupant))
 		mob_container = src.occupant

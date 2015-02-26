@@ -64,9 +64,10 @@ var/const/AALARM_WIRE_AALARM = 16
 				A.update_icon()
 
 			spawn(12000)
-				if(A.shorted == 1)
-					A.shorted = 0
-					A.update_icon()
+				if (A && isnull(A.gc_destroyed))
+					if(A.shorted == 1)
+						A.shorted = 0
+						A.update_icon()
 
 
 		if (AALARM_WIRE_AI_CONTROL)
@@ -75,8 +76,9 @@ var/const/AALARM_WIRE_AALARM = 16
 				A.aidisabled = 1
 			A.updateDialog()
 			spawn(100)
-				if (A.aidisabled == 1)
-					A.aidisabled = 0
+				if (A && isnull(A.gc_destroyed))
+					if (A.aidisabled == 1)
+						A.aidisabled = 0
 
 		if(AALARM_WIRE_SYPHON)
 		//	world << "Syphon wire pulsed"

@@ -276,6 +276,5 @@ var/next_external_rsc = 0
 		'icons/stamp_icons/large_stamp-rd.png',
 		'icons/stamp_icons/large_stamp-cap.png',
 		'icons/stamp_icons/large_stamp-qm.png',
-		'icons/stamp_icons/large_stamp-law.png',
-		'turntable_back.jpg'
+		'icons/stamp_icons/large_stamp-law.png'
 		)

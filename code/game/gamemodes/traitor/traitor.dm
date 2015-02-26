@@ -67,14 +67,22 @@
 
 
 /datum/game_mode/traitor/post_setup()
+	var/exchange = 0
+	var/exchange_len = 0
 	for(var/datum/mind/traitor in traitors)
-		if(!exchange_blue && traitors.len >= 5) //Set up an exchange if there are enough traitors
-			if(!exchange_red)
-				exchange_red = traitor
-			else
-				exchange_blue = traitor
-				assign_exchange_role(exchange_red)
-				assign_exchange_role(exchange_blue)
+		if (issilicon(traitor.current))
+			exchange_len--
+	if (exchange_len >= 5) //Set up an exchange if there are enough traitors
+		exchange = 1
+	for(var/datum/mind/traitor in traitors)
+		if(!exchange_blue && exchange) //Set up an exchange if there are enough traitors
+			if (!issilicon(traitor.current))
+				if(!exchange_red)
+					exchange_red = traitor
+				else
+					exchange_blue = traitor
+					assign_exchange_role(exchange_red)
+					assign_exchange_role(exchange_blue)
 		else
 			forge_traitor_objectives(traitor)
 		spawn(rand(10,100))

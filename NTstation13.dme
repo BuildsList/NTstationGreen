@@ -49,7 +49,6 @@
 #define FILE_DIR "sound/mecha"
 #define FILE_DIR "sound/misc"
 #define FILE_DIR "sound/piano"
-#define FILE_DIR "sound/turntable"
 #define FILE_DIR "sound/violin"
 #define FILE_DIR "sound/voice"
 #define FILE_DIR "sound/voice/complionator"
@@ -60,7 +59,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "_maps\tgstation2.dm"
+#include "_maps\greenstation.dm"
 #include "_maps\RandomZLevels\moonoutpost19.dmm"
 #include "code\_compile_options.dm"
 #include "code\closing_credits.dm"
@@ -1311,8 +1310,6 @@
 #include "code\WorkInProgress\buildmode.dm"
 #include "code\WorkInProgress\explosion_particles.dm"
 #include "code\WorkInProgress\animusstation\reimu_hakkureis_donations.dm"
-#include "code\WorkInProgress\animusstation\turntable.dm"
-#include "code\WorkInProgress\animusstation\turntable_tracks.dm"
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"

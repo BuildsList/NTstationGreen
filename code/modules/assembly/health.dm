@@ -43,9 +43,9 @@
 		else
 			return ..()
 
-	sense()
+	sense(var/usr_name = "*No mob*")
 		if(!secured|| !scanning || cooldown > 0)	return 0
-		pulse(0)
+		pulse(0, src.name, usr_name)
 		visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
 		cooldown = 2
 		spawn(10)
@@ -62,7 +62,12 @@
 		if(M)
 			health_scan = M.health
 			if(health_scan <= alarm_health)
-				sense()
+				var/usr_n = M.name
+				if (M.client)
+					usr_n +="([M.key])"
+				else
+					usr_n +="(*No Key*)"
+				sense(usr_n)
 				scanning = 0
 			return
 		return

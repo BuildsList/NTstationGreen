@@ -84,6 +84,7 @@
 		occupant_message("<font color='red'><b>You start to drill [target]</b></font>")
 		var/T = chassis.loc
 		var/C = target.loc	//why are these backwards? we may never know -Pete
+		var/intent = chassis.occupant.a_intent
 		if(do_after_cooldown(target))
 			if(T == chassis.loc && src == chassis.selected)
 				if(istype(target, /turf/simulated/wall/r_wall))
@@ -114,7 +115,7 @@
 					log_message("Drilled through [target]")
 					if(ismob(target))
 						var/mob/M = target
-						add_logs(chassis.occupant, M, "attacked", object="[name]", addition="(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+						add_logs(chassis.occupant, M, "attacked", object="[name]", addition="(INTENT: [uppertext(intent)]) (DAMTYE: [uppertext(damtype)])")
 					target.ex_act(2)
 		return 1
 
@@ -144,6 +145,7 @@
 		occupant_message("<font color='red'><b>You start to drill [target]</b></font>")
 		var/T = chassis.loc
 		var/C = target.loc	//why are these backwards? we may never know -Pete
+		var/intent = chassis.occupant.a_intent
 		if(do_after_cooldown(target))
 			if(T == chassis.loc && src == chassis.selected)
 				if(istype(target, /turf/simulated/wall/r_wall))
@@ -174,7 +176,7 @@
 					log_message("Drilled through [target]")
 					if(ismob(target))
 						var/mob/M = target
-						add_logs(chassis.occupant, M, "attacked", object="[name]", addition="(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+						add_logs(chassis.occupant, M, "attacked", object="[name]", addition="(INTENT: [uppertext(intent)]) (DAMTYE: [uppertext(damtype)])")
 					target.ex_act(2)
 		return 1
 

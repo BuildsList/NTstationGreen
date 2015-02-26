@@ -31,5 +31,7 @@
 			user.adjustOxyLoss(-10)
 			user.adjustFireLoss(-10)
 			sleep(10)
+			if (!user)
+				return
 
 	return 1

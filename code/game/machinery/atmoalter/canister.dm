@@ -258,6 +258,8 @@ update_flag
 	return src.interact(user)
 
 /obj/machinery/portable_atmospherics/canister/interact(var/mob/user as mob)
+	if(!isnull(gc_destroyed))
+		return
 	if (src.destroyed)
 		return
 
@@ -283,6 +285,9 @@ Release Pressure: <A href='?src=\ref[src];pressure_adj=-1000'>-</A> <A href='?sr
 	return
 
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
+
+	if(!isnull(gc_destroyed))
+		return
 
 	//Do not use "if(..()) return" here, canisters will stop working in unpowered areas like space or on the derelict.
 	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))

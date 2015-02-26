@@ -23,13 +23,13 @@
 		return
 
 
-	activate()
+	activate(var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(cooldown > 0)	return 0
 		cooldown = 2
 		spawn(10)
 			process_cooldown()
 
-		signal()
+		signal(source ,usr_name)
 		return 1
 
 	update_icon()
@@ -90,7 +90,7 @@
 
 		if(href_list["send"])
 			spawn( 0 )
-				signal()
+				signal("Player","[usr.name]([usr.key])")
 
 		if(usr)
 			attack_self(usr)
@@ -98,7 +98,7 @@
 		return
 
 
-	proc/signal()
+	proc/signal(var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(!radio_connection) return
 
 		var/datum/signal/signal = new
@@ -109,7 +109,7 @@
 
 		var/time = time2text(world.realtime,"hh:mm:ss")
 		var/turf/T = get_turf(src)
-		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		lastsignalers.Add("[time] <B>:</B> [usr_name] used [src](Activate By: [source]) @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
 		return
 /*

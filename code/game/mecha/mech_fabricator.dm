@@ -301,9 +301,12 @@
 	var/output = ""
 	var/list/part_set = listgetindex(part_sets, set_name)
 	if(istype(part_set))
+		var/msg = "([time_stamp()]) Mechafab (\ref[src])(OPL) set - [set_name] ; part_set - \ref[part_set];"
 		for(var/obj/item/part in part_set)
+			msg += "[part];"
 			var/resources_available = check_resources(part)
 			output += "<div class='part'>[output_part_info(part)]<br>\[[resources_available?"<a href='?src=\ref[src];part=\ref[part]'>Build</a> | ":null]<a href='?src=\ref[src];add_to_queue=\ref[part]'>Add to queue</a>\]\[<a href='?src=\ref[src];part_desc=\ref[part]'>?</a>\]</div>"
+		world.log << msg
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/output_part_info(var/obj/item/part)
@@ -394,6 +397,7 @@
 	return
 
 /obj/machinery/mecha_part_fabricator/proc/add_to_queue(part)
+	world.log << "([time_stamp()]) Mechafab (\ref[src])(add_to_queue) part - [part](\ref[part])"
 	if(!istype(queue))
 		queue = list()
 	if(part)
@@ -574,6 +578,8 @@
 				for(var/part_set in part_sets)
 					left_part += "<a href='?src=\ref[src];part_set=[part_set]'>[part_set]</a> - \[<a href='?src=\ref[src];partset_to_queue=[part_set]'>Add all parts to queue\]<br>"
 			if("parts")
+				if (!part_set)
+					error("Interact proc;screen = [screen] - part_set is NULL")
 				left_part += output_parts_list(part_set)
 				left_part += "<hr><a href='?src=\ref[src];screen=main'>Return</a>"
 	dat = {"<html>
