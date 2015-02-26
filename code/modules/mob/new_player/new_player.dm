@@ -188,11 +188,205 @@
 			if(emergency_shuttle.direction == 1 && emergency_shuttle.timeleft() < 300) //Shuttle is past the point of no recall
 				dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
 
-		var/available_job_count = 0
-		for(var/datum/job/job in job_master.occupations)
-			if(job && IsJobAvailable(job.title))
-				available_job_count++;
+		var/limit = 17
+		var/list/splitJobs = list("Chief Engineer")
+		var/widthPerColumn = 295
+		var/width = widthPerColumn
+		dat += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='50%'>" // Table within a table for alignment, also allows you to easily add more colomns.
+		dat += "<table width='100%' cellpadding='1' cellspacing='0'>"
+		var/index = -1
 
+		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
+		var/datum/job/lastJob
+
+		for(var/datum/job/job in job_master.occupations)
+			if(job.title in nonhuman_positions)
+				continue
+			index += 1
+			if((index >= limit) || (job.title in splitJobs))
+				width += 295
+				if((index < limit) && (lastJob != null))
+					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
+					//the last job's selection color. Creating a rather nice effect.
+					for(var/i = 0, i < (limit - index), i += 1)
+						dat += "<tr bgcolor='[lastJob.selection_color]'><td >&nbsp</td></tr>"
+				dat += "</table></td><td width='50%'><table width='100%' cellpadding='1' cellspacing='0'>"
+				index = 0
+
+			dat += "<tr bgcolor='[job.selection_color]'><td align='center'>"
+			var/rank = job.title
+			lastJob = job
+			if(jobban_isbanned(src, rank))
+				dat += "<a class='linkOff'><font color=red>[rank]</font></a><font color=red><b> \[BANNED\]</b></font></td></tr>"
+				continue
+			if(!job.player_old_enough(src.client))
+				var/available_in_days = job.available_in_days(src.client)
+				dat += "<a class='linkOff'><font color=red>[rank]</font></a><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
+				continue
+			if(!IsJobAvailable(rank))
+				dat += "<a class='linkOff'>[rank]</a></td></tr>"
+				continue
+			if((rank in command_positions) || (rank == "AI"))//Bold head jobs
+				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'><b>[rank]</b></a>"
+			else
+				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[rank]"
+				if(job.total_positions > 1)
+					dat += " ([job.current_positions])"
+				dat += "</a>"
+
+			dat += "</td></tr>"
+
+		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
+			dat += "<tr bgcolor='[lastJob.selection_color]'><td>&nbsp</td></tr>"
+
+		dat += "</td'></tr></table>"
+
+		dat += "</center></table>"
+
+		//var/available_job_count = 0
+		//for(var/datum/job/job in job_master.occupations)
+		//	if(job && IsJobAvailable(job.title))
+		//		available_job_count++;
+		/*
+		var/list/engineeringJobs = list()
+		var/list/medicalJobs = list()
+		var/list/scienceJobs = list()
+		var/list/assistantJobs = list()
+		var/list/securityJobs = list()
+		var/list/civilianJobs = list()
+		var/datum/job/captain = null
+		var/datum/job/CE = null
+		var/datum/job/RD = null
+		var/datum/job/CMO = null
+		var/datum/job/HoP = null
+		var/datum/job/HoS = null
+
+		for(var/datum/job/job in job_master.occupations)
+			if(!job)
+				continue
+			if(job.title in command_positions)
+				if(job.title in engineering_positions)
+					CE = job
+				else if(job.title in medical_positions)
+					CMO = job
+				else if(job.title in science_positions)
+					RD = job
+				else if(job.title in security_positions)
+					HoS = job
+				else if(job.title in civilian_positions)
+					HoP = job
+				else
+					captain = job
+
+			else if(job.title in engineering_positions)
+				engineeringJobs.Add(job)
+			else if(job.title in medical_positions)
+				medicalJobs.Add(job)
+			else if(job.title in science_positions)
+				scienceJobs.Add(job)
+			else if(job.title in security_positions)
+				securityJobs.Add(job)
+			else if(job.title in assistant_occupations) //Always before civilian
+				assistantJobs.Add(job)
+			else if(job.title in civilian_positions)
+				civilianJobs.Add(job)
+
+		dat += "<div class='clearBoth'>Choose from the following open positions:</div><br>"
+		if(IsJobAvailable(captain.title))
+			dat += "<center><a class='commandPosition' bgcolor='[captain.selection_color]' href='byond://?src=\ref[src];SelectedJob=[captain.title]'>[captain.title]</a></center><br>" //ONE ABOVE ALL
+		else
+			dat += "<a class='linkOff'>[captain.title]</a><br><br>"
+
+		dat += "<table class='jobs'><td class='jobsColumn'>"
+
+		if(IsJobAvailable(CE.title))
+			dat += "<a class='commandPosition' bgcolor='[CE.selection_color]' href='byond://?src=\ref[src];SelectedJob=[CE.title]'>[CE.title]</a><br><br>"
+		else
+			dat += "<a class='linkOff'>[CE.title]</a><br><br>"
+
+		for(var/datum/job/job in engineeringJobs)
+			if(!job)
+				continue
+			if(IsJobAvailable(job.title))
+				dat += "<a class='otherPositions' bgcolor='[job.selection_color]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
+			else
+				dat += "<a class='linkOff'>[job.title]</a><br>"
+
+		dat += "</td><td class='jobsColumn'>"
+
+		if(IsJobAvailable(CMO.title))
+			dat += "<a class='commandPosition' bgcolor='[CMO.selection_color]' href='byond://?src=\ref[src];SelectedJob=[CMO.title]'>[CMO.title]</a><br><br>"
+		else
+			dat += "<a class='linkOff'>[CMO.title]</a><br><br>"
+
+		for(var/datum/job/job in medicalJobs)
+			if(!job)
+				continue
+			if(IsJobAvailable(job.title))
+				dat += "<a class='otherPositions' bgcolor='[job.selection_color]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
+			else
+				dat += "<a class='linkOff'>[job.title]</a><br>"
+
+		dat += "</td><td class='jobsColumn' bgcolor='#993399'>"
+
+		if(IsJobAvailable(RD.title))
+			dat += "<a class='commandPosition' bgcolor='[RD.selection_color]' href='byond://?src=\ref[src];SelectedJob=[RD.title]'>[RD.title]</a><br><br>"
+		else
+			dat += "<a class='linkOff'>[RD.title]</a><br><br>"
+
+		for(var/datum/job/job in scienceJobs)
+			if(!job)
+				continue
+			if(IsJobAvailable(job.title))
+				dat += "<a class='otherPositions' bgcolor='[job.selection_color]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
+			else
+				dat += "<a class='linkOff'>[job.title]</a><br>"
+
+		dat += "</td><td class='jobsColumn' bgcolor='#B22222'>"
+
+		if(IsJobAvailable(HoS.title))
+			dat += "<a class='commandPosition' bgcolor='[HoS.selection_color]' href='byond://?src=\ref[src];SelectedJob=[HoS.title]'>[HoS.title]</a><br><br>"
+		else
+			dat += "<a class='linkOff'>[HoS.title]</a><br><br>"
+
+		for(var/datum/job/job in securityJobs)
+			if(!job)
+				continue
+			if(IsJobAvailable(job.title))
+				dat += "<a class='otherPositions' bgcolor='[job.selection_color]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
+			else
+				dat += "<a class='linkOff'>[job.title]</a><br>"
+
+		dat += "</td><td class='jobsColumn' bgcolor='#6eaa2c'>"
+
+		if(IsJobAvailable(HoP.title))
+			dat += "<a class='commandPosition' bgcolor='[HoP.selection_color]' href='byond://?src=\ref[src];SelectedJob=[HoP.title]'>[HoP.title]</a><br><br>"
+		else
+			dat += "<a class='linkOff'>[HoP.title]</a><br><br>"
+
+		for(var/datum/job/job in civilianJobs)
+			if(!job)
+				continue
+			if(IsJobAvailable(job.title))
+				dat += "<a class='otherPositions' bgcolor='[job.selection_color]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
+			else
+				dat += "<a class='linkOff'>[job.title]</a><br>"
+
+		dat += "</td><td class='jobsColumn' bgcolor='#ffffff'>"
+
+		dat += "<a class='linkOff'>Any NT personnel</a><br><br>"
+
+		for(var/datum/job/job in assistantJobs)
+			if(!job)
+				continue
+			if(IsJobAvailable(job.title))
+				dat += "<a class='otherPositions' bgcolor='[job.selection_color]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
+			else
+				dat += "<a class='linkOff'>[job.title]</a><br>"
+
+		dat += "</td></td>"
+		*/
+		/* //OLD VERSION//UNCOMMENT IT IF YOU ADDED NEW JOB
 		dat += "<div class='clearBoth'>Choose from the following open positions:</div><br>"
 		dat += "<div class='jobs'><div class='jobsColumn'>"
 		var/job_count = 0
@@ -209,9 +403,9 @@
 
 		// Removing the old window method but leaving it here for reference
 		//src << browse(dat, "window=latechoices;size=300x640;can_close=1")
-
+		*/
 		// Added the new browser window method
-		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 440, 500)
+		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", width, 620)
 		popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 		popup.set_content(dat)
 		popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
