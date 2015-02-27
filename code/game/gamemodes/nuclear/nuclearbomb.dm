@@ -186,6 +186,10 @@ var/bomb_set
 			if(syndie_location)
 				Nuke.syndies_didnt_escape = (syndie_location.z > 1 ? 0 : 1)	//muskets will make me change this, but it will do for now
 			Nuke.nuke_off_station = off_station
+			var/datum/objective/nuclear/nuke = locate(/datum/objective/nuclear) in Nuke.syndicate_objectives
+			if(nuke && off_station == 1)
+				nuke.completed = 1
+
 		ticker.station_explosion_cinematic(off_station,null)
 		if(ticker.mode && gamemode_is("nuclear emergency"))
 			var/datum/game_mode/nuclear/Nuke = ticker.mode

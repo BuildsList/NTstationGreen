@@ -1,6 +1,8 @@
+var/global/nuke_test_mode = 0
+
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
-
+	var/list/datum/objective/syndicate_objectives = list()
 
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
@@ -21,10 +23,12 @@
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
 	var/syndies_didnt_escape = 0 //Used for tracking if the syndies got the shuttle off of the z-level
+	var/objectives_completed = 1
+
 
 /datum/game_mode/nuclear/announce()
-	world << "<B>Текущий игровой режим - &#255;дерна&#255; Угроза!</B>"
-	world << "<B>Оперативные агенты [syndicate_name()] собираютс&#255; напасть на станцию! Не дайте им преуспеть</B>"
+	world << sanitize_to_text("<B>Текущий игровой режим - Ядерная Угроза!</B>")
+	world << sanitize_to_text("<B>Оперативные агенты [syndicate_name()] собираются напасть на станцию! Не дайте им преуспеть</B>")
 //	world << "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear auth. disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! Also, most likely Syndicate star ships are in the vicinity so take care not to lose the disk!\n<B>Syndicate</B>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<B>Personnel</B>: Hold the disk and <B>escape with the disk</B> on the shuttle!"
 
 /datum/game_mode/nuclear/pre_setup()
@@ -122,6 +126,8 @@
 	var/agent_number = 1
 	var/spawnpos = 1
 
+	forge_syndicates_objectives(syndicates)
+
 	for(var/datum/mind/synd_mind in syndicates)
 		if(spawnpos > synd_spawn.len)
 			spawnpos = 1
@@ -177,19 +183,25 @@
 		nuke_code = "будет выдан позже"
 	return
 
+/datum/game_mode/proc/forge_syndicates_objectives() //Probably would be buggy cause haven't owner
+	var/datum/objective/nuclear/nuke = new
+	syndicate_objectives += nuke
+	if(nuke_test_mode)
+		var/datum/objective/nuke_steal_crew_member/steal_crew = new
+		steal_crew.find_target()
+		syndicate_objectives += steal_crew
 
-/datum/game_mode/proc/forge_syndicate_objectives(var/datum/mind/syndicate)
-	var/datum/objective/nuclear/syndobj = new
-	syndobj.owner = syndicate
-	syndicate.objectives += syndobj
+datum/game_mode/proc/forge_syndicate_objectives(var/datum/mind/syndicate)
+	for(var/datum/objective/objective in syndicate_objectives)
+		syndicate.objectives += objective
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	if (you_are)
-		syndicate.current << "<span class='info'>Вы оперативный агент [syndicate_name()]!</span>"
+		syndicate.current << sanitize_to_text("<span class='info'>Вы оперативный агент [syndicate_name()]!</span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
-		syndicate.current << "<B>Задание #[obj_count]</B>: [objective.explanation_text]"
+		syndicate.current << sanitize_to_text("<B>Задание #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
 
@@ -253,43 +265,52 @@
 		if(!is_type_in_list(disk_area, centcom_areas))
 			disk_rescued = 0
 			break
+
+	var/objectives = ""
+	if(nuke_test_mode)
+		if(syndicate_objectives.len)
+			var/count = 1
+			for(var/datum/objective/objective in syndicate_objectives)
+				if(objective.check_completion())
+					objectives += "<br><B>Задание #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+				else
+					objectives += "<br><B>Задание #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					objectives_completed = 0
+				count++
+
 	var/crew_evacuated = (emergency_shuttle.location==2)
-
-	if      (!disk_rescued &&  station_was_nuked &&          !syndies_didnt_escape)
-		world << "<FONT size = 3><B>Полна&#255; победа Синдиката!</B></FONT>"
-		world << "<B>Оперативные агенты [syndicate_name()] доставили посылку и уничтожили [station_name()]!</B>"
-
-	else if (!disk_rescued &&  station_was_nuked &&           syndies_didnt_escape)
-		world << "<FONT size = 3><B>ТОТАЛЬНЫЙ ЭКСТЕРМИНАТУС!</B></FONT>"
-		world << "<B>Оперативные агенты [syndicate_name()] уничтожили [station_name()], но не успели улететь и поджарились вместе с персоналом.</B>"
-
-	else if (!disk_rescued && !station_was_nuked &&  nuke_off_station && !syndies_didnt_escape)
-		world << "<FONT size = 3><B>Частична&#255; победа персонала</B></FONT>"
-		world << "<B>Оперативные агенты  [syndicate_name()] украли диск, но взорвали не ту станцию.</B>"
-	else if (!disk_rescued && !station_was_nuked &&  nuke_off_station &&  syndies_didnt_escape)
-		world << "<FONT size = 3><B>[syndicate_name()] получают Премию Дарвина!</B></FONT>"
-		world << "<B>Оперативные агенты [syndicate_name()] взорвали не ту станцию и подорвались вместе с ней.</B>"
-
-	else if ( disk_rescued                                         && is_operatives_are_dead())
-		world << "<FONT size = 3><B>Полна&#255; победа персонала!</B></FONT>"
-		world << "<B>Научный персонал смог сохранить диск и полностью уничтожил всех оперативных агентов [syndicate_name()]!</B>"
-
-	else if ( disk_rescued                                        )
-		world << "<FONT size = 3><B>Полна&#255; победа персонала!</B></FONT>"
-		world << "<B>Научный персонал смог сохранить диск и остановить оперативных агентов [syndicate_name()]!</B>"
-
-	else if (!disk_rescued                                         && is_operatives_are_dead())
-		world << "<FONT size = 3><B>Частична&#255; победа Синдиката!</B></FONT>"
-		world << "<B>Научный персонал не смог сохранить диск, но при этом они навал&#255;ли хороших люлей оперативным агентам [syndicate_name()]!</B>"
-
-	else if (!disk_rescued                                         &&  crew_evacuated)
-		world << "<FONT size = 3><B>Частична&#255; победа Синдиката!</B></FONT>"
-		world << "<B>Оперативные агенты [syndicate_name()] смогли удержать украденый диск, но персонал [station_name()] успел сбежать."
-
-	else if (!disk_rescued                                         && !crew_evacuated)
-		world << "<FONT size = 3><B>Ничь&#255;</B></FONT>"
-		world << "<B>Раунд был прерван магическим вмешательством третьих лиц!</B>"
-
+	if(disk_rescued)
+		if(is_operatives_are_dead())
+			world << sanitize_to_text("<FONT size='3'><B>Полная победа персонала!</B></FONT>")
+			world << sanitize_to_text("<B>Научный персонал смог сохранить диск и полностью уничтожил всех оперативных агентов [syndicate_name()]!</B>")
+		else
+			world << sanitize_to_text("<FONT size = 3><B>Полная победа персонала!</B></FONT>")
+			world << sanitize_to_text("<B>Научный персонал смог сохранить диск и остановить оперативных агентов [syndicate_name()]!</B>")
+	else
+		if(station_was_nuked)
+			if(!syndies_didnt_escape)
+				world << sanitize_to_text("<FONT size = 3><B>Полная победа Синдиката!</B></FONT>")
+				world << sanitize_to_text("<B>Оперативные агенты [syndicate_name()] доставили посылку и уничтожили [station_name()]!</B>")
+			else
+				world << sanitize_to_text("<FONT size = 3><B>ТОТАЛЬНЫЙ ЭКСТЕРМИНАТУС!</B></FONT>")
+				world << sanitize_to_text("<B>Оперативные агенты [syndicate_name()] уничтожили [station_name()], но не успели улететь и поджарились вместе с персоналом.</B>")
+		else if(nuke_off_station)
+			if(syndies_didnt_escape)
+				world << sanitize_to_text("<FONT size = 3><B>Частичная победа персонала</B></FONT>")
+				world << sanitize_to_text("<B>Оперативные агенты  [syndicate_name()] украли диск, но взорвали не ту станцию.</B>")
+			else
+				world << sanitize_to_text("<FONT size = 3><B>[syndicate_name()] получают Премию Дарвина!</B></FONT>")
+				world << sanitize_to_text("<B>Оперативные агенты [syndicate_name()] взорвали не ту станцию и подорвались вместе с ней.</B>")
+		else if(is_operatives_are_dead())
+			world << sanitize_to_text("<FONT size = 3><B>Частична&#255; победа Синдиката!</B></FONT>")
+			world << sanitize_to_text("<B>Научный персонал не смог сохранить диск, но при этом они навал&#255;ли хороших люлей оперативным агентам [syndicate_name()]!</B>")
+		else if(crew_evacuated)
+			world << sanitize_to_text("<FONT size = 3><B>Частична&#255; победа Синдиката!</B></FONT>")
+			world << sanitize_to_text("<B>Оперативные агенты [syndicate_name()] смогли удержать украденый диск, но персонал [station_name()] успел сбежать.")
+		else
+			world << sanitize_to_text("<FONT size = 3><B>Ничь&#255;</B></FONT>")
+			world << sanitize_to_text("<B>Раунд был прерван магическим вмешательством третьих лиц!</B>")
+	world << sanitize_to_text(objectives)
 	..()
 	return
 
@@ -354,3 +375,4 @@
 				synd_mind.name = "[pick(first_names_female)] [lastname]"
 		synd_mind.current.real_name = synd_mind.name
 	return
+
