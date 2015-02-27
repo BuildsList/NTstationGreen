@@ -22,11 +22,12 @@
 
 		target.disabilities |= disabilities
 		target.update_mutations()	//update target's mutation overlays
-		
+
 		if(duration == -1) // Permanent effect, for badminous spells
 			return  	   // (Honkius the Great approves!)
-		
+
 		spawn(duration)
+			if (!target) return
 			for(var/OE_REM in mutations)
 				target.remove_organic_effect(OE_REM)
 			target.disabilities &= ~disabilities

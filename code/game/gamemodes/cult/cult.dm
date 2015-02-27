@@ -248,20 +248,21 @@
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
+	if (!cult_mind) return
 	spawn(0)
 		for(var/datum/mind/cultist in cult)
 			if(cultist.current)
 				if(cultist.current.client)
 					var/I = image('icons/mob/mob.dmi', loc = cult_mind.current, icon_state = "cult")
 					cultist.current.client.images += I
-			if (cult_mind)
-				if(cult_mind.current)
-					if(cult_mind.current.client)
-						var/image/J = image('icons/mob/mob.dmi', loc = cultist.current, icon_state = "cult")
-						cult_mind.current.client.images += J
+			if(cult_mind.current)
+				if(cult_mind.current.client)
+					var/image/J = image('icons/mob/mob.dmi', loc = cultist.current, icon_state = "cult")
+					cult_mind.current.client.images += J
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
+	if (!cult_mind) return
 	spawn(0)
 		for(var/datum/mind/cultist in cult)
 			if(cultist.current)
