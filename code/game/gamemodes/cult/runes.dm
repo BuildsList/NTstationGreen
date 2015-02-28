@@ -65,6 +65,9 @@ var/list/sacrificed = list()
 				user.visible_message("<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 				"<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 				"<span class='warning'>You smell ozone.</span>")
+
+				if (!IP) error("Item port rune - IP rune is NULL")
+
 				for(var/obj/O in src.loc)
 					if(!O.anchored && isnull(O.gc_destroyed))
 						O.loc = IP.loc

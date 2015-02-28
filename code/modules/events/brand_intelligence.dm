@@ -40,10 +40,10 @@
 
 
 /datum/round_event/brand_intelligence/tick()
-	if(!originMachine || originMachine.shut_up || originMachine.wires.IsAllCut())	//if the original vending machine is missing or has it's voice switch flipped
+	if(!originMachine || !isnull(originMachine.gc_destroyed) || originMachine.shut_up || originMachine.wires.IsAllCut())	//if the original vending machine is missing or has it's voice switch flipped
 		for(var/obj/machinery/vending/saved in infectedMachines)
 			saved.shoot_inventory = 0
-		if(originMachine)
+		if(originMachine && isnull(originMachine.gc_destroyed))
 			originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 			originMachine.visible_message("[originMachine] beeps and seems lifeless.")
 		kill()
