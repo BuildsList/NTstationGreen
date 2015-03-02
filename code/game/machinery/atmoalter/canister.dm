@@ -138,6 +138,8 @@ update_flag
 		return 1
 
 /obj/machinery/portable_atmospherics/canister/process()
+	if(!isnull(gc_destroyed))
+		return
 	if (destroyed)
 		return
 
@@ -265,7 +267,7 @@ update_flag
 
 	user.set_machine(src)
 	var/holding_text
-	if(holding)
+	if(holding && isnull(holding.gc_destroyed))
 		holding_text = {"<BR><B>Tank Pressure</B>: [holding.air_contents.return_pressure()] KPa<BR>
 <A href='?src=\ref[src];remove_tank=1'>Remove Tank</A><BR>
 "}

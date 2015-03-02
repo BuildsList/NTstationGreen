@@ -719,7 +719,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if (!in_range(src, U) && loc != U)
 		return
 
-	if (isnull(P)||P.toff || toff)
+	if (isnull(P)|| !isnull(P.gc_destroyed) || P.toff || toff)
 		return
 
 	if (last_text && world.time < last_text + 5)

@@ -119,12 +119,7 @@ var/time_last_changed_position = 0
 				if(!(job.title in blacklisted))
 					dat += "<a href='?src=\ref[src];choice=edit_job;job=[job.title]'><b>[job.title]</b></a> ([job.current_positions]/[job.total_positions])<br>"
 		else
-			//if(scan && access_change_ids in scan.access)
-			var/card_access = 0
-			if (scan)
-				if (access_change_ids in scan.access)
-					card_access = 1
-			if (card_access)
+			if (scan && (access_change_ids in (scan.access)))
 			// EDIT SPECIFIC JOB
 				dat = "<a href='?src=\ref[src];choice=return'><i>Return</i></a><hr>"
 				dat += "<h1>[j.title]: [j.current_positions]/[j.total_positions]</h1><hr>"
@@ -382,7 +377,8 @@ var/time_last_changed_position = 0
 					if(newJob)
 						t1 = newJob
 					else
-						modify.assignment = "Unassigned"
+						if (modify)
+							modify.assignment = "Unassigned"
 						return
 				else
 					var/datum/job/jobdatum
@@ -399,21 +395,22 @@ var/time_last_changed_position = 0
 				if (modify)
 					modify.assignment = t1
 		if ("demote")
-			if(modify.assignment in head_subordinates || modify.assignment == "Assistant")
-				modify.assignment = "Unassigned"
-			else
-				usr << "<span class='error'>You are not authorized to demote this position.</span>"
+			if (authenticated && modify)
+				if(modify.assignment in head_subordinates || modify.assignment == "Assistant")
+					modify.assignment = "Unassigned"
+				else
+					usr << "<span class='error'>You don't have authority in this department.</span>"
 		if ("reg")
-			if (authenticated)
-				var/t2 = modify
+			if (authenticated && modify)
+				//var/t2 = modify
 				//var/t1 = input(usr, "What name?", "ID computer", null)  as text
-				if ((authenticated && modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
-					var/newName = reject_bad_name(href_list["reg"])
-					if(newName)
-						modify.registered_name = newName
-					else
-						usr << "<span class='error'>Invalid name entered.</span>"
-						return
+				//if ((authenticated && modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
+				var/newName = reject_bad_name(href_list["reg"])
+				if(newName)
+					modify.registered_name = newName
+				else
+					usr << "<span class='error'>Invalid name entered.</span>"
+					return
 		if ("mode")
 			mode = text2num(href_list["mode_target"])
 
@@ -433,28 +430,30 @@ var/time_last_changed_position = 0
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			var/datum/job/j = job_master.GetJob(edit_job_target)
-			if(!j)
-				return 0
-			if(can_open_job(j) != 1)
-				return 0
-			if(opened_positions[edit_job_target] >= 0)
-				time_last_changed_position = world.time / 10
-			j.total_positions++
-			opened_positions[edit_job_target]++
+			if (authenticated && scan && (access_change_ids in (scan.access)))
+				var/datum/job/j = job_master.GetJob(edit_job_target)
+				if(!j)
+					return 0
+				if(can_open_job(j) != 1)
+					return 0
+				if(opened_positions[edit_job_target] >= 0)
+					time_last_changed_position = world.time / 10
+				j.total_positions++
+				opened_positions[edit_job_target]++
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			var/datum/job/j = job_master.GetJob(edit_job_target)
-			if(!j)
-				return 0
-			if(can_close_job(j) != 1)
-				return 0
-			//Allow instant closing without cooldown if a position has been opened before
-			if(opened_positions[edit_job_target] <= 0)
-				time_last_changed_position = world.time / 10
-			j.total_positions--
-			opened_positions[edit_job_target]--
+			if (authenticated && scan && (access_change_ids in (scan.access)))
+				var/datum/job/j = job_master.GetJob(edit_job_target)
+				if(!j)
+					return 0
+				if(can_close_job(j) != 1)
+					return 0
+				//Allow instant closing without cooldown if a position has been opened before
+				if(opened_positions[edit_job_target] <= 0)
+					time_last_changed_position = world.time / 10
+				j.total_positions--
+				opened_positions[edit_job_target]--
 
 		if ("print")
 			if (!( printing ))
@@ -468,7 +467,7 @@ var/time_last_changed_position = 0
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 		if ("reset_registration")
-			if (authenticated)
+			if (authenticated && modify)
 				var/obj/item/weapon/card/id/assistant/card = modify
 				card.ResetRegistration()
 

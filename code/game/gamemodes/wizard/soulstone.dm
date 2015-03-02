@@ -158,14 +158,11 @@
 			var/obj/item/device/soulstone/C = src
 			var/mob/living/simple_animal/shade/A = locate() in C
 
-			if (!T)
-				ERROR("Proc: transfer_soul. T - NULL")
-			else
-				if (!T.loc)
-					ERROR("Proc: transfer_soul. T.loc - NULL")
-
 			if(A)
 				var/construct_class = alert(U, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
+
+				if (!C || !A || !usr || !T || !isnull(T.gc_destroyed) || !in_range(T, usr) || usr.get_active_hand() != C) return
+
 				switch(construct_class)
 					if("Juggernaut")
 						var/mob/living/simple_animal/construct/armoured/Z = new /mob/living/simple_animal/construct/armoured (get_turf(T.loc))

@@ -60,6 +60,9 @@
 
 	// For the typer, the input is enabled. Buffer the typed text
 	storedcode = "[winget(editingcode, "tcscode", "text")]"
+	if (!editingcode.client)
+		stop_editing()
+		return
 	winset(editingcode, "tcscode", "is-disabled=false")
 
 	// If the player's not manning the keyboard anymore, adjust everything

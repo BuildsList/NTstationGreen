@@ -19,6 +19,7 @@
 		return
 
 	action(atom/target)
+		if (!target) return
 		if(!action_checks(target)) return
 		if(!cargo_holder) return
 		if(istype(target,/obj))

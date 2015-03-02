@@ -24,6 +24,8 @@
 		overlays += "bomb_assembly"
 
 /obj/item/device/onetankbomb/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if (!isnull(src.gc_destroyed))
+		return
 	if(istype(W, /obj/item/device/analyzer))
 		bombtank.attackby(W, user)
 		return
@@ -62,7 +64,7 @@
 /obj/item/device/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
 	visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
 	sleep(10)
-	if(!src)
+	if(!src || !isnull(src.gc_destroyed))
 		return
 	if(status)
 		bombtank.ignite()	//if its not a dud, boom (or not boom if you made shitty mix) the ignite proc is below, in this file

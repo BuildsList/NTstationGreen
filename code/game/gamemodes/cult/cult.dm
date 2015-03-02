@@ -248,6 +248,7 @@
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
+	if (!cult_mind) return
 	spawn(0)
 		for(var/datum/mind/cultist in cult)
 			if(cultist.current)
@@ -261,6 +262,7 @@
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
+	if (!cult_mind) return
 	spawn(0)
 		for(var/datum/mind/cultist in cult)
 			if(cultist.current)

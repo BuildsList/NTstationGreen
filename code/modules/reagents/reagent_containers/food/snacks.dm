@@ -97,6 +97,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(5)
+					if(!reagents) return 0
 					if(reagents.total_volume > bitesize)	//pretty sure this is unnecessary
 						reagents.trans_to(M, bitesize)
 					else
