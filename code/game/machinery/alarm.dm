@@ -737,7 +737,7 @@ table tr:first-child th:first-child { border: none;}
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(alarm_frequency)
 
 	if(!frequency) return
-
+	if(src.z > 6) return
 	var/datum/signal/alert_signal = new
 	alert_signal.source = src
 	alert_signal.transmission_method = 1
