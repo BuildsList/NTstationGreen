@@ -37,3 +37,29 @@
 	output+="</table></center>"
 
 	user << browse(output, "window=accaunts;size=600x400")
+
+
+
+/client/proc/checkAllAccounts()
+	set name = "Check multiaccounts(All)"
+	set category = "Admin"
+
+	var/DBQuery/query
+	var/output = "<B>Совпадение по IP</B><BR>"
+	for (var/client/C in clients)
+		output+="Ckey: [C.ckey]<BR>"
+		query = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip IN (SELECT DISTINCT ip FROM erro_player WHERE computerid IN (SELECT DISTINCT computerid FROM erro_player WHERE ckey LIKE '[C.ckey]'))")
+		query.Execute()
+		while(query.NextRow())
+			output+="IP: - [query.item[1]]<BR>"
+
+	output+= "<BR><BR><B>Совпадение по computerID</B><BR>"
+
+	for (var/client/C in clients)
+		output+="Ckey: [C.ckey]<BR>"
+		query = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid IN (SELECT DISTINCT computerid FROM erro_player WHERE ckey LIKE '[C.ckey]'))")
+		query.Execute()
+		while(query.NextRow())
+			output+="Comp ID: [query.item[1]]<BR>"
+
+	usr << browse(output, "window=accauntsall;size=400x800")
