@@ -12,6 +12,16 @@
 		message_admins("[key_name(src)] toggled debugging on.")
 		log_admin("[key_name(src)] toggled debugging on.")
 
+/client/proc/ToggleTestNukeMode()
+	set category = "Debug"
+	set name = "Toggle Test Nuke Mode"
+
+	if(!check_rights(0))
+		return
+	nuke_test_mode = !nuke_test_mode
+	message_admins("[key_name(src)] toggled test nuke mode [(nuke_test_mode) ? "on" : "off"]")
+
+
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
 Stuff you can't do:

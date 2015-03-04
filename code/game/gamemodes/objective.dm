@@ -247,7 +247,46 @@ datum/objective/survive/check_completion()
 datum/objective/nuclear
 	explanation_text = "¬зорвать станцию, использовав &#255;дерную боеголовку."
 
+datum/objective/nuke_steal_crew_member
+	var/should_be_alive = 1
+	explanation_text = "”красть определЄнного члена экипажа живым."
 
+datum/objective/nuke_steal_crew_member/find_target()
+	var/list/datum/mind/possible_targets = list()
+	for(var/datum/mind/possible_target in ticker.minds)
+		if(possible_target.special_role == null && ishuman(possible_target.current) && (possible_target.current.stat != 2) && possible_target.assigned_job && possible_target.assigned_job.title in command_positions)
+			possible_targets += possible_target
+	if(possible_targets.len <= 0)
+		explanation_text = "—вободное задание"
+		return null
+	target = pick(possible_targets)
+	update_explanation_text()
+	return target
+
+datum/objective/nuke_steal_crew_member/update_explanation_text()
+	if(!target)
+		explanation_text = "—вободное задание."
+		return
+	explanation_text = "”красть [target.current.name]([target.assigned_job.title]) живым"
+	if(should_be_alive)
+		explanation_text += "."
+	else
+		explanation_text += " или мЄртвым."
+
+datum/objective/nuke_steal_crew_member/check_completion()
+	if(!target)
+		message_admins("Nuke Steal Crew Member haven't target")
+		return 1
+	if(should_be_alive && target.current.stat == DEAD)
+		message_admins("Nuke Steal Crew Member target is dead")
+		return 0
+	var/list/nuke_steal_locs = list(/area/syndicate_station, /area/syndicate_mothership)
+	var/area/A = get_area(target)
+	if(A.type in nuke_steal_locs)
+		message_admins("Nuke Steal Crew Member wrong area")
+		return 1
+	message_admins("Nuke Steal Crew Member something else")
+	return 0
 
 var/global/list/possible_items = list()
 datum/objective/steal
