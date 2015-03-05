@@ -45,21 +45,32 @@
 	set category = "Admin"
 
 	var/DBQuery/query
-	var/output = "<B>Совпадение по IP</B><BR>"
+	var/t1 = ""
+	var/output = "<B>Совпадение по IP</B><BR><BR>"
+
 	for (var/client/C in clients)
-		output+="Ckey: [C.ckey]<BR>"
+		t1 =""
 		query = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip IN (SELECT DISTINCT ip FROM erro_player WHERE computerid IN (SELECT DISTINCT computerid FROM erro_player WHERE ckey LIKE '[C.ckey]'))")
 		query.Execute()
-		while(query.NextRow())
-			output+="IP: - [query.item[1]]<BR>"
+		var/c = 0
 
-	output+= "<BR><BR><B>Совпадение по computerID</B><BR>"
+		while(query.NextRow())
+			t1 +="IP: - [query.item[1]]<BR>"
+			c++
+		if (c > 1)
+			output+= "Ckey: [C.ckey]<BR>" + t1
+
+	output+= "<BR><BR><B>Совпадение по computerID</B><BR><BR>"
 
 	for (var/client/C in clients)
-		output+="Ckey: [C.ckey]<BR>"
+		t1 =""
 		query = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid IN (SELECT DISTINCT computerid FROM erro_player WHERE ckey LIKE '[C.ckey]'))")
 		query.Execute()
+		var/c = 0
 		while(query.NextRow())
-			output+="Comp ID: [query.item[1]]<BR>"
+			t1 +="Comp ID: [query.item[1]]<BR>"
+			c++
+		if (c > 1)
+			output+= "Ckey: [C.ckey]<BR>" + t1
 
 	usr << browse(output, "window=accauntsall;size=400x800")
