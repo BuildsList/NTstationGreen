@@ -149,8 +149,12 @@ var/next_mob_id = 0
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		if(equip_to_slot_if_possible(W, slot,0,0,0))
-			return 1
+		var/obj/item/I = get_item_by_slot(slot)
+		if(!I)
+			if(equip_to_slot_if_possible(W, slot,0,1,0))
+				return 1
+		else
+			I.attackby(W, src)
 
 	if(!W)
 		// Activate the item
