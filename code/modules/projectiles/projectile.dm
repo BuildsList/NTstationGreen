@@ -66,6 +66,7 @@
 			if(isanimal(target))
 				return 0
 
+			L.emote("scream")
 			return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked)
 		else
 			target.add_custom_fiber(trace_residue)
