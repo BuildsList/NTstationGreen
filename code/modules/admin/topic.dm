@@ -973,6 +973,17 @@
 		dat += {"Now: [master_mode]"}
 		usr << browse(dat, "window=c_mode")
 
+	else if(href_list["showlaws"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/silicon/M = locate(href_list["showlaws"])
+		if(!ismob(M))	return
+		//if(!M.client)	return
+
+		if (M.laws)
+			usr << "<B>[M.name] laws:</B>"
+			M.laws.show_laws(usr)
+
 	else if(href_list["f_secret"])
 		if(!check_rights(R_SERVER))	return
 
@@ -1310,6 +1321,29 @@
 
 		usr.client.cmd_admin_animalize(M)
 
+	// Mob Inventory Window
+	else if(href_list["mobinvdrop"])
+		var/mob/M = locate(href_list["mobinvdrop"])
+		if (M)
+			MobInventory(M)
+		else
+			usr << "No mob"
+
+	else if(href_list["mobinventory"])
+		var/mob/M = locate(href_list["mobinventory"])
+		world << "Mob: [M]"
+		if (M)
+			var/mobtype = text2num(href_list["mobinvdropmobtype"])
+			if ((mobtype == 1 && iscarbon(M)) || (mobtype == 2 && ishuman(M)))
+				var/obj/item/I = M.get_item_by_slot(text2num(href_list["mobinvdropitem"]))
+				if (I)
+					M.unEquip(I)
+					message_admins("[key_name_admin(usr)] has unequip [I.name] from [M.name]([M.client ? "[M.key]": ""])", 1)
+					log_admin("[key_name(usr)] has unequip [I.name] from [M.name]([M.client ? "[M.key]": ""])")
+				else
+					usr << "No item in slot"
+		MobInventory(M)
+
 /***************** BEFORE**************
 
 	if (href_list["l_players"])
@@ -1531,6 +1565,62 @@
 			return
 		show_traitor_panel(M)
 
+
+//****** Mob Affect actions
+
+	else if(href_list["mobstun"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["mobstun"])
+		if(M)
+			var/number = input(usr, "How much stun you want to apply?", "Stun", 0) as num
+			number = min(abs(number), 100)
+			if(number && M && isnull(M.gc_destroyed))
+				M.AdjustStunned(number)
+				log_admin("[src.owner] apply stun [number] to [M.name]([M.client ? "[M.key]": ""]).")
+				message_admins("[src.owner] apply stun [number] to [M.name]([M.client ? "[M.key]": ""]).")
+
+	else if(href_list["mobparalyze"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["mobparalyze"])
+		if(M)
+			var/number = input(usr, "How much paralysis you want to apply?", "Paralyze", 0) as num
+			number = min(abs(number), 100)
+			if(number && M && isnull(M.gc_destroyed))
+				M.AdjustParalysis(number)
+				log_admin("[src.owner] apply paralysis [number] to [M.name]([M.client ? "[M.key]": ""]).")
+				message_admins("[src.owner] apply paralysis [number] to [M.name]([M.client ? "[M.key]": ""]).")
+
+	else if(href_list["mobweak"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["mobweak"])
+		if(M)
+			var/number = input(usr, "How much weaken you want to apply?", "Weak", 0) as num
+			number = min(abs(number), 100)
+			if(number && M && isnull(M.gc_destroyed))
+				M.AdjustWeakened(number)
+				log_admin("[src.owner] apply weak [number] to [M.name]([M.client ? "[M.key]": ""]).")
+				message_admins("[src.owner] apply weak [number] to [M.name]([M.client ? "[M.key]": ""]).")
+
+	else if(href_list["mobsleep"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["mobsleep"])
+		if(M)
+			var/number = input(usr, "How much sleep you want to apply?", "Sleep", 0) as num
+			number = min(abs(number), 100)
+			if(number && M && isnull(M.gc_destroyed))
+				M.AdjustSleeping(number)
+				log_admin("[src.owner] apply sleep [number] to [M.name]([M.client ? "[M.key]": ""]).")
+				message_admins("[src.owner] apply sleep [number] to [M.name]([M.client ? "[M.key]": ""]).")
+
+//****** End of Mob Affect actions
+
+
+//****** Spawn(Game Panel)
+
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))	return
 		return create_object(usr)
@@ -1670,6 +1760,8 @@
 					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]", 1)
 					break
 		return
+
+//****** End of Spawn(Game Panel)
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_FUN))	return

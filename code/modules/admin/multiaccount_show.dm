@@ -55,8 +55,8 @@
 		var/c = 0
 
 		while(query.NextRow())
-			t1 +="IP: - [query.item[1]]<BR>"
 			c++
+			t1 +="[c]: - [query.item[1]]<BR>"
 		if (c > 1)
 			output+= "Ckey: [C.ckey]<BR>" + t1
 
@@ -68,8 +68,8 @@
 		query.Execute()
 		var/c = 0
 		while(query.NextRow())
-			t1 +="Comp ID: [query.item[1]]<BR>"
 			c++
+			t1 +="[c]: [query.item[1]]<BR>"
 		if (c > 1)
 			output+= "Ckey: [C.ckey]<BR>" + t1
 

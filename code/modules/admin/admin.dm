@@ -33,6 +33,11 @@ var/global/floorIsLava = 0
 		if (M.lastkey)
 			body +="(last played by <b>[M.lastkey]</b>) "
 
+	if(istype(M, /mob/new_player))
+		body += " <B>Hasn't Entered Game</B> "
+	else
+		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
+
 	if(M.mind)
 		body += "<br>"
 		body += "Role: <b>[M.mind.assigned_role? "[M.mind.assigned_role]":"None"]</b>"
@@ -41,12 +46,16 @@ var/global/floorIsLava = 0
 
 	if(istype(M,/mob/living/silicon/robot) || istype(M,/mob/living/silicon/ai))
 		body += "<br>"
-		body += "<A href='?src=\ref[src];showlaws=\ref[M]'>Check Laws</font></a>"
+		body += "<A href='?_src_=holder;showlaws=\ref[M]'>Check Laws</a>"
+	if(iscarbon(M))
+		body += "<br>"
+		body += "<A href='?_src_=holder;mobinventory=\ref[M]'>Inventory</a>"
 
-	if(istype(M, /mob/new_player))
-		body += " <B>Hasn't Entered Game</B> "
-	else
-		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
+	body += "<br>Affect: "
+	body += "<A href='?_src_=holder;mobstun=\ref[M]'>Stun</a> | "
+	body += "<A href='?_src_=holder;mobparalyze=\ref[M]'>Paralyze</a> | "
+	body += "<A href='?_src_=holder;mobweak=\ref[M]'>Weak</a> | "
+	body += "<A href='?_src_=holder;mobsleep=\ref[M]'>Sleep</a>"
 
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
@@ -514,6 +523,160 @@ var/global/floorIsLava = 0
 
 	usr << browse(dat, "window=secrets")
 	return
+
+
+// Mob Inventory Window
+/datum/admins/proc/MobInventory(var/mob/M)
+	if(!check_rights())
+		return
+	var/output = "<B>Mob Inventory Window</B><BR><BR>"
+	if (M)
+		output += "<A href='?src=\ref[src];mobinventory=\ref[M]'>Refresh</A><BR><BR>"
+		var/mobtype = 0
+		if (iscarbon(M))
+			if (ishuman(M))
+				mobtype = 2
+			else
+				mobtype = 1
+		if (mobtype > 0)
+			var/mob/living/carbon/C = M
+			output += "Contents of [M.name] ([M.client ? "[M.key]": ""])<BR><BR>"
+			// Left Hand
+			output += "Left Hand: "
+			if (C.l_hand)
+				var/icon/I = icon(C.l_hand.icon,C.l_hand.icon_state)
+				usr << browse_rsc(I,"mob_lhandicon.png")
+				output += "<img src=\"mob_lhandicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=1;mobinvdropitem=[slot_l_hand]'>Drop</A><BR>"
+			else
+				output += "Empty<BR>"
+			// Right Hand
+			output += "Right Hand: "
+			if (C.r_hand)
+				var/icon/I = icon(C.r_hand.icon,C.r_hand.icon_state)
+				usr << browse_rsc(I,"mob_rhandicon.png")
+				output += "<img src=\"mob_rhandicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=1;mobinvdropitem=[slot_r_hand]'>Drop</A><BR>"
+			else
+				output += "Empty<BR>"
+			// Back
+			output += "Back: "
+			if (C.back)
+				var/icon/I = icon(C.back.icon,C.back.icon_state)
+				usr << browse_rsc(I,"mob_backicon.png")
+				output += "<img src=\"mob_backicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=1;mobinvdropitem=[slot_back]'>Drop</A><BR>"
+			else
+				output += "Empty<BR>"
+			// Mask
+			output += "Mask: "
+			if (C.wear_mask)
+				var/icon/I = icon(C.wear_mask.icon,C.wear_mask.icon_state)
+				usr << browse_rsc(I,"mob_maskicon.png")
+				output += "<img src=\"mob_maskicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=1;mobinvdropitem=[slot_wear_mask]'>Drop</A><BR>"
+			else
+				output += "Empty<BR>"
+			if (mobtype == 2)
+				var/mob/living/carbon/human/H = M
+				// Head
+				output += "Head: "
+				if (H.head)
+					var/icon/I = icon(H.head.icon,H.head.icon_state)
+					usr << browse_rsc(I,"mob_headicon.png")
+					output += "<img src=\"mob_headicon.png\"> [H.head.name] <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_head]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Glasses
+				output += "Glasses: "
+				if (H.glasses)
+					var/icon/I = icon(H.glasses.icon,H.glasses.icon_state)
+					usr << browse_rsc(I,"mob_glassesicon.png")
+					output += "<img src=\"mob_glassesicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_glasses]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Ears
+				output += "Ears: "
+				if (H.ears)
+					var/icon/I = icon(H.ears.icon,H.ears.icon_state)
+					usr << browse_rsc(I,"mob_earsicon.png")
+					output += "<img src=\"mob_earsicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_ears]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Suit
+				output += "Suit: "
+				if (H.wear_suit)
+					var/icon/I = icon(H.wear_suit.icon,H.wear_suit.icon_state)
+					usr << browse_rsc(I,"mob_suiticon.png")
+					output += "<img src=\"mob_suiticon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_wear_suit]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Uniform
+				output += "Uniform: "
+				if (H.w_uniform)
+					var/icon/I = icon(H.w_uniform.icon,H.w_uniform.icon_state)
+					usr << browse_rsc(I,"mob_uniformicon.png")
+					output += "<img src=\"mob_uniformicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_w_uniform]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Gloves
+				output += "Gloves: "
+				if (H.gloves)
+					var/icon/I = icon(H.gloves.icon,H.gloves.icon_state)
+					usr << browse_rsc(I,"mob_glovesicon.png")
+					output += "<img src=\"mob_glovesicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_gloves]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Belt
+				output += "Belt: "
+				if (H.belt)
+					var/icon/I = icon(H.belt.icon,H.belt.icon_state)
+					usr << browse_rsc(I,"mob_belticon.png")
+					output += "<img src=\"mob_belticon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_belt]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Shoes
+				output += "Shoes: "
+				if (H.shoes)
+					var/icon/I = icon(H.shoes.icon,H.shoes.icon_state)
+					usr << browse_rsc(I,"mob_shoesicon.png")
+					output += "<img src=\"mob_shoesicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_shoes]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// ID
+				output += "ID: "
+				if (H.wear_id)
+					var/icon/I = icon(H.wear_id.icon,H.wear_id.icon_state)
+					usr << browse_rsc(I,"mob_idicon.png")
+					output += "<img src=\"mob_idicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_wear_id]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Left Pocket
+				output += "Left Pocket: "
+				if (H.l_store)
+					var/icon/I = icon(H.l_store.icon,H.l_store.icon_state)
+					usr << browse_rsc(I,"mob_lpocketicon.png")
+					output += "<img src=\"mob_lpocketicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_l_store]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Right Pocket
+				output += "Right Pocket: "
+				if (H.r_store)
+					var/icon/I = icon(H.r_store.icon,H.r_store.icon_state)
+					usr << browse_rsc(I,"mob_rpocketicon.png")
+					output += "<img src=\"mob_rpocketicon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_r_store]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+				// Suit Slot
+				output += "Suit Slot: "
+				if (H.s_store)
+					var/icon/I = icon(H.s_store.icon,H.s_store.icon_state)
+					usr << browse_rsc(I,"mob_suitsloticon.png")
+					output += "<img src=\"mob_suitsloticon.png\"> <A href='?src=\ref[src];mobinventory=\ref[M];mobinvdropmobtype=2;mobinvdropitem=[slot_s_store]'>Drop</A><BR>"
+				else
+					output += "Empty<BR>"
+		else
+			output += "*Mob is not carbon*"
+	else
+		output += "*No Mob*"
+
+	usr << browse(output, "window=mobinventory;size=300x500")
 
 
 
