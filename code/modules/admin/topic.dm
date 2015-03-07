@@ -1331,7 +1331,6 @@
 
 	else if(href_list["mobinventory"])
 		var/mob/M = locate(href_list["mobinventory"])
-		world << "Mob: [M]"
 		if (M)
 			var/mobtype = text2num(href_list["mobinvdropmobtype"])
 			if ((mobtype == 1 && iscarbon(M)) || (mobtype == 2 && ishuman(M)))
