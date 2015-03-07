@@ -22,7 +22,6 @@
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile, 2 = pick all of a type
-	var/quick_slots = 1 //0 - you should click directly at item to get it, 1 - you could click at storage cell
 
 
 /obj/item/weapon/storage/MouseDrop(obj/over_object)
