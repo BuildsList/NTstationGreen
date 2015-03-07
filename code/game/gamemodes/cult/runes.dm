@@ -45,6 +45,8 @@ var/list/sacrificed = list()
 			for(var/obj/effect/rune/R in world)
 				if(R == src)
 					continue
+				if(!isnull(R.gc_destroyed))
+					continue
 				if(R.word1 == wordtravel && R.word2 == wordother && R.word3 == key)
 					IP = R
 					runecount++
@@ -63,11 +65,15 @@ var/list/sacrificed = list()
 				user.visible_message("<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 				"<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 				"<span class='warning'>You smell ozone.</span>")
+
+				if (!IP) error("Item port rune - IP rune is NULL")
+
 				for(var/obj/O in src.loc)
-					if(!O.anchored)
+					if(!O.anchored && isnull(O.gc_destroyed))
 						O.loc = IP.loc
 				for(var/mob/M in src.loc)
-					M.loc = IP.loc
+					if (isnull(M.gc_destroyed))
+						M.loc = IP.loc
 				return
 
 			return fizzle()

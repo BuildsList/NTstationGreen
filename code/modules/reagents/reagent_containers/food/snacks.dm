@@ -41,6 +41,8 @@
 
 
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(!isnull(gc_destroyed))
+		return 0
 	if(!eatverb)
 		eatverb = pick("bite","chew","nibble","gnaw","gobble","chomp")
 	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
@@ -95,6 +97,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(5)
+					if(!reagents) return 0
 					if(reagents.total_volume > bitesize)	//pretty sure this is unnecessary
 						reagents.trans_to(M, bitesize)
 					else

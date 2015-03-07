@@ -92,6 +92,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
+	/client/proc/ToggleTestNukeMode,
 	/client/proc/kill_air,
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
 	/client/proc/cmd_debug_make_powernets,

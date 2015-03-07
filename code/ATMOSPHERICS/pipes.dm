@@ -813,6 +813,7 @@ obj/machinery/atmospherics/pipe
 
 obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (istype(W, /obj/item/device/analyzer) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(parent.air, user)
+		if(parent)
+			atmosanalyzer_scan(parent.air, user)
 	else
 		return ..()

@@ -42,13 +42,22 @@
 
 	HasProximity(atom/movable/AM as mob|obj)
 		if (istype(AM, /obj/effect/beam))	return
-		if (AM.move_speed < 12)	sense()
+		if (AM.move_speed < 12)
+			var/usr_n = "*No mob*"
+			if (ismob(AM))
+				var/mob/M = AM
+				usr_n = M.name
+				if (M.client)
+					usr_n +="([M.key])"
+				else
+					usr_n +="(*No key*)"
+			sense(usr_n)
 		return
 
 
-	sense()
+	sense(var/usr_name = "*No mob*")
 		if((!secured)||(!scanning)||(cooldown > 0))	return 0
-		pulse(0)
+		pulse(0, src.name, usr_name)
 		visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
 		cooldown = 2
 		spawn(10)

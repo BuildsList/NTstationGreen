@@ -35,7 +35,7 @@
 	playsound(user, 'sound/weapons/emptyclick.ogg', 40, 1)
 	return
 
-/obj/item/weapon/gun/proc/shoot_live_shot(mob/living/user as mob|obj, var/pointblank = 0, var/mob/pbtarget = null)
+/obj/item/weapon/gun/proc/shoot_live_shot(mob/living/user as mob|obj, var/pointblank = 0, var/mob/pbtarget = null, atom/ftarget = null)
 	if(recoil)
 		spawn()
 			shake_camera(user, recoil + 1, recoil)
@@ -48,6 +48,12 @@
 			user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "You hear a [istype(src, /obj/item/weapon/gun/energy) ? "laser blast" : "gunshot"]!")
 		else
 			user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear a [istype(src, /obj/item/weapon/gun/energy) ? "laser blast" : "gunshot"]!")
+			var/from = "[user.loc.x],[user.loc.y],[user.loc.z]"
+			var/dest = ""
+			if (ftarget && isnull(ftarget.gc_destroyed))
+				dest = "[ftarget.loc.x],[ftarget.loc.y],[ftarget.loc.z]"
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has firing from [src] with [src.chambered.projectile_type] from tile ([from]) at ([dest])</font>")
+			log_attack("<font color='red'>[user]([user.key]) firing from [src] with [src.chambered.projectile_type] from tile ([from]) at ([dest])</font>")
 
 /obj/item/weapon/gun/emp_act(severity)
 	for(var/obj/O in contents)
@@ -98,7 +104,7 @@
 			if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
 				shoot_live_shot(user, 1, target)
 			else
-				shoot_live_shot(user)
+				shoot_live_shot(user, 0, null, target)
 	else
 		shoot_with_empty_chamber(user)
 	process_chamber()

@@ -19,6 +19,8 @@
 		return
 
 	attack(mob/M, mob/user, def_zone)
+		if(!isnull(gc_destroyed))
+			return
 		if(!canconsume(M, user))
 			return 0
 

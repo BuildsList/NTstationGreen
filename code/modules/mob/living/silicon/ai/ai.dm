@@ -274,7 +274,7 @@ var/list/ai_list = list()
 	src << browse(dat, "window=airoster")
 	onclose(src, "airoster")
 
-/mob/living/silicon/ai/proc/ai_call_shuttle()
+/mob/living/silicon/ai/proc/ai_call_shuttle(var/emp = 0)
 	if(src.stat == 2)
 		src << "You can't call the shuttle because you are dead!"
 		return
@@ -284,7 +284,14 @@ var/list/ai_list = list()
 			usr << "Wireless control is disabled!"
 			return
 
-	var/reason = input(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call") as text
+	var/reason = ""
+	if (!emp)
+		reason = input(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call") as text
+	else
+		var/l = rand(10,20)
+		var/list/char = list("&","?","/","#","%","!","$","^")
+		for (var/i=0, i < l, i++)
+			reason += pick(char)
 
 	if(length(trim(reason)) > 0)
 		call_shuttle_proc(src, reason)
@@ -348,7 +355,7 @@ var/list/ai_list = list()
 			if(1)
 				view_core()
 			if(2)
-				ai_call_shuttle()
+				ai_call_shuttle(1)
 	..()
 
 /mob/living/silicon/ai/ex_act(severity)

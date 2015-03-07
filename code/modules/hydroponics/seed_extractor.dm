@@ -1,4 +1,6 @@
 /proc/seedify(var/obj/item/O as obj, var/t_max)
+	if(!isnull(O.gc_destroyed))
+		return
 	var/t_amount = 0
 	if(t_max == -1)
 		t_max = rand(1,4)

@@ -52,9 +52,9 @@
 
 /obj/machinery/computer/teleporter/interact(mob/user)
 	var/data = "<h3>Teleporter Status</h3>"
-	if(!power_station)
+	if(!power_station || !isnull(power_station.gc_destroyed))
 		data += "<div class='statusDisplay'>No power station linked.</div>"
-	else if(!power_station.teleporter_hub)
+	else if(!power_station.teleporter_hub || !isnull(power_station.teleporter_hub.gc_destroyed))
 		data += "<div class='statusDisplay'>No hub linked.</div>"
 	else
 		data += "<div class='statusDisplay'>Current regime: [regime_set]<BR>Current target: [(!target) ? "None" : "[get_area(target)] [(regime_set != "Gate") ? "" : "Teleporter"]"]</div><BR>"
@@ -75,20 +75,40 @@
 /obj/machinery/computer/teleporter/Topic(href, href_list)
 	if(..())
 		return
-	if(href_list["regimeset"])
-		power_station.engaged = 0
-		power_station.teleporter_hub.update_icon()
-		reset_regime()
-	if(href_list["settarget"])
-		power_station.engaged = 0
-		power_station.teleporter_hub.update_icon()
-		set_target(usr)
-	if(href_list["locked"])
-		power_station.engaged = 0
-		power_station.teleporter_hub.update_icon()
-		target = get_turf(locked.locked_location)
+
 	if(href_list["eject"])
 		eject()
+		updateDialog()
+		return
+
+	var/fail = 0
+	var/msg = ""
+	if (!power_station || !isnull(power_station.gc_destroyed))
+		msg = "No power station linked"
+		fail = 1
+	else
+		if (!power_station.teleporter_hub || !isnull(power_station.teleporter_hub.gc_destroyed))
+			msg = "No hub linked"
+			fail = 1
+
+	if(href_list["regimeset"])
+		if (!fail)
+			power_station.engaged = 0
+			power_station.teleporter_hub.update_icon()
+			reset_regime()
+	if(href_list["settarget"])
+		if (!fail)
+			power_station.engaged = 0
+			power_station.teleporter_hub.update_icon()
+			set_target(usr)
+	if(href_list["locked"])
+		if (!fail)
+			power_station.engaged = 0
+			power_station.teleporter_hub.update_icon()
+			target = get_turf(locked.locked_location)
+
+	if (fail)
+		usr << msg
 	updateDialog()
 
 /obj/machinery/computer/teleporter/proc/reset_regime()
@@ -242,7 +262,7 @@
 	if (!com.target)
 		visible_message("<span class='notice'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
-	if (istype(M, /atom/movable))		
+	if (istype(M, /atom/movable))
 		do_teleport(M, com.target)
  	return
 
