@@ -84,54 +84,17 @@
 /obj/screen/storage
 	name = "storage"
 
-/obj/screen/storage/Click(location, control,params)
+/obj/screen/storage/Click()
 	if(world.time <= usr.next_move)
 		return 1
 	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			world << "Attackby([I], [usr])"
 			master.attackby(I, usr)
-		else if(istype(master, /obj/item/weapon/storage))
-			var/obj/item/weapon/storage/S = master
-			if(!S.quick_slots)
-				return 1
-			var/list/PL = params2list(params)
-			var/list/points = stringsplit(PL["screen-loc"], ",")
-			var/list/coordsX = stringsplit(points[1], ":")
-			var/list/coordsY = stringsplit(points[2], ":")
-
-			var/xm = text2num(coordsX[1])
-			var/xc = text2num(coordsX[2])
-			var/ym = text2num(coordsY[1])
-			var/yc = text2num(coordsY[2])
-
-			var/xcoord = (xm + (xc / 16)) % 1 - 4
-			var/rows = (S.contents.len / 7) % 1 + 1
-			var/another_test = yc / 16
-			var/test = another_test % 1
-			var/ycoord = (ym + test - 4 + rows) * 7
-			world << "Original: [(ym + ((yc / 16) % 1) - 4 + rows) * 7]"
-			world << "Test: [test] [another_test]"
-			world << "New: [ycoord]"
-			var/index = (xm + ((xc / 16) % 1) - 4) + (ym + ((yc / 16) % 1) - 3) * 7 + (S.contents.len / 7) % 1
-
-			world << "[xm] [xc] [ym] [yc]"
-			world << "[xcoord] [ycoord] [rows]"
-			world << params
-			world << "[PL["screen-loc"]]"
-
-			world << "Index: [index]"
-			if(index > S.contents.len || index <= 0)
-				world << "Index is more than amount of items."
-				return 1
-			var/obj/item/W = S.contents[index]
-			world << "Item at [index] in [S.name]: [W.name]"
-			W.attack_hand(usr)
 	return 1
 
 /obj/screen/zone_sel
