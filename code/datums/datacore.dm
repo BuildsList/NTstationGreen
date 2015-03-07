@@ -55,7 +55,6 @@
 	for(var/datum/data/record/t in data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
-		var/real_rank = t.fields["real_rank"]
 		if(OOC)
 			var/active = 0
 			for(var/mob/M in player_list)
@@ -68,25 +67,25 @@
 			//world << "[name]: [rank]"
 			//cael - to prevent multiple appearances of a player/job combination, add a continue after each line
 		var/department = 0
-		if(real_rank in command_positions)
+		if(rank in command_positions)
 			heads[name] = rank
 			department = 1
-		if(real_rank in security_positions)
+		if(rank in security_positions)
 			sec[name] = rank
 			department = 1
-		if(real_rank in engineering_positions)
+		if(rank in engineering_positions)
 			eng[name] = rank
 			department = 1
-		if(real_rank in medical_positions)
+		if(rank in medical_positions)
 			med[name] = rank
 			department = 1
-		if(real_rank in science_positions)
+		if(rank in science_positions)
 			sci[name] = rank
 			department = 1
-		if(real_rank in civilian_positions)
+		if(rank in civilian_positions)
 			civ[name] = rank
 			department = 1
-		if(real_rank in nonhuman_positions)
+		if(rank in nonhuman_positions)
 			bot[name] = rank
 			department = 1
 		if(!department && !(name in heads))
