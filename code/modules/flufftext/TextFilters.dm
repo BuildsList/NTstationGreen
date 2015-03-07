@@ -1,66 +1,87 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-proc/Intoxicated(phrase)
-	phrase = rhtml_decode(phrase)
-	var/leng=lentext(phrase)
-	var/counter=lentext(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+/mob/verb/testfilters(var/text as message)
+	world << intoxicated(text)
+	world << slurring(text)
+	world << stutter(text)
+
+proc/intoxicated(phrase) // using cp1251!
+	var/output = ""
+
+	for(var/i = 1; i <= lentext(phrase); i++)
+		var/letter = copytext(phrase, i, i + 1)
+		if(letter == " ") //skip whitespaces
+			output += " "
+			continue
 		if(rand(1,3)==3)
-			if(lowerrustext(newletter)=="з")	newletter="с"
-			if(lowerrustext(newletter)=="в")	newletter="ф"
-			if(lowerrustext(newletter)=="б")	newletter="п"
-			if(lowerrustext(newletter)=="г")	newletter="х"
-			if(lowerrustext(newletter)=="д")	newletter="т"
-			if(lowerrustext(newletter)=="л")	newletter="ль"
+			if(lowerrustext(letter)=="з")	letter="с"
+			if(lowerrustext(letter)=="в")	letter="ф"
+			if(lowerrustext(letter)=="б")	letter="п"
+			if(lowerrustext(letter)=="г")	letter="х"
+			if(lowerrustext(letter)=="д")	letter="т"
+			if(lowerrustext(letter)=="л")	letter="ль"
 		switch(rand(1,15))
-			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
-			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
-			if(7)	newletter+="'"
-			if(9,10)	newletter="<b>[newletter]</b>"
-			if(11,12)	newletter="<big>[newletter]</big>"
-			if(13)	newletter="<small>[newletter]</small>"
-		newphrase+="[newletter]";counter-=1
-	return newphrase
-/*
-proc/NewStutter(phrase,stunned)
-	phrase = html_decode(phrase)
+			if(1,3,5,8)		letter = "[lowerrustext(letter)]"
+			if(2,4,6,15)	letter = "[upperrustext(letter)]"
+			if(7)			letter += "'"
+			if(9,10)		letter = "<b>[letter]</b>"
+			if(11,12)		letter = "<big>[letter]</big>"
+			if(13)			letter = "<small>[letter]</small>"
+		output += letter
 
-	var/list/split_phrase = text2list(phrase," ") //Split it up into words.
+	return output
 
-	var/list/unstuttered_words = split_phrase.Copy()
-	var/i = rand(1,3)
-	if(stunned) i = split_phrase.len
-	for(,i > 0,i--) //Pick a few words to stutter on.
+// For drunken speak, etc
+proc/slurring(phrase) // using cp1251!
+	var/output = ""
 
-		if (!unstuttered_words.len)
-			break
-		var/word = pick(unstuttered_words)
-		unstuttered_words -= word //Remove from unstuttered words so we don't stutter it again.
-		var/index = split_phrase.Find(word) //Find the word in the split phrase so we can replace it.
+	for(var/i = 1; i <= lentext(phrase); i++)
+		var/letter = copytext(phrase, i, i + 1)
+		if(letter == " ") //skip whitespaces
+			output += " "
+			continue
+		if(prob(33))
+			if(lowerrustext(letter)=="о")	letter="у"
+			if(lowerrustext(letter)=="ы")	letter="i"
+			if(lowerrustext(letter)=="р")	letter="r"
+			if(lowerrustext(letter)=="л")	letter="ль"
+			if(lowerrustext(letter)=="з")	letter="с"
+			if(lowerrustext(letter)=="в")	letter="ф"
+			if(lowerrustext(letter)=="б")	letter="п"
+			if(lowerrustext(letter)=="г")	letter="х"
+			if(lowerrustext(letter)=="д")	letter="т"
+			if(lowerrustext(letter)=="л")	letter="ль"
+		if(lowertext(letter) == "ы")		letter="i"
+		if(lowertext(letter) == "р")		letter="r"
+		switch(rand(1,15))
+			if(1,3,5,8)		letter = "[lowerrustext(letter)]"
+			if(2,4,6,15)	letter = "[upperrustext(letter)]"
+			if(7)			letter += "'"
+			if(9,10)		letter = "<b>[letter]</b>"
+			if(11,12)		letter = "<big>[letter]</big>"
+			if(13)			letter = "<small>[letter]</small>"
+		output += letter
 
-		//Search for dipthongs (two letters that make one sound.)
-		var/first_sound = copytext(word,1,3)
-		var/first_letter = copytext(word,1,2)
-		if(lowertext(first_sound) in list("ch","th","sh"))
-			first_letter = first_sound
+	return output
 
-		//Repeat the first letter to create a stutter.
-		var/rnum = rand(1,3)
-		switch(rnum)
+proc/stutter(phrase)
+	var/list/unstuttered_words = dd_text2list(phrase," ") //Split it up into words.
+	var/output = ""
+
+	for(var/word in unstuttered_words)
+		var/first_letter = copytext(word, 1, 2)
+		if(first_letter == "&")
+			first_letter = copytext(word, 1, 7)
+		switch(rand(1,3))
 			if(1)
-				word = "[first_letter]-[word]"
+				word = "[first_letter]-[word] "
 			if(2)
-				word = "[first_letter]-[first_letter]-[word]"
+				word = "[first_letter]-[first_letter]-[word] "
 			if(3)
-				word = "[first_letter]-[word]"
+				word = "[first_letter]-[first_letter]-[first_letter]-[word] "
+		output += word
+	return output
 
-		split_phrase[index] = word
-
-	return sanitize(list2text(split_phrase," "))
-*/
 proc/Stagger(mob/M,d) //Technically not a filter, but it relates to drunkenness.
 	step(M, pick(d,turn(d,90),turn(d,-90)))
 

@@ -172,10 +172,10 @@ var/list/department_radio_keys = list(
 		message = derpspeech(message, stuttering)
 
 	if (stuttering)
-		message = NewStutter(message)
+		message = stutter(message)
 
 	if (slurring)
-		message = slur(message)
+		message = slurring(message)
 
 /* //qw do not have beesease atm.
 	if(virus)

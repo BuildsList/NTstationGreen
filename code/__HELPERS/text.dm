@@ -460,52 +460,6 @@ proc/sanitize_russian(var/msg, var/html = 0) //«аменить это как можно быстрее ме
 		new_text += copytext(text, i, i+1)
 	return new_text
 
-
-// For drunken speak, etc
-proc/slurring(phrase) // using cp1251!
-	phrase = rhtml_decode(phrase)
-	var
-		leng=lentext(phrase)
-		counter=lentext(phrase)
-		newphrase=""
-		newletter=""
-
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(prob(33))
-			if(lowertext(newletter)=="о")	newletter="у"
-			if(lowertext(newletter)=="е")	newletter="э"
-		if(lowertext(newletter)=="ы")	newletter="i"
-		if(lowertext(newletter)=="р")	newletter="r"
-		switch(rand(1,15))
-			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
-			if(2,4,6,15)	newletter="[upperrustext(newletter)]"
-			if(7)	newletter+="'"
-			if(9,10)	newletter="<b>[newletter]</b>"
-			if(11,12)	newletter="<big>[newletter]</big>"
-			if(13)	newletter="<small>[newletter]</small>"
-		newphrase+="[newletter]"
-		counter-=1
-	return newphrase
-
-proc/NewStutter(phrase)
-	var/list/unstuttered_words = dd_text2list(phrase," ") //Split it up into words.
-	var/output = ""
-
-	for(var/word in unstuttered_words)
-		var/first_letter = copytext(word, 1, 2)
-		if(first_letter == "&")
-			first_letter = copytext(word, 1, 7)
-		switch(rand(1,3))
-			if(1)
-				word = "[first_letter]-[word] "
-			if(2)
-				word = "[first_letter]-[first_letter]-[word] "
-			if(3)
-				word = "[first_letter]-[first_letter]-[first_letter]-[word] "
-		output += word
-	return output
-
 /proc/dd_text2list(text, separator, var/list/withinList)
 	var/textlength = length(text)
 	var/separatorlength = length(separator)

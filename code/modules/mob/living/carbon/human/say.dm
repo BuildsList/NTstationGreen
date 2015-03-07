@@ -24,11 +24,11 @@
 		if(dna)
 			if(dna.mutantrace == "lizard")
 				if(copytext(message, 1, 2) != "*")
-					message = replacetext(message, "ñ", NewStutter("ññ"))
+					message = replacetext(message, "ñ", stutter("ññ"))
 
 			if(dna.mutantrace == "fly")
 				if(copytext(message, 1, 2) != "*")
-					message = replacetext(message, "ç", NewStutter("çç"))
+					message = replacetext(message, "ç", stutter("çç"))
 
 			/*if(dna.mutantrace == "slime" && prob(5))
 				if(copytext(message, 1, 2) != "*")
