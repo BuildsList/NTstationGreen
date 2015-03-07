@@ -1615,6 +1615,20 @@
 				log_admin("[src.owner] apply sleep [number] to [M.name]([M.client ? "[M.key]": ""]).")
 				message_admins("[src.owner] apply sleep [number] to [M.name]([M.client ? "[M.key]": ""]).")
 
+	else if(href_list["mobslip"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["mobslip"])
+		if(M && iscarbon(M))
+			var/answer = alert("Sleep on lube?",,"Yes","No", "Cancel")
+			if(answer !="Cancel" && M && isnull(M.gc_destroyed) && iscarbon(M))
+				var/lube = 0
+				if (answer == "Yes")
+					lube = 1
+				M.slip(5, 10, null, lube)
+				log_admin("[src.owner] make [M.name]([M.client ? "[M.key]": ""]) to slip ([lube ? "lube" : "no lube"]).")
+				message_admins("[src.owner] make [M.name]([M.client ? "[M.key]": ""]) to slip ([lube ? "lube" : "no lube"]).")
+
 //****** End of Mob Affect actions
 
 

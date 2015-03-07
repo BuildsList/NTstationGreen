@@ -56,6 +56,9 @@ var/global/floorIsLava = 0
 	body += "<A href='?_src_=holder;mobparalyze=\ref[M]'>Paralyze</a> | "
 	body += "<A href='?_src_=holder;mobweak=\ref[M]'>Weak</a> | "
 	body += "<A href='?_src_=holder;mobsleep=\ref[M]'>Sleep</a>"
+	if(iscarbon(M))
+		body += " | "
+		body += "<A href='?_src_=holder;mobslip=\ref[M]'>Slip</a>"
 
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
