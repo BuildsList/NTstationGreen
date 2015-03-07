@@ -43,7 +43,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-	/client/proc/checkAccount
+	/client/proc/checkAccount,
+	/client/proc/checkAllAccounts
 	)
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
