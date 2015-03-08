@@ -1,10 +1,4 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
-/mob/verb/testfilters(var/text as message)
-	world << intoxicated(text)
-	world << slurring(text)
-	world << stutter(text)
-
 proc/intoxicated(phrase) // using cp1251!
 	var/output = ""
 
