@@ -216,24 +216,24 @@
 			dat += "<tr bgcolor='[job.selection_color]'><td align='center'>"
 			var/rank = job.title
 			lastJob = job
+			var/rank_full_name = rank
+			if(job.total_positions > 1)
+				rank_full_name += " ([job.current_positions])"
+
 			if(jobban_isbanned(src, rank))
-				dat += "<a class='linkOff'><font color=red>[rank]</font></a><font color=red><b> \[BANNED\]</b></font></td></tr>"
+				dat += "<a class='linkOff'><font color=red>[rank_full_name]</font></a><font color=red><b> \[BANNED\]</b></font></td></tr>"
 				continue
 			if(!job.player_old_enough(src.client))
 				var/available_in_days = job.available_in_days(src.client)
-				dat += "<a class='linkOff'><font color=red>[rank]</font></a><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
+				dat += "<a class='linkOff'><font color=red>[rank_full_name]</font></a><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
 				continue
 			if(!IsJobAvailable(rank))
-				dat += "<a class='linkOff'>[rank]</a></td></tr>"
+				dat += "<a class='linkOff'>[rank_full_name]</a></td></tr>"
 				continue
 			if((rank in command_positions) || (rank == "AI"))//Bold head jobs
-				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'><b>[rank]</b></a>"
+				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'><b>[rank_full_name]</b></a>"
 			else
-				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[rank]"
-				if(job.total_positions > 1)
-					dat += " ([job.current_positions])"
-				dat += "</a>"
-
+				dat += "<a href='byond://?src=\ref[src];SelectedJob=[job.title]'>[rank_full_name]</a>"
 			dat += "</td></tr>"
 
 		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
@@ -244,7 +244,7 @@
 		dat += "</center></table>"
 
 		// Added the new browser window method
-		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", width, 620)
+		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", width, 450)
 		popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 		popup.set_content(dat)
 		popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
