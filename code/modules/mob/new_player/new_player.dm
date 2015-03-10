@@ -244,7 +244,7 @@
 		dat += "</center></table>"
 
 		// Added the new browser window method
-		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", width, 450)
+		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", width, 460)
 		popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 		popup.set_content(dat)
 		popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
