@@ -64,7 +64,7 @@
 
 /obj/machinery/party/turntable/New()
 	..()
-	for(var/obj/machinery/party/turntable/TT) // NO WAY
+	for(var/obj/machinery/party/turntable/TT) // Rework it later
 		if(TT != src)
 			del(src)
 	turntable_soundtracks = list()
@@ -93,7 +93,7 @@
 	src.add_fingerprint(usr)
 
 	var/t = "<body background='turntable_back.jpg'><br><br><br><div align='center'><table border='0'><B><font color='maroon' size='6'>J</font><font size='5' color='purple'>uke Box</font> <font size='5' color='green'>Interface</font></B><br><br><br><br>"
-	t += "<A href='?src=\ref[src];on=1'>On</A><br>"
+//	t += "<A href='?src=\ref[src];on=1'>On</A><br>"
 //	if(disk)
 //		t += "<A href='?src=\ref[src];eject=1'>Eject disk</A><br>"
 	t += "<tr><td height='50' weight='50'></td><td height='50' weight='50'><A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='lightgreen'>urn</font> <font color='red'>Off</font></A></td><td height='50' weight='50'></td></tr>"
