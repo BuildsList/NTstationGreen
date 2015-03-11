@@ -131,6 +131,7 @@ proc/process_sec_hud(var/mob/living/M, var/advanced_mode,var/mob/eye)
 			var/datum/data/record/R = find_record("name", perpname, data_core.security)
 			if(R)
 				holder = perp.hud_list[WANTED_HUD]
+				holder.hud_remove = 1 //We want to remove it at next tick
 				switch(R.fields["criminal"])
 					if("*Arrest*")		holder.icon_state = "hudwanted"
 					if("Incarcerated")	holder.icon_state = "hudincarcerated"

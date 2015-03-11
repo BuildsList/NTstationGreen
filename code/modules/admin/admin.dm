@@ -179,7 +179,7 @@ var/global/floorIsLava = 0
 	body += "<br>"
 	body += "</body></html>"
 
-	usr << browse(body, "window=adminplayeropts;size=550x515")
+	usr << browse(body, "window=adminplayeropts;size=550x655")
 
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Fun"

@@ -1,4 +1,13 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+
+/*
+/mob/verb/testslurring(var/text as text)
+	usr << text
+	usr << sanitize(text)
+	usr << slurring(sanitize(text))
+	usr << stutter(sanitize(text))
+*/
+
 proc/intoxicated(phrase) // using cp1251!
 	var/output = ""
 
@@ -7,6 +16,9 @@ proc/intoxicated(phrase) // using cp1251!
 		if(letter == " ") //skip whitespaces
 			output += " "
 			continue
+		if(letter == "&")
+			letter = "&#255;"
+			i += 6
 		if(rand(1,3)==3)
 			if(lowerrustext(letter)=="ç")	letter="ñ"
 			if(lowerrustext(letter)=="â")	letter="ô"
@@ -34,6 +46,9 @@ proc/slurring(phrase) // using cp1251!
 		if(letter == " ") //skip whitespaces
 			output += " "
 			continue
+		if(letter == "&")
+			letter = "&#255;"
+			i += 6
 		if(prob(33))
 			if(lowerrustext(letter)=="î")	letter="ó"
 			if(lowerrustext(letter)=="û")	letter="i"
@@ -65,7 +80,7 @@ proc/stutter(phrase)
 	for(var/word in unstuttered_words)
 		var/first_letter = copytext(word, 1, 2)
 		if(first_letter == "&")
-			first_letter = copytext(word, 1, 7)
+			first_letter = "&#255;"
 		switch(rand(1,3))
 			if(1)
 				word = "[first_letter]-[word] "
