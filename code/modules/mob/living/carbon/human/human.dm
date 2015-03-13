@@ -462,12 +462,12 @@
 
 
 				var/modified = 0
-				var/perpname = get_face_name(get_id_name(""))
-				if(perpname)
-					var/datum/data/record/R = find_record("name", perpname, data_core.security)
+				var/perpname = href_list["criminal"]
+				var/datum/data/record/R = find_record("name", perpname, data_core.security)
+				if(R)
+					var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) as null|anything in list("None", "*Arrest*", "Incarcerated", "Parolled", "Discharged")
 					if(R)
-						var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) as null|anything in list("None", "*Arrest*", "Incarcerated", "Parolled", "Discharged")
-						if(R)
+						if(setcriminal)
 							if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses))
 								if(setcriminal != "Cancel")
 									R.fields["criminal"] = setcriminal
@@ -475,6 +475,8 @@
 
 									spawn()
 										H.handle_regular_hud_updates()
+						else
+							modified = 1
 
 				if(!modified)
 					usr << "<span class='warning'>Unable to locate a data core entry for this person.</span>"

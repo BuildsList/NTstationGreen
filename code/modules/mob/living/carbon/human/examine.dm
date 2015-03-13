@@ -296,7 +296,7 @@
 					if(R)
 						criminal = R.fields["criminal"]
 
-					msg += "<span class = 'deptradio'>Criminal status:</span> <a href='?src=\ref[src];criminal=1'>\[[criminal]\]</a>\n"
+					msg += "<span class = 'deptradio'>Criminal status:</span> <a href='?src=\ref[src];criminal=[get_face_name(get_id_name(""))]'>\[[criminal]\]</a>\n"
 
 	msg += "*---------*</span>"
 
