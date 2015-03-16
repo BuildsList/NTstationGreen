@@ -45,7 +45,7 @@
 	var/ndir = get_dir(usr,on_wall)
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	if (A.name == "Space") // i think this is better
+	if (A.requires_power == 0 || A.name == "Space") // bydlocode by JamsMor
 		usr << "<span class='warning'>This area cannot have an APC.</span>"
 		return
 	if (A.get_apc())
