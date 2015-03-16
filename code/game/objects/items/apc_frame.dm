@@ -15,7 +15,7 @@
 		usr << "<span class='warning'>[src] cannot be placed on this spot.</span>"
 		return
 	var/area/A = loc.loc
-	if (A.requires_power == 0 || istype(A, /area/space))
+	if (A.requires_power == 0 || istype(A, /area/space) || istype(A, /area/mine/unexplored) || istype(A, /area/mine/explored))
 		usr << "<span class='warning'>[src] cannot be placed in this area.</span>"
 		return
 	if(gotwallitem(loc, ndir))
