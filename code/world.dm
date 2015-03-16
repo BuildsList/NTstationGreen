@@ -4,7 +4,7 @@
 	area = /area
 	view = "15x15"
 	cache_lifespan = 1
-	loop_checks = 0
+	loop_checks = 1
 
 #define RECOMMENDED_VERSION 495
 
