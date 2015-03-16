@@ -82,6 +82,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	item_state = "syringe_kit"
 	m_amt = 14000
 	g_amt = 8000
+	sheets_refunded = 0 // No wrench disassembly
 
 /obj/item/wall_frame/newscaster/try_build(turf/on_wall)
 	if(!..())

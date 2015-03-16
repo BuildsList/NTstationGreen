@@ -2,6 +2,7 @@
 /obj/item/wall_frame
 	name = "frame"
 	flags = CONDUCT
+	var/sheets_refunded = 2
 
 /obj/item/wall_frame/proc/try_build(turf/on_wall)
 	if (get_dist(on_wall,usr)>1)
@@ -23,6 +24,12 @@
 
 	return 1
 
+/obj/item/wall_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	..()
+	if (istype(W, /obj/item/weapon/wrench) && sheets_refunded)
+		new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
+		qdel(src)
+
 
 
 // APC HULL
@@ -31,12 +38,6 @@
 	desc = "Used for repairing or building APCs"
 	icon = 'icons/obj/apc_repair.dmi'
 	icon_state = "apc_frame"
-
-/obj/item/wall_frame/apc/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	..()
-	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/metal( get_turf(src.loc), 2 )
-		qdel(src)
 
 /obj/item/wall_frame/apc/try_build(turf/on_wall)
 	if(!..())
