@@ -12,6 +12,7 @@
 	if(say_disabled)	//This is here to try to identify lag problems
 		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
 		return
+	message = strip_html_properly(sanitize(message))
 	usr.say(message)
 
 /mob/verb/me_verb(message as text)
