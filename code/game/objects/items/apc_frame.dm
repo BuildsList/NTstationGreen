@@ -40,16 +40,15 @@
 	icon_state = "apc_frame"
 
 /obj/item/wall_frame/apc/try_build(turf/on_wall)
+/*
 	if(!..())
 		return
 	var/ndir = get_dir(usr,on_wall)
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	/*
-	if (A.name == "Space") // i think this is better
+	if (A.name == "Space" || A.name == "Mine") // i think this is better
 		usr << "<span class='warning'>This area cannot have an APC.</span>"
 		return
-	*/
 	if (A.get_apc())
 		usr << "<span class='warning'>This area already has APC.</span>"
 		return //only one APC per area
@@ -64,3 +63,6 @@
 			qdel(T)
 	new /obj/machinery/power/apc(loc, ndir, 1)
 	qdel(src)
+*/
+	usr << "Sorry, but the opportunity to build APC temporarily disabled."
+	return
