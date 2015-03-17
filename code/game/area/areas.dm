@@ -96,7 +96,7 @@
 	return 0
 
 /area/proc/firealert()
-	if(src.name == "Space") //no fire alarms in space
+	if(istype(src, /area/space)) //no fire alarms in space
 		return
 	if (!( src.fire ))
 		src.fire = 1
@@ -137,7 +137,7 @@
 	return
 
 /area/proc/readyalert()
-	if(name == "Space")
+	if(istype(src, /area/space))
 		return
 	if(!eject)
 		eject = 1
@@ -151,7 +151,7 @@
 	return
 
 /area/proc/partyalert()
-	if(src.name == "Space") //no parties in space!!!
+	if(istype(src, /area/space)) //no parties in space!!!
 		return
 	if (!( src.party ))
 		src.party = 1
