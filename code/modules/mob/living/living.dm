@@ -432,7 +432,7 @@
 	var/mob/living/L = usr
 
 	//resisting grabs (as if it helps anyone...)
-	if(!L.stat && L.canmove && !L.restrained())
+	if(!L.stat && !L.canmove && !L.restrained())
 		var/resisting = 0
 		for(var/obj/O in L.requests)
 			qdel(O)
@@ -441,16 +441,14 @@
 			resisting++
 			if(G.state == GRAB_PASSIVE)
 				qdel(G)
-			else
-				if(G.state == GRAB_AGGRESSIVE)
-					if(prob(25))
-						L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s grip!</span>")
-						qdel(G)
-				else
-					if(G.state == GRAB_NECK)
-						if(prob(5))
-							L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s headlock!</span>")
-							qdel(G)
+			else if(G.state == GRAB_AGGRESSIVE)
+				if(prob(25))
+					L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s grip!</span>")
+					qdel(G)
+			else if(G.state == GRAB_NECK)
+				if(prob(5))
+					L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s headlock!</span>")
+					qdel(G)
 		if(resisting)
 			L.visible_message("<span class='warning'>[L] resists!</span>")
 			return
