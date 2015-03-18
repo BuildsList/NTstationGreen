@@ -437,12 +437,12 @@
 			if(G.state == GRAB_PASSIVE)
 				qdel(G)
 			else if(G.state == GRAB_AGGRESSIVE && prob(25))
-					L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s grip!</span>")
-					qdel(G)
+				L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s grip!</span>")
+				qdel(G)
 			else if(G.state == GRAB_NECK && prob(5))
-					L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s headlock!</span>")
-					qdel(G)
-					L.stunned - 4
+				L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s headlock!</span>")
+				qdel(G)
+				L.stunned - 4
 			else
 				L.visible_message("<span class='warning'>[L] resists!</span>")
 			return
