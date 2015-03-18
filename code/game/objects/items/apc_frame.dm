@@ -64,5 +64,6 @@
 	new /obj/machinery/power/apc(loc, ndir, 1)
 	qdel(src)
 */
+	message_admins("[usr] create a apc-frame in [src.x], [src.y], [src.z]", 1)
 	usr << "Sorry, but the opportunity to build APC temporarily disabled."
 	return

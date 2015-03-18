@@ -442,7 +442,7 @@
 			else if(G.state == GRAB_NECK && prob(5))
 				L.visible_message("<span class='warning'>[L] has broken free of [G.assailant]'s headlock!</span>")
 				qdel(G)
-				L.stunned - 4
+				L.stunned -= 4
 			else
 				L.visible_message("<span class='warning'>[L] resists!</span>")
 			return
