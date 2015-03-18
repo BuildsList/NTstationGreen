@@ -47,6 +47,20 @@
 			message = "<B>[src]</B> давитс&#255;!"
 			m_type = 2
 
+		if ("me")
+			if (src.client)
+				if(client.prefs.muted & MUTE_IC)
+					src << "You cannot send IC messages (muted)."
+					return
+				if (src.client.handle_spam_prevention(message,MUTE_IC))
+					return
+			if (stat)
+				return
+			if(!(message))
+				return
+			else
+				message = "<B>[src]</B> [message]"
+
 		if ("chuckle")
 			message = "<B>[src]</B> хихикает."
 			m_type = 2

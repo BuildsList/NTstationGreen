@@ -35,6 +35,20 @@
 			message = "<B>[src]</B> blinks rapidly."
 			m_type = 1
 
+		if ("me")
+			if (src.client)
+				if(client.prefs.muted & MUTE_IC)
+					src << "You cannot send IC messages (muted)."
+					return
+				if (src.client.handle_spam_prevention(message,MUTE_IC))
+					return
+			if (stat)
+				return
+			if(!(message))
+				return
+			else
+				message = "<B>[src]</B> [message]"
+
 		if ("blush")
 			message = "<B>[src]</B> blushes."
 			m_type = 1
