@@ -15,7 +15,7 @@
 		usr << "<span class='warning'>[src] cannot be placed on this spot.</span>"
 		return
 	var/area/A = loc.loc
-	if (A.requires_power == 0 || istype(A, /area/space) || istype(A, /area/mine/unexplored) || istype(A, /area/mine/explored))
+	if (A.requires_power == 0 || istype(A, /area/space))
 		usr << "<span class='warning'>[src] cannot be placed in this area.</span>"
 		return
 	if(gotwallitem(loc, ndir))
@@ -40,16 +40,12 @@
 	icon_state = "apc_frame"
 
 /obj/item/wall_frame/apc/try_build(turf/on_wall)
-/*
 	if(!..())
 		return
 	var/ndir = get_dir(usr,on_wall)
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	if (A.name == "Space" || A.name == "Mine") // i think this is better
-		usr << "<span class='warning'>This area cannot have an APC.</span>"
-		return
-	if (A.get_apc())
+	if (A.master.has_apc)
 		usr << "<span class='warning'>This area already has APC.</span>"
 		return //only one APC per area
 	for(var/obj/machinery/power/terminal/T in loc)
@@ -63,7 +59,4 @@
 			qdel(T)
 	new /obj/machinery/power/apc(loc, ndir, 1)
 	qdel(src)
-*/
-	message_admins("[usr] create a apc-frame in [src.x], [src.y], [src.z]", 1)
-	usr << "Sorry, but the opportunity to build APC temporarily disabled."
 	return
