@@ -126,8 +126,8 @@
 /obj/item/clothing/head/rabbithead
 	name = "rabbit head"
 	desc = "It's unspeakably stylish"
-	icon_state = "rabbit_l"
-	item_state = "rabbit_h"
+	icon_state = "rabbit1"
+	item_state = "rabbit1"
 	flags = HEADCOVERSEYES|BLOCKHAIR
 
 /obj/item/clothing/head/flatcap
