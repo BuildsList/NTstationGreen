@@ -956,6 +956,10 @@
 				alert(usr,"This ban has already been lifted / does not exist.","Error","Ok")
 				unjobbanpanel()
 
+	else if(href_list["showmultiacc"])
+		if(!check_rights(R_ADMIN))	return
+		showAccounts(src, href_list["showmultiacc"])
+
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN))	return
 		cmd_admin_mute(href_list["mute"], text2num(href_list["mute_type"]))
@@ -972,17 +976,6 @@
 		dat += {"<A href='?src=\ref[src];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [master_mode]"}
 		usr << browse(dat, "window=c_mode")
-
-	else if(href_list["showlaws"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/living/silicon/M = locate(href_list["showlaws"])
-		if(!ismob(M))	return
-		//if(!M.client)	return
-
-		if (M.laws)
-			usr << "<B>[M.name] laws:</B>"
-			M.laws.show_laws(usr)
 
 	else if(href_list["f_secret"])
 		if(!check_rights(R_SERVER))	return
@@ -1323,6 +1316,7 @@
 
 	// Mob Inventory Window
 	else if(href_list["mobinvdrop"])
+		if(!check_rights(R_ADMIN))	return
 		var/mob/M = locate(href_list["mobinvdrop"])
 		if (M)
 			MobInventory(M)
@@ -1330,6 +1324,7 @@
 			usr << "No mob"
 
 	else if(href_list["mobinventory"])
+		if(!check_rights(R_ADMIN))	return
 		var/mob/M = locate(href_list["mobinventory"])
 		if (M)
 			var/mobtype = text2num(href_list["mobinvdropmobtype"])
@@ -1380,6 +1375,17 @@
 *****************AFTER******************/
 
 // Now isn't that much better? IT IS NOW A PROC, i.e. kinda like a big panel like unstable
+
+	else if(href_list["showlaws"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/silicon/M = locate(href_list["showlaws"])
+		if(!ismob(M))	return
+		//if(!M.client)	return
+
+		if (M.laws)
+			usr << "<B>[M.name] laws:</B>"
+			M.laws.show_laws(usr)
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locate(href_list["adminplayeropts"])
