@@ -351,7 +351,7 @@ atom/proc/generate_uniform(index,t_color)
 	if(usr.stat) return
 
 	if(hastie)
-		hastie.transform /= 0.5
+		hastie.transform *= 2
 		hastie.pixel_x -= 8
 		hastie.pixel_y += 8
 		hastie.layer = initial(hastie.layer)
