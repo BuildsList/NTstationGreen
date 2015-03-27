@@ -1391,12 +1391,25 @@
 		var/mob/M = locate(href_list["adminplayeropts"])
 		show_player_panel(M)
 
+	else if(href_list["later"])
+		var/mob/M = locate(href_list["later"])
+		cmd_admin_mute(M.ckey, 8)
+		var/message = "В данный момент администрация сейчас занята. Пожалуйста, обратитесь через несколько минут."
+		message = strip_html_properly(sanitize(message))
+		M << "<span class='info'><b><font color=red>[message]</font></b></span>"
+		spawn(600)
+		cmd_admin_mute(M.ckey, 8)
+
+
 	else if(href_list["adminplayerobservejump"])
 		if(!isobserver(usr) && !check_rights(R_ADMIN))	return
 
 		var/mob/M = locate(href_list["adminplayerobservejump"])
 
 		var/client/C = usr.client
+		if(istype(usr, /mob/new_player))
+			usr << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>"
+			return
 		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptomob(M)
