@@ -18,8 +18,8 @@
 /obj/machinery/power/terminal/New()
 	..()
 	var/turf/T = src.loc
-	if(level==1) hide(T.intact)
-	return
+	if(level == 1)
+		hide(T.intact)
 
 /obj/machinery/power/terminal/Destroy()
 	if(master)
@@ -45,73 +45,3 @@
 	new /obj/item/stack/sheet/metal(src.loc, 2)
 
 	del(src)
-
-/obj/item/terminal_frame
-	name = "terminal frame"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "term_frame"
-	var/wired = 0
-
-/obj/item/terminal_frame/New()
-	..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
-
-/obj/item/terminal_frame/attackby(var/obj/item/weapon/W, var/mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		if(wired)
-			user << "[src] is already wired."
-			return
-		var/obj/item/stack/cable_coil/C = W
-		if(C.use(5))
-			wired = 1
-			update_icon()
-		else
-			user << "There's not enough cable."
-
-/obj/item/terminal_frame/afterattack(atom/target, mob/user)
-	if(!isturf(target))
-		return ..()
-	var/turf/T = target
-	if(!T.is_plating())
-		user << "[src] could be placed only at plating."
-		return
-	if(!wired)
-		user << "You should wire frame before installing."
-		return
-
-	var/terminal = locate(/obj/machinery/power/terminal) in T
-	if(terminal)
-		user << "Terminal is already installed here."
-		return
-
-	playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
-	var/obj/machinery/power/terminal/newTerminal = new(T)
-	newTerminal.dir = src.dir
-
-	usr.visible_message("[usr.name] attaches [src] to the floor.", "You attach [src] to the floor.")
-	user.drop_item()
-
-	del(src)
-
-/obj/item/terminal_frame/attack_self(mob/user as mob)
-	rotate()
-
-/obj/item/terminal_frame/update_icon()
-	if(wired)
-		icon_state = "term"
-	else
-		icon_state = "term_frame"
-
-/obj/item/terminal_frame/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Frame"
-	set src in view(1)
-
-	if ( usr.stat || usr.restrained() )
-		return
-
-	src.dir = turn(src.dir, -90)
-
-	return
-

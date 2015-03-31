@@ -48,9 +48,11 @@
 						break dir_loop
 
 		if(!terminal)
-			stat |= BROKEN
-			return
-		terminal.master = src
+			if(!make_terminal())
+				stat |= BROKEN
+				return
+		else
+			terminal.master = src
 		update_icon()
 	return
 
@@ -339,6 +341,25 @@
 
 /obj/machinery/power/smes/proc/log_smes(var/user = "")
 	investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user]","singulo")
+
+/obj/machinery/power/smes/proc/make_terminal()
+	if(terminal)
+		return 0
+	if(!(dir in cardinal))
+		return 0
+
+	var/turf/T = get_step(src, dir)
+	terminal = new(T)
+	terminal.dir = turn(src.dir, 180)
+	terminal.master = src
+	terminal.connect_to_network()
+	return 1
+
+/obj/machinery/power/smes/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
+	if(terminal)
+		del(terminal)
+	..()
+	make_terminal()
 
 
 /obj/machinery/power/smes/emp_act(severity)
