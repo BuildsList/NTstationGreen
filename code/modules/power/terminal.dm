@@ -18,8 +18,8 @@
 /obj/machinery/power/terminal/New()
 	..()
 	var/turf/T = src.loc
-	if(level==1) hide(T.intact)
-	return
+	if(level == 1)
+		hide(T.intact)
 
 /obj/machinery/power/terminal/Destroy()
 	if(master)
@@ -34,3 +34,14 @@
 		invisibility = 0
 		icon_state = "term"
 
+/obj/machinery/power/terminal/attackby(var/obj/item/weapon/W, var/mob/user)
+	if(!istype(W, /obj/item/weapon/crowbar))
+		return ..()
+	user.visible_message("<span class='warning'>[user.name] starts removing [src].</span>", "<span class='notice'>You start removing [src].</span>")
+	if(!do_after(user, 20))	return
+	user.visible_message("<span class='warning'>[user.name] removed [src].</span>", "<span class='notice'>You successfully removed [src].</span>")
+
+	new /obj/item/stack/cable_coil(src.loc, 5)
+	new /obj/item/stack/sheet/metal(src.loc, 2)
+
+	del(src)

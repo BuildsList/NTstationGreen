@@ -133,7 +133,7 @@
 			user.put_in_hands(myspray)
 			user << "<span class='notice'>You take [myspray] from [src].</span>"
 			myspray = null
-	if(href_list["myhsign"])
+	if(href_list["hsign"])
 		if(myhsign)
 			user.put_in_hands(myhsign)
 			user << "<span class='notice'>You take [myhsign] from [src].</span>"
