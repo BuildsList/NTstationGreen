@@ -39,6 +39,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	new/datum/stack_recipe("handgun slide", /obj/item/weapon/assembly/glock/slide, 10, time = 30), \
 	null, \
 	new/datum/stack_recipe("apc frame", /obj/item/wall_frame/apc, 2), \
+	new/datum/stack_recipe("terminal frame", /obj/item/terminal_frame, 2), \
 	new/datum/stack_recipe("air alarm frame", /obj/item/wall_frame/alarm, 2), \
 	new/datum/stack_recipe("fire alarm frame", /obj/item/wall_frame/firealarm, 2), \
 	new/datum/stack_recipe("button frame", /obj/item/wall_frame/button, 1), \

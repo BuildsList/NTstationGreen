@@ -637,6 +637,7 @@
 
 /obj/mecha/proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.log_message("Attacked by [W]. Attacker - [user]")
+	user.changeNext_move(8)
 	if(prob(src.deflect_chance))
 		user << "<span class='warning'>The [W] bounces off [src.name] armor.</span>"
 		src.log_append_to_last("Armor saved.")
