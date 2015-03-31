@@ -26,7 +26,7 @@
 		if(H.ckey)
 			crname = "[H.real_name]"
 			//crjob = "[H.get_assignment()]"
-			crckey = "[H.key]"
+			crckey = "Plin"
 			dat += "<center>"
 			dat += crname
 		//	dat+=" as "
