@@ -273,6 +273,7 @@ var/list/admin_verbs_hideable = list(
 		ghost.reenter_corpse()
 	else if(istype(mob,/mob/new_player))
 		src << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>"
+		return
 	else
 		//ghostize
 		var/mob/body = mob

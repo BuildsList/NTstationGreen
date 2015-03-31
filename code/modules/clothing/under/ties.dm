@@ -100,7 +100,11 @@
 				user.drop_item()
 				U.hastie = src
 				src.loc = U
-
+				src.transform *= 0.5
+				src.pixel_x += 8
+				src.pixel_y -= 8
+				src.layer = FLOAT_LAYER
+				U.overlays += src
 				if(user == M)
 					user << "<span class='notice'>You attach [src] to [U].</span>"
 				else

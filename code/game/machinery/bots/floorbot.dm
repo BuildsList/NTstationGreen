@@ -330,7 +330,7 @@
 
 /obj/machinery/bot/floorbot/proc/is_hull_breach(var/turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
-	if (t_area && (t_area.name == "Space" || findtext(t_area.name, "huttle")))
+	if (t_area && (istype(t_area, /area/space) || findtext(t_area.name, "huttle")))
 		return 0
 	else
 		return 1

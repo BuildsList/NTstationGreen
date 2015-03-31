@@ -956,6 +956,10 @@
 				alert(usr,"This ban has already been lifted / does not exist.","Error","Ok")
 				unjobbanpanel()
 
+	else if(href_list["showmultiacc"])
+		if(!check_rights(R_ADMIN))	return
+		showAccounts(src, href_list["showmultiacc"])
+
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN))	return
 		cmd_admin_mute(href_list["mute"], text2num(href_list["mute_type"]))
@@ -972,17 +976,6 @@
 		dat += {"<A href='?src=\ref[src];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [master_mode]"}
 		usr << browse(dat, "window=c_mode")
-
-	else if(href_list["showlaws"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/living/silicon/M = locate(href_list["showlaws"])
-		if(!ismob(M))	return
-		//if(!M.client)	return
-
-		if (M.laws)
-			usr << "<B>[M.name] laws:</B>"
-			M.laws.show_laws(usr)
 
 	else if(href_list["f_secret"])
 		if(!check_rights(R_SERVER))	return
@@ -1323,6 +1316,7 @@
 
 	// Mob Inventory Window
 	else if(href_list["mobinvdrop"])
+		if(!check_rights(R_ADMIN))	return
 		var/mob/M = locate(href_list["mobinvdrop"])
 		if (M)
 			MobInventory(M)
@@ -1330,6 +1324,7 @@
 			usr << "No mob"
 
 	else if(href_list["mobinventory"])
+		if(!check_rights(R_ADMIN))	return
 		var/mob/M = locate(href_list["mobinventory"])
 		if (M)
 			var/mobtype = text2num(href_list["mobinvdropmobtype"])
@@ -1381,9 +1376,30 @@
 
 // Now isn't that much better? IT IS NOW A PROC, i.e. kinda like a big panel like unstable
 
+	else if(href_list["showlaws"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/silicon/M = locate(href_list["showlaws"])
+		if(!ismob(M))	return
+		//if(!M.client)	return
+
+		if (M.laws)
+			usr << "<B>[M.name] laws:</B>"
+			M.laws.show_laws(usr)
+
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locate(href_list["adminplayeropts"])
 		show_player_panel(M)
+
+	else if(href_list["later"])
+		var/mob/M = locate(href_list["later"])
+		cmd_admin_mute(M.ckey, 8)
+		var/message = "В данный момент администрация сейчас занята. Пожалуйста, обратитесь через несколько минут."
+		message = strip_html_properly(sanitize(message))
+		M << "<span class='info'><b><font color=red>[message]</font></b></span>"
+		spawn(600)
+		cmd_admin_mute(M.ckey, 8)
+
 
 	else if(href_list["adminplayerobservejump"])
 		if(!isobserver(usr) && !check_rights(R_ADMIN))	return
@@ -1391,6 +1407,9 @@
 		var/mob/M = locate(href_list["adminplayerobservejump"])
 
 		var/client/C = usr.client
+		if(istype(usr, /mob/new_player))
+			usr << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>"
+			return
 		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptomob(M)

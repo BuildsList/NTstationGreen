@@ -129,6 +129,7 @@
 		init()
 	else
 		area = src.loc.loc:master
+		area.has_apc = 1
 		opened = 1
 		operating = 0
 		name = "[area.name] APC"
@@ -146,6 +147,7 @@
 	area.power_equip = 0
 	area.power_environ = 0
 	area.power_change()
+	area.has_apc = 0
 	if(occupier)
 		malfvacate(1)
 	del(wires)
@@ -177,6 +179,7 @@
 		src.area = A
 	else
 		src.area = get_area_name(areastring)
+	area.has_apc = 1
 	update_icon()
 
 	make_terminal()

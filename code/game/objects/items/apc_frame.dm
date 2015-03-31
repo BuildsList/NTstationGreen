@@ -2,6 +2,7 @@
 /obj/item/wall_frame
 	name = "frame"
 	flags = CONDUCT
+	var/sheets_refunded = 2
 
 /obj/item/wall_frame/proc/try_build(turf/on_wall)
 	if (get_dist(on_wall,usr)>1)
@@ -23,6 +24,12 @@
 
 	return 1
 
+/obj/item/wall_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	..()
+	if (istype(W, /obj/item/weapon/wrench) && sheets_refunded)
+		new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
+		qdel(src)
+
 
 
 // APC HULL
@@ -32,22 +39,13 @@
 	icon = 'icons/obj/apc_repair.dmi'
 	icon_state = "apc_frame"
 
-/obj/item/wall_frame/apc/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	..()
-	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/metal( get_turf(src.loc), 2 )
-		qdel(src)
-
 /obj/item/wall_frame/apc/try_build(turf/on_wall)
 	if(!..())
 		return
 	var/ndir = get_dir(usr,on_wall)
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	if (A.name == "Space") // i think this is better
-		usr << "<span class='warning'>This area cannot have an APC.</span>"
-		return
-	if (A.get_apc())
+	if (A.master.has_apc)
 		usr << "<span class='warning'>This area already has APC.</span>"
 		return //only one APC per area
 	for(var/obj/machinery/power/terminal/T in loc)
@@ -61,3 +59,4 @@
 			qdel(T)
 	new /obj/machinery/power/apc(loc, ndir, 1)
 	qdel(src)
+	return

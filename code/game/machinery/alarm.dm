@@ -874,13 +874,6 @@ Code shamelessly copied from apc_frame
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm_bitem"
 
-/obj/item/wall_frame/alarm/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/metal( get_turf(src.loc), 2 )
-		qdel(src)
-		return
-	..()
-
 /obj/item/wall_frame/alarm/try_build(turf/on_wall)
 	if(!..())
 		return
@@ -1192,13 +1185,6 @@ Handheld fire alarm frame, for placing on walls
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire_bitem"
 
-
-/obj/item/wall_frame/firealarm/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/metal( get_turf(src.loc), 2 )
-		qdel(src)
-		return
-	..()
 
 /obj/item/wall_frame/firealarm/try_build(turf/on_wall)
 	if(!..())

@@ -41,6 +41,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/used_equip = 0
 	var/used_light = 0
 	var/used_environ = 0
+	var/has_apc = 0
 
 	var/has_gravity = 0
 
