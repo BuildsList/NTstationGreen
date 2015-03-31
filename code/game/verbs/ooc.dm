@@ -38,10 +38,20 @@
 
 	log_ooc("[mob.name]/[key] : [msg]")
 
-	var/keyname = key
-
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
+			var/display_name = "Plin"
+			if(holder)
+				if(holder.fakekey)
+					if(C.holder)
+						display_name = "[holder.fakekey]/([src.key])"
+					else
+						display_name = holder.fakekey
+				C << "<font color='[config.allow_admin_ooccolor ? prefs.ooccolor :"#002eb8" ]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]/([src.key]):</EM> <span class='message'>[msg]</span></span></font>"
+			else
+				C << "<font color='[config.allow_admin_ooccolor ? prefs.ooccolor :"#002eb8" ]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
+
+/*
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))
@@ -52,7 +62,7 @@
 					C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : key]:</EM> <span class='message'>[msg]</span></span></font>"
 			else
 				C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message'>[msg]</span></span></font>"
-
+*/
 /proc/toggle_ooc()
 	ooc_allowed = !( ooc_allowed )
 	if (ooc_allowed)
