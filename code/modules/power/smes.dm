@@ -361,6 +361,10 @@
 	..()
 	make_terminal()
 
+/obj/machinery/power/smes/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C)
+	if(terminal)
+		del(terminal)
+	..()
 
 /obj/machinery/power/smes/emp_act(severity)
 	input_attempt = rand(0,1)
