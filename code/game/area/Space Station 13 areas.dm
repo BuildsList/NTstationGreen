@@ -1742,7 +1742,63 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Telecommunications Satellite Lounge"
 	icon_state = "tcomsatlounge"
 
+// Malf AI
 
+/area/ai_satelite/sickbay
+	name = "\improper Sickbay"
+	icon_state = "medbay"
+
+/area/ai_satelite/crew_storage
+	name = "\improper Crew Storage"
+	icon_state = "Sleep"
+
+/area/ai_satelite/ai_chamber
+	name = "\improper AI Chamber"
+	icon_state = "ai_chamber"
+
+/area/ai_satelite/dump
+	name = "\improper Dump"
+	icon_state = "disposal"
+
+/area/ai_satelite/rnd
+	name = "\improper Research and Development"
+	icon_state = "toxlab"
+
+/area/ai_satelite/bridge
+	name = "\improper "
+	icon_state = "bridge"
+
+/area/ai_satelite/stool_storage
+	name = "\improper "
+	icon_state = "eva"
+
+/area/ai_satelite/gravity_generator
+	name = "\improper "
+	icon_state = "dark"
+
+/area/ai_satelite/maintance
+	name = "\improper Important Maintance"
+	icon_state = "amaint"
+
+/area/ai_satelite/door_style_rnd
+	name = "\improper Door Style RnD"
+	icon_state = "toxstorage"
+
+/area/ai_satelite/ship/engibay
+	name = "\improper Abandoned Ship Engineering Sector"
+	icon_state = "engine"
+
+/area/ai_satelite/ship/crew
+	name = "\improper Abandoned Ship Living Quarters"
+	icon_state = "Sleep"
+
+/area/ai_satelite/ship/command
+	name = "\improper Abandoned Ship Command Sector"
+	icon_state = "bridge"
+
+/area/ai_satelite/ship/sci
+	name = "\improper Abandoned Ship Research Sector"
+	icon_state = "medresearch"
 
 // Away Missions
 /area/awaymission
