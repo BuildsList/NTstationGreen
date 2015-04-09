@@ -39,8 +39,8 @@
 	R.notify_ai(2)
 	R.updateicon()
 
-	radio.keyslot = null
-	radio.recalculateChannels()
+	R.radio.keyslot = null
+	R.radio.recalculateChannels()
 
 	return 1
 
