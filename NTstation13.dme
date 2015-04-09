@@ -62,7 +62,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "_maps\greenstation.dm"
+#include "_maps\tgstation2.dm"
 #include "_maps\RandomZLevels\moonoutpost19.dmm"
 #include "code\_compile_options.dm"
 #include "code\closing_credits.dm"
