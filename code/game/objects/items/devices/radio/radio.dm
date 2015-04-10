@@ -716,6 +716,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 /obj/item/device/radio/borg/syndicate
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
+
 /obj/item/device/radio/borg/syndicate/New()
 	..()
 	set_frequency(SYND_FREQ)

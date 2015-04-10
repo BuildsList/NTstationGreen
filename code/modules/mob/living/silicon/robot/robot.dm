@@ -142,6 +142,10 @@
 			icon_state = "robot"
 			modtype = "Stand"
 
+			//if(!radio.keyslot)
+			//	radio.keyslot = new/obj/item/device/encryptionkey/headset_cargo(radio)
+			//	radio.recalculateChannels()
+
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
 			hands.icon_state = "service"
@@ -163,12 +167,20 @@
 					animation_length=43
 			modtype = "Butler"
 
+			if(!radio.keyslot)
+				radio.keyslot = new/obj/item/device/encryptionkey/headset_service(radio)
+				radio.recalculateChannels()
+
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
 			hands.icon_state = "miner"
 			icon_state = "minerborg"
 			animation_length = 30
 			modtype = "Miner"
+
+			if(!radio.keyslot)
+				radio.keyslot = new/obj/item/device/encryptionkey/headset_cargo(radio)
+				radio.recalculateChannels()
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -177,6 +189,10 @@
 			animation_length = 35
 			modtype = "Med"
 			status_flags &= ~CANPUSH
+
+			if(!radio.keyslot)
+				radio.keyslot = new/obj/item/device/encryptionkey/headset_med(radio)
+				radio.recalculateChannels()
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
@@ -187,6 +203,10 @@
 			//speed = -1 Secborgs have nerfed tasers now, so the speed boost is not necessary
 			status_flags &= ~CANPUSH
 
+			if(!radio.keyslot)
+				radio.keyslot = new/obj/item/device/encryptionkey/headset_sec(radio)
+				radio.recalculateChannels()
+
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			hands.icon_state = "engineer"
@@ -194,12 +214,20 @@
 			animation_length = 45
 			modtype = "Eng"
 
+			if(!radio.keyslot)
+				radio.keyslot = new/obj/item/device/encryptionkey/headset_eng(radio)
+				radio.recalculateChannels()
+
 		if("Janitor")
 			module = new /obj/item/weapon/robot_module/janitor(src)
 			hands.icon_state = "janitor"
 			icon_state = "janiborg"
 			animation_length = 22
 			modtype = "Jan"
+
+			if(!radio.keyslot)
+				radio.keyslot = new/obj/item/device/encryptionkey/headset_service(radio)
+				radio.recalculateChannels()
 
 	overlays -= "eyes" //Takes off the eyes that it started with
 

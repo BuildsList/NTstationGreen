@@ -39,6 +39,9 @@
 	R.notify_ai(2)
 	R.updateicon()
 
+	R.radio.keyslot = null
+	R.radio.recalculateChannels()
+
 	return 1
 
 /obj/item/borg/upgrade/rename
