@@ -20,9 +20,9 @@
 		user << "<span class='warning'>Uh... how do those things work?!</span>"
 		if(!C.handcuffed)
 			user.drop_item()
-			loc = C
-			C.handcuffed = src
-			C.update_inv_handcuffed(0)
+			loc = user
+			user.handcuffed = src
+			user.update_inv_handcuffed(0)
 			return
 
 	var/cable = 0
