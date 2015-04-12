@@ -21,6 +21,7 @@
 				C.use(2)
 				wired = 1
 				user << "<span class='notice'>You wrap some wires around [src].</span>"
+				siemens_coefficient = 1.5
 				update_icon()
 			else
 				user << "<span class='notice'>There is not enough wire to cover [src].</span>"
@@ -53,6 +54,7 @@
 			wired = 0
 			user << "<span class='notice'>You cut the wires away from [src].</span>"
 			update_icon()
+			siemens_coefficient = 0.5 //It's still broken
 		..()
 	return
 
