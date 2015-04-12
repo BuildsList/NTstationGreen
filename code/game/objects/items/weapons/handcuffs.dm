@@ -16,13 +16,14 @@
 
 
 /obj/item/weapon/handcuffs/attack(mob/living/carbon/C, mob/user)
-	if(user.has_organic_effect(/datum/organic_effect/clumsy) && prob(50))
+	if(user.has_organic_effect(/datum/organic_effect/clumsy) && prob(50) && istype(user, /mob/living/carbon/human))
 		user << "<span class='warning'>Uh... how do those things work?!</span>"
-		if(!C.handcuffed)
-			user.drop_item()
-			loc = C
-			C.handcuffed = src
-			C.update_inv_handcuffed(0)
+		var/mob/living/carbon/human/H = user
+		if(!H.handcuffed)
+			H.drop_item()
+			loc = H
+			H.handcuffed = src
+			H.update_inv_handcuffed(0)
 			return
 
 	var/cable = 0
