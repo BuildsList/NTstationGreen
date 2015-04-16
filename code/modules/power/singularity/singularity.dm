@@ -236,8 +236,8 @@ var/global/list/uneatable = list(
 						if(prob(current_size * 5) && hand.w_class <= 2 && H.unEquip(hand))
 							step_towards(hand, src)
 							H << "<span class='warning'>\The [src] pulls \the [hand] from your grip!</span>"
-
-				H.apply_effect(current_size * 3, IRRADIATE)
+				if(H != null)
+					H.apply_effect(current_size * 3, IRRADIATE)
 		// Turf and movable atoms
 		else if(dist <= consume_range && (isturf(X) || istype(X, /atom/movable)))
 			consume(X)

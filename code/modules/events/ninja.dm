@@ -1451,6 +1451,8 @@ ________________________________________________________________________________
 /obj/item/clothing/suit/space/space_ninja/proc/ntick(mob/living/carbon/human/U = affecting)
 	set background = BACKGROUND_ENABLED
 
+	if(U != null) continue
+
 	//Runs in the background while the suit is initialized.
 	spawn while(cell.charge>=0)
 
@@ -2225,6 +2227,7 @@ ________________________________________________________________________________
 	return 0
 
 /obj/item/clothing/suit/space/space_ninja/proc/blade_check(mob/living/carbon/U, X = 1)//Default to checking for blade energy.
+	if(U != null) continue
 	switch(X)
 		if(1)
 			if(istype(U.get_active_hand(), /obj/item/weapon/melee/energy/blade))

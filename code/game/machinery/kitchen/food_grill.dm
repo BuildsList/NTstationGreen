@@ -17,9 +17,6 @@
 	if(istype(I, /obj/item/weapon/grab)||istype(I, /obj/item/tk_grab))
 		user << "<span class='warning'>That isn't going to fit.</span>"
 		return
-	if(!user.unEquip(I))
-		user << "<span class='warning'>You cannot grill [I].</span>"
-		return
 	else
 		user << "<span class='notice'>You put [I] onto [src].</span>"
 		on = TRUE

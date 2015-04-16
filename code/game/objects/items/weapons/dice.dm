@@ -1,6 +1,6 @@
 /obj/item/weapon/dice
 	name = "d6"
-	desc = "A die with six sides. Basic and servicable."
+	desc = "A diñe with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = 1
@@ -39,6 +39,15 @@
 	icon_state = "d00"
 	sides = 10
 
+/obj/item/weapon/dice/d100
+	name = "d100"
+	desc = "A die with hundred sides. Can be used as a golfball."
+	icon_state = "d100"
+	sides = 100
+
+	New()
+
+
 /obj/item/weapon/dice/d12
 	name = "d12"
 	desc = "A die with twelve sides. There's an air of neglect about it."
@@ -54,21 +63,19 @@
 /obj/item/weapon/dice/attack_self(mob/user as mob)
 	diceroll(user)
 
-/obj/item/weapon/dice/throw_at(atom/target, range, speed, mob/user as mob)
-	if(!..())
-		return
-	diceroll(user)
+/obj/item/weapon/dice/throw_at(atom/target, range, speed)
+	..()
+	diceroll(null)
 
 /obj/item/weapon/dice/proc/diceroll(mob/user as mob)
-	var/result = rand(1, sides)
+	var/result = roll(sides)
 	var/comment = ""
 	if(sides == 20 && result == 20)
 		comment = "Nat 20!"
 	else if(sides == 20 && result == 1)
 		comment = "Ouch, bad luck."
-	icon_state = "[initial(icon_state)][result]"
-	if(initial(icon_state) == "d00")
-		result = (result - 1)*10
+	if(initial(icon_state) != "d100")
+		icon_state = "[initial(icon_state)][result]"
 	if(user != null) //Dice was rolled in someone's hand
 		user.visible_message("<span class='notice'>[user] has thrown [src]. It lands on [result]. [comment]</span>", \
 							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>", \
