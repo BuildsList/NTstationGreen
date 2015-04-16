@@ -25,7 +25,7 @@
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.time reaches it - release the prisoneer
 	var/timelength = 0		// the length of time this door will be set for
-	var/timing = 1    		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/obj/item/weapon/card/id/prisoner_id = null
 

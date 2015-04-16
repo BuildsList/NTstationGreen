@@ -208,9 +208,11 @@
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
+	storage_slots = 9
 
 	New()
 		..()
+		new /obj/item/weapon/dice/d2( src )
 		new /obj/item/weapon/dice/d4( src )
 		new /obj/item/weapon/dice( src )
 		new /obj/item/weapon/dice/d8( src )
@@ -218,4 +220,4 @@
 		new /obj/item/weapon/dice/d00( src )
 		new /obj/item/weapon/dice/d12( src )
 		new /obj/item/weapon/dice/d20( src )
-
+		new /obj/item/weapon/dice/d100( src )

@@ -669,14 +669,17 @@
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
 	filling_color = "#91681E"
+	var/warm = 0
+
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
 
-	var/warm = 0
 	proc/cooltime() //Not working, derp?
 		if(warm)
 			spawn(4200)	//ew
+				if(src == null)
+					return
 				warm = 0
 				reagents.del_reagent("tricordrazine")
 				name = initial(name)

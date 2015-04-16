@@ -138,7 +138,7 @@ var/list/sacrificed = list()
 
 		tearreality()
 			var/list/mob/living/carbon/human/cultist_count = list()
-			for(var/mob/M in range(1,src))
+			for(var/mob/living/carbon/human/M in range(1,src))
 				if(iscultist(M) && !M.stat)
 					M.say("Tok-lyr rqa'nap g[pick("'","`")]lt-ulotf!")
 					cultist_count += M

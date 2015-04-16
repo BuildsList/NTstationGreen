@@ -5,6 +5,9 @@
 	Otherwise pretty standard.
 */
 /mob/living/carbon/human/UnarmedAttack(var/atom/A, var/proximity)
+	if(!ishuman(src))
+		return
+
 	var/obj/item/clothing/gloves/G = gloves // not typecast specifically enough in defines
 
 	// Special glove functions:
@@ -18,6 +21,7 @@
 		return
 
 	A.attack_hand(src)
+
 /atom/proc/attack_hand(mob/user as mob)
 	return
 

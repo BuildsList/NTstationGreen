@@ -309,7 +309,7 @@ datum
 					M.adjustBruteLoss(2)
 				holder.remove_reagent(src.id, 1)
 
-		plasma/hellwater			//if someone has this in their system they've really pissed off an eldrich god
+		toxin/plasma/hellwater			//if someone has this in their system they've really pissed off an eldrich god
 			name = "Hell Water"
 			id = "hell_water"
 			description = "YOUR FLESH! IT BURNS!"
