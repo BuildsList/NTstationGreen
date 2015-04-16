@@ -19,6 +19,8 @@
 			qdel(src)
 
 /obj/machinery/mineral/stacking_unit_console/attack_hand(user as mob)
+	if(..())
+		return
 
 	var/obj/item/stack/sheet/s
 	var/dat

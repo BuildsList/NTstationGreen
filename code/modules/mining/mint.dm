@@ -53,6 +53,8 @@
 
 
 /obj/machinery/mineral/mint/attack_hand(user as mob) //TODO: Adamantine coins! -Durandan
+	if(..())
+		return
 
 	var/dat = "<b>Coin Press</b><br>"
 

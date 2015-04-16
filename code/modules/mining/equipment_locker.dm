@@ -56,6 +56,14 @@
 						break
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user)
+	if(stat & (NOPOWER|BROKEN))
+		return
+	if(user.lying || user.stat)
+		return
+	if(!user.IsAdvancedToolUser())
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
+		return
+
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = usr.get_active_hand()
 		if(istype(I) && !istype(inserted_id))
@@ -243,6 +251,14 @@
 	return
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I as obj, mob/user as mob)
+	if(stat & (NOPOWER|BROKEN))
+		return
+	if(user.lying || user.stat)
+		return
+	if(!user.IsAdvancedToolUser())
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
+		return
+
 	if(istype(I, /obj/item/weapon/mining_voucher))
 		RedeemVoucher(I, user)
 		return
