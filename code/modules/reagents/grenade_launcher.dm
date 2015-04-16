@@ -17,7 +17,7 @@
 		..()
 		if(!(usr in view(2)) && usr != loc)
 			return
-		usr << "[grenades] / [max_grenades] grenades."
+		usr << "[grenades.len] / [max_grenades] grenades."
 
 	attackby(obj/item/I as obj, mob/user as mob)
 
