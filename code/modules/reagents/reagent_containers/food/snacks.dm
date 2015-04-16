@@ -678,7 +678,8 @@
 	proc/cooltime() //Not working, derp?
 		if(warm)
 			spawn(4200)	//ew
-				if(src != null) continue
+				if(src == null)
+					return
 				warm = 0
 				reagents.del_reagent("tricordrazine")
 				name = initial(name)

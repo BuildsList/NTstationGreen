@@ -5,7 +5,9 @@
 	Otherwise pretty standard.
 */
 /mob/living/carbon/human/UnarmedAttack(var/atom/A, var/proximity)
-	if(ishuman(src)) continue
+	if(!ishuman(src))
+		return
+
 	var/obj/item/clothing/gloves/G = gloves // not typecast specifically enough in defines
 
 	// Special glove functions:
