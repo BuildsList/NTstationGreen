@@ -669,6 +669,9 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 		var/timeout = world.time + 600
 		var/reason = copytext(sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text),1,MAX_MESSAGE_LEN)
+
+		if(!reason)	return
+
 		if(world.time > timeout)	return
 //		if(!reason)	return
 

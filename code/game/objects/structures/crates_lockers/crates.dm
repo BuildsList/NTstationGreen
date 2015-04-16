@@ -371,11 +371,6 @@
 											O.show_message(text("<span class='warning'><B>[] unlocks [] with a multitool.</B></span>", user, crat), 1)
 		multi.is_used = 0
 		return
-	if(!opened)
-		src.locked = 0
-		return
-	return ..()
-
 	return ..()
 
 /obj/structure/closet/crate/attack_paw(mob/user as mob)
