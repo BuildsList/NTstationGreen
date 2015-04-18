@@ -258,7 +258,7 @@
 		frequency = new_frequency
 		radio_connection = radio_controller.add_object(src, frequency)
 
-	/obj/item/radio/integrated/signal/proc/send_signal(message="ACTIVATE",user="*None*")
+	/obj/item/radio/integrated/signal/proc/send_signal(message="ACTIVATE",usr_name="*None*")
 
 		if(last_transmission && world.time < (last_transmission + 5))
 			return
@@ -274,7 +274,7 @@
 		signal.source = src
 		signal.encryption = code
 		signal.data["message"] = message
-		signal.send_by = user
+		signal.send_by = usr_name
 
 		radio_connection.post_signal(src, signal)
 
