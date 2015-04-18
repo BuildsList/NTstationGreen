@@ -21,6 +21,7 @@
 	var/clumsy_check = 1
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = 1
+	var/proj_num = 0
 
 	var/list/upgrades = list()
 
@@ -53,7 +54,8 @@
 			if (ftarget && isnull(ftarget.gc_destroyed))
 				dest = "[ftarget.loc.x],[ftarget.loc.y],[ftarget.loc.z]"
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has firing from [src] with [src.chambered.projectile_type] from tile ([from]) at ([dest])</font>")
-			log_attack("<font color='red'>[user]([user.key]) firing from [src] with [src.chambered.projectile_type] from tile ([from]) at ([dest])</font>")
+			log_attack("<font color='red'>[user]([user.key]) firing from [src] with [src.chambered.projectile_type] from tile ([from]) at ([dest])(Gun: \ref[src]; Num:[proj_num])</font>")
+			proj_num++
 
 /obj/item/weapon/gun/emp_act(severity)
 	for(var/obj/O in contents)
@@ -98,7 +100,7 @@
 	if(!special_check(user))
 		return
 	if(chambered)
-		if(!chambered.fire(target, user, params, , silenced))
+		if(!chambered.fire(target, user, params, , silenced, "\ref[src]", proj_num))
 			shoot_with_empty_chamber(user)
 		else
 			if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot

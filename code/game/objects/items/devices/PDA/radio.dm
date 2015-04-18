@@ -258,7 +258,7 @@
 		frequency = new_frequency
 		radio_connection = radio_controller.add_object(src, frequency)
 
-	/obj/item/radio/integrated/signal/proc/send_signal(message="ACTIVATE")
+	/obj/item/radio/integrated/signal/proc/send_signal(message="ACTIVATE",user="*None*")
 
 		if(last_transmission && world.time < (last_transmission + 5))
 			return
@@ -266,12 +266,15 @@
 
 		var/time = time2text(world.realtime,"hh:mm:ss")
 		var/turf/T = get_turf(src)
-		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		lastsignalers.Add("[time] <B>:</B> [user] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		log_game("[user] used [src] @ location ([T.x],[T.y],[T.z]) : [format_frequency(frequency)]/[code]")
+
 
 		var/datum/signal/signal = new
 		signal.source = src
 		signal.encryption = code
 		signal.data["message"] = message
+		signal.send_by = user
 
 		radio_connection.post_signal(src, signal)
 

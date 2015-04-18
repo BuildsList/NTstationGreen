@@ -105,11 +105,13 @@
 		signal.source = src
 		signal.encryption = code
 		signal.data["message"] = "ACTIVATE"
+		signal.send_by = usr_name
 		radio_connection.post_signal(src, signal)
 
 		var/time = time2text(world.realtime,"hh:mm:ss")
 		var/turf/T = get_turf(src)
 		lastsignalers.Add("[time] <B>:</B> [usr_name] used [src](Activate By: [source]) @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		log_game("[usr_name] used [src](Activate By: [source]) @ location ([T.x],[T.y],[T.z]) : [format_frequency(frequency)]/[code]")
 
 		return
 /*
@@ -122,18 +124,18 @@
 		return 0*/
 
 
-	pulse(var/radio = 0)
+	pulse(var/radio = 0, var/source = "*No Source*", var/usr_name = "*No mob*")
 		if(src.connected && src.wires)
 			connected.Pulse(src)
 		else
-			return ..(radio)
+			return ..(radio,source,usr_name)
 
 
 	receive_signal(datum/signal/signal)
 		if(!signal)	return 0
 		if(signal.encryption != code)	return 0
 		if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
-		pulse(1)
+		pulse(1,src.name,signal.send_by)
 		for(var/mob/O in hearers(1, src.loc))
 			O.show_message(text("\icon[] *beep* *beep*", src), 3, "*beep* *beep*", 2)
 		return

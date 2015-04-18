@@ -1,9 +1,9 @@
-/obj/item/ammo_casing/proc/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, var/distro, var/quiet)
+/obj/item/ammo_casing/proc/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, var/distro, var/quiet, var/gun, var/num)
 	distro += variance
 	for (var/i = max(1, pellets), i > 0, i--)
 		var/curloc = user.loc
 		var/targloc = get_turf(target)
-		ready_proj(target, user, quiet)
+		ready_proj(target, user, quiet, gun, num)
 		if(distro)
 			targloc = spread(targloc, curloc, distro)
 		if(!throw_proj(targloc, user, params))
@@ -16,13 +16,15 @@
 	update_icon()
 	return 1
 
-/obj/item/ammo_casing/proc/ready_proj(atom/target as mob|obj|turf, mob/living/user, var/quiet)
+/obj/item/ammo_casing/proc/ready_proj(atom/target as mob|obj|turf, mob/living/user, var/quiet, var/gun, var/num)
 	if (!BB)
 		return
 	BB.original = target
 	BB.firer = user
 	BB.def_zone = user.zone_sel.selecting
 	BB.silenced = quiet
+	BB.gun = gun
+	BB.number = num
 
 	if(reagents && BB.reagents)
 		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets

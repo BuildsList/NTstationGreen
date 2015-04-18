@@ -10,6 +10,7 @@
 
 	var/timing = 0
 	var/time = 5
+	var/timingby = "*None*"
 
 
 /obj/item/device/assembly/timer/describe()
@@ -38,7 +39,7 @@
 
 /obj/item/device/assembly/timer/proc/timer_end()
 	if((!secured)||(cooldown > 0))	return 0
-	pulse(0)
+	pulse(0, src.name, timingby)
 	visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
 	cooldown = 2
 	spawn(10)
@@ -91,6 +92,10 @@
 
 	if(href_list["time"])
 		timing = text2num(href_list["time"])
+		if (timing)
+			timingby = "[usr.name]([usr.key])"
+		else
+			timingby = "*None*"
 		if(timing && istype(holder, /obj/item/device/transfer_valve))
 			var/timer_message = "[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) activated [src] attachment on [holder]."
 			message_admins(timer_message)

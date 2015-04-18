@@ -10,7 +10,7 @@
 	var/valve_open = 0
 	var/toggle = 1
 
-/obj/item/device/transfer_valve/proc/process_activation(var/obj/item/device/D)
+/obj/item/device/transfer_valve/proc/process_activation(var/obj/item/device/D, var/normal = 1, var/special = 1, var/source = "*No Source*", var/usr_name = "*No mob*")
 
 /obj/item/device/transfer_valve/IsAssemblyHolder()
 	return 1
@@ -55,7 +55,7 @@
 
 		bombers += "[key_name(user)] attached a [item] to a transfer valve."
 		message_admins("[key_name_admin(user)] attached a [item] to a transfer valve.")
-		log_game("[key_name_admin(user)] attached a [item] to a transfer valve.")
+		log_game("[user.name]([user.key]) attached a [item] to a transfer valve.")
 		attacher = user
 	return
 
@@ -119,12 +119,12 @@
 		return
 	return
 
-/obj/item/device/transfer_valve/process_activation(var/obj/item/device/D)
+/obj/item/device/transfer_valve/process_activation(var/obj/item/device/D, var/normal = 1, var/special = 1, var/source = "*No Source*", var/usr_name = "*No mob*")
 	if(!isnull(src.gc_destroyed))
 		return
 	if(toggle)
 		toggle = 0
-		toggle_valve()
+		toggle_valve(source,usr_name)
 		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
 			toggle = 1
 
@@ -168,27 +168,30 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/device/transfer_valve/proc/toggle_valve()
+/obj/item/device/transfer_valve/proc/toggle_valve(var/source = "*No Source*", var/usr_name = "*No mob*")
 	if(valve_open==0 && (tank_one && tank_two))
 		valve_open = 1
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 
 		var/attachment = "no device"
+		var/attachment_log = "no device"
 		if(attached_device)
 			if(istype(attached_device, /obj/item/device/assembly/signaler))
 				attachment = "<A HREF='?_src_=holder;secretsadmin=list_signalers'>[attached_device]</A>"
 			else
 				attachment = attached_device
+			attachment_log = attached_device
 
 		var/attacher_name = ""
 		if(!attacher)
-			attacher_name = "Unknown"
+			attacher_name = "*Unknown*"
 		else
 			attacher_name = "[attacher.name]([attacher.ckey])"
 
 		var/log_str1 = "Bomb valve opened in "
-		var/log_str2 = "with [attachment] attacher: [attacher_name]"
+		var/log_str2 = "with [attachment]. Attacher: [attacher_name]."
+		var/log_str2_1 = "with [attachment_log]. Attacher: [attacher_name]."
 
 		var/log_attacher = ""
 		if(attacher)
@@ -199,14 +202,24 @@
 		if(mob)
 			last_touch_info = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[mob]'>?</A>)"
 
-		var/log_str3 = " Last touched by: [src.fingerprintslast]"
+		var/log_str3 = " Last touched by: [src.fingerprintslast]."
 
-		var/bomb_message = "[log_str1] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name]</a>  [log_str2][log_attacher] [log_str3][last_touch_info]"
+		var/log_str4 = ""
+		if (usr_name && usr_name != "*No mob*")
+			if(attached_device)
+				if (istype(attached_device, /obj/item/device/assembly/signaler))
+					log_str4 = " Signal was sent by [usr_name]"
+				else
+					log_str4 = " Activated by [usr_name]"
+		if (source)
+			log_str4 += "(Source:[source])"
+
+		var/bomb_message = "[log_str1] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name]</a>  [log_str2][log_attacher] [log_str3][last_touch_info][log_str4]"
 
 		bombers += bomb_message
 
 		message_admins(bomb_message, 0, 1)
-		log_game("[log_str1] [A.name]([A.x],[A.y],[A.z]) [log_str2] [log_str3]")
+		log_game("[log_str1] [A.name]([A.x],[A.y],[A.z]) [log_str2_1][log_str3][log_str4]")
 		merge_gases()
 		spawn(20) // In case one tank bursts
 			for (var/i=0,i<5,i++)

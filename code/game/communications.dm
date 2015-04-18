@@ -299,6 +299,7 @@ var/list/pointers = list()
 	var/encryption
 
 	var/frequency = 0
+	var/send_by = ""
 
 /datum/signal/New()
 	..()

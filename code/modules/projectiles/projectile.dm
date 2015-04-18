@@ -23,6 +23,8 @@
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
 	var/silenced = 0	//Attack message
+	var/gun = ""		//Ref(string) to gun from that it was fired
+	var/number = 0		//What is the number of projectile?
 	var/yo = null
 	var/xo = null
 	var/current = null
@@ -55,6 +57,7 @@
 
 
 	proc/delete()
+		log_attack("[src] was deleted at ([loc.x],[loc.y],[loc.z]).Gun - [gun], Num - [number]")
 		// Garbage collect the projectiles
 		qdel(src)
 
