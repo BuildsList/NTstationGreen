@@ -1,6 +1,6 @@
 /obj/item/weapon/dice
 	name = "d6"
-	desc = "A diñe with six sides. Basic and servicable."
+	desc = "A dice with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = 1
