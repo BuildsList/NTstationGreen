@@ -98,6 +98,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				if(A.secondsElectrified != -1)
 					A.shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 					add_logs(usr, A, "electrified", admin=0, addition="at [A.x],[A.y],[A.z]")
+					log_attack("[usr.name]([usr.ckey]) electrified the [A.name] at [A.x],[A.y],[A.z]")
 					A.secondsElectrified = -1
 			else
 				if(A.secondsElectrified == -1)
@@ -167,6 +168,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 			if(A.secondsElectrified==0)
 				A.shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				add_logs(usr, A, "electrified", admin=0, addition="at [A.x],[A.y],[A.z]")
+				log_attack("[usr.name]([usr.ckey]) electrified the [A.name] at [A.x],[A.y],[A.z] for 30 seconds")
 				A.secondsElectrified = 30
 				spawn(10)
 					if(A)
