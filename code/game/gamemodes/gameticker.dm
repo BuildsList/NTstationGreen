@@ -110,6 +110,8 @@ var/round_start_time = 0
 	else
 		src.mode.announce()
 
+	log_game("The current game mode is - [src.mode.name][hide_mode ? "(HIDE)":""]")
+
 	round_start_time = world.time
 
 	supply_shuttle.process() 		//Start the supply shuttle regenerating points
@@ -263,6 +265,7 @@ var/round_start_time = 0
 					captainless=0
 				if(player.mind.assigned_role != "MODE")
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
+					log_game("[player.name]([player.ckey]) - [player.mind.assigned_role]")
 		if(captainless)
 			for(var/mob/M in player_list)
 				if(!istype(M,/mob/new_player))
