@@ -39,12 +39,6 @@ datum/objective_item/steal/magboots
 	difficulty = 5
 	excludefromjob = list("Chief Engineer")
 
-datum/objective_item/steal/corgimeat
-	name = "ломтик м&#255;са корги"
-	targetitem = /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
-	difficulty = 5
-	excludefromjob = list("Head of Personnel") //>hurting your little buddy ever
-
 datum/objective_item/steal/capmedalgold
 	name = "золотую медаль капитана"
 	targetitem = /obj/item/clothing/tie/medal/gold/captain
@@ -172,7 +166,7 @@ datum/objective_item/special/aegun
 	difficulty = 10
 
 datum/objective_item/special/ddrill
-	name = "алмазную дрелль"
+	name = "алмазную дрель"
 	targetitem = /obj/item/weapon/pickaxe/diamonddrill
 	difficulty = 10
 
@@ -192,8 +186,9 @@ datum/objective_item/special/laserpointer
 	difficulty = 5
 
 //Stack objectives get their own subtype
+//Fuck you, retards, quantity must be specified by digits - Rel.
 datum/objective_item/stack
-	name = "п&#255;ть картонок"
+	name = "5 картонок"
 	targetitem = /obj/item/stack/sheet/cardboard
 	difficulty = 9001
 
@@ -206,16 +201,16 @@ datum/objective_item/stack/check_special_completion(var/obj/item/stack/S)
 	return found_amount>=target_amount
 
 datum/objective_item/stack/diamond
-	name = "дес&#255;ть алмазов"
+	name = "10 алмазов"
 	targetitem = /obj/item/stack/sheet/mineral/diamond
 	difficulty = 10
 
 datum/objective_item/stack/gold
-	name = "п&#255;тьдес&#255;т слитков золота"
+	name = "50 слитков золота"
 	targetitem = /obj/item/stack/sheet/mineral/gold
 	difficulty = 15
 
 datum/objective_item/stack/uranium
-	name = "двадцать п&#255;ть обработанных стержней урана"
+	name = "25 обработанных стержней урана"
 	targetitem = /obj/item/stack/sheet/mineral/uranium
 	difficulty = 10

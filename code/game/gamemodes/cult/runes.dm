@@ -138,7 +138,7 @@ var/list/sacrificed = list()
 
 		tearreality()
 			var/list/mob/living/carbon/human/cultist_count = list()
-			for(var/mob/living/carbon/human/M in range(1,src))
+			for(var/mob/living/M in range(1,src))
 				if(iscultist(M) && !M.stat)
 					M.say("Tok-lyr rqa'nap g[pick("'","`")]lt-ulotf!")
 					cultist_count += M
@@ -150,7 +150,8 @@ var/list/sacrificed = list()
 					else
 						message_admins("[usr.real_name]([usr.ckey]) tried to summon a god when she didn't want to come out to play.")	// Admin alert because you *KNOW* dickbutts are going to abuse this.
 						for(var/mob/M in cultist_count)
-							M.reagents.add_reagent("hell_water", 10)
+							if(ishuman(M))
+								M.reagents.add_reagent("hell_water", 10)
 							M << "<span class='h2.userdanger'>YOUR SOUL BURNS WITH YOUR ARROGANCE!!!</span>"
 						return
 				var/narsie_type = /obj/machinery/singularity/narsie/large

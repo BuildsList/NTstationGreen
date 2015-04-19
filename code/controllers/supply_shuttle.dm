@@ -477,9 +477,9 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		var/datum/supply_packs/P = supply_shuttle.supply_packs[href_list["doorder"]]
 		if(!istype(P))	return
 
-		var/timeout = world.time + 600
 		var/reason = copytext(sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text),1,MAX_MESSAGE_LEN)
-		if(world.time > timeout)	return
+
+		if(..())	return
 		if(!reason)	return
 
 		var/idname = "*None Provided*"
