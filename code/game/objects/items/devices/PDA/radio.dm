@@ -266,8 +266,8 @@
 
 		var/time = time2text(world.realtime,"hh:mm:ss")
 		var/turf/T = get_turf(src)
-		lastsignalers.Add("[time] <B>:</B> [user] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
-		log_game("[user] used [src] @ location ([T.x],[T.y],[T.z]) : [format_frequency(frequency)]/[code]")
+		lastsignalers.Add("[time] <B>:</B> [usr_name] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		log_game("[usr_name] used [src] @ location ([T.x],[T.y],[T.z]) : [format_frequency(frequency)]/[code]")
 
 
 		var/datum/signal/signal = new
