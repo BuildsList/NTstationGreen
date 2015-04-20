@@ -75,6 +75,7 @@ proc/process_med_hud(var/mob/M, var/mob/eye)
 		C.images += holder
 
 		holder = patient.hud_list[STATUS_HUD]
+		holder.hud_remove = 1
 		if(patient.stat == 2)
 			holder.icon_state = "huddead"
 		else if(patient.status_flags & XENO_HOST)
@@ -123,6 +124,7 @@ proc/process_sec_hud(var/mob/living/M, var/advanced_mode,var/mob/eye)
 						holder.icon_state = "hud_imp_chem"
 					else
 						continue
+					holder.hud_remove = 1
 					C.images += holder
 					break
 
