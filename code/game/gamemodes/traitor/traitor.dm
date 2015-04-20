@@ -185,6 +185,21 @@
 	killer.set_zeroth_law(law, law_borg)
 	killer << "New law: 0. [law]"
 
+	//Begin code phrase.
+	killer << "Синдикат дал вам информацию о том, как св&#255;затс&#255; с другими агентами:"
+	if(prob(80))
+		killer << "<span class='warning'>Кодова&#255; фраза: \black [syndicate_code_phrase]</span>"
+		killer.mind.store_memory("<b>Кодова&#255; фраза</b>: [syndicate_code_phrase]")
+	else
+		killer << "К сожалению, Синдикат не предоставил вам кодовую фразу."
+	if(prob(80))
+		killer << "<span class='warning'>Ответ на кодовую фразу: \black [syndicate_code_response]</span>"
+		killer.mind.store_memory("<b>Ответ на кодовую фразу</b>: [syndicate_code_response]")
+	else
+		killer << "К сожалению, Синдикат не предоставил вам информацию об ответе на кодовую фразу."
+	killer << "Используйте фразы с умом, ведь каждый может быть потенциальным предателем, как и вы."
+	//End code phrase.
+
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
