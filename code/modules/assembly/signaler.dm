@@ -106,6 +106,7 @@
 		signal.encryption = code
 		signal.data["message"] = "ACTIVATE"
 		signal.send_by = usr_name
+		signal.start_source = source
 		radio_connection.post_signal(src, signal)
 
 		var/time = time2text(world.realtime,"hh:mm:ss")
@@ -135,7 +136,7 @@
 		if(!signal)	return 0
 		if(signal.encryption != code)	return 0
 		if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
-		pulse(1,src.name,signal.send_by)
+		pulse(1,signal.start_source,signal.send_by)
 		for(var/mob/O in hearers(1, src.loc))
 			O.show_message(text("\icon[] *beep* *beep*", src), 3, "*beep* *beep*", 2)
 		return
