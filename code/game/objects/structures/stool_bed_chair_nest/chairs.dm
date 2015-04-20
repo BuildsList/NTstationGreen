@@ -27,6 +27,7 @@
 		SK.loc = E
 		SK.master = E
 		qdel(src)
+
 /obj/structure/stool/bed/chair/attack_tk(mob/user as mob)
 	if(buckled_mob)
 		..()
@@ -150,7 +151,7 @@
 /obj/structure/stool/bed/chair/office
 	anchored = 0
 
-/obj/structure/stool/bed/chair/office/Move()
+/obj/structure/stool/bed/chair/Move()
 	..()
 	handle_rotation()
 
