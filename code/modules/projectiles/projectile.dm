@@ -57,7 +57,7 @@
 
 
 	proc/delete()
-		log_attack("[src] was deleted at ([loc.x],[loc.y],[loc.z]).Gun - [gun], Num - [number]")
+//		log_attack("[src] was deleted at ([loc.x],[loc.y],[loc.z]).Gun - [gun], Num - [number]")
 		// Garbage collect the projectiles
 		qdel(src)
 

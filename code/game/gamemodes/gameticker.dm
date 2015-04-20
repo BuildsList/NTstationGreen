@@ -265,6 +265,7 @@ var/round_start_time = 0
 					captainless=0
 				if(player.mind.assigned_role != "MODE")
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
+				if(player != null)
 					log_game("[player.name]([player.ckey]) - [player.mind.assigned_role]")
 		if(captainless)
 			for(var/mob/M in player_list)
