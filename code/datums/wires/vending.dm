@@ -40,8 +40,7 @@ var/const/VENDING_WIRE_IDSCAN = 8
 		if(VENDING_WIRE_ELECTRIFY)
 			V.seconds_electrified = 30
 			V.shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey]) for 30 seconds")
-			add_logs(usr, V, "electrified", admin=0, addition="at [V.x],[V.y],[V.z]")
-			log_attack("[usr.name]([usr.ckey]) electrified the [V.name] at [V.x],[V.y],[V.z] for 30 seconds")
+			add_logs(usr, V, "electrified", admin=0, addition="at [V.x],[V.y],[V.z] for 30 seconds")
 		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = !V.scan_id
 
@@ -59,6 +58,5 @@ var/const/VENDING_WIRE_IDSCAN = 8
 				V.seconds_electrified = -1
 				V.shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				add_logs(usr, V, "electrified", admin=0, addition="at [V.x],[V.y],[V.z]")
-				log_attack("[usr.name]([usr.ckey]) electrified the [V.name] at [V.x],[V.y],[V.z]")
 		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = 1

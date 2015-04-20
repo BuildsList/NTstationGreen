@@ -475,7 +475,6 @@
 	s.start()
 	if(electrocute_mob(user, get_area(src), src, 0.7))
 		add_logs(user, src, "shocked by", admin=0, addition="at [loc.x],[loc.y],[loc.z]")
-		log_attack("[user]([user.ckey]) was shocked by [src] at [loc.x],[loc.y],[loc.z]")
 		return 1
 	else
 		return 0

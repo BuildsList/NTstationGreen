@@ -406,7 +406,6 @@ About the new airlock wires panel:
 	s.start() //sparks always.
 	if(electrocute_mob(user, get_area(src), src))
 		add_logs(user, src, "shocked by", admin=0, addition="at [loc.x],[loc.y],[loc.z]")
-		log_attack("[user]([user.ckey]) was shocked by [src] at [loc.x],[loc.y],[loc.z]")
 		hasShocked = 1
 		spawn(10)
 			hasShocked = 0
@@ -800,7 +799,6 @@ About the new airlock wires panel:
 					else
 						shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 						add_logs(usr, src, "electrified", admin=0, addition="at [x],[y],[z] for 30 seconds")
-						log_attack("[usr.name]([usr.ckey]) electrified the [name] at [x],[y],[z] for 30 seconds")
 						src.secondsElectrified = 30
 						spawn(10)
 							while (src.secondsElectrified>0)
@@ -820,7 +818,6 @@ About the new airlock wires panel:
 					else
 						shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 						add_logs(usr, src, "electrified", admin=0, addition="at [x],[y],[z]")
-						log_attack("[usr.name]([usr.ckey]) electrified the [name] at [x],[y],[z]")
 						src.secondsElectrified = -1
 
 				if (8) // Not in order >.>
