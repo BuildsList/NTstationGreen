@@ -76,13 +76,13 @@
 			var/input = copytext(sanitize(input("Choose an emote to display.") as text|null),1,MAX_MESSAGE_LEN)
 			if (!input)
 				return
-			if(copytext(input,1,5) == "says")
+			if(copytext(input,1,5) == "говорит")
 				src << "<span class='warning'>Invalid emote.</span>"
 				return
-			else if(copytext(input,1,9) == "exclaims")
+			else if(copytext(input,1,9) == "восклицает")
 				src << "<span class='warning'>Invalid emote.</span>"
 				return
-			else if(copytext(input,1,5) == "asks")
+			else if(copytext(input,1,5) == "спрашивает")
 				src << "<span class='warning'>Invalid emote.</span>"
 				return
 			else
@@ -400,7 +400,10 @@
 				playsound(src.loc, pick('sound/voice/Screams_Woman_1.ogg', 'sound/voice/Screams_Woman_2.ogg', 'sound/voice/Screams_Woman_3.ogg'), 100, 1)
 
 		if("laugh")
-			playsound(src.loc, pick('sound/voice/laugh1.ogg', 'sound/voice/laugh2.ogg', 'sound/voice/laugh3.ogg'), 100, 1)
+			if(src.gender == "male")
+				playsound(src.loc, pick('sound/voice/laugh1.ogg', 'sound/voice/laugh2.ogg', 'sound/voice/laugh3.ogg'), 100, 1)
+			else
+				playsound(src.loc, pick('sound/voice/female_laugh_1.ogg', 'sound/voice/female_laugh_2.ogg', 'sound/voice/female_laugh_3.ogg'), 100, 1)
 
 		if("elaugh")
 			playsound(src.loc, 'sound/voice/elaugh.ogg', 100, 1)
