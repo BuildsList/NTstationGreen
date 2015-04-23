@@ -69,7 +69,8 @@ var/next_mob_id = 0
 		src << "<I>... You can almost hear someone talking ...</I>"
 	else
 		src << sanitize_to_text(msg)
-		. = "[src.key]" // For logging
+		if(stat != DEAD) // We already know that all ghosts hear every man
+			. = "[src.key]" // For logging
 	return
 
 // Show a message to all mobs in sight of this one
