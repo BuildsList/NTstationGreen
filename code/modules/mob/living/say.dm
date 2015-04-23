@@ -367,6 +367,7 @@ var/list/department_radio_keys = list(
 				heard_b += M
 
 	var/rendered = null
+	var/hearing_log = ""
 	if (length(heard_a))
 		var/message_a = say_quote(message)
 
@@ -375,6 +376,7 @@ var/list/department_radio_keys = list(
 
 		rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] <span class='message'>[message_a]</span></span>"
 
+		var/hearing_args = ""
 		for (var/M in heard_a)
 			if(hascall(M,"show_message"))
 				var/deaf_message = ""
@@ -384,7 +386,11 @@ var/list/department_radio_keys = list(
 				else
 					deaf_message = "<span class='notice'>You cannot hear yourself!</span>"
 					deaf_type = 2 // Since you should be able to hear yourself without looking
-				M:show_message(rendered, 2, deaf_message, deaf_type)
+				var/h_args = M:show_message(rendered, 2, deaf_message, deaf_type)
+				if (h_args)
+					hearing_args +="[h_args]|"
+		if (hearing_args)
+			hearing_log = " (Heard: [hearing_args])"
 
 	if (length(heard_b))
 		var/message_b
@@ -413,7 +419,7 @@ var/list/department_radio_keys = list(
 	spawn(0)
 		flick_overlay(image('icons/mob/talk.dmi', src, "h[bubble_type][say_test(message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
-	log_say("[name]/[key] : [message]")
+	log_say("[name]/[key] : [message][hearing_log]")
 
 /mob/living/proc/GetVoice()
 	return name
