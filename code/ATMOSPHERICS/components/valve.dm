@@ -265,6 +265,26 @@ obj/machinery/atmospherics/valve
 		desc = "A digitally controlled valve."
 		icon = 'icons/obj/atmospherics/digital_valve.dmi'
 
+		var/obj/item/device/assembly/signaler/signaler = null
+
+		examine()
+			..()
+			if (src.signaler)
+				usr << "Something attached to it."
+
+		Destroy()
+			if (src.signaler)
+				src.signaler.holder = null
+				src.signaler.loc = src.loc
+				src.signaler = null
+			..()
+
+		update_icon(animation)
+			src.overlays.Cut()
+			if (src.signaler)
+				src.overlays += "dig_valve_antenna"
+			..(animation)
+
 		attack_ai(mob/user as mob)
 			return src.attack_hand(user)
 
@@ -273,6 +293,34 @@ obj/machinery/atmospherics/valve
 				user << "<span class='warning'>Access denied.</span>"
 				return
 			..()
+
+		attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+			if (istype(W, /obj/item/device/assembly/signaler))
+				if (!src.signaler)
+					var/obj/item/device/assembly/signaler/S = W
+					if(S.secured)
+						user << "<span class='notice'>The device is secured.</span>"
+					else
+						src.signaler = S
+						user.drop_item()
+						S.loc = src
+						S.holder = src
+						S.toggle_secure()
+						update_icon(0)
+						user << "<span class='info'>You attach [S] to \the [src] and secure it.</span>"
+						add_fingerprint(user)
+				else
+					user << "<span class='notice'>This valve is already have a signaler!</span>"
+			else if (istype(W, /obj/item/weapon/screwdriver))
+				if (src.signaler)
+					src.signaler.holder = null
+					src.signaler.loc = src.loc
+					src.signaler = null
+					update_icon(0)
+					user << "<span class='info'>You remove [src.signaler] from \the [src].</span>"
+					add_fingerprint(user)
+			else
+				..()
 
 		//Radio remote control
 
@@ -310,3 +358,11 @@ obj/machinery/atmospherics/valve
 						close()
 					else
 						open()
+
+		proc/process_activation(var/obj/item/device/D, var/normal = 1, var/special = 1, var/source = "*No Source*", var/usr_name = "*No mob*")
+			update_icon(1)
+			sleep(10)
+			if (src.open)
+				src.close()
+			else
+				src.open()
