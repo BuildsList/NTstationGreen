@@ -14,18 +14,19 @@
 		H.mind.special_role = "traitor"
 
 		var/datum/objective/steal/steal_objective = new
+		var/datum/objective_item/item = new
 		steal_objective.owner = H.mind
-		steal_objective.set_target("nuclear authentication disk")
+		steal_objective.set_target(item)
 		H.mind.objectives += steal_objective
 
 		var/datum/objective/hijack/hijack_objective = new
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		H << "<B>You are the traitor.</B>"
+		H << "<B>Ты шотландец. Сражайся как мужчина и умри как мужчина!</B>"
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in H.mind.objectives)
-			H << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
+			H << "<B>Задание #[obj_count]</B>: [OBJ.explanation_text]"
 			obj_count++
 
 		for (var/obj/item/I in H)
@@ -38,7 +39,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_l_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/swat/combat(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(H.loc), slot_l_store)
+//		H.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(H.loc), slot_l_store)
 
 		var/obj/item/weapon/card/id/W = new(H)
 		W.icon_state = "centcom"
@@ -49,5 +50,4 @@
 		W.update_label(H.real_name)
 		H.equip_to_slot_or_del(W, slot_wear_id)
 
-	message_admins("<span class='info'>[key_name_admin(usr)] used THERE CAN BE ONLY ONE!</span>", 1)
-	log_admin("[key_name(usr)] used there can be only one.")
+	message_admins("<span class='info'>[key_name_admin(usr)] used THERE CAN BE ONLY ONE!</span>")

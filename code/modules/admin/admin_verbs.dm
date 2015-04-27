@@ -25,7 +25,6 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
-	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/datum/admins/proc/set_admin_notice,/*announcement all clients see when joining the server.*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
@@ -60,7 +59,6 @@ var/list/admin_verbs_sounds = list(
 var/list/admin_verbs_fun = list(
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
-	/client/proc/cmd_admin_gib_self,
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/drop_bomb,
 	/client/proc/cmd_admin_create_centcom_report,
@@ -71,13 +69,13 @@ var/list/admin_verbs_fun = list(
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/make_sound,
-	/client/proc/toggle_random_events,
 	/client/proc/set_ooc
 	)
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
 	/client/proc/load_savefile,
+	/client/proc/save_to_file,
 	/client/proc/load_savefile_to_turf
 	)
 var/list/admin_verbs_server = list(
@@ -87,7 +85,6 @@ var/list/admin_verbs_server = list(
 	/datum/admins/proc/toggleaban,
 	/datum/admins/proc/immreboot,
 	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/restart_controller,
@@ -130,7 +127,6 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/toggle_hear_radio,
 	/datum/admins/proc/show_traitor_panel,
 	/datum/admins/proc/toggleenter,
-	/datum/admins/proc/toggleguests,
 	/datum/admins/proc/announce,
 	/datum/admins/proc/set_admin_notice,
 	/client/proc/admin_ghost,
@@ -149,14 +145,12 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/play_sound,
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
-	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/send_space_ninja,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/make_sound,
-	/client/proc/toggle_random_events,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
@@ -164,7 +158,6 @@ var/list/admin_verbs_hideable = list(
 	/datum/admins/proc/toggleaban,
 	/datum/admins/proc/immreboot,
 	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI,
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/callproc,
@@ -386,7 +379,6 @@ var/list/admin_verbs_hideable = list(
 		return
 
 	if(++D.warns >= MAX_WARNS)					//uh ohhhh...you'reee iiiiin trouuuubble O:)
-		ban_unban_log_save("[ckey] warned [warned_ckey], resulting in a [AUTOBANTIME] minute autoban.")
 		if(C)
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban.")
 			C << "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes."

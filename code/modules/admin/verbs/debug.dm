@@ -3,23 +3,16 @@
 	set name = "Debug-Game"
 	if(!check_rights(R_DEBUG))	return
 
-	if(Debug2)
-		Debug2 = 0
-		message_admins("[key_name(src)] toggled debugging off.")
-		log_admin("[key_name(src)] toggled debugging off.")
-	else
-		Debug2 = 1
-		message_admins("[key_name(src)] toggled debugging on.")
-		log_admin("[key_name(src)] toggled debugging on.")
+	Debug2 = !Debug2
+	message_admins("[key_name(src)] toggled debugging [(Debug2) ? "on" : "off"].")
 
 /client/proc/ToggleTestNukeMode()
 	set category = "Debug"
 	set name = "Toggle Test Nuke Mode"
 
-	if(!check_rights(0))
-		return
+	if(!check_rights(0))	return
 	nuke_test_mode = !nuke_test_mode
-	message_admins("[key_name(src)] toggled test nuke mode [(nuke_test_mode) ? "on" : "off"]")
+	message_admins("[key_name(src)] toggled test nuke mode [(nuke_test_mode) ? "on" : "off"].")
 
 
 /* 21st Sept 2010
@@ -125,13 +118,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!hascall(target,procname))
 				usr << "<font color='red'>Error: callproc(): target has no such call [procname].</font>"
 				return
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = call(target,procname)(arglist(lst)) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = call(procname)(arglist(lst)) // Pass the lst as an argument list to the proc
 
+		log_admin("[key_name(src)] called [targetselected ? "[target]'s" : ""] [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]. [procname] returned: [returnval ? returnval : "null"]")
 		usr << "<font color='blue'>[procname] returned: [returnval ? returnval : "null"]</font>"
 
 /client/proc/Cell()
@@ -226,6 +218,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return 0
 	var/obj/item/device/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
+	log_admin("[key_name(src)] has made [choice.key] a pAI.")
 	pai.name = input(choice, "Enter your pAI name:", "pAI Name", "Personal AI") as text
 	pai.real_name = pai.name
 	pai.key = choice.key
@@ -242,11 +235,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
-		log_admin("[key_name(src)] has alienized [M.key].")
 		spawn(10)
 			M:Alienize()
-		log_admin("[key_name(usr)] made [key_name(M)] into an alien.")
-		message_admins("<span class='info'>[key_name_admin(usr)] made [key_name(M)] into an alien.</span>", 1)
+		message_admins("<span class='info'>[key_name_admin(usr)] made [key_name(M)] an alien.</span>")
 	else
 		alert("Invalid mob")
 
@@ -258,11 +249,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
-		log_admin("[key_name(src)] has slimeized [M.key].")
 		spawn(10)
 			M:slimeize()
-		log_admin("[key_name(usr)] made [key_name(M)] into a slime.")
-		message_admins("<span class='info'>[key_name_admin(usr)] made [key_name(M)] into a slime.</span>", 1)
+		message_admins("<span class='info'>[key_name_admin(usr)] made [key_name(M)] a slime.</span>")
 	else
 		alert("Invalid mob")
 
@@ -437,15 +426,14 @@ var/global/list/g_fancy_list_of_safe_types = null
 			if(istype(O, hsbitem))
 				counter++
 				qdel(O)
-		log_admin("[key_name(src)] has deleted all ([counter]) instances of [hsbitem].")
-		message_admins("[key_name_admin(src)] has deleted all ([counter]) instances of [hsbitem].", 0)
+		message_admins("[key_name_admin(src)] has deleted all ([counter]) instances of [hsbitem].")
 
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
+
 	makepowernets()
-	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
-	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
+	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.")
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in mob_list)
 	set category = "Admin"
@@ -483,8 +471,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 
 	else
 		alert("Invalid mob")
-	log_admin("[key_name(src)] has granted [M.key] full access.")
-	message_admins("<span class='info'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
+	message_admins("<span class='info'>[key_name_admin(usr)] has granted [M.key] full access.</span>")
 
 /client/proc/cmd_assume_direct_control(var/mob/M in mob_list)
 	set category = "Admin"
@@ -497,8 +484,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
 			ghost.ckey = M.ckey
-	message_admins("<span class='info'>[key_name_admin(usr)] assumed direct control of [M].</span>", 1)
-	log_admin("[key_name(usr)] assumed direct control of [M].")
+	message_admins("<span class='info'>[key_name_admin(usr)] assumed direct control of [M].</span>")
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
@@ -510,8 +496,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 	set desc = "Toggle between normal radios and experimental radios. Have a coder present if you do this."
 
 	GLOBAL_RADIO_TYPE = !GLOBAL_RADIO_TYPE // toggle
-	log_admin("[key_name(src)] has turned the experimental radio system [GLOBAL_RADIO_TYPE ? "on" : "off"].")
-	message_admins("[key_name_admin(src)] has turned the experimental radio system [GLOBAL_RADIO_TYPE ? "on" : "off"].", 0)
+	message_admins("[key_name_admin(src)] has turned the experimental radio system [GLOBAL_RADIO_TYPE ? "on" : "off"].")
 
 /client/proc/cmd_admin_areatest()
 	set category = "Mapping"
@@ -604,10 +589,10 @@ var/global/list/g_fancy_list_of_safe_types = null
 /client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in mob_list)
 	set category = "Fun"
 	set name = "Select equipment"
+
 	if(!ishuman(M))
 		alert("Invalid mob")
 		return
-	//log_admin("[key_name(src)] has alienized [M.key].")
 	var/list/dresspacks = list(
 		"naked",
 		"assistant grey",
@@ -1088,8 +1073,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 
 	M.regenerate_icons()
 
-	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
-	message_admins("<span class='info'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode]..</span>", 1)
+	message_admins("<span class='info'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>")
 	return
 
 /client/proc/startSinglo()

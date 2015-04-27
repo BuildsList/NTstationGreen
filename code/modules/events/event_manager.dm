@@ -50,9 +50,6 @@ var/datum/controller/event/events
 
 //selects a random event based on whether it can occur and it's 'weight'(probability)
 /datum/controller/event/proc/spawnEvent()
-	if(!config.allow_random_events)
-		return
-
 	var/sum_of_weights = 0
 	for(var/datum/round_event_control/E in control)
 		if(E.occurrences >= E.max_occurrences)	continue
@@ -126,7 +123,6 @@ var/datum/controller/event/events
 //////////////
 // HOLIDAYS //
 //////////////
-//Uncommenting ALLOW_HOLIDAYS in config.txt will enable holidays
 
 //It's easy to add stuff. Just modify getHoliday to set holiday to something using the switch for DD(#day) MM(#month) YY(#year).
 //You can then check if it's a special day in any code in the game by doing if(events.holiday == "MyHolidayID")
@@ -145,7 +141,6 @@ var/datum/controller/event/events
 
 //sets up the holiday string in the events manager.
 /datum/controller/event/proc/getHoliday()
-	if(!config.allow_holidays)	return		// Holiday stuff was not enabled in the config!
 	holiday = null
 
 	var/YY	=	text2num(time2text(world.timeofday, "YY")) 	// get the current year

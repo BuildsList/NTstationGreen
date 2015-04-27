@@ -135,8 +135,7 @@ datum/shuttle_controller
 		if(callshuttle)
 			if(!online && direction == 1) //we don't call the shuttle if it's already coming
 				incall(SHUTTLEAUTOCALLTIMER) //X minutes! If they want to recall, they have X-(X-5) minutes to do so
-				log_game("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
-				message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.", 1)
+				message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 				priority_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.", null, 'sound/AI/shuttlecalled.ogg', "Priority")
 
 	proc/move_shuttles()
@@ -177,7 +176,6 @@ datum/shuttle_controller
 					priority_announce("The Emergency Shuttle has left the station. Estimate [round(timeleft()/60,1)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
 				else if(location == TRANSIT)
 					move_shuttles()
-					//message_admins("Shuttles have attempted to move to Centcom")
 					location = ENDGAME
 					online = 0
 					endtime = null

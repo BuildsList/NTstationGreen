@@ -173,7 +173,8 @@ datum/hud/New(mob/owner)
 		return 0
 	if(!mymob.client)
 		return 0
-
+	if(!mymob.client.prefs) //Fuck it.
+		return 0
 	var/ui_style = ui_style2icon(mymob.client.prefs.UI_style)
 
 	if(ishuman(mymob))

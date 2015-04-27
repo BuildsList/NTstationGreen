@@ -298,7 +298,7 @@ ________________________________________________________________________________
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes")
 		return
 
-	log_admin("[key_name(src)] turned [H.key] into a Space Ninja.")
+	message_admins("[key_name(src)] turned [H.key] into a Space Ninja.")
 	H.mind = create_ninja_mind(H.key)
 	H.mind_initialize()
 	H.equip_space_ninja(1)
@@ -335,8 +335,6 @@ ________________________________________________________________________________
 	E.mission=mission
 
 	message_admins("<span class='info'>[key_name_admin(key)] has spawned [key_name_admin(C.key)] as a Space Ninja.</span>")
-	log_admin("[key] used Spawn Space Ninja.")
-
 	return
 
 //=======//NINJA CREATION PROCS//=======//

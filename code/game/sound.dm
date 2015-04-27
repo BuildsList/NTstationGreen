@@ -81,7 +81,6 @@ var/const/SURROUND_CAP = 7
 			if ("dog3") soundin = pick('sound/voice/DOG3.ogg')
 			if ("chimpers") soundin = pick('sound/voice/monkey1.ogg')
 			if ("laugh") soundin = pick('sound/voice/laugh1.ogg', 'sound/voice/laugh2.ogg', 'sound/voice/laugh3.ogg')
-//			if ("buttstep") soundin = pick('fart.ogg','poo2.ogg','fart1.ogg') // Enogh -- smet19
 			if ("erikafootsteps") soundin = pick('sound/effects/footsteps/tile1.wav','sound/effects/footsteps/tile2.wav','sound/effects/footsteps/tile3.wav','sound/effects/footsteps/tile4.wav')
 			if ("concretefootsteps") soundin = pick('sound/effects/footsteps/concrete_step1.ogg','sound/effects/footsteps/concrete_step2.ogg','sound/effects/footsteps/concrete_step3.ogg','sound/effects/footsteps/concrete_step4.ogg','sound/effects/footsteps/concrete_step5.ogg','sound/effects/footsteps/concrete_step6.ogg','sound/effects/footsteps/concrete_step7.ogg','sound/effects/footsteps/concrete_step8.ogg')
 			if ("grassfootsteps") soundin = pick('sound/effects/footsteps/grass/grass1.wav','sound/effects/footsteps/grass/grass2.wav','sound/effects/footsteps/grass/grass3.wav','sound/effects/footsteps/grass/grass4.wav')

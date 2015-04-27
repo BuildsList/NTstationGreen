@@ -130,7 +130,7 @@ var/list/department_radio_keys = list(
 		var/mob/living/carbon/human/H = src
 		alt_name = " (as [H.get_id_name("Unknown")])"
 	var/italics = 0
-	var/message_range = null
+	var/message_range = 0
 	var/message_mode = null
 
 	if (getBrainLoss() >= 60 && prob(50))
@@ -298,7 +298,7 @@ var/list/department_radio_keys = list(
 
 	listening = get_mobs_in_view(message_range, src)
 	for(var/mob/M in player_list)
-		if (!M.client)
+		if (!M.client || !M.client.prefs || !M.client.prefs.toggles)
 			continue //skip monkeys and leavers
 		if (istype(M, /mob/new_player))
 			continue
