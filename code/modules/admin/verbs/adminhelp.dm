@@ -1,15 +1,6 @@
-
-
-//This is a list of words which are ignored by the parser when comparing message contents for names. MUST BE IN LOWER CASE!
-var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","alien","as")
-
 /client/verb/adminhelp(msg as text)
 	set category = "Admin"
 	set name = "Adminhelp"
-
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
-		return
 
 	//handle muting and automuting
 	if(prefs.muted & MUTE_ADMINHELP)
@@ -17,11 +8,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		return
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
-
-	//remove out adminhelp verb temporarily to prevent spamming of admins.
-	//src.verbs -= /client/verb/adminhelp
-	//spawn(1200)
-	//	src.verbs += /client/verb/adminhelp	// 2 minute cool-down for adminhelps
 
 	//clean the input msg
 	if(!msg)	return
@@ -89,17 +75,11 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	//send this msg to all admins
 	var/admin_number_total = 0		//Total number of admins
 	var/admin_number_afk = 0		//Holds the number of admins who are afk
-//	var/admin_number_ignored = 0	//Holds the number of admins without +BAN (so admins who are not really admins)
 	var/admin_number_decrease = 0	//Holds the number of admins with are afk, ignored or both
 	for(var/client/X in admins)
 		admin_number_total++;
-//		var/invalid = 0
-//		if(!check_rights_for(X, R_BAN))
-//			admin_number_ignored++
-//			invalid = 1
 		if(X.is_afk())
 			admin_number_afk++
-//			invalid = 1
 		if(admin_number_afk)
 			admin_number_decrease++
 
@@ -111,5 +91,5 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	src << "<font color='blue'>PM to-<b>Admins</b>: [original_msg]</font>"
 
 	var/admin_number_present = admin_number_total - admin_number_decrease	//Number of admins who are neither afk nor invalid
-	log_admin("HELP: [key_name(src)]: [msg] - heard by [admin_number_present] non-AFK admins who have +BAN.")
+	log_admin("HELP: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins ([admin_number_total] totally present).")
 	return

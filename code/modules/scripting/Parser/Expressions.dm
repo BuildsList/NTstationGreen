@@ -307,6 +307,8 @@
 				exp.parameters+=ParseParamExpression()
 				if(errors.len)
 					return exp
+				if(isnull(curToken.value))
+					return 0
 				if(curToken.value==","&&istype(curToken, /token/symbol))NextToken()	//skip comma
 				if(istype(curToken, /token/end))																		//Prevents infinite loop...
 					errors+=new/scriptError/ExpectedToken(")")

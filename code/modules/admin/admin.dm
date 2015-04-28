@@ -1,16 +1,5 @@
 
-var/global/BSACooldown = 0
-var/global/floorIsLava = 0
-
-
-////////////////////////////////
-/proc/message_admins(var/msg)
-	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
-	log_adminwarn(msg)
-	admins << msg
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////Panels
+//************Admin Panels************//
 
 /datum/admins/proc/show_player_panel(var/mob/M in mob_list)
 	set category = "Admin"
@@ -502,7 +491,6 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
 			<A href='?src=\ref[src];secretsfun=blackout'>Break all lights</A><BR>
 			<A href='?src=\ref[src];secretsfun=whiteout'>Fix all lights</A><BR>
-			<A href='?src=\ref[src];secretsfun=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
 			<BR>
 			"}
 
@@ -786,18 +774,6 @@ var/global/floorIsLava = 0
 	message_admins("<span class='info'>[key_name_admin(usr)] toggled new player game entering.</span>", 1)
 	world.update_status()
 
-/datum/admins/proc/toggleAI()
-	set category = "Server"
-	set desc="People can't be AI"
-	set name="Toggle AI"
-	config.allow_ai = !( config.allow_ai )
-	if (!( config.allow_ai ))
-		world << "<B>The AI job is no longer chooseable.</B>"
-	else
-		world << "<B>The AI job is chooseable now.</B>"
-	log_admin("[key_name(usr)] toggled AI allowed.")
-	world.update_status()
-
 /datum/admins/proc/toggleaban()
 	set category = "Server"
 	set desc="Respawn basically"
@@ -807,8 +783,7 @@ var/global/floorIsLava = 0
 		world << "<B>You may now respawn.</B>"
 	else
 		world << "<B>You may no longer respawn :(</B>"
-	message_admins("<span class='info'>[key_name_admin(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].</span>", 1)
-	log_admin("[key_name(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].")
+	message_admins("<span class='info'>[key_name_admin(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].</span>")
 	world.update_status()
 
 /datum/admins/proc/delay()
@@ -906,19 +881,7 @@ var/global/floorIsLava = 0
 	else
 		world << "<B>The tinted_weldhelh has been disabled!</B>"
 	log_admin("[key_name(usr)] toggled tinted_weldhelh.")
-	message_admins("[key_name_admin(usr)] toggled tinted_weldhelh.", 1)
-
-/datum/admins/proc/toggleguests()
-	set category = "Server"
-	set desc="Guests can't enter"
-	set name="Toggle guests"
-	guests_allowed = !( guests_allowed )
-	if (!( guests_allowed ))
-		world << "<B>Guests may no longer enter the game.</B>"
-	else
-		world << "<B>Guests may now enter the game.</B>"
-	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.")
-	message_admins("<span class='info'>[key_name_admin(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.</span>", 1)
+	message_admins("[key_name_admin(usr)] toggled tinted_weldhelh.")
 
 /client/proc/unjobban_panel()
 	set name = "Unjobban Panel"

@@ -105,8 +105,9 @@ var/round_start_time = 0
 		for (var/datum/game_mode/M in runnable_modes)
 			modes+=M.name
 		modes = sortList(modes)
-		world << "<B>Текущий игровой режим - Секрет!</B>"
-		world << "<B>Возможные режимы:</B> [english_list(modes)]"
+		world << "<B>Текущий игровой режим - [pick("Шердявый","Брудерус","Оборона брига","Нашествие даунов")]!</B>"
+		world << "<B>Возможные режимы:</B> Шердявый, Брудерус, Оборона брига, Нашествие даунов"
+		diary << "Possible gamemodes: [english_list(modes)]"
 	else
 		src.mode.announce()
 

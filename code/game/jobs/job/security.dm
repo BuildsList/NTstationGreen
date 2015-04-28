@@ -1,9 +1,4 @@
 //Warden and regular officers add this result to their get_access()
-/datum/job/proc/check_config_for_sec_maint()
-	if(config.jobs_have_maint_access & SECURITY_HAS_MAINT_ACCESS)
-		return list(access_maint_tunnels)
-	return list()
-
 /*
 Head of Shitcurity
 */
@@ -20,7 +15,6 @@ Head of Shitcurity
 	r_supervisors = "капитану"
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
-	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/silver
 	default_pda = /obj/item/device/pda/heads/hos
@@ -73,7 +67,6 @@ Warden
 	supervisors = "the head of security"
 	r_supervisors = "начальнику Службы Безопасности"
 	selection_color = "#ffeeee"
-	minimal_player_age = 7
 
 	default_pda = /obj/item/device/pda/warden
 	default_headset = /obj/item/device/radio/headset/headset_sec
@@ -105,7 +98,7 @@ Warden
 
 /datum/job/warden/get_access()
 	var/list/L = list()
-	L = ..() | check_config_for_sec_maint()
+	L = ..() | list(access_maint_tunnels)
 	return L
 
 /*
@@ -123,7 +116,6 @@ Detective
 	supervisors = "the head of security"
 	r_supervisors = "начальнику Службы Безопасности и самому себе"
 	selection_color = "#ffeeee"
-	minimal_player_age = 7
 
 	default_pda = /obj/item/device/pda/detective
 	default_headset = /obj/item/device/radio/headset/headset_sec
@@ -173,7 +165,6 @@ Security Officer
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	r_supervisors = "начальнику Службы Безопасности и главе отдела назначени&#255; (при возможности)"
 	selection_color = "#ffeeee"
-	minimal_player_age = 7
 	var/list/dep_access = null
 
 	default_pda = /obj/item/device/pda/security
@@ -211,7 +202,7 @@ Security Officer
 	var/list/L = list()
 	if(dep_access)
 		L |= dep_access.Copy()
-	L |= ..() | check_config_for_sec_maint()
+	L |= ..() | list(access_maint_tunnels)
 	dep_access = null;
 	return L
 

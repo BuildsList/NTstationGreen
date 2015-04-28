@@ -563,24 +563,21 @@ datum/mind
 				objectives -= objective
 				objectives.Insert(objective_pos, new_objective)
 				message_admins("[key_name_admin(usr)] edited [current]'s objective to [new_objective.explanation_text]")
-				log_admin("[key_name(usr)] edited [current]'s objective to [new_objective.explanation_text]")
 			else
 				objectives += new_objective
 				message_admins("[key_name_admin(usr)] added a new objective for [current]: [new_objective.explanation_text]")
-				log_admin("[key_name(usr)] added a new objective for [current]: [new_objective.explanation_text]")
 
 		else if (href_list["obj_delete"])
 			var/datum/objective/objective = locate(href_list["obj_delete"])
 			if(!istype(objective))	return
 			objectives -= objective
 			message_admins("[key_name_admin(usr)] removed an objective for [current]: [objective.explanation_text]")
-			log_admin("[key_name(usr)] removed an objective for [current]: [objective.explanation_text]")
 
 		else if(href_list["obj_completed"])
 			var/datum/objective/objective = locate(href_list["obj_completed"])
 			if(!istype(objective))	return
 			objective.completed = !objective.completed
-			log_admin("[key_name(usr)] toggled the win state for [current]'s objective: [objective.explanation_text]")
+			message_admins("[key_name(usr)] toggled the win state for [current]'s objective: [objective.explanation_text]")
 
 		else if (href_list["revolution"])
 			switch(href_list["revolution"])
@@ -588,7 +585,6 @@ datum/mind
 					remove_antag("Rev")
 					current << "<span class='warning'><FONT size = 3><B>Вам промыли мозги! Вы больше не верите в идеалы революции!</B></FONT></span>"
 					message_admins("[key_name_admin(usr)] has de-rev'ed [current].")
-					log_admin("[key_name(usr)] has de-rev'ed [current].")
 				if("rev")
 					if(src in ticker.mode.head_revolutionaries)
 						ticker.mode.head_revolutionaries -= src
@@ -602,7 +598,6 @@ datum/mind
 					ticker.mode.update_rev_icons_added(src)
 					special_role = "Revolutionary"
 					message_admins("[key_name_admin(usr)] has rev'ed [current].")
-					log_admin("[key_name(usr)] has rev'ed [current].")
 
 				if("headrev")
 					if(src in ticker.mode.revolutionaries)
@@ -628,7 +623,6 @@ datum/mind
 					ticker.mode.update_rev_icons_added(src)
 					special_role = "Head Revolutionary"
 					message_admins("[key_name_admin(usr)] has head-rev'ed [current].")
-					log_admin("[key_name(usr)] has head-rev'ed [current].")
 
 				if("autoobjectives")
 					ticker.mode.forge_revolutionary_objectives(src)
@@ -671,12 +665,10 @@ datum/mind
 					remove_antag("Cultist")
 					current << "<span class='warning'><FONT size = 3><B>Вам промыли мозги! Вы больше не поклон&#255;етесь тёмным богам!</B></FONT></span>"
 					message_admins("[key_name_admin(usr)] has de-cult'ed [current].")
-					log_admin("[key_name(usr)] has de-cult'ed [current].")
 				if("cultist")
 					if(!(src in ticker.mode.cult))
 						ticker.mode.add_cultist(src)
 						message_admins("[key_name_admin(usr)] has cult'ed [current].")
-						log_admin("[key_name(usr)] has cult'ed [current].")
 				if("tome")
 					var/mob/living/carbon/human/H = current
 					if (istype(H))
@@ -704,7 +696,7 @@ datum/mind
 				if("clear")
 					remove_antag("Wizard")
 					current << "<span class='warning'><FONT size = 3><B>Ваши силы вдруг исс&#255;кли! Вы больше не волшебник!</B></FONT></span>"
-					log_admin("[key_name(usr)] has de-wizard'ed [current].")
+					message_admins("[key_name(usr)] has de-wizard'ed [current].")
 				if("wizard")
 					if(!(src in ticker.mode.wizards))
 						ticker.mode.wizards += src
@@ -712,7 +704,6 @@ datum/mind
 						//ticker.mode.learn_basic_spells(current)
 						current << "<B>\red Вы теперь Космический Волшебник!</B>"
 						message_admins("[key_name_admin(usr)] has wizard'ed [current].")
-						log_admin("[key_name(usr)] has wizard'ed [current].")
 				if("lair")
 					current.loc = pick(wizardstart)
 				if("dressup")
@@ -729,7 +720,6 @@ datum/mind
 					remove_antag("Changeling")
 					current << "<FONT color='red' size = 3><B>Вы стали слабее и потер&#255;ли ваши силы! Вы больше не генокрад и застр&#255;ли в текущей форме!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-changeling'ed [current].")
-					log_admin("[key_name(usr)] has de-changeling'ed [current].")
 				if("changeling")
 					if(!(src in ticker.mode.changelings))
 						ticker.mode.changelings += src
@@ -737,7 +727,6 @@ datum/mind
 						special_role = "Changeling"
 						current << "<B><font color='red'>Ваши силы пробудились. Вспышка в пам&#255;ти, мы вспомнили...мы то, что они называют генокрадом!</font></B>"
 						message_admins("[key_name_admin(usr)] has changeling'ed [current].")
-						log_admin("[key_name(usr)] has changeling'ed [current].")
 				if("autoobjectives")
 					ticker.mode.forge_changeling_objectives(src)
 					usr << "<span class='info'>The objectives for changeling [key] have been generated. You can edit them and anounce manually.</span>"
@@ -758,7 +747,6 @@ datum/mind
 					remove_antag("NuclearOp")
 					current << "<span class='warning'><FONT size = 3><B>Вам промыли мозги! Вы больше не оперативник Синдиката!</B></FONT></span>"
 					message_admins("[key_name_admin(usr)] has de-nuke op'ed [current].")
-					log_admin("[key_name(usr)] has de-nuke op'ed [current].")
 				if("nuclear")
 					if(!(src in ticker.mode.syndicates))
 						ticker.mode.syndicates += src
@@ -772,7 +760,6 @@ datum/mind
 						ticker.mode.forge_syndicate_objectives(src)
 						ticker.mode.greet_syndicate(src)
 						message_admins("[key_name_admin(usr)] has nuke op'ed [current].")
-						log_admin("[key_name(usr)] has nuke op'ed [current].")
 				if("lair")
 					current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
 				if("dressup")
@@ -807,7 +794,6 @@ datum/mind
 					remove_antag("Traitor")
 					current << "<span class='warning'><FONT size = 3><B>Вам промыли мозги! Вы больше не предатель!</B></FONT></span>"
 					message_admins("[key_name_admin(usr)] has de-traitor'ed [current].")
-					log_admin("[key_name(usr)] has de-traitor'ed [current].")
 
 				if("traitor")
 					if(!(src in ticker.mode.traitors))
@@ -815,7 +801,6 @@ datum/mind
 						special_role = "traitor"
 						current << "<B>\red Вы предатель!</B>"
 						message_admins("[key_name_admin(usr)] has traitor'ed [current].")
-						log_admin("[key_name(usr)] has traitor'ed [current].")
 						if(isAI(current))
 							var/mob/living/silicon/ai/A = current
 							call(/datum/game_mode/proc/add_law_zero)(A)
@@ -835,12 +820,10 @@ datum/mind
 						var/mob/living/carbon/human/H = current
 						var/mob/living/carbon/monkey/M = current
 						if (istype(H))
-							log_admin("[key_name(usr)] attempting to monkeyize [key_name(current)]")
 							message_admins("<span class='info'>[key_name_admin(usr)] attempting to monkeyize [key_name_admin(current)]</span>")
 							src = null
 							M = H.monkeyize()
 							src = M.mind
-							//world << "DEBUG: \"healthy\": M=[M], M.mind=[M.mind], src=[src]!"
 						else if (istype(M) && length(M.viruses))
 							for(var/datum/disease/D in M.viruses)
 								D.cure(0)
@@ -850,7 +833,6 @@ datum/mind
 						var/mob/living/carbon/human/H = current
 						var/mob/living/carbon/monkey/M = current
 						if (istype(H))
-							log_admin("[key_name(usr)] attempting to monkeyize and infect [key_name(current)]")
 							message_admins("<span class='info'>[key_name_admin(usr)] attempting to monkeyize and infect [key_name_admin(current)]</span>", 1)
 							src = null
 							M = H.monkeyize()
@@ -867,7 +849,6 @@ datum/mind
 								if (istype(D,/datum/disease/jungle_fever))
 									D.cure(0)
 									sleep(0) //because deleting of virus is doing throught spawn(0)
-							log_admin("[key_name(usr)] attempting to humanize [key_name(current)]")
 							message_admins("<span class='info'>[key_name_admin(usr)] attempting to humanize [key_name_admin(current)]</span>")
 							H = M.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
 							if(H)
@@ -879,19 +860,16 @@ datum/mind
 					remove_antag("Malf")
 					current << "<span class='warning'><FONT size = 3><B>Вас обновили до новой версии! Все неполадки в системном коде были исправлены.</B></FONT></span>"
 					message_admins("[key_name_admin(usr)] has de-malf'ed [current].")
-					log_admin("[key_name(usr)] has de-malf'ed [current].")
 
 				if("malf")
 					make_AI_Malf()
 					message_admins("[key_name_admin(usr)] has malf'ed [current].")
-					log_admin("[key_name(usr)] has malf'ed [current].")
 
 				if("unemag")
 					var/mob/living/silicon/robot/R = current
 					if (istype(R))
 						R.SetEmagged(0)
 						message_admins("[key_name_admin(usr)] has unemag'ed [R].")
-						log_admin("[key_name(usr)] has unemag'ed [R].")
 
 				if("unemagcyborgs")
 					if (istype(current, /mob/living/silicon/ai))
@@ -899,7 +877,6 @@ datum/mind
 						for (var/mob/living/silicon/robot/R in ai.connected_robots)
 							R.SetEmagged(0)
 						message_admins("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
-						log_admin("[key_name(usr)] has unemag'ed [ai]'s Cyborgs.")
 
 		else if (href_list["common"])
 			switch(href_list["common"])
@@ -909,7 +886,7 @@ datum/mind
 				if("takeuplink")
 					take_uplink()
 					memory = null//Remove any memory they may have had.
-					log_admin("[key_name(usr)] removed [current]'s uplink.")
+					message_admins("[key_name(usr)] removed [current]'s uplink.")
 				if("crystals")
 					if (check_rights(R_FUN, 0))
 						var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
@@ -920,11 +897,11 @@ datum/mind
 						if (!isnull(crystals))
 							if (suplink)
 								suplink.uses = crystals
-								log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
+								message_admins("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 				if("uplink")
 					if (!ticker.mode.equip_traitor(current, !(src in ticker.mode.traitors)))
 						usr << "<span class='warning'>Equipping a syndicate failed!</span>"
-					log_admin("[key_name(usr)] attempted to give [current] an uplink.")
+					message_admins("[key_name(usr)] attempted to give [current] an uplink.")
 
 		else if (href_list["obj_announce"])
 			var/obj_count = 1
@@ -1086,7 +1063,6 @@ datum/mind
 		qdel(flash)
 		take_uplink()
 		var/fail = 0
-	//	fail |= !ticker.mode.equip_traitor(current, 1)
 		fail |= !ticker.mode.equip_revolutionary(current)
 
 
@@ -1195,5 +1171,3 @@ datum/mind
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = "Cultist"
-
-

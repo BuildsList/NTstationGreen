@@ -193,44 +193,18 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			stat_msg2 = reject_bad_text(input("Line 2", "Enter Message Text", stat_msg2) as text|null, 40)
 			src.updateDialog()
 
-		// OMG CENTCOM LETTERHEAD
+		// OMG CENTCOM WON'T SAVE US WE ALL GONNA DIE IN A COLD LONELY SPACE - Rel
 		if("MessageCentcomm")
 			if(src.authenticated==2)
 				if(centcom_message_cooldown)
-					usr << "Arrays recycling.  Please stand by."
+					usr << "Establishing a connection. Please stand by."
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcom via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !(usr in view(1,src)))
 					return
-				Centcomm_announce(input, usr)
-				usr << "Message transmitted."
-				log_say("[key_name(usr)] has made a Centcom announcement: [input]")
+				usr << "Message transmition interrupted. Hyperspace fluctuation detected. Trying to establish a connection..."
+				log_say("[key_name(usr)] has failed to made a Centcom announcement: [input]")
 				centcom_message_cooldown = 1
-				spawn(6000)//10 minute cooldown
-					centcom_message_cooldown = 0
-
-
-		// OMG SYNDICATE ...LETTERHEAD
-		if("MessageSyndicate")
-			if((src.authenticated==2) && (src.emagged))
-				if(centcom_message_cooldown)
-					usr << "Arrays recycling.  Please stand by."
-					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || !(usr in view(1,src)))
-					return
-				Syndicate_announce(input, usr)
-				usr << "Message transmitted."
-				log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
-				centcom_message_cooldown = 1
-				spawn(6000)//10 minute cooldown
-					centcom_message_cooldown = 0
-
-		if("RestoreBackup")
-			usr << "Backup routing data restored!"
-			src.emagged = 0
-			src.updateDialog()
-
 
 
 		// AI interface
@@ -365,11 +339,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=announce'>Make a Captain's Announcement</A> \]"
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=changeseclevel'>Change Alert Level</A> \]"
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=emergencyaccess'>Emergency Maintenance Access</A> \]"
-					if(src.emagged == 0)
-						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageCentcomm'>Send Message to Centcom</A> \]"
-					else
-						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageSyndicate'>Send Message to \[UNKNOWN\]</A> \]"
-						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=RestoreBackup'>Restore Backup Routing Data</A> \]"
+					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageCentcomm'>Send Message to Centcom</A> \]"
+
 			else
 				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=login'>Log In</A> \]"
 		if(STATE_CALLSHUTTLE)
@@ -558,8 +529,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		message_cooldown = 1
 		spawn(600)//One minute cooldown
 			message_cooldown = 0
+	message_admins("[key_name_admin(user)] has made a priority announcement.")
 	log_say("[key_name(user)] has made a priority announcement: [input]")
-	message_admins("[key_name_admin(user)] has made a priority announcement.", 1)
 
 /proc/call_shuttle_proc(var/mob/user, var/call_reason)
 	if ((!( ticker ) || emergency_shuttle.location))

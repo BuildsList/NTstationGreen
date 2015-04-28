@@ -64,19 +64,19 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(config.ghost_interaction)
-		src.dir = turn(src.dir, 90)
-		handle_rotation()
-		return
-	else
-		if(!usr || !isturf(usr.loc))
-			return
-		if(usr.stat || usr.restrained())
-			return
+	if(!usr)	return
 
-		src.dir = turn(src.dir, 90)
-		handle_rotation()
+	if(istype(usr, /mob/dead/observer))
+		if(config.ghost_interaction)
+			src.dir = turn(src.dir, 90)
+			handle_rotation()
 		return
+
+	if(!isturf(usr.loc) || usr.stat || usr.restrained())	return
+
+	src.dir = turn(src.dir, 90)
+	handle_rotation()
+	return
 
 /obj/structure/stool/bed/chair/MouseDrop_T(mob/M as mob, mob/user as mob)
 	if(!istype(M)) return

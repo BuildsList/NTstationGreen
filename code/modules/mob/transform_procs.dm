@@ -128,9 +128,12 @@
 		O.equip_to_appropriate_slot(C)
 	qdel(animation)
 
-
-	O.gender = (deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), 2)-1) ? FEMALE : MALE
-	O.dna = dna
+	if(!isnull(dna))
+		O.gender = (deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), 2)-1) ? FEMALE : MALE
+		O.dna = dna
+	else
+		create_dna(O)
+		O.gender = (deconstruct_block(getblock(O.dna.uni_identity, DNA_GENDER_BLOCK), 2)-1) ? FEMALE : MALE
 	dna = null
 	if (newname) //if there's a name as an argument, always take that one over the current name
 		O.real_name = newname

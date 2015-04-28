@@ -13,8 +13,8 @@
 	var/list/summon_meleelist			= list("katana","claymore","e-axe","e-sword","fireaxe","singu-ham","mjolnir","2-e-sword","spear")
 
 	usr << "<B>You summoned [summon_type]!</B>"
-	message_admins("[key_name_admin(usr, 1)] summoned [summon_type]!")
-	log_game("[key_name(usr)] summoned [summon_type]!")
+	message_admins("[key_name_admin(usr, 1)] summoned [summon_type].")
+	log_game("[key_name(usr)] summoned [summon_type].")
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == 2 || !(H.client)) continue
 		if(H.mind)

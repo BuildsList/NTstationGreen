@@ -14,7 +14,6 @@ Chief Engineer
 	r_supervisors = "капитану"
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
-	minimal_player_age = 7
 
 	default_id = /obj/item/weapon/card/id/silver
 	default_pda = /obj/item/device/pda/heads/ce
