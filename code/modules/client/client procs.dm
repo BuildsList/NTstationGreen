@@ -48,7 +48,7 @@
 
 
 /client/proc/handle_spam_prevention(var/message, var/mute_type)
-	if(!holder && src.last_message == message)
+	if(config.automute_on && !holder && src.last_message == message)
 		src.last_message_count++
 		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			src << "<span class='warning'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>"
@@ -110,6 +110,8 @@ var/next_external_rsc = 0
 	if(holder)
 		add_admin_verbs()
 		admin_memo_show()
+		if((global.comms_key == "default_pwd" || length(global.comms_key) <= 6) && global.comms_allowed) //It's the default value or less than 6 characters long, but it somehow didn't disable comms.
+			src << "<span class='danger'>The server's API key is either too short or is the default value! Consider changing it immediately!</span>"
 
 	log_client_to_db()
 
@@ -143,11 +145,26 @@ var/next_external_rsc = 0
 
 	var/sql_ckey = sql_sanitize_text(src.ckey)
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id FROM erro_player WHERE ckey = '[sql_ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM erro_player WHERE ckey = '[sql_ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	while(query.NextRow())
 		sql_id = query.item[1]
+		player_age = text2num(query.item[2])
+		break
+
+	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip = '[address]'")
+	query_ip.Execute()
+	related_accounts_ip = ""
+	while(query_ip.NextRow())
+		related_accounts_ip += "[query_ip.item[1]], "
+		break
+
+	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid = '[computer_id]'")
+	query_cid.Execute()
+	related_accounts_cid = ""
+	while(query_cid.NextRow())
+		related_accounts_cid += "[query_cid.item[1]], "
 		break
 
 	//Just the standard check to see if it's actually a number

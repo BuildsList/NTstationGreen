@@ -14,6 +14,7 @@ Captain
 	r_supervisors = "представител&#255;м Нанотрейзен и Космозакону"
 	selection_color = "#ccccff"
 	req_admin_notify = 1
+	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/gold
 	default_pda = /obj/item/device/pda/captain
@@ -68,6 +69,7 @@ Head of Personnel
 	r_supervisors = "капитану"
 	selection_color = "#ddddff"
 	req_admin_notify = 1
+	minimal_player_age = 10
 
 	default_id = /obj/item/weapon/card/id/silver
 	default_pda = /obj/item/device/pda/heads/hop

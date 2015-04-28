@@ -44,14 +44,11 @@
 // Like view but bypasses luminosity check
 
 /proc/hear(var/range, var/atom/source)
-	var/list/heard = list()
-
-	if(!source)
-		return heard
 
 	var/lum = source.luminosity
 	source.luminosity = 6
-	heard = view(range, source)
+
+	var/list/heard = view(range, source)
 	source.luminosity = lum
 
 	return heard

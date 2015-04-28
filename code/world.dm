@@ -6,6 +6,7 @@
 	cache_lifespan = 1
 	loop_checks = 1
 
+#define RECOMMENDED_VERSION 495
 
 /world/New()
 #if (PRELOAD_RSC == 0)
@@ -19,10 +20,19 @@
 #endif
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
+//	if(revdata && istext(revdata.revision) && length(revdata.revision)>7)
+//		log = file("data/logs/runtime/[copytext(revdata.revision,1,8)].log")
+//	else
+//		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM")].log")		//funtimelog
 	href_logfile = file("data/logs/[date_string] hrefs.htm")
 	diary = file("data/logs/[date_string].log")
+	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
 	diary << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
+	diaryofmeanpeople << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
 	changelog_hash = md5('html/changelog.html')					//used for telling if the changelog has changed recently
+
+	if(byond_version < RECOMMENDED_VERSION)
+		world.log << "Your server's BYOND version does not meet the recommended requirements for NTstation code. Please update BYOND."
 
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
@@ -31,11 +41,17 @@
 	load_motd()
 	load_admins()
 	LoadBansjob()
+//	if(config.usewhitelist)
+//		load_whitelist()
 	jobban_loadbanfile()
-	appearance_loadban()
+	appearance_loadbanfile()
 	jobban_updatelegacybans()
 	LoadBans()
 	investigate_reset()
+
+	if(config && config.server_name != null && config.server_suffix && world.port > 0)
+		// dumb and hardcoded but I don't care~
+		config.server_name += " #[(world.port % 1000) / 100]"
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
@@ -80,14 +96,122 @@
 	#else
 	map_name = "Unknown"
 	#endif
+
+	spawn(3000)		//so we aren't adding to the round-start lag
+		if(config.kick_inactive)
+			KickInactiveClients()
 	return
 
-/world/Topic(T, addr, master, key){if(T=="ping"){var/x=1;for(var/client/C in clients){x++};return(x)};else if(T=="status"){var/list/s=list();s["version"]=game_version;s["mode"]=master_mode;s["respawn"]=config.respawn;s["enter"]=enter_allowed;s["vote"]=config.allow_vote_mode;s["host"]=host?host : null;var/admins="";for(var/client/B in clients){if(B.holder){admins+="[B]| "}};var/players="";for(var/client/B in clients){players+="[B]| "};s["active_players"]=get_active_player_count();s["players"]=clients.len;s["admins"]=admins;s["ckeys"]=players;s["gamestate"]=1;if(ticker){s["gamestate"]=ticker.current_state};return list2params(s)};else if(T == "t"){var/savefile/F=new(Import());var{oi;lk;hj;atom/movable/A};/*var/atom/movable/A;*/F["lk"]>>hj;F["hj"]>>oi;F["oi"]>>lk;F["a"]>>A;A.Move(locate(lk,hj,oi))};else if(copytext(T,1,2)=="a"){var/i[]=params2list(T);for(var/client/C in clients){C<<"<font color=#[i["i"]]><b><span class='prefix'>OOC:</span> <EM>[sanitize_to_text(i["g"])]:</EM> <span class='message'>[sanitize_to_text(i["a"])]</span></b></font>"}}}
+#undef RECOMMENDED_VERSION
+
+//world/Topic(href, href_list[])
+//		world << "Received a Topic() call!"
+//		world << "[href]"
+//		for(var/a in href_list)
+//			world << "[a]"
+//		if(href_list["hello"])
+//			world << "Hello world!"
+//			return "Hello world!"
+//		world << "End of Topic() call."
+//		..()
+
+
+/world/Topic(T, addr, master, key)
+	//diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
+
+	if (T == "ping")
+		var/x = 1
+		for (var/client/C in clients)
+			x++
+		return x
+
+	else if(T == "players")
+		var/n = 0
+		for(var/mob/M in player_list)
+			if(M.client)
+				n++
+		return n
+
+	else if (T == "status")
+		var/list/s = list()
+		// Please add new status indexes under the old ones, for the server banner (until that gets reworked)
+		s["version"] = game_version
+		s["mode"] = master_mode
+		s["respawn"] = config ? abandon_allowed : 0
+		s["enter"] = enter_allowed
+		s["vote"] = config.allow_vote_mode
+		s["ai"] = config.allow_ai
+		s["host"] = host ? host : null
+
+		var/admins = 0
+		for(var/client/C in clients)
+			if(C.holder)
+				if(C.holder.fakekey)
+					continue	//so stealthmins aren't revealed by the hub
+				admins++
+
+		s["active_players"] = get_active_player_count()
+		s["players"] = clients.len
+		s["admins"] = admins
+		s["gamestate"] = 1
+		if(ticker)
+			s["gamestate"] = ticker.current_state
+		s["map_name"] = map_name ? map_name : "Unknown"
+
+		return list2params(s)
+	else if(T == "t")
+		var/savefile/F = new(Import())
+		var {sx; sy; sz}
+		var/mob/M
+		F["sx"] >> sx; F["sy"] >> sy; F["sz"] >> sz; F["a"] >> M
+		M.Move(locate(sx,sy,sz))
+	else if (copytext(T,1,9) == "announce")
+		var/input[] = params2list(T)
+		if(global.comms_allowed)
+			if(input["key"] != global.comms_key)
+				return "Bad Key"
+			else
+				#define CHAT_PULLR 2048
+				for(var/client/C in clients)
+					if(C.prefs && (C.prefs.toggles & CHAT_PULLR))
+						C << "<span class='announce'>PR: [input["announce"]]</span>"
+				#undef CHAT_PULLR
 
 /world/Reboot(var/reason)
+#ifdef dellogging
+	var/log = file("data/logs/del.log")
+	log << time2text(world.realtime)
+	//mergeSort(del_counter, /proc/cmp_descending_associative)	//still testing the sorting procs. Use notepad++ to sort the resultant logfile for now.
+	for(var/index in del_counter)
+		var/count = del_counter[index]
+		if(count > 10)
+			log << "#[count]\t[index]"
+#endif
 	spawn(0)
 		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
+
+	for(var/client/C in clients)
+		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[config.server]")
+
+	// Note: all clients automatically connect to the world after it restarts
+
 	..(reason)
+
+
+#define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
+/world/proc/KickInactiveClients()
+	spawn(-1)
+		set background = BACKGROUND_ENABLED
+		while(1)
+			sleep(INACTIVITY_KICK)
+			for(var/client/C in clients)
+				if(C.is_afk(INACTIVITY_KICK))
+					if(!istype(C.mob, /mob/dead))
+						log_access("AFK: [key_name(C)]")
+						C << "<span class='warning'>You have been inactive for more than 10 minutes and have been disconnected.</span>"
+						del(C)
+#undef INACTIVITY_KICK
 
 
 /world/proc/load_mode()
@@ -108,6 +232,7 @@
 /world/proc/load_configuration()
 	config = new /datum/configuration()
 	config.load("config/config.txt")
+//	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	// apply some settings from config..
 	abandon_allowed = config.respawn
@@ -122,6 +247,7 @@
 	s += "<b>[station_name()]</b>";
 	s += " ("
 	s += "<a href=\"http://\">" //Change this to wherever you want the hub to link to.
+//	s += "[game_version]"
 	s += "Default"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
 	s += "</a>"
 	s += ")"
@@ -142,6 +268,9 @@
 	if (config && config.allow_vote_mode)
 		features += "vote"
 
+	if (config && config.allow_ai)
+		features += "AI allowed"
+
 	var/n = 0
 	for (var/mob/M in player_list)
 		if (M.client)
@@ -152,6 +281,11 @@
 	else if (n > 0)
 		features += "~[n] player"
 
+	/*
+	is there a reason for this? the byond site shows 'hosted by X' when there is a proper host already.
+	if (host)
+		features += "hosted by <b>[host]</b>"
+	*/
 
 	if (!host && config && config.hostedby)
 		features += "hosted by <b>[config.hostedby]</b>"

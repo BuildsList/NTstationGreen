@@ -6,7 +6,9 @@ var/savefile/Banlistjob
 	ClearTempbansjob()
 	var/id = clientvar.computer_id
 	var/key = clientvar.ckey
-
+	if (guest_jobbans(rank))
+		if(config.guest_jobban && IsGuestKey(key))
+			return 1
 	Banlistjob.cd = "/base"
 	if (Banlistjob.dir.Find("[key][id][rank]"))
 		return 1
@@ -172,9 +174,12 @@ var/savefile/Banlistjob
 	if (!Banlistjob.dir.Remove(foldername)) return 0
 
 	if(!usr)
+		log_admin("Banjob Expired: [key]")
 		message_admins("Banjob Expired: [key]")
 	else
+		log_admin("[key_name(usr)] unjobbanned [key] from [rank]")
 		message_admins("[key_name_admin(usr)] unjobbanned:[key] from [rank]")
+		ban_unban_log_save("[key_name(usr)] unjobbanned [key] from [rank]")
 
 	for (var/A in Banlistjob.dir)
 		Banlistjob.cd = "/base/[A]"
@@ -222,6 +227,7 @@ var/savefile/Banlistjob
 			M << "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>"
 		else
 			M << "<span class='warning'>No ban appeals URL has been set.</span>"
+		log_admin("[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis is a permanent ban.")
 		message_admins("\blue[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis is a permanent ban.")
 /datum/admins/proc/timejobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
 	if(AddBanjob(ckey, computerid, reason, usr.ckey, 1, mins, job))
@@ -231,6 +237,7 @@ var/savefile/Banlistjob
 			M << "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>"
 		else
 			M << "<span class='warning'>No ban appeals URL has been set.</span>"
+		log_admin("[usr.client.ckey] has jobbanned from [job] [ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 		message_admins("\blue[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")*/
 //////////////////////////////////// DEBUG ////////////////////////////////////
 

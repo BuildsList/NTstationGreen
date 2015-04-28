@@ -12,6 +12,7 @@
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
 	var/datum/hud/living/carbon/hud = null // hud
+	var/bootime = 0
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
@@ -230,6 +231,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.loc = T
 			else
 				A << "This mob is not located in the game world."
+/*
+/mob/dead/observer/verb/boo()
+	set category = "Ghost"
+	set name = "Boo!"
+	set desc= "Scare your crew members because of boredom!"
+
+	if(bootime > world.time) return
+	var/obj/machinery/light/L = locate(/obj/machinery/light) in view(1, src)
+	if(L)
+		L.flicker()
+		bootime = world.time + 600
+		return
+	//Maybe in the future we can add more <i>spooky</i> code here!
+	return
+*/
 
 /mob/dead/observer/memory()
 	set hidden = 1

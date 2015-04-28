@@ -134,6 +134,7 @@
 		if(!job)	return 0
 		if((job.current_positions >= job.total_positions) && job.total_positions != -1)	return 0
 		if(jobban_isbanned(src,rank))	return 0
+		if(!job.player_old_enough(src.client))	return 0
 		return 1
 
 
@@ -158,7 +159,7 @@
 
 		joined_player_list += character.ckey
 
-		if(emergency_shuttle.timeleft() > 300) //Don't make them antags if the station is evacuating
+		if(config.allow_latejoin_antagonists && emergency_shuttle.timeleft() > 300) //Don't make them antags if the station is evacuating
 			ticker.mode.make_antag_chance(character)
 		qdel(src)
 
@@ -221,6 +222,10 @@
 
 			if(jobban_isbanned(src, rank))
 				dat += "<a class='linkOff'><font color=red>[rank_full_name]</font></a><font color=red><b> \[BANNED\]</b></font></td></tr>"
+				continue
+			if(!job.player_old_enough(src.client))
+				var/available_in_days = job.available_in_days(src.client)
+				dat += "<a class='linkOff'><font color=red>[rank_full_name]</font></a><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
 				continue
 			if(!IsJobAvailable(rank))
 				dat += "<a class='linkOff'>[rank_full_name]</a></td></tr>"

@@ -3,10 +3,10 @@
 	desc = "An electronic radio system of nanotrasen origin."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
-	var/tmp/obj/item/device/pda/hostpda = null
-	var/tmp/list/botlist = null		// list of bots
-	var/tmp/obj/machinery/bot/active 	// the active bot; if null, show bot list
-	var/tmp/list/botstatus			// the status signal sent by the bot
+	var/obj/item/device/pda/hostpda = null
+	var/list/botlist = null		// list of bots
+	var/obj/machinery/bot/active 	// the active bot; if null, show bot list
+	var/list/botstatus			// the status signal sent by the bot
 	var/bot_type				//The type of bot it is.
 	var/bot_filter				//Determines which radio filter to use.
 
@@ -17,11 +17,6 @@
 
 	/obj/item/radio/integrated/New()
 		..()
-		if(isnull(loc))
-			spawn(10)
-				if(isnull(loc))
-					CRASH("Our holder is null")
-					return
 		if (istype(loc.loc, /obj/item/device/pda))
 			hostpda = loc.loc
 		if (bot_filter)

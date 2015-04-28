@@ -1,10 +1,30 @@
 //Configuraton defines //TODO: Move all yes/no switches into bitflags
 
+//Used by jobs_have_maint_access
+#define ASSISTANTS_HAVE_MAINT_ACCESS 1
+#define SECURITY_HAS_MAINT_ACCESS 2
+#define EVERYONE_HAS_MAINT_ACCESS 4
+
 /datum/configuration
 	var/server_name = null				// server name (for world name / status)
+	var/server_suffix = 0				// generate numeric suffix based on server port
 	var/lobby_countdown = 180			// In between round countdown.
 
-	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
+	var/log_ooc = 1						// log OOC channel
+	var/log_access = 1					// log login/logout
+	var/log_say = 1						// log client say
+	var/log_admin = 1					// log admin actions
+	var/log_game = 1					// log game events
+	var/log_vote = 0					// log voting
+	var/log_whisper = 1					// log client whisper
+	var/log_prayer = 1					// log prayers
+	var/log_law = 0						// log lawchanges
+	var/log_emote = 1					// log emotes
+	var/log_attack = 0					// log attack messages
+	var/log_adminchat = 1				// log admin chat messages
+	var/log_adminwarn = 1				// log warnings admins get about bomb construction and such
+	var/log_pda = 1						// log pda messages
+	var/allow_admin_ooccolor = 1		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/allow_vote_transfer = 0			// allow votes to call transfer shuttle
@@ -14,23 +34,34 @@
 	var/vote_autotransfer_interval = 36000 // length of time before next sequential autotransfer vote
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
+	var/del_new_on_log = 1				// del's new players if they log before they spawn in
+	var/allow_Metadata = 0				// Metadata is supported.
+	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
 	var/Ticklag = 0.7
 	var/Tickcomp = 1
+	var/allow_holidays = 1				//toggles whether holiday-specific content should be used
 
 	var/hostedby = null
 	var/respawn = 1
+	var/guest_jobban = 1
+	var/usewhitelist = 0
+	var/kick_inactive = 0				//force disconnect for inactive players
+	var/load_jobs_from_txt = 0
+	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
-	var/sec_start_brig = 0				//makes sec start in brig or dept sec posts
+	var/jobs_have_maint_access = 4 		//Who gets maint access?  See defines above
+	var/sec_start_brig = 1				//makes sec start in brig or dept sec posts
 
 	var/server
 	var/banappeals = "http://forum.ss13.ru/index.php?showforum=37"
-	var/wikiurl = "http://wiki.animus13.ru"
+	var/wikiurl = "http://wiki.animus13.ru" // Default wiki link.
 	var/forumurl = "http://forum.ss13.ru/index.php?act=idx"
 
 	var/forbid_singulo_possession = 0
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
+	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 
 	//game_options.txt configs
 	var/force_random_names = 0
@@ -39,14 +70,20 @@
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
 
+	var/humans_need_surnames = 1
+	var/allow_random_events = 1			// enables random events mid-round when set to 1
+	var/allow_ai = 1					// allow ai job
 
 	var/traitor_scaling_coeff = 6		//how much does the amount of players get divided by to determine traitors
 	var/changeling_scaling_coeff = 7	//how much does the amount of players get divided by to determine changelings
 
+	var/protect_roles_from_antagonist = 0// If security and such can be traitor/cult/other
+	var/allow_latejoin_antagonists = 1 // If late-joining players can be traitor/changeling
 	var/continuous_round_rev = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/continuous_round_wiz = 0
 	var/continuous_round_malf = 0
 	var/shuttle_refuel_delay = 12000
+	var/show_game_type_odds = 0			//if set this allows players to see the odds of each roundtype on the get revision screen
 	var/mutant_races = 0				//players can choose their mutant race before joining the game
 
 	var/alert_desc_green = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."
@@ -59,13 +96,13 @@
 	var/health_threshold_crit = 0
 	var/health_threshold_dead = -100
 
-	var/revival_pod_plants = 0
-	var/revival_cloning = 0
+	var/revival_pod_plants = 1
+	var/revival_cloning = 1
 	var/revival_brain_life = -1
 
 	var/rename_cyborg = 0
 	var/borg_remembers = 0
-	var/ooc_during_round = 0
+	var/ooc_during_round = 1
 
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
@@ -80,10 +117,13 @@
 	var/slime_delay = 0
 	var/animal_delay = 0
 
-	var/use_recursive_explosions = 0//Defines whether the server uses recursive or circular explosions.
+	var/use_recursive_explosions //Defines whether the server uses recursive or circular explosions.
 
 	var/gateway_delay = 18000 //How long the gateway takes before it activates. Default is half an hour.
-	var/ghost_interaction = 0
+	var/ghost_interaction = 1
+
+	var/silent_ai = 0
+	var/silent_borg = 0
 
 	var/sandbox_autoclose = 0 // close the sandbox panel after spawning an item, potentially reducing griff
 
@@ -138,8 +178,38 @@
 					config.admin_legacy_system = 1
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
+				if("use_age_restriction_for_jobs")
+					config.use_age_restriction_for_jobs = 1
 				if("lobby_countdown")
 					config.lobby_countdown = text2num(value)
+				if("log_ooc")
+					config.log_ooc = 1
+				if("log_access")
+					config.log_access = 1
+				if("log_say")
+					config.log_say = 1
+				if("log_admin")
+					config.log_admin = 1
+				if("log_prayer")
+					config.log_prayer = 1
+				if("log_law")
+					config.log_law = 1
+				if("log_game")
+					config.log_game = 1
+				if("log_vote")
+					config.log_vote = 1
+				if("log_whisper")
+					config.log_whisper = 1
+				if("log_attack")
+					config.log_attack = 1
+				if("log_emote")
+					config.log_emote = 1
+				if("log_adminchat")
+					config.log_adminchat = 1
+				if("log_adminwarn")
+					config.log_adminwarn = 1
+				if("log_pda")
+					config.log_pda = 1
 				if("allow_admin_ooccolor")
 					config.allow_admin_ooccolor = 1
 				if("allow_vote_restart")
@@ -164,6 +234,8 @@
 					config.respawn = 0
 				if("servername")
 					config.server_name = value
+				if("serversuffix")
+					config.server_suffix = 1
 				if("hostedby")
 					config.hostedby = value
 				if("server")
@@ -174,12 +246,30 @@
 					config.wikiurl = value
 				if("forumurl")
 					config.forumurl = value
+				if("guest_jobban")
+					config.guest_jobban = 1
+				if("guest_ban")
+					guests_allowed = 0
+				if("usewhitelist")
+					config.usewhitelist = 1
+				if("allow_metadata")
+					config.allow_Metadata = 1
+				if("kick_inactive")
+					config.kick_inactive = 1
+				if("load_jobs_from_txt")
+					load_jobs_from_txt = 1
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
+				if("popup_admin_pm")
+					config.popup_admin_pm = 1
+				if("allow_holidays")
+					config.allow_holidays = 1
 				if("ticklag")
 					Ticklag = text2num(value)
 				if("tickcomp")
 					Tickcomp = 1
+				if("automute_on")
+					automute_on = 1
 				if("comms_key")
 					global.comms_key = value
 					if(value != "default_pwd" && length(value) > 6) //It's the default value or less than 6 characters long, warn badmins
@@ -189,11 +279,11 @@
 				if("health_threshold_dead")
 					config.health_threshold_dead	= text2num(value)
 				if("revival_pod_plants")
-					config.revival_pod_plants		= 1
+					config.revival_pod_plants		= text2num(value)
 				if("borg_remembers")
 					config.borg_remembers			= text2num(value)
 				if("revival_cloning")
-					config.revival_cloning			= 1
+					config.revival_cloning			= text2num(value)
 				if("revival_brain_life")
 					config.revival_brain_life		= text2num(value)
 				if("rename_cyborg")
@@ -228,6 +318,12 @@
 					config.alert_desc_green			= value
 				if("alert_delta")
 					config.alert_desc_delta			= value
+				if("assistants_have_maint_access")
+					config.jobs_have_maint_access	|= ASSISTANTS_HAVE_MAINT_ACCESS
+				if("security_has_maint_access")
+					config.jobs_have_maint_access	|= SECURITY_HAS_MAINT_ACCESS
+				if("everyone_has_maint_access")
+					config.jobs_have_maint_access	|= EVERYONE_HAS_MAINT_ACCESS
 				if("sec_start_brig")
 					config.sec_start_brig			= 1
 				if("gateway_delay")
@@ -240,6 +336,8 @@
 					config.continuous_round_malf	= 1
 				if("shuttle_refuel_delay")
 					config.shuttle_refuel_delay     = text2num(value)
+				if("show_game_type_odds")
+					config.show_game_type_odds		= 1
 				if("ghost_interaction")
 					config.ghost_interaction		= 1
 				if("traitor_scaling_coeff")
@@ -261,12 +359,26 @@
 					else
 						diary << "Incorrect probability configuration definition: [prob_name]  [prob_value]."
 
+				if("protect_roles_from_antagonist")
+					config.protect_roles_from_antagonist	= 1
+				if("allow_latejoin_antagonists")
+					config.allow_latejoin_antagonists	= 1
+				if("allow_random_events")
+					config.allow_random_events		= 1
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access	= 1
 				if("use_recursive_explosions")
 					use_recursive_explosions		= 1
+				if("humans_need_surnames")
+					humans_need_surnames			= 1
 				if("force_random_names")
 					config.force_random_names		= 1
+				if("allow_ai")
+					config.allow_ai					= 1
+				if("silent_ai")
+					config.silent_ai 				= 1
+				if("silent_borg")
+					config.silent_borg				= 1
 				if("sandbox_autoclose")
 					config.sandbox_autoclose		= 1
 				if("default_laws")

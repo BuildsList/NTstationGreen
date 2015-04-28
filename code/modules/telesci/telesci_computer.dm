@@ -345,17 +345,13 @@
 		z_co = Clamp(round(new_z), 1, 10)
 
 	if(href_list["ejectGPS"])
-		if(inserted_gps)
-			inserted_gps.loc = loc
-			inserted_gps = null
+		inserted_gps.loc = loc
+		inserted_gps = null
 
 	if(href_list["setMemory"])
 		if(last_target)
-			if(inserted_gps)
-				inserted_gps.locked_location = last_target
-				temp_msg = "Location saved."
-			else
-				temp_msg = "ERROR!<BR>No GPS inserted."
+			inserted_gps.locked_location = last_target
+			temp_msg = "Location saved."
 		else
 			temp_msg = "ERROR!<BR>No data stored."
 

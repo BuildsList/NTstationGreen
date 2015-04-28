@@ -11,8 +11,8 @@
 	if (length(message) >= 2)
 		if ((copytext(message, 1, 3) == ":a" || copytext(message, 1, 3) == "#a" || copytext(message, 1, 3) == ".a" ) || \
 			(copytext(message, 1, 3) == ":A" || copytext(message, 1, 3) == "#A" || copytext(message, 1, 3) == ".A" ) || \
-			(copytext(message, 1, 3) == ":Ô" || copytext(message, 1, 3) == "#Ô" || copytext(message, 1, 3) == ".Ô" ) || \
-			(copytext(message, 1, 3) == ":ô" || copytext(message, 1, 3) == "#ô" || copytext(message, 1, 3) == ".ô" ))
+			(copytext(message, 1, 3) == ":ô" || copytext(message, 1, 3) == "#ô" || copytext(message, 1, 3) == ".ô" ) || \
+			(copytext(message, 1, 3) == ":Ô" || copytext(message, 1, 3) == "#Ô" || copytext(message, 1, 3) == ".Ô" ))
 			message = copytext(message, 3)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			if (stat == 2)

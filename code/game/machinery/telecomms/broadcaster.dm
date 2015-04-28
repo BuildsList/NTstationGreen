@@ -771,9 +771,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	var/datum/signal/signal = new
 	signal.transmission_method = 2 // 2 would be a subspace transmission.
 	var/turf/pos = get_turf(src)
-	var/zlevel = 1
-	if(!isnull(pos))
-		zlevel = pos.z
 
 	// --- Finally, tag the actual signal with the appropriate values ---
 	signal.data = list(
@@ -784,7 +781,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		"type" = 4, // determines what type of radio input it is: test broadcast
 		"reject" = 0,
 		"done" = 0,
-		"level" = zlevel // The level it is being broadcasted at.
+		"level" = pos.z // The level it is being broadcasted at.
 	)
 	signal.frequency = 1459// Common channel
 

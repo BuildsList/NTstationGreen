@@ -1,4 +1,5 @@
 var/diary = null
+var/diaryofmeanpeople = null
 var/href_logfile = null
 
 var/list/bombers = list(  )

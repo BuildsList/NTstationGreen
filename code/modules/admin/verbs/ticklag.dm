@@ -10,7 +10,8 @@
 	var/newtick = input("Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.6","Lag of Tick", world.tick_lag) as num|null
 	//I've used ticks of 2 before to help with serious singulo lags
 	if(newtick && newtick <= 2 && newtick > 0)
-		message_admins("[key_name(src)] has modified world.tick_lag to [newtick]")
+		log_admin("[key_name(src)] has modified world.tick_lag to [newtick]", 0)
+		message_admins("[key_name(src)] has modified world.tick_lag to [newtick]", 0)
 		world.tick_lag = newtick
 		switch(alert("Enable Tick Compensation?","Tick Comp is currently: [config.Tickcomp]","Yes","No"))
 			if("Yes")	config.Tickcomp = 1
