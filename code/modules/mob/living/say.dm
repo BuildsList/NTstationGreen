@@ -36,39 +36,39 @@ var/list/department_radio_keys = list(
 
 	  //kinda localization -- rastaf0
 	  //same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
-	  ":ê" = "right hand",	"#ê" = "right hand",	".ê" = "right hand",
-	  ":ä" = "left hand",	"#ä" = "left hand",		".ä" = "left hand",
-	  ":ø" = "intercom",	"#ø" = "intercom",		".ø" = "intercom",
-	  ":ð" = "department",	"#ð" = "department",	".ð" = "department",
-	  ":ñ" = "Command",		"#ñ" = "Command",		".ñ" = "Command",
-	  ":ò" = "Science",		"#ò" = "Science",		".ò" = "Science",
-	  ":ü" = "Medical",		"#ü" = "Medical",		".ü" = "Medical",
-	  ":ó" = "Engineering",	"#ó" = "Engineering",	".ó" = "Engineering",
-	  ":û" = "Security",	"#û" = "Security",		".û" = "Security",
-	  ":ö" = "whisper",		"#ö" = "whisper",		".ö" = "whisper",
-	  ":è" = "binary",		"#è" = "binary",		".è" = "binary",
-	  ":ô" = "alientalk",	"#ô" = "alientalk",		".ô" = "alientalk",
-	  ":å" = "Syndicate",	"#å" = "Syndicate",		".å" = "Syndicate",
-	  ":ã" = "Supply",		"#ã" = "Supply",		".ã" = "Supply",
-	  ":ì" = "Service",		"#ì" = "Service",		".ì" = "Service",
-	  ":ï" = "changeling",	"#ï" = "changeling",	".ï" = "changeling",
+	  ":ï¿½" = "right hand",	"#ï¿½" = "right hand",	".ï¿½" = "right hand",
+	  ":ï¿½" = "left hand",	"#ï¿½" = "left hand",		".ï¿½" = "left hand",
+	  ":ï¿½" = "intercom",	"#ï¿½" = "intercom",		".ï¿½" = "intercom",
+	  ":ï¿½" = "department",	"#ï¿½" = "department",	".ï¿½" = "department",
+	  ":ï¿½" = "Command",		"#ï¿½" = "Command",		".ï¿½" = "Command",
+	  ":ï¿½" = "Science",		"#ï¿½" = "Science",		".ï¿½" = "Science",
+	  ":ï¿½" = "Medical",		"#ï¿½" = "Medical",		".ï¿½" = "Medical",
+	  ":ï¿½" = "Engineering",	"#ï¿½" = "Engineering",	".ï¿½" = "Engineering",
+	  ":ï¿½" = "Security",	"#ï¿½" = "Security",		".ï¿½" = "Security",
+	  ":ï¿½" = "whisper",		"#ï¿½" = "whisper",		".ï¿½" = "whisper",
+	  ":ï¿½" = "binary",		"#ï¿½" = "binary",		".ï¿½" = "binary",
+	  ":ï¿½" = "alientalk",	"#ï¿½" = "alientalk",		".ï¿½" = "alientalk",
+	  ":ï¿½" = "Syndicate",	"#ï¿½" = "Syndicate",		".ï¿½" = "Syndicate",
+	  ":ï¿½" = "Supply",		"#ï¿½" = "Supply",		".ï¿½" = "Supply",
+	  ":ï¿½" = "Service",		"#ï¿½" = "Service",		".ï¿½" = "Service",
+	  ":ï¿½" = "changeling",	"#ï¿½" = "changeling",	".ï¿½" = "changeling",
 
-	  ":Ê" = "right hand",	"#Ê" = "right hand",	".Ê" = "right hand",
-	  ":Ä" = "left hand",	"#Ä" = "left hand",		".Ä" = "left hand",
-	  ":Ø" = "intercom",	"#Ø" = "intercom",		".Ø" = "intercom",
-	  ":Ð" = "department",	"#Ð" = "department",	".Ð" = "department",
-	  ":Ñ" = "Command",		"#Ñ" = "Command",		".Ñ" = "Command",
-	  ":Ò" = "Science",		"#Ò" = "Science",		".Ò" = "Science",
-	  ":Ü" = "Medical",		"#Ü" = "Medical",		".Ü" = "Medical",
-	  ":Ó" = "Engineering",	"#Ó" = "Engineering",	".Ó" = "Engineering",
-	  ":Û" = "Security",	"#Û" = "Security",		".Û" = "Security",
-	  ":Ö" = "whisper",		"#Ö" = "whisper",		".Ö" = "whisper",
-	  ":È" = "binary",		"#È" = "binary",		".È" = "binary",
-	  ":Ô" = "alientalk",	"#Ô" = "alientalk",		".Ô" = "alientalk",
-	  ":Å" = "Syndicate",	"#Å" = "Syndicate",		".Å" = "Syndicate",
-	  ":Ã" = "Supply",		"#Ã" = "Supply",		".Ã" = "Supply",
-	  ":Ì" = "Service",		"#Ì" = "Service",		".Ì" = "Service",
-	  ":Ï" = "changeling",	"#Ï" = "changeling",	".Ï" = "changeling"
+	  ":ï¿½" = "right hand",	"#ï¿½" = "right hand",	".ï¿½" = "right hand",
+	  ":ï¿½" = "left hand",	"#ï¿½" = "left hand",		".ï¿½" = "left hand",
+	  ":ï¿½" = "intercom",	"#ï¿½" = "intercom",		".ï¿½" = "intercom",
+	  ":ï¿½" = "department",	"#ï¿½" = "department",	".ï¿½" = "department",
+	  ":ï¿½" = "Command",		"#ï¿½" = "Command",		".ï¿½" = "Command",
+	  ":ï¿½" = "Science",		"#ï¿½" = "Science",		".ï¿½" = "Science",
+	  ":ï¿½" = "Medical",		"#ï¿½" = "Medical",		".ï¿½" = "Medical",
+	  ":ï¿½" = "Engineering",	"#ï¿½" = "Engineering",	".ï¿½" = "Engineering",
+	  ":ï¿½" = "Security",	"#ï¿½" = "Security",		".ï¿½" = "Security",
+	  ":ï¿½" = "whisper",		"#ï¿½" = "whisper",		".ï¿½" = "whisper",
+	  ":ï¿½" = "binary",		"#ï¿½" = "binary",		".ï¿½" = "binary",
+	  ":ï¿½" = "alientalk",	"#ï¿½" = "alientalk",		".ï¿½" = "alientalk",
+	  ":ï¿½" = "Syndicate",	"#ï¿½" = "Syndicate",		".ï¿½" = "Syndicate",
+	  ":ï¿½" = "Supply",		"#ï¿½" = "Supply",		".ï¿½" = "Supply",
+	  ":ï¿½" = "Service",		"#ï¿½" = "Service",		".ï¿½" = "Service",
+	  ":ï¿½" = "changeling",	"#ï¿½" = "changeling",	".ï¿½" = "changeling"
 )
 
 /mob/living/proc/binarycheck()
@@ -298,7 +298,7 @@ var/list/department_radio_keys = list(
 
 	listening = get_mobs_in_view(message_range, src)
 	for(var/mob/M in player_list)
-		if (!M.client || !M.client.prefs || !M.client.prefs.toggles)
+		if (!M.client)
 			continue //skip monkeys and leavers
 		if (istype(M, /mob/new_player))
 			continue
