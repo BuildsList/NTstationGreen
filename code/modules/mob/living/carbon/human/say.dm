@@ -10,7 +10,7 @@
 		if(!IsVocal())
 			if(length(message) >= 2)
 				if(mind && mind.changeling)
-					if(copytext(message, 1, 2) != "*" && copytext(message, 1, 3) != ":g" && copytext(message, 1, 3) != ":G" && copytext(message, 1, 3) != ":п")
+					if(!(copytext(message, 1, 2) == "*" || copytext(message, 1, 3) == ":п" || copytext(message, 1, 3) == ":П" || copytext(message, 1, 3) != ":g" && copytext(message, 1, 3) != ":G"))
 						return
 					else
 						return ..(message)
@@ -50,7 +50,7 @@
 					if(prob(3 * D.stage)) //Stage 1: 3% Stage 2: 6% Stage 3: 9% Stage 4: 12%
 						var/H = pick(pick_list)
 						if(findtext(temp_message[H], "*") || findtext(temp_message[H], ";") || findtext(temp_message[H], ":")) continue
-						temp_message[H] = "HONK"
+						temp_message[H] = "ХОНК"
 						pick_list -= H //Make sure that you dont HONK the same word twice
 					message = list2text(temp_message, " ")
 
@@ -60,63 +60,8 @@
 		if (has_organic_effect(/datum/organic_effect/hulk) && health >= 25 && length(message))
 			if(copytext(message, 1, 2) != "*")
 				message = "[upperrustext(replacetext(message, ".", "!"))]!!" //because I don't know how to code properly in getting vars from other files -Bro
-		if((src:client) && (src:brainloss < 60)) // D2K5 code
-			if(copytext(message, 1, 2) != "*")
-				message = replacetext(message, "=D", "")
-				message = replacetext(message, "=3", "")
-				message = replacetext(message, "=)", "")
-				message = replacetext(message, "=(", "")
-				message = replacetext(message, "=]", "")
-				message = replacetext(message, "=\[", "")
-				message = replacetext(message, "=o", "")
-				message = replacetext(message, "=P", "")
-				message = replacetext(message, ":P", "")
-				message = replacetext(message, ":D", "")
-				message = replacetext(message, ":)", "")
-				message = replacetext(message, "^^", "")
-				message = replacetext(message, ":^)", "")
-				message = replacetext(message, ";)", "")
-				message = replacetext(message, ":3", "")
-				message = replacetext(message, ":(", "")
-				message = replacetext(message, "(", "")
-				message = replacetext(message, ")", "")
-				message = replacetext(message, " D:", "")
-				message = replacetext(message, "трейтор", "предатель")
-				message = replacetext(message, "тритор", "предатель")
-				message = replacetext(message, " малф", " сломан")
-				message = replacetext(message, " Малф", " Сломан")
-				message = replacetext(message, " визард", " волшебник")
-				message = replacetext(message, " инжинер", " инженер")
-				message = replacetext(message, " инж ", " инженер ")
-				message = replacetext(message, " бл&#255;ть", " бл&#255;дь")
-				message = replacetext(message, "хармбатон", "дубинка")
-				message = replacetext(message, "хармбатон&#255;т", "бьют дубинкой")
-				message = replacetext(message, "Трейтор", "Предатель")
-				message = replacetext(message, "Тритор", "Предатель")
-				message = replacetext(message, "Малф", " Сломан")
-				message = replacetext(message, "Визард", "Волшебник")
-				message = replacetext(message, "Инжинер", "Инженер")
-				message = replacetext(message, "Инж ", " Инженер ")
-				message = replacetext(message, "Бл&#255;ть", "Бл&#255;дь")
-				message = replacetext(message, "Хармбатон", "Дубинка")
-				message = replacetext(message, "Хармбатон&#255;т", "Бьют дубинкой")
-				message = replacetext(message, " спс", " спасибо")
-				message = replacetext(message, "Спс", "Спасибо")
-				message = replacetext(message, "спс", "спасибо")
-				message = replacetext(message, "СПС", "СПАСИБО")
-				message = replacetext(message, " хз", " хуй знает")
-				message = replacetext(message, "Хз ", "Хуй знает ")
-				message = replacetext(message, "ХЗ ", "ХУЙ ЗНАЕТ ")
-				message = replacetext(message, " хз ", " хуй знает ")
-				message = replacetext(message, " Хз", "Хуй знает ")
-				message = replacetext(message, " ХЗ", "ХУЙ ЗНАЕТ ")
-				message = replacetext(message, " лол ", " ха-ха ")
-				message = replacetext(message, "Лол ", " Ха-ха ")
-				message = replacetext(message, "ЛОЛ ", " ХА-ХА ")
-				//message = replacetext(message, " го ", " пошли ")
-				//message = replacetext(message, "Го ", "Идем ")
-				//message = replacetext(message, "ГО ", "ПОБЕЖАЛИ ")
-				//message = replacetext(message, "", "")
+
+		//message = replacetext(message, "", "")
 	..(message)
 
 

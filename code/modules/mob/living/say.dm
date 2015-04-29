@@ -298,7 +298,7 @@ var/list/department_radio_keys = list(
 
 	listening = get_mobs_in_view(message_range, src)
 	for(var/mob/M in player_list)
-		if (!M.client)
+		if (!M.client || !M.client.prefs || !M.client.prefs.toggles)
 			continue //skip monkeys and leavers
 		if (istype(M, /mob/new_player))
 			continue
