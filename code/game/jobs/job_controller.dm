@@ -20,6 +20,7 @@ var/global/datum/controller/occupations/job_master
 		var/datum/job/job = new J()
 		if(!job)	continue
 		if(job.faction != faction)	continue
+		if(!job.config_check()) continue
 		occupations += job
 
 	return 1
@@ -44,6 +45,7 @@ var/global/datum/controller/occupations/job_master
 		var/datum/job/job = GetJob(rank)
 		if(!job)	return 0
 		if(jobban_isbanned(player, rank))	return 0
+		if(!job.player_old_enough(player.client)) return 0
 		var/position_limit = job.total_positions
 		if(!latejoin)
 			position_limit = job.spawn_positions
@@ -63,6 +65,9 @@ var/global/datum/controller/occupations/job_master
 	for(var/mob/new_player/player in unassigned)
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
+			continue
+		if(!job.player_old_enough(player.client))
+			Debug("FOC player not old enough, Player: [player]")
 			continue
 		if(flag && (!player.client.prefs.be_special & flag))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
@@ -86,6 +91,10 @@ var/global/datum/controller/occupations/job_master
 
 		if(jobban_isbanned(player, job.title))
 			Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
+			continue
+
+		if(!job.player_old_enough(player.client))
+			Debug("GRJ player not old enough, Player: [player]")
 			continue
 
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
@@ -230,6 +239,10 @@ var/global/datum/controller/occupations/job_master
 					Debug("DO isbanned failed, Player: [player], Job:[job.title]")
 					continue
 
+				if(!job.player_old_enough(player.client))
+					Debug("DO player not old enough, Player: [player], Job:[job.title]")
+					continue
+
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 
@@ -292,4 +305,39 @@ var/global/datum/controller/occupations/job_master
 		H << "<b>Вы зан&#255;ли важную профессию. Если вы что-то не знаете или забыли - не бойтесь спросить администрацию через adminhelp (F1).</b>"
 
 	H.update_hud() 	// Tmp fix for Github issue 1006. TODO: make all procs in update_icons.dm do client.screen |= equipment no matter what.
+	return 1
+
+
+/datum/controller/occupations/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
+	if(!config.load_jobs_from_txt)
+		return 0
+
+	var/list/jobEntries = file2list(jobsfile)
+
+	for(var/job in jobEntries)
+		if(!job)
+			continue
+
+		job = trim(job)
+		if (!length(job))
+			continue
+
+		var/pos = findtext(job, "=")
+		var/name = null
+		var/value = null
+
+		if(pos)
+			name = copytext(job, 1, pos)
+			value = copytext(job, pos + 1)
+		else
+			continue
+
+		if(name && value)
+			var/datum/job/J = GetJob(name)
+			if(!J)	continue
+			J.total_positions = text2num(value)
+			J.spawn_positions = text2num(value)
+			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
+				J.total_positions = 0
+
 	return 1

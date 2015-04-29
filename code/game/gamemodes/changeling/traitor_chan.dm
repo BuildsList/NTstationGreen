@@ -23,6 +23,9 @@
 	return 1
 
 /datum/game_mode/traitor/changeling/pre_setup()
+	if(config.protect_roles_from_antagonist)
+		restricted_jobs += protected_jobs
+
 	var/list/datum/mind/possible_changelings = get_players_for_role(BE_CHANGELING)
 
 	var/num_changelings = 1
@@ -66,9 +69,5 @@
 		if(character.client.prefs.be_special & BE_CHANGELING)
 			if(!jobban_isbanned(character.client, "changeling") && !jobban_isbanned(character.client, "Syndicate"))
 				if(!(character.job in ticker.mode.restricted_jobs))
-					add_latejoin_changeling(character.mind)
+					character.mind.make_Changling()
 	..()
-
-/datum/game_mode/traitor/changeling/proc/add_latejoin_changeling(var/datum/mind/character)
-	character.make_Changling()
-	log_game("[character.name]/[character.key] has been selected as a [traitor_name] (latejoin).")

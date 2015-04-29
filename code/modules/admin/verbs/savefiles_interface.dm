@@ -43,6 +43,7 @@
 	txtfile = file("temp.sav")
 
 	message_admins("[key_name(src)] has loaded a save file.")
+	log_admin("[key_name(src)] has loaded a save file.")
 
 	var/savefile/S = new()
 	S.ImportText("/", txtfile)
@@ -60,9 +61,11 @@
 
 	var/atom/movable/A
 	message_admins("[key_name(src)] is spawning a save file.")
+	log_admin("[key_name(src)] is spawning a save file.")
 	holder.savefile["save"] >> A
 	if(A)
 		A.Move(T)
 		A.loc = T
 
 		message_admins("[key_name(src)] has spawned a save file [A] ([A.type]) at [T.x], [T.y], [T.z].")
+		log_admin("[key_name(src)] has spawned a save file [A] ([A.type]) at [T.x], [T.y], [T.z].")

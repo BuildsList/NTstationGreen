@@ -378,7 +378,7 @@
  // Maybe some people are okay with that.
 
 		for(var/mob/M in dead_mob_list)
-			if(!M.client || !M.client.prefs || !M.client.prefs.toggles || istype(M, /mob/new_player))
+			if(!M.client || istype(M, /mob/new_player))
 				continue //skip monkeys, leavers and new players
 			if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
@@ -403,7 +403,7 @@
 			if(src.gender == "male")
 				playsound(src.loc, pick('sound/voice/laugh1.ogg', 'sound/voice/laugh2.ogg', 'sound/voice/laugh3.ogg'), 100, 1)
 			else
-				playsound(src.loc, pick('sound/voice/female_laugh_1.ogg', 'sound/voice/female_laugh_2.ogg'), 100, 1)
+				playsound(src.loc, pick('sound/voice/female_laugh_1.ogg', 'sound/voice/female_laugh_2.ogg', 'sound/voice/female_laugh_3.ogg'), 100, 1)
 
 		if("elaugh")
 			playsound(src.loc, 'sound/voice/elaugh.ogg', 100, 1)

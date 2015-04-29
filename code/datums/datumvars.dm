@@ -622,6 +622,7 @@ client
 					if(!i)
 						usr << "No objects of this type exist"
 						return
+					log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
 					message_admins("<span class='info'>[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) </span>")
 				if("Type and subtypes")
 					var/i = 0
@@ -632,6 +633,7 @@ client
 					if(!i)
 						usr << "No objects of this type exist"
 						return
+					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
 					message_admins("<span class='info'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
 
 		else if(href_list["addreagent"])
@@ -661,6 +663,7 @@ client
 						var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
 						if(amount)
 							A.reagents.add_reagent(chosen_id, amount)
+							log_admin("[key_name(usr)] has added [amount] units of [chosen] to \the [A]")
 							message_admins("<span class='info'>[key_name(usr)] has added [amount] units of [chosen] to \the [A]</span>")
 
 			href_list["datumrefresh"] = href_list["addreagent"]
@@ -875,6 +878,7 @@ client
 					return
 
 			if(amount != 0)
+				log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [L] ")
 				message_admins("<span class='info'>[key_name(usr)] dealt [amount] amount of [Text] damage to [L] </span>")
 				href_list["datumrefresh"] = href_list["mobToDamage"]
 

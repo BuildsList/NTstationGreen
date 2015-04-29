@@ -9,6 +9,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	config_tag = "changeling"
 	antag_flag = BE_CHANGELING
 	restricted_jobs = list("AI", "Cyborg", "Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer")
+	protected_jobs = list()
 	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 4
@@ -43,6 +44,10 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	world << "<b>»нопланетные организмы, генокрады, проникли на станцию. Ќе дайте им выполнить их миссию!</b>"
 
 /datum/game_mode/changeling/pre_setup()
+
+	if(config.protect_roles_from_antagonist)
+		restricted_jobs += protected_jobs
+
 	var/num_changelings = 1
 
 	if(config.changeling_scaling_coeff)
@@ -87,12 +92,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		if(character.client.prefs.be_special & BE_CHANGELING)
 			if(!jobban_isbanned(character.client, "changeling") && !jobban_isbanned(character.client, "Syndicate"))
 				if(!(character.job in ticker.mode.restricted_jobs))
-					add_latejoin_changeling(character.mind)
+					character.mind.make_Changling()
 	..()
-
-/datum/game_mode/changeling/proc/add_latejoin_changeling(var/datum/mind/character)
-	character.make_Changling()
-	log_game("[character.name]/[character.key] has been selected as a [traitor_name] (latejoin).")
 
 /datum/game_mode/proc/forge_changeling_objectives(var/datum/mind/changeling)
 	//OBJECTIVES - Always absorb at least 5 genomes, plus random traitor objectives.

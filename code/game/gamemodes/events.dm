@@ -12,11 +12,12 @@
 					dust_swarm("weak")
 			if(!event)
 				//CARN: checks to see if random events are enabled.
-				if(prob(eventchance))
-					event()
-					hadevent = 1
-				else
-					Holiday_Random_Event()
+				if(config.allow_random_events)
+					if(prob(eventchance))
+						event()
+						hadevent = 1
+					else
+						Holiday_Random_Event()
 			else
 				event = 0
 			sleep(1200)

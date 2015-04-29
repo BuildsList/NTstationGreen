@@ -16,40 +16,57 @@
 
 /proc/log_admin(text)
 	admin_log.Add(text)
-	diary << "\[[time_stamp()]]ADMIN: [text]"
+	if (config.log_admin)
+		diary << "\[[time_stamp()]]ADMIN: [text]"
 
 /proc/log_game(text)
-	diary << "\[[time_stamp()]]GAME: [text]"
+	if (config.log_game)
+		diary << "\[[time_stamp()]]GAME: [text]"
 
 /proc/log_vote(text)
-	diary << "\[[time_stamp()]]VOTE: [text]"
+	if (config.log_vote)
+		diary << "\[[time_stamp()]]VOTE: [text]"
 
 /proc/log_access(text)
-	diary << "\[[time_stamp()]]ACCESS: [text]"
+	if (config.log_access)
+		diary << "\[[time_stamp()]]ACCESS: [text]"
 
 /proc/log_say(text)
-	diary << "\[[time_stamp()]]SAY: [text]"
+	if (config.log_say)
+		diary << "\[[time_stamp()]]SAY: [text]"
+
+/proc/log_prayer(text)
+	if (config.log_prayer)
+		diary << "\[[time_stamp()]]PRAY: [text]"
+
+/proc/log_law(text)
+	if (config.log_law)
+		diary << "\[[time_stamp()]]LAW: [text]"
 
 /proc/log_ooc(text)
-	diary << "\[[time_stamp()]]OOC: [text]"
+	if (config.log_ooc)
+		diary << "\[[time_stamp()]]OOC: [text]"
 
 /proc/log_whisper(text)
-	diary << "\[[time_stamp()]]WHISPER: [text]"
+	if (config.log_whisper)
+		diary << "\[[time_stamp()]]WHISPER: [text]"
 
 /proc/log_emote(text)
-	diary << "\[[time_stamp()]]EMOTE: [text]"
+	if (config.log_emote)
+		diary << "\[[time_stamp()]]EMOTE: [text]"
 
 /proc/log_attack(text)
-	diary << "\[[time_stamp()]]ATTACK: [text]"
+	if (config.log_attack)
+		diaryofmeanpeople << "\[[time_stamp()]]ATTACK: [text]"
 
 /proc/log_adminsay(text)
-	admin_log.Add(text)
-	diary << "\[[time_stamp()]]ADMINSAY: [text]"
+	if (config.log_adminchat)
+		diary << "\[[time_stamp()]]ADMINSAY: [text]"
+
+/proc/log_adminwarn(text)
+	if (config.log_adminwarn)
+		diary << "\[[time_stamp()]]ADMINWARN: [text]"
 
 /proc/log_pda(text)
-	diary << "\[[time_stamp()]]PDA: [text]"
-
-/proc/message_admins(var/msg)
-	log_admin(msg)
-	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
-	admins << msg
+	if (config.log_pda)
+		diary << "\[[time_stamp()]]PDA: [text]"

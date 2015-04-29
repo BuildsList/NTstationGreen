@@ -25,6 +25,7 @@
 	config_tag = "cult"
 	antag_flag = BE_CULTIST
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
+	protected_jobs = list()
 	required_players = 15
 	required_enemies = 3
 	recommended_enemies = 3
@@ -64,6 +65,10 @@
 	else if(num_players() >= 20)
 		recommended_enemies = 6
 		acolytes_needed = 10
+
+
+	if(config.protect_roles_from_antagonist)
+		restricted_jobs += protected_jobs
 
 	for(var/datum/mind/player in antag_candidates)
 		for(var/job in restricted_jobs)//Removing heads and such from the list

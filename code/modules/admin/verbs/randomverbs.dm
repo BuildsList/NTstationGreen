@@ -11,7 +11,8 @@
 	for(var/obj/item/W in M)
 		M.unEquip(W)
 
-	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!")
+	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
+	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", 1)
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
 	set category = "Special Verbs"
@@ -31,7 +32,8 @@
 			if(usr.client.holder)
 				M << "\bold You hear a voice in your head... \italic [msg]"
 
-	message_admins("<span class='info'>\bold SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]</span>")
+	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]")
+	message_admins("<span class='info'>\bold SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]</span>", 1)
 
 /client/proc/cmd_admin_world_narrate()
 	set category = "Special Verbs"
@@ -46,7 +48,8 @@
 	if (!msg)
 		return
 	world << "[msg]"
-	message_admins("<span class='info'>\bold GlobalNarrate: [key_name_admin(usr)] : [msg]<BR></span>")
+	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
+	message_admins("<span class='info'>\bold GlobalNarrate: [key_name_admin(usr)] : [msg]<BR></span>", 1)
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)
 	set category = "Special Verbs"
@@ -68,7 +71,8 @@
 		return
 
 	M << msg
-	message_admins("<span class='info'>\bold DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [msg]<BR></span>")
+	log_admin("DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [msg]")
+	message_admins("<span class='info'>\bold DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [msg]<BR></span>", 1)
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
 	set category = "Special Verbs"
@@ -79,7 +83,8 @@
 	M.status_flags ^= GODMODE
 	usr << "<span class='info'>Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]</span>"
 
-	message_admins("[key_name_admin(usr)] has toggled [key_name_admin(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
+	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
+	message_admins("[key_name_admin(usr)] has toggled [key_name_admin(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]", 1)
 
 proc/cmd_admin_mute(whom, mute_type, automute = 0)
 	if(!whom)
@@ -109,15 +114,18 @@ proc/cmd_admin_mute(whom, mute_type, automute = 0)
 	else	P = preferences_datums[whom]
 	if(!P)	return
 
-	if(!automute)
+	if(automute)
+		if(!config.automute_on)	return
+	else
 		if(!check_rights())
 			return
 
 	if(automute)
 		muteunmute = "auto-muted"
 		P.muted |= mute_type
-		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(whom)] from [mute_string].")
-		if(C)	C << "You have been rickrolled!"
+		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(whom)] from [mute_string]")
+		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(whom)] from [mute_string].", 1)
+		if(C)	C << "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin."
 		return
 
 	if(P.muted & mute_type)
@@ -127,7 +135,8 @@ proc/cmd_admin_mute(whom, mute_type, automute = 0)
 		muteunmute = "muted"
 		P.muted |= mute_type
 
-	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(whom)] from [mute_string].")
+	log_admin("[key_name(usr)] has [muteunmute] [key_name(whom)] from [mute_string]")
+	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(whom)] from [mute_string].", 1)
 	if(C)	C << "You have been [muteunmute] from [mute_string]."
 
 /client/proc/cmd_admin_add_random_ai_law()
@@ -138,7 +147,8 @@ proc/cmd_admin_mute(whom, mute_type, automute = 0)
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
-	message_admins("[key_name_admin(src)] has added a random AI law.")
+	log_admin("[key_name(src)] has added a random AI law.")
+	message_admins("[key_name_admin(src)] has added a random AI law.", 1)
 
 	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
@@ -361,7 +371,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]")
+	log_admin("Admin [key_name(usr)] has added a new AI law - [input]")
+	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]", 1)
 
 	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
@@ -381,7 +392,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	M.revive()
 
-	message_admins("<span class='warning'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(M)].</span>")
+	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
+	message_admins("<span class='warning'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(M)]!</span>", 1)
 
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Special Verbs"
@@ -414,7 +426,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				C.messagetitle.Add("Classified [command_name()] Update")
 				C.messagetext.Add(P.info)
 
-	message_admins("[key_name_admin(src)] has created a command report: [input]")
+	log_admin("[key_name(src)] has created a command report: [input]")
+	message_admins("[key_name_admin(src)] has created a command report", 1)
 
 /client/proc/cmd_admin_delete(atom/O as obj|mob|turf in world)
 	set category = "Admin"
@@ -423,7 +436,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_DEBUG))	return
 
 	if (alert(src, "Are you sure you want to delete:\n[O]\nat ([O.x], [O.y], [O.z])?", "Confirmation", "Yes", "No") == "Yes")
-		message_admins("[key_name_admin(usr)] deleted [O] at ([O.x],[O.y],[O.z])")
+		log_admin("[key_name(usr)] deleted [O] at ([O.x],[O.y],[O.z])")
+		message_admins("[key_name_admin(usr)] deleted [O] at ([O.x],[O.y],[O.z])", 1)
 		qdel(O)
 
 /client/proc/cmd_admin_list_open_jobs()
@@ -458,7 +472,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				return
 
 		explosion(O, devastation, heavy, light, flash, null, null,flames)
-		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
+		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
+		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])", 1)
 		return
 	else
 		return
@@ -476,7 +491,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if (heavy || light)
 		empulse(O, heavy, light)
-		message_admins("[key_name_admin(usr)] created an EM PUlse ([heavy],[light]) at ([O.x],[O.y],[O.z])")
+		log_admin("[key_name(usr)] created an EM Pulse ([heavy],[light]) at ([O.x],[O.y],[O.z])")
+		message_admins("[key_name_admin(usr)] created an EM PUlse ([heavy],[light]) at ([O.x],[O.y],[O.z])", 1)
 		return
 	else
 		return
@@ -492,7 +508,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Due to the delay here its easy for something to have happened to the mob
 	if(!M)	return
 
-	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]")
+	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
+	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]", 1)
 
 	if(istype(M, /mob/dead/observer))
 		gibs(M.loc, M.viruses)
@@ -500,7 +517,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	M.gib()
 
+/client/proc/cmd_admin_gib_self()
+	set name = "Gibself"
+	set category = "Fun"
 
+	if(!check_rights(R_FUN))	return
+
+	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
+	if(confirm == "Yes")
+		if (istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
+			return
+		else
+			mob.gib()
+
+		log_admin("[key_name(usr)] used gibself.")
+		message_admins("<span class='info'>[key_name_admin(usr)] used gibself.</span>", 1)
 /*
 /client/proc/cmd_manual_ban()
 	set name = "Manual Ban"
@@ -536,6 +567,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
 			M << "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>"
 			M << "<span class='warning'>To try to resolve this matter head to http://ss13.donglabs.com/forum/</span>"
+			log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 			message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 			world.Export("http://216.38.134.132/adminlog.php?type=ban&key=[usr.client.key]&key2=[M.key]&msg=[html_decode(reason)]&time=[mins]&server=[replacetext(config.server_name, "#", "")]")
 			del(M.client)
@@ -550,6 +582,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
 		M << "<span class='warning'>This is a permanent ban.</span>"
 		M << "<span class='warning'>To try to resolve this matter head to http://ss13.donglabs.com/forum/</span>"
+		log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 		message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 		world.Export("http://216.38.134.132/adminlog.php?type=ban&key=[usr.client.key]&key2=[M.key]&msg=[html_decode(reason)]&time=perma&server=[replacetext(config.server_name, "#", "")]")
 		del(M.client)
@@ -601,7 +634,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	emergency_shuttle.incall()
 	priority_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.", null, 'sound/AI/shuttlecalled.ogg', "Priority")
-	message_admins("<span class='info'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>")
+	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
+	message_admins("<span class='info'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>", 1)
 	return
 
 /client/proc/admin_cancel_shuttle()
@@ -616,7 +650,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	emergency_shuttle.recall()
-	message_admins("<span class='info'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
+	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
+	message_admins("<span class='info'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>", 1)
 	return
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in mob_list)
@@ -642,7 +677,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(config.force_random_names)
 		config.force_random_names = 0
-		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.")
+		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.", 1)
 		usr << "Disabled."
 		return
 
@@ -651,7 +686,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(notifyplayers == "Cancel")
 		return
 
-	message_admins("Admin [key_name_admin(usr)] has forced the players to have random appearances.")
+	log_admin("Admin [key_name(src)] has forced the players to have random appearances.")
+	message_admins("Admin [key_name_admin(usr)] has forced the players to have random appearances.", 1)
 
 	if(notifyplayers == "Yes")
 		world << "<span class='info'><b>Admin [usr.key] has forced the players to have completely random identities!</span>"
@@ -659,3 +695,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	usr << "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>."
 
 	config.force_random_names = 1
+
+/client/proc/toggle_random_events()
+	set category = "Server"
+	set name = "Toggle random events on/off"
+	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
+	if(!config.allow_random_events)
+		config.allow_random_events = 1
+		usr << "Random events enabled"
+		message_admins("Admin [key_name_admin(usr)] has enabled random events.", 1)
+	else
+		config.allow_random_events = 0
+		usr << "Random events disabled"
+		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)

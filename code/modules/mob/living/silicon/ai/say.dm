@@ -28,6 +28,9 @@
 
 	return "констатирует, \"[text]\"";
 
+/mob/living/silicon/ai/IsVocal()
+	return !config.silent_ai
+
 // Make sure that the code compiles with AI_VOX undefined
 #ifdef AI_VOX
 

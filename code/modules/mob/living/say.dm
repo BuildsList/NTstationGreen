@@ -130,7 +130,7 @@ var/list/department_radio_keys = list(
 		var/mob/living/carbon/human/H = src
 		alt_name = " (as [H.get_id_name("Unknown")])"
 	var/italics = 0
-	var/message_range = 0
+	var/message_range = null
 	var/message_mode = null
 
 	if (getBrainLoss() >= 60 && prob(50))
