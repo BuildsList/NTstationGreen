@@ -10,7 +10,7 @@
 		if(!IsVocal())
 			if(length(message) >= 2)
 				if(mind && mind.changeling)
-					if(copytext(message, 1, 2) == "*" || copytext(message, 1, 3) == ":ï" || copytext(message, 1, 3) == ":Ï" || copytext(message, 1, 3) != ":g" && copytext(message, 1, 3) != ":G")
+					if(!(copytext(message, 1, 2) == "*" || copytext(message, 1, 3) == ":ï" || copytext(message, 1, 3) == ":Ï" || copytext(message, 1, 3) != ":g" && copytext(message, 1, 3) != ":G"))
 						return
 					else
 						return ..(message)
