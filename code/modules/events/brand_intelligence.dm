@@ -21,7 +21,10 @@
 
 
 /datum/round_event/brand_intelligence/announce()
-	priority_announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
+	var/wluxa = "captain's mom"
+	if(!isnull(originMachine))
+		wluxa = originMachine.name
+	priority_announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [wluxa].", "Machine Learning Alert")
 
 
 /datum/round_event/brand_intelligence/start()

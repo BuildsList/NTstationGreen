@@ -1,7 +1,7 @@
 //Contains the target item datums for Steal objectives.
 
 datum/objective_item
-	var/name = "A silly bike horn! Honk!"
+	var/name = "гудок! ХОНК!"
 	var/targetitem = /obj/item/weapon/bikehorn		//typepath of the objective item
 	var/difficulty = 9001							//vaguely how hard it is to do this objective
 	var/list/excludefromjob = list()				//If you don't want a job to get a certain objective (no captain stealing his own medal, etcetc)

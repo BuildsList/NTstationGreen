@@ -142,7 +142,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation()
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>[user.real_name] ([user.ckey]) cast the spell [name].</font>")
+	var/usr_name = "*UNKNOWN*"
+	var/usr_ckey = "*UNKNOWN*"
+	if(!isnull(user))
+		usr_name = user.real_name
+		usr_ckey = user.ckey
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>[usr_name] ([usr_ckey]) cast the spell [name].</font>")
+	log_admin("[usr_name] ([usr_ckey]) cast the spell [name].")
 	spawn(0)
 		if(charge_type == "recharge" && recharge)
 			start_recharge()

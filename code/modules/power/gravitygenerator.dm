@@ -350,9 +350,15 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
+	var/ourz = 2
+	var/theirz = 2
+	if(!isnull(our_turf))
+		ourz = our_turf.z
 	for(var/mob/living/M in player_list)
 		var/turf/their_turf = get_turf(M)
-		if(their_turf.z == our_turf.z)
+		if(!isnull(their_turf))
+			theirz = their_turf.z
+		if(theirz == ourz)
 			M.update_gravity(M.mob_has_gravity())
 			if(M.client)
 				shake_camera(M, 15, 1)

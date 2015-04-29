@@ -292,6 +292,8 @@
 /obj/mecha/proc/dyndomove(direction)
 	if(!can_move)
 		return 0
+	if(!src.pr_inertial_movement)
+		return 0
 	if(src.pr_inertial_movement.active())
 		return 0
 	if(!has_charge(step_energy_drain))
@@ -388,7 +390,11 @@
 	switch(int_dam_flag)
 		if(MECHA_INT_TEMP_CONTROL)
 			occupant_message("<font color='blue'><b>Life support system reactivated.</b></font>")
-			pr_int_temp_processor.start()
+			if(!isnull(pr_int_temp_processor))
+				pr_int_temp_processor.start()
+				occupant_message("<font color='blue'><b>Life support system reactivated.</b></font>")
+			else
+				occupant_message("<font color='red'><b>Life support system missed. Reactivation failed.</b></font>")
 		if(MECHA_INT_FIRE)
 			occupant_message("<font color='blue'><b>Internal fire extinquished.</b></font>")
 		if(MECHA_INT_TANK_BREACH)

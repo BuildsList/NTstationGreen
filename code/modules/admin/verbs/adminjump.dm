@@ -17,8 +17,7 @@
 		src << "Only administrators may use this command."
 		return
 
-	log_admin("[key_name(usr)] jumped to [T.x],[T.y],[T.z] in [T.loc]")
-	message_admins("[key_name_admin(usr)] jumped to [T.x],[T.y],[T.z] in [T.loc]", 1)
+	message_admins("[key_name_admin(usr)] jumped to [T.x],[T.y],[T.z] in [T.loc]")
 	usr.loc = T
 	return
 
@@ -30,8 +29,7 @@
 		src << "Only administrators may use this command."
 		return
 
-	log_admin("[key_name(usr)] jumped to [key_name(M)]")
-	message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+	message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]")
 	if(src.mob)
 		var/mob/A = src.mob
 		var/turf/T = get_turf(M)
@@ -71,8 +69,7 @@
 		src << "No keys found."
 		return
 	var/mob/M = selection:mob
-	log_admin("[key_name(usr)] jumped to [key_name(M)]")
-	message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+	message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]")
 	usr.loc = M.loc
 
 /client/proc/Getmob(var/mob/M in mob_list)
@@ -82,8 +79,7 @@
 
 	if(!check_rights(R_DEBUG))	return
 
-	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]", 1)
+	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]")
 	M.loc = get_turf(usr)
 
 /client/proc/Getkey()
@@ -103,8 +99,7 @@
 
 	if(!M)
 		return
-	log_admin("[key_name(usr)] teleported [key_name(M)]")
-	message_admins("[key_name_admin(usr)] teleported [key_name(M)]", 1)
+	message_admins("[key_name_admin(usr)] teleported [key_name(M)]")
 	if(M)
 		M.loc = get_turf(usr)
 
@@ -117,5 +112,4 @@
 	var/area/A = input(usr, "Pick an area.", "Pick an area") in return_sorted_areas()
 	if(A)
 		M.loc = pick(get_area_turfs(A))
-		log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")
-		message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]", 1)
+		message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]")

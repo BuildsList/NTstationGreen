@@ -9,19 +9,13 @@
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
-		return
+
 	message = strip_html_properly(sanitize(message))
 	usr.say(message)
 
 /mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
-
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
-		return
 
 	message = trim(strip_html_properly(sanitize(message)))
 
@@ -34,10 +28,6 @@
 /mob/proc/say_dead(var/message)
 	var/name = src.real_name
 	var/alt_name = ""
-
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class='warning'>Speech is currently admin-disabled.</span>"
-		return
 
 	if(mind && mind.name)
 		name = "[mind.name]"

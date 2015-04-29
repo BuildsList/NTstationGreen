@@ -83,7 +83,6 @@ var/savefile/Banlist
 		Banlist.cd = "/base/[A]"
 		if (!Banlist["key"] || !Banlist["id"])
 			RemoveBan(A)
-			log_admin("Invalid Ban.")
 			message_admins("Invalid Ban.")
 			continue
 
@@ -131,11 +130,8 @@ var/savefile/Banlist
 	if (!Banlist.dir.Remove(foldername)) return 0
 
 	if(!usr)
-		log_admin("Ban Expired: [key]")
 		message_admins("Ban Expired: [key]")
 	else
-		ban_unban_log_save("[key_name(usr)] unbanned [key]")
-		log_admin("[key_name(usr)] unbanned [key]")
 		message_admins("[key_name_admin(usr)] unbanned: [key]")
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)
 	for (var/A in Banlist.dir)

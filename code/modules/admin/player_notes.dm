@@ -48,8 +48,6 @@ datum/admins/proc/notes_gethtml(var/ckey)
 
 	if(lognote)//don't need an admin log for the notes applied automatically during bans.
 		message_admins("[key_name(usr)] added note '[note]' to [ckey]")
-		log_admin("[key_name(usr)] added note '[note]' to [ckey]")
-
 	return
 
 //handles removing entries from the buffer, or removing the entire directory if no start_index is given
@@ -84,7 +82,6 @@ datum/admins/proc/notes_gethtml(var/ckey)
 			notesfile << note
 
 		message_admins("[key_name(usr)] removed a note '[admin_msg]' from [ckey]")
-		log_admin("[key_name(usr)] removed a note '[admin_msg]' from [ckey]")
 
 		if(noteslist.len == 0)
 			notesfile.cd = "/"

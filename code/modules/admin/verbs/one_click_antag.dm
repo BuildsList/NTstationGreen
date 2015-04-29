@@ -56,10 +56,6 @@ client/proc/one_click_antag()
 
 /datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
-
-	if(config.protect_roles_from_antagonist)
-		temp.restricted_jobs += temp.protected_jobs
-
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
@@ -87,11 +83,7 @@ client/proc/one_click_antag()
 
 
 /datum/admins/proc/makeChanglings()
-
 	var/datum/game_mode/changeling/temp = new
-	if(config.protect_roles_from_antagonist)
-		temp.restricted_jobs += temp.protected_jobs
-
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
@@ -117,11 +109,7 @@ client/proc/one_click_antag()
 	return 0
 
 /datum/admins/proc/makeRevs()
-
 	var/datum/game_mode/revolution/temp = new
-	if(config.protect_roles_from_antagonist)
-		temp.restricted_jobs += temp.protected_jobs
-
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
@@ -182,11 +170,7 @@ client/proc/one_click_antag()
 
 
 /datum/admins/proc/makeCult()
-
 	var/datum/game_mode/cult/temp = new
-	if(config.protect_roles_from_antagonist)
-		temp.restricted_jobs += temp.protected_jobs
-
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
