@@ -130,7 +130,7 @@ var/list/department_radio_keys = list(
 		var/mob/living/carbon/human/H = src
 		alt_name = " (as [H.get_id_name("Unknown")])"
 	var/italics = 0
-	var/message_range = null
+	var/message_range = 0
 	var/message_mode = null
 
 	if (getBrainLoss() >= 60 && prob(50))
@@ -141,12 +141,11 @@ var/list/department_radio_keys = list(
 		if (ishuman(src))
 			message_mode = "headset"
 		else if(ispAI(src) || isrobot(src) || isAI(src))
-			message_mode = "pAI"
+			message_mode = "robotic"
 		message = copytext(message, 2)
 
 	else if (length(message) >= 2)
 		var/channel_prefix = copytext(message, 1, 3)
-		message_mode = null
 
 		// Check changed so that parrots can use headsets. Other simple animals do not have ears and will cause runtimes.
 		// And borgs -Sieve
@@ -186,6 +185,7 @@ var/list/department_radio_keys = list(
 				for(var/i=0,i<bzz,i++)
 					message += "Z"
 */
+	var/mmode_log = "([message_mode])"
 	var/list/obj/item/used_radios = new
 
 	switch (message_mode)
@@ -254,7 +254,7 @@ var/list/department_radio_keys = list(
 			message_range = 1
 			italics = 1
 
-		if ("pAI")
+		if ("robotic")
 			if (src:radio)
 				src:radio.talk_into(src, message)
 				used_radios += src:radio
@@ -390,7 +390,7 @@ var/list/department_radio_keys = list(
 				if (h_args)
 					hearing_args +="[h_args]|"
 		if (hearing_args)
-			hearing_log = " (Heard: [hearing_args])"
+			hearing_log = "(Heard: [hearing_args])"
 
 	if (length(heard_b))
 		var/message_b
@@ -419,7 +419,7 @@ var/list/department_radio_keys = list(
 	spawn(0)
 		flick_overlay(image('icons/mob/talk.dmi', src, "h[bubble_type][say_test(message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
-	log_say("[name]/[key] : [message][hearing_log]")
+	log_say("[name]/[key] : [message] [mmode_log][hearing_log]")
 
 /mob/living/proc/GetVoice()
 	return name
