@@ -147,6 +147,7 @@ Nah
 <A href='?src=\ref[src];dmake=5'>Bin</A><BR>
 <A href='?src=\ref[src];dmake=6'>Outlet</A><BR>
 <A href='?src=\ref[src];dmake=7'>Chute</A><BR>
+<A href='?src=\ref[src];dmake=8'>Sorting Pipe</A><BR>
 <A href='?src=\ref[src];dmake=21'>Upwards</A><BR>
 <A href='?src=\ref[src];dmake=22'>Downwards</A><BR>
 "}
@@ -154,7 +155,7 @@ Nah
 	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
 	return
 
-// 0=straight, 1=bent, 2=junction-j1, 3=junction-j2, 4=junction-y, 5=trunk
+// 0=straight, 1=bent, 2=junction-j1, 3=junction-j2, 4=junction-y, 5=trunk, 9=sorting pipe
 
 
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
@@ -189,6 +190,9 @@ Nah
 				if(7)
 					C.ptype = 8
 					C.density = 1
+				if(8)
+					C.ptype = 9
+
 			C.add_fingerprint(usr)
 			C.update()
 			wait = 1
